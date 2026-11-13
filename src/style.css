@@ -719,33 +719,44 @@ section[id] {
 .experience-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1rem;
+  align-items: center;
+  gap: 0.5rem 1.25rem;
+  margin-top: 1.15rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255, 216, 216, 0.15);
 }
 
 .experience-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
+  gap: 0.4rem;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  color: var(--text-primary);
-  background: var(--bg-tertiary);
-  border: 1px solid var(--border-color);
-  padding: 0.4rem 0.85rem;
-  border-radius: 6px;
+  color: var(--text-secondary);
   text-decoration: none;
+  transition: color var(--transition);
+}
+
+.experience-link::after {
+  content: "↗";
+  font-size: 0.78em;
+  opacity: 0.65;
   transition:
-    border-color var(--transition),
-    color var(--transition),
-    transform var(--transition);
+    transform var(--transition),
+    opacity var(--transition);
 }
 
 .experience-link:hover {
-  border-color: var(--accent-primary);
   color: var(--accent-primary);
-  transform: translateY(-2px);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: color-mix(in srgb, var(--accent-primary) 55%, transparent);
+}
+
+.experience-link:hover::after {
+  opacity: 1;
+  transform: translate(1px, -1px);
 }
 
 .skills-tabs {
