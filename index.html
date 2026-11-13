@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Haru</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+
+    <link rel="preload" href="/res/icon.png" as="image" />
+
+    <link rel="stylesheet" href="/src/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" /></noscript>
+
+    <link rel="icon" type="image/png" href="/res/icon.png" />
+
+    <script src="/js/paths.js"></script>
+    <script type="module" src="/src/js/main.js"></script>
+    <script src="/js/github.js"></script>
+    <script src="/js/itch.js"></script>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Primary">
+      <div class="nav-container">
+        <a href="#hero" class="nav-logo" aria-label="Haru — Back to top">
+          <!--Profile Credit: https://ph.pinterest.com/pin/67765169389635836/-->
+          <img src="/res/icon.png" alt="Haru" style="height: 48px" />
+        </a>
+        <ul id="primary-nav" class="nav-links">
+          <li><a href="#background" class="nav-link">About</a></li>
+          <li><a href="#experience" class="nav-link">Experience</a></li>
+          <li><a href="#projects" class="nav-link">Projects</a></li>
+          <li><a href="#skills" class="nav-link">Skills</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <button
+            id="burger-menu-toggle"
+            class="burger-menu"
+            type="button"
+            aria-label="Toggle navigation menu"
+            aria-expanded="false"
+            aria-controls="primary-nav"
+          >
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <img
+          src="/res/icon.png"
+          alt="Haru Logo"
+          style="height: 256px; margin-bottom: 1rem"
+          fetchpriority="high"
+        />
+        <div class="hero-greeting">Hello, I'm</div>
+        <h1 class="hero-name">Haru</h1>
+        <p class="hero-title">
+          Lead Full-Stack Software Engineer &amp; College Instructor
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="cta-button">
+            See What I've Built <i class="fas fa-arrow-right"></i>
+          </a>
+          <a href="#contact" class="cta-button cta-secondary">
+            Get in Touch
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="background" class="section">
+      <h2 class="section-title">About Me</h2>
+      <div class="background-text">
+        <p>
+          I'm a <strong>Lead Full-Stack Software Engineer</strong> at
+          <strong>PicStar Software OPC</strong> and a
+          <strong>College Instructor</strong> at the
+          <strong>University of Caloocan City</strong>. At PicStar, I lead the
+          end-to-end architecture and deployment of a social platform built with
+          <strong>Flutter</strong>, <strong>Supabase</strong>, and
+          <strong>PostgreSQL</strong>. In the classroom, I teach senior students
+          game design, networking, and production pipelines.
+        </p>
+        <p>
+          Previously, I worked as a <strong>Quality Assurance Analyst</strong> at
+          <strong>GridLock-Games Studio</strong> alongside a cross-functional
+          team of 10+ developers and designers. Alongside my core stack, I build
+          backend APIs in <strong>C# (.NET)</strong> and
+          <strong>Java (Spring Boot)</strong> with <strong>Docker</strong>, and
+          I'm open to freelance work in full-stack systems and custom tooling.
+        </p>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <h2 class="section-title">Experience</h2>
+      <div class="experience-timeline">
+        <article class="experience-item">
+          <div class="experience-header">
+            <h3 class="experience-role">College Instructor</h3>
+            <span class="experience-date">July 2026 – Present</span>
+          </div>
+          <div class="experience-meta">
+            <span class="experience-company">University of Caloocan City</span>
+            <span class="experience-location">Caloocan City, Metro Manila</span>
+          </div>
+          <ul class="experience-list">
+            <li>
+              Taught senior students game design theory, networking, and
+              full-scale production pipelines from concept to pitch.
+            </li>
+            <li>
+              Led laboratory sessions on OOP, physics, collision detection,
+              and engine code optimization.
+            </li>
+            <li>
+              Mentored student teams and troubleshooted complex codebases to
+              align projects with industry standards.
+            </li>
+          </ul>
+        </article>
+
+        <article class="experience-item">
+          <div class="experience-header">
+            <h3 class="experience-role">Lead Full-Stack Software Engineer</h3>
+            <span class="experience-date">August 2025 – Present</span>
+          </div>
+          <div class="experience-meta">
+            <span class="experience-company">PicStar Software OPC</span>
+            <span class="experience-location">Las Piñas, Metro Manila</span>
+          </div>
+          <ul class="experience-list">
+            <li>
+              Sole technical lead for <strong>PicStar</strong>, owning
+              architecture, implementation, and deployment for a location-based
+              social platform.
+            </li>
+            <li>
+              Built the cross-platform <strong>Flutter</strong> mobile app with
+              clean, modular architecture and consistent UI/UX.
+            </li>
+            <li>
+              Architected the <strong>Supabase PostgreSQL</strong> backend,
+              optimizing queries, data egress, media pipelines, and real-time
+              feeds.
+            </li>
+          </ul>
+          <div class="experience-links">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.picstar.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="experience-link"
+            >
+              <i class="fab fa-google-play"></i> Google Play
+            </a>
+            <a
+              href="https://picstar-social.web.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="experience-link"
+            >
+              <i class="fas fa-globe"></i> Website
+            </a>
+          </div>
+        </article>
+
+        <article class="experience-item">
+          <div class="experience-header">
+            <h3 class="experience-role">Quality Assurance Analyst</h3>
+            <span class="experience-date">May 2024 – April 2025</span>
+          </div>
+          <div class="experience-meta">
+            <span class="experience-company">GridLock-Games Studio</span>
+            <span class="experience-location">Taguig, Metro Manila</span>
+          </div>
+          <ul class="experience-list">
+            <li>
+              Partnered with 10+ developers and designers across the full
+              release lifecycle to ship stable builds.
+            </li>
+            <li>
+              Tracked, reproduced, and verified defects in Trello while
+              supporting backend debugging workflows.
+            </li>
+          </ul>
+        </article>
+
+        <article class="experience-item">
+          <div class="experience-header">
+            <h3 class="experience-role">Video Game Playtester</h3>
+            <span class="experience-date">December 2022 – May 2024</span>
+          </div>
+          <div class="experience-meta">
+            <span class="experience-company">GridLock-Games Studio</span>
+            <span class="experience-location">Taguig, Metro Manila</span>
+          </div>
+          <ul class="experience-list">
+            <li>
+              Tested pre-release game builds to surface bugs, exploits, and
+              gameplay balance issues.
+            </li>
+            <li>
+              Delivered structured feedback and verified fixes directly with
+              engineering teams.
+            </li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <h2 class="section-title">Projects</h2>
+      <div class="project-category">
+        <div class="category-header">
+          <span class="category-label">
+            <i class="fas fa-wrench"></i> Systems &amp; Tools
+          </span>
+          <div class="category-divider"></div>
+        </div>
+        <div class="projects-grid" id="tools-grid">
+          <p class="loading-text">Loading projects...</p>
+        </div>
+      </div>
+
+      <div class="project-category">
+        <div class="category-header">
+          <span class="category-label">
+            <i class="fas fa-gamepad"></i> Game Projects
+          </span>
+          <div class="category-divider"></div>
+        </div>
+        <div class="projects-grid" id="games-grid">
+          <p class="loading-text">Loading projects...</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-tabs" role="tablist" aria-label="Skill categories">
+        <button class="skill-tab active" data-skill="languages" role="tab" aria-selected="true" aria-controls="languages">
+          Programming Languages
+        </button>
+        <button class="skill-tab" data-skill="frameworks" role="tab" aria-selected="false" aria-controls="frameworks">Frameworks</button>
+        <button class="skill-tab" data-skill="game-engines" role="tab" aria-selected="false" aria-controls="game-engines">Game Engines</button>
+        <button class="skill-tab" data-skill="databases" role="tab" aria-selected="false" aria-controls="databases">Databases</button>
+        <button class="skill-tab" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools">Tools &amp; Software</button>
+      </div>
+
+      <div id="languages" class="tab-content active" role="tabpanel">
+        <div class="skills-grid">
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
+              alt="C#"
+              loading="lazy"
+            />
+            <span class="skill-name">C#</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"
+              alt="Dart"
+              loading="lazy"
+            />
+            <span class="skill-name">Dart</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
+              alt="Java"
+              loading="lazy"
+            />
+            <span class="skill-name">Java</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="frameworks" class="tab-content" role="tabpanel">
+        <div class="skills-grid">
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dot-net/dot-net-original.svg"
+              alt=".NET"
+              loading="lazy"
+            />
+            <span class="skill-name">.NET</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"
+              alt="Flutter"
+              loading="lazy"
+            />
+            <span class="skill-name">Flutter</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
+              alt="Spring Boot"
+              loading="lazy"
+            />
+            <span class="skill-name">Spring Boot</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="game-engines" class="tab-content" role="tabpanel">
+        <div class="skills-grid">
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg"
+              alt="Unity"
+              class="invert-on-dark"
+              loading="lazy"
+            />
+            <span class="skill-name">Unity</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg"
+              alt="Godot"
+              loading="lazy"
+            />
+            <span class="skill-name">Godot</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="databases" class="tab-content" role="tabpanel">
+        <div class="skills-grid">
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg"
+              alt="Firebase"
+              loading="lazy"
+            />
+            <span class="skill-name">Firebase</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg"
+              alt="Supabase"
+              loading="lazy"
+            />
+            <span class="skill-name">Supabase</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+              alt="MySQL"
+              loading="lazy"
+            />
+            <span class="skill-name">MySQL</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg"
+              alt="MongoDB"
+              loading="lazy"
+            />
+            <span class="skill-name">MongoDB</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
+              alt="PostgreSQL"
+              loading="lazy"
+            />
+            <span class="skill-name">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="tools" class="tab-content" role="tabpanel">
+        <div class="skills-grid">
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
+              alt="Git"
+              loading="lazy"
+            />
+            <span class="skill-name">Git</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+              alt="GitHub"
+              class="invert-on-dark"
+              loading="lazy"
+            />
+            <span class="skill-name">GitHub</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
+              alt="Figma"
+              loading="lazy"
+            />
+            <span class="skill-name">Figma</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"
+              alt="Notion"
+              loading="lazy"
+            />
+            <span class="skill-name">Notion</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/trello/trello-original.svg"
+              alt="Trello"
+              loading="lazy"
+            />
+            <span class="skill-name">Trello</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"
+              alt="Android Studio"
+              loading="lazy"
+            />
+            <span class="skill-name">Android Studio</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+              alt="Visual Studio Code"
+              loading="lazy"
+            />
+            <span class="skill-name">Visual Studio Code</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"
+              alt="Visual Studio"
+              loading="lazy"
+            />
+            <span class="skill-name">Visual Studio</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rider/rider-original.svg"
+              alt="JetBrains Rider"
+              loading="lazy"
+            />
+            <span class="skill-name">JetBrains Rider</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg"
+              alt="IntelliJ IDEA"
+              loading="lazy"
+            />
+            <span class="skill-name">IntelliJ IDEA</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
+              alt="Postman"
+              loading="lazy"
+            />
+            <span class="skill-name">Postman</span>
+          </div>
+          <div class="skill-item">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
+              alt="Docker"
+              loading="lazy"
+            />
+            <span class="skill-name">Docker</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="contact-content">
+        <h2 class="contact-title">Get in Touch</h2>
+        <p class="contact-description">
+          I'm open to freelance work in full-stack systems, backend APIs, and
+          custom tooling. If you have something to build, let's talk.
+        </p>
+        <form
+          id="contact-form"
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="contact-form"
+          onsubmit="sendEmail(event)"
+        >
+  <input type="hidden" name="form-name" value="contact" />
+  <p style="display: none" aria-hidden="true">
+    <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+  <div class="form-row">
+    <div class="form-field">
+      <label for="name">Name</label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        autocomplete="name"
+        placeholder="Your name"
+        maxlength="100"
+        required
+      />
+    </div>
+    <div class="form-field">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        autocomplete="email"
+        placeholder="you@example.com"
+        maxlength="160"
+        required
+      />
+    </div>
+  </div>
+  <div class="form-field">
+    <label for="subject">Subject</label>
+    <input
+      type="text"
+      id="subject"
+      name="subject"
+      autocomplete="off"
+      placeholder="What's this about?"
+      maxlength="160"
+      required
+    />
+  </div>
+  <div class="form-field">
+    <div class="form-label-row">
+      <label for="message">Message</label>
+      <span class="char-count" id="message-char-count" aria-live="off">0 / 2000</span>
+    </div>
+    <textarea
+      id="message"
+      name="message"
+      rows="5"
+      placeholder="Write your message here…"
+      maxlength="2000"
+      required
+    ></textarea>
+  </div>
+  <button type="submit" class="form-submit" id="submit-btn">
+    <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Message</span>
+    <span class="btn-spinner" style="display:none"><i class="fas fa-spinner fa-spin"></i> Sending…</span>
+  </button>
+  <p class="form-toast" id="form-toast" role="status" aria-live="polite"></p>
+</form>
+        <div class="social-links">
+          <a
+            href="https://bsky.app/profile/haruchanz64.bsky.social"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Bluesky"
+            class="social-link"
+            ><i class="fab fa-bluesky"></i
+          ></a>
+          <a
+            href="https://discord.com/users/1467554639527547125"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Discord"
+            class="social-link"
+            ><i class="fab fa-discord"></i
+          ></a>
+          <a
+            href="https://www.facebook.com/aj.prsnl"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="social-link"
+            ><i class="fab fa-facebook"></i
+          ></a>
+          <a
+            href="https://www.github.com/haruchanz64"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="social-link"
+            ><i class="fab fa-github"></i
+          ></a>
+          <a
+            href="https://haruchanz64.itch.io/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="itch.io"
+            class="social-link"
+            ><i class="fab fa-itch-io"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/aronjakeradam/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+            class="social-link"
+            ><i class="fab fa-linkedin"></i
+          ></a>
+          <a
+            href="https://x.com/haruchanz64"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X"
+            class="social-link"
+            ><i class="fab fa-x-twitter"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>&copy; 2026 Haru. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
