@@ -1,50 +1,6 @@
 function initNav() {
-  const nav = document.querySelector(".nav");
-  const burger = document.getElementById("burger-menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
   const navLinkItems = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
-
-  function setMenuOpen(isOpen) {
-    if (!navLinks || !burger) return;
-    navLinks.classList.toggle("active", isOpen);
-    burger.setAttribute("aria-expanded", String(isOpen));
-    burger.innerHTML = isOpen
-      ? '<i class="fas fa-xmark"></i>'
-      : '<i class="fas fa-bars"></i>';
-  }
-
-  if (burger && navLinks) {
-    burger.addEventListener("click", () => {
-      setMenuOpen(!navLinks.classList.contains("active"));
-    });
-  }
-
-  navLinkItems.forEach((link) => {
-    link.addEventListener("click", () => {
-      if (navLinks?.classList.contains("active")) {
-        setMenuOpen(false);
-      }
-    });
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && navLinks?.classList.contains("active")) {
-      setMenuOpen(false);
-      burger?.focus();
-    }
-  });
-
-  document.addEventListener("click", (event) => {
-    if (
-      nav &&
-      navLinks?.classList.contains("active") &&
-      !nav.contains(event.target)
-    ) {
-      setMenuOpen(false);
-    }
-  });
-
   const currentSectionLabel = document.querySelector(".nav-current-section");
 
   function updateCurrentSectionLabel(activeLink) {
