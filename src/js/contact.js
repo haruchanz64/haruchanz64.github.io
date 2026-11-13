@@ -1,6 +1,11 @@
+import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
+
 const REQUEST_TIMEOUT_MS = 15000;
 const TOAST_AUTO_HIDE_MS = 6000;
 
+const pageLoadedAt = Date.now();
+let firstInteractionAt = null;
+let hasInteracted = false;
 let toastTimer = null;
 
 function showToast(toast, message, type) {
@@ -62,6 +67,37 @@ function initFormControls() {
 
     subjectSelect.addEventListener("change", syncCustomSubjectVisibility);
     syncCustomSubjectVisibility();
+  }
+
+  const form = document.getElementById("contact-form");
+  if (form) {
+    const markInteraction = (event) => {
+      if (event.target?.name === "bot-field") return;
+      if (!hasInteracted) {
+        hasInteracted = true;
+        firstInteractionAt = Date.now();
+      }
+    };
+    form.addEventListener("focusin", markInteraction);
+    form.addEventListener("input", markInteraction);
+  }
+}
+
+function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
+  form.reset();
+  firstInteractionAt = null;
+  hasInteracted = false;
+  if (subjectCustomEl) {
+    subjectCustomEl.style.display = "none";
+    subjectCustomEl.required = false;
+  }
+  if (subjectHiddenEl) {
+    subjectHiddenEl.value = "";
+  }
+  const counterEl = document.getElementById("message-char-count");
+  if (counterEl) {
+    const maxLen = messageEl.getAttribute("maxlength") || "2000";
+    counterEl.textContent = `0 / ${maxLen}`;
   }
 }
 
@@ -132,10 +168,31 @@ export async function sendEmail(e) {
     subjectHiddenEl.value = subject;
   }
 
+  const honeypotEl = form.elements["bot-field"];
+  const spamCheck = detectSpam({
+    honeypot: honeypotEl ? honeypotEl.value : "",
+    name,
+    email,
+    subject,
+    message,
+    timing: { pageLoadedAt, firstInteractionAt, hasInteracted },
+    storage: typeof window !== "undefined" ? window.localStorage : null,
+  });
+
+  if (spamCheck.blocked) {
+    if (spamCheck.silent) {
+      showToast(toast, "Message sent! I'll get back to you soon.", "success");
+      resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl);
+    } else {
+      showToast(toast, spamCheck.userMessage, "error");
+    }
+    return;
+  }
+
   if (typeof navigator !== "undefined" && navigator.onLine === false) {
     showToast(
       toast,
-      "✕ You appear to be offline. Please check your connection and try again.",
+      "You appear to be offline. Please check your connection and try again.",
       "error"
     );
     return;
@@ -145,7 +202,7 @@ export async function sendEmail(e) {
   if (import.meta.env.DEV && window.location.port !== "8888") {
     showToast(
       toast,
-      "✕ Email not sent: local Vite dev has no Netlify Forms handler. Deploy to Netlify or run `netlify dev`.",
+      "Email not sent: local Vite dev has no Netlify Forms handler. Deploy to Netlify or run `netlify dev`.",
       "error"
     );
     return;
@@ -179,31 +236,20 @@ export async function sendEmail(e) {
       throw statusError;
     }
 
-    showToast(toast, "✓ Message sent! I'll get back to you soon.", "success");
-    form.reset();
-    if (subjectCustomEl) {
-      subjectCustomEl.style.display = "none";
-      subjectCustomEl.required = false;
-    }
-    if (subjectHiddenEl) {
-      subjectHiddenEl.value = "";
-    }
-    const counterEl = document.getElementById("message-char-count");
-    if (counterEl) {
-      const maxLen = messageEl.getAttribute("maxlength") || "2000";
-      counterEl.textContent = `0 / ${maxLen}`;
-    }
+    recordSubmissionTime(typeof window !== "undefined" ? window.localStorage : null);
+    showToast(toast, "Message sent! I'll get back to you soon.", "success");
+    resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl);
   } catch (err) {
     console.error("Netlify form submission error:", err);
     let errorMsg =
-      "✕ Email could not be sent. Please try again or reach out via the social links below.";
+      "Email could not be sent. Please try again or reach out via the social links below.";
 
     if (err.name === "AbortError") {
-      errorMsg = "✕ Request timed out. Please check your connection and try again.";
+      errorMsg = "Request timed out. Please check your connection and try again.";
     } else if (err.status === 404 || err.status === 405) {
-      errorMsg = `✕ Form endpoint unavailable (HTTP ${err.status}). Please reach out via the social links below.`;
+      errorMsg = `Form endpoint unavailable (HTTP ${err.status}). Please reach out via the social links below.`;
     } else if (err.status >= 500) {
-      errorMsg = `✕ Server error (HTTP ${err.status}). Please try again later or reach out via the social links below.`;
+      errorMsg = `Server error (HTTP ${err.status}). Please try again later or reach out via the social links below.`;
     }
 
     showToast(toast, errorMsg, "error");
