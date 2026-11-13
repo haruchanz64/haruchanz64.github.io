@@ -17,5 +17,7 @@ window.observeReveal = function (el) {
 };
 
 document
-  .querySelectorAll(".project-card, .skill-item, .section-title, .experience-item")
+  .querySelectorAll(
+    ".project-card, .skill-item, .section-title, .experience-item, .background-text",
+  )
   .forEach((el) => window.observeReveal(el));
