@@ -45,6 +45,15 @@ function initNav() {
     }
   });
 
+  const currentSectionLabel = document.querySelector(".nav-current-section");
+
+  function updateCurrentSectionLabel(activeLink) {
+    if (!currentSectionLabel) return;
+    const label = activeLink ? activeLink.textContent.trim() : "";
+    currentSectionLabel.textContent = label;
+    currentSectionLabel.classList.toggle("visible", Boolean(label));
+  }
+
   function highlightNavOnScroll() {
     const scrollY = window.pageYOffset;
     const pageBottom =
@@ -58,10 +67,11 @@ function initNav() {
       });
       const lastSectionLink = sectionLinks[sectionLinks.length - 1];
       if (lastSectionLink) lastSectionLink.classList.add("active");
+      updateCurrentSectionLabel(lastSectionLink);
       return;
     }
 
-    let matched = false;
+    let matchedLink = null;
     sections.forEach((section) => {
       const sectionHeight = section.offsetHeight;
       const sectionTop = section.offsetTop - 120;
@@ -71,15 +81,18 @@ function initNav() {
       );
 
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        matched = true;
         navLinkItems.forEach((link) => link.classList.remove("active"));
-        if (correspondingLink) correspondingLink.classList.add("active");
+        if (correspondingLink) {
+          correspondingLink.classList.add("active");
+          matchedLink = correspondingLink;
+        }
       }
     });
 
-    if (!matched) {
+    if (!matchedLink) {
       navLinkItems.forEach((link) => link.classList.remove("active"));
     }
+    updateCurrentSectionLabel(matchedLink);
   }
 
   let ticking = false;
@@ -99,8 +112,7 @@ function initNav() {
   highlightNavOnScroll();
 
   const navLogo = document.querySelector(".nav-logo");
-  const heroTarget =
-    document.querySelector("#hero img") || document.getElementById("hero");
+  const heroTarget = document.getElementById("hero");
 
   function setNavLogoVisible(visible) {
     if (!navLogo) return;

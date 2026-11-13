@@ -90,15 +90,30 @@ body {
   color: var(--accent-primary);
   text-decoration: none;
   flex: 1;
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+  transition: opacity 0.25s ease;
 }
 
 .nav-logo.nav-logo--hidden {
   opacity: 0;
-  transform: translateY(-6px);
   pointer-events: none;
+}
+
+.nav-current-section {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.nav-current-section.visible {
+  opacity: 1;
 }
 
 .nav-links {
@@ -984,6 +999,10 @@ code {
   }
 
   .burger-menu {
+    display: none;
+  }
+
+  .nav-current-section {
     display: none;
   }
 }
