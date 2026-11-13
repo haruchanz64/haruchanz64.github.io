@@ -488,7 +488,7 @@ section[id] {
 
 .experience-item {
   position: relative;
-  background: var(--bg-secondary);
+  background: color-mix(in srgb, var(--bg-primary) 92%, var(--accent-primary));
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 1.5rem;
@@ -642,7 +642,7 @@ section[id] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: var(--bg-secondary);
+  background: color-mix(in srgb, var(--bg-primary) 92%, var(--accent-primary));
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 1.5rem 1rem;
