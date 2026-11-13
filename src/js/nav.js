@@ -74,11 +74,12 @@ function initNav() {
     if (!navLogo) return;
     navLogo.classList.toggle("nav-logo--hidden", !visible);
     if (visible) {
-      navLogo.removeAttribute("aria-hidden");
-      navLogo.removeAttribute("tabindex");
+      navLogo.inert = false;
     } else {
-      navLogo.setAttribute("aria-hidden", "true");
-      navLogo.setAttribute("tabindex", "-1");
+      if (navLogo.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+      navLogo.inert = true;
     }
   }
 
