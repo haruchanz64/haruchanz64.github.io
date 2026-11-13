@@ -533,16 +533,25 @@
     </div>
   </div>
   <div class="form-field">
-    <label for="subject">Subject</label>
+    <label for="subject-select">Subject</label>
+    <select id="subject-select" required>
+      <option value="" disabled selected>Select a subject…</option>
+      <option value="Freelance / Project Inquiry">Freelance / Project Inquiry</option>
+      <option value="Job Opportunity / Interview">Job Opportunity / Interview</option>
+      <option value="Game Development / Teaching Collaboration">Game Development / Teaching Collaboration</option>
+      <option value="General Question">General Question</option>
+      <option value="__custom__">Other (Custom Subject)</option>
+    </select>
     <input
       type="text"
-      id="subject"
-      name="subject"
+      id="subject-custom"
       autocomplete="off"
-      placeholder="What's this about?"
+      placeholder="Enter your custom subject…"
       maxlength="160"
-      required
+      style="display: none"
+      aria-label="Custom subject"
     />
+    <input type="hidden" id="subject" name="subject" />
   </div>
   <div class="form-field">
     <div class="form-label-row">

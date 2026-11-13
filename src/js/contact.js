@@ -31,24 +31,44 @@ function setSubmitting(btn, isSubmitting) {
   spinner.style.display = isSubmitting ? "inline" : "none";
 }
 
-function initMessageCounter() {
+const CUSTOM_SUBJECT_VALUE = "__custom__";
+
+function initFormControls() {
   const messageEl = document.getElementById("message");
   const counterEl = document.getElementById("message-char-count");
-  if (!messageEl || !counterEl) return;
+  if (messageEl && counterEl) {
+    const maxLen = messageEl.getAttribute("maxlength") || "2000";
+    const update = () => {
+      counterEl.textContent = `${messageEl.value.length} / ${maxLen}`;
+    };
 
-  const maxLen = messageEl.getAttribute("maxlength") || "2000";
-  const update = () => {
-    counterEl.textContent = `${messageEl.value.length} / ${maxLen}`;
-  };
+    messageEl.addEventListener("input", update);
+    update();
+  }
 
-  messageEl.addEventListener("input", update);
-  update();
+  const subjectSelect = document.getElementById("subject-select");
+  const subjectCustom = document.getElementById("subject-custom");
+  if (subjectSelect && subjectCustom) {
+    const syncCustomSubjectVisibility = () => {
+      const isCustom = subjectSelect.value === CUSTOM_SUBJECT_VALUE;
+      subjectCustom.style.display = isCustom ? "block" : "none";
+      subjectCustom.required = isCustom;
+      if (isCustom) {
+        subjectCustom.focus();
+      } else {
+        subjectCustom.value = "";
+      }
+    };
+
+    subjectSelect.addEventListener("change", syncCustomSubjectVisibility);
+    syncCustomSubjectVisibility();
+  }
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initMessageCounter);
+  document.addEventListener("DOMContentLoaded", initFormControls);
 } else {
-  initMessageCounter();
+  initFormControls();
 }
 
 /**
@@ -68,12 +88,18 @@ export async function sendEmail(e) {
 
   const nameEl = document.getElementById("name");
   const emailEl = document.getElementById("email");
-  const subjectEl = document.getElementById("subject");
+  const subjectSelectEl = document.getElementById("subject-select");
+  const subjectCustomEl = document.getElementById("subject-custom");
+  const subjectHiddenEl = document.getElementById("subject");
   const messageEl = document.getElementById("message");
 
   const name = nameEl.value.trim();
   const email = emailEl.value.trim();
-  const subject = subjectEl.value.trim();
+  const selectedSubject = subjectSelectEl ? subjectSelectEl.value : "";
+  const isCustomSubject = selectedSubject === CUSTOM_SUBJECT_VALUE;
+  const subject = isCustomSubject
+    ? subjectCustomEl.value.trim()
+    : selectedSubject.trim();
   const message = messageEl.value.trim();
 
   if (!name) {
@@ -86,15 +112,24 @@ export async function sendEmail(e) {
     emailEl.focus();
     return;
   }
-  if (!subject) {
-    showToast(toast, "Please enter a subject.", "error");
-    subjectEl.focus();
+  if (!selectedSubject) {
+    showToast(toast, "Please select a subject.", "error");
+    subjectSelectEl.focus();
+    return;
+  }
+  if (isCustomSubject && !subject) {
+    showToast(toast, "Please enter your custom subject.", "error");
+    subjectCustomEl.focus();
     return;
   }
   if (!message) {
     showToast(toast, "Please enter a message.", "error");
     messageEl.focus();
     return;
+  }
+
+  if (subjectHiddenEl) {
+    subjectHiddenEl.value = subject;
   }
 
   if (typeof navigator !== "undefined" && navigator.onLine === false) {
@@ -146,6 +181,13 @@ export async function sendEmail(e) {
 
     showToast(toast, "✓ Message sent! I'll get back to you soon.", "success");
     form.reset();
+    if (subjectCustomEl) {
+      subjectCustomEl.style.display = "none";
+      subjectCustomEl.required = false;
+    }
+    if (subjectHiddenEl) {
+      subjectHiddenEl.value = "";
+    }
     const counterEl = document.getElementById("message-char-count");
     if (counterEl) {
       const maxLen = messageEl.getAttribute("maxlength") || "2000";

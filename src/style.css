@@ -302,6 +302,7 @@ body {
 }
 
 .form-field input,
+.form-field select,
 .form-field textarea {
   background: var(--bg-tertiary);
   border: 1px solid var(--border-color);
@@ -315,7 +316,20 @@ body {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+.form-field select {
+  cursor: pointer;
+}
+
+.form-field select option[value=""] {
+  color: var(--text-muted);
+}
+
+#subject-custom {
+  margin-top: 0.45rem;
+}
+
 .form-field input:focus,
+.form-field select:focus,
 .form-field textarea:focus {
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 3px rgba(233, 155, 155, 0.2);
