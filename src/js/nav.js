@@ -51,6 +51,33 @@ function initNav() {
     updateCurrentSectionLabel(matchedLink);
   }
 
+  const nav = document.querySelector(".nav");
+  const heroTarget = document.getElementById("hero");
+
+  function setNavVisible(visible) {
+    if (!nav) return;
+    nav.classList.toggle("nav--hidden", !visible);
+    if (visible) {
+      nav.inert = false;
+    } else {
+      if (nav.contains(document.activeElement)) {
+        document.activeElement.blur();
+      }
+      nav.inert = true;
+    }
+  }
+
+  function updateNavVisibility() {
+    if (!heroTarget) {
+      setNavVisible(true);
+      return;
+    }
+    const heroRect = heroTarget.getBoundingClientRect();
+    const scrolledPastHero =
+      window.pageYOffset > 40 && heroRect.bottom <= window.innerHeight * 0.75;
+    setNavVisible(scrolledPastHero);
+  }
+
   let ticking = false;
   window.addEventListener(
     "scroll",
@@ -59,6 +86,7 @@ function initNav() {
       ticking = true;
       requestAnimationFrame(() => {
         highlightNavOnScroll();
+        updateNavVisibility();
         ticking = false;
       });
     },
@@ -66,36 +94,7 @@ function initNav() {
   );
 
   highlightNavOnScroll();
-
-  const navLogo = document.querySelector(".nav-logo");
-  const heroTarget = document.getElementById("hero");
-
-  function setNavLogoVisible(visible) {
-    if (!navLogo) return;
-    navLogo.classList.toggle("nav-logo--hidden", !visible);
-    if (visible) {
-      navLogo.inert = false;
-    } else {
-      if (navLogo.contains(document.activeElement)) {
-        document.activeElement.blur();
-      }
-      navLogo.inert = true;
-    }
-  }
-
-  if (navLogo && heroTarget && "IntersectionObserver" in window) {
-    const heroObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          setNavLogoVisible(!entry.isIntersecting);
-        });
-      },
-      { rootMargin: "-64px 0px 0px 0px", threshold: 0 },
-    );
-    heroObserver.observe(heroTarget);
-  } else {
-    setNavLogoVisible(true);
-  }
+  updateNavVisibility();
 }
 
 window.initNav = initNav;

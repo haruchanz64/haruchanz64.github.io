@@ -7,13 +7,13 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link rel="preconnect" href="https://use.hugeicons.com" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
     <link rel="preload" href="/res/icon.png" as="image" />
 
     <link rel="stylesheet" href="/src/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" /></noscript>
@@ -26,16 +26,19 @@
     <script src="/js/itch.js"></script>
   </head>
   <body>
-    <nav class="nav" aria-label="Primary">
+    <nav class="nav nav--hidden" aria-label="Primary" inert>
       <div class="nav-container">
         <a
           href="#hero"
-          class="nav-logo nav-logo--hidden"
+          class="nav-logo"
           aria-label="Haru — Back to top"
-          inert
         >
           <!--Profile Credit: https://ph.pinterest.com/pin/1009650810211802747/-->
-          <img src="/res/icon.png" alt="Haru" style="height: 48px" />
+          <img src="/res/icon.png" alt="" class="nav-avatar" />
+          <span class="nav-brand-text">
+            <span class="nav-brand-name">Haru</span>
+            <span class="nav-brand-role">Software Engineer &amp; College Instructor</span>
+          </span>
         </a>
         <span class="nav-current-section" aria-hidden="true"></span>
         <ul id="primary-nav" class="nav-links">
@@ -57,17 +60,20 @@
           style="height: 256px; margin-bottom: 1rem"
           fetchpriority="high"
         />
-        <div class="hero-greeting">Hello, I'm</div>
-        <h1 class="hero-name">Haru</h1>
+        <div class="hero-greeting">I'm</div>
+        <h1 class="hero-name">Haru,</h1>
         <p class="hero-title">
-          Lead Full-Stack Software Engineer &amp; College Instructor
+          a <strong>software engineer &amp; college instructor</strong> passionate
+          about <strong>game design</strong> and
+          <strong>teaching game development</strong>, with a growing focus on
+          <strong>Backend &amp; DevOps</strong>.
         </p>
         <div class="hero-actions">
-          <a href="#projects" class="cta-button">
-            See What I've Built <i class="fas fa-arrow-right"></i>
-          </a>
-          <a href="#contact" class="cta-button cta-secondary">
+          <a href="#contact" class="cta-button">
             Get in Touch
+          </a>
+          <a href="#background" class="cta-button cta-secondary">
+            Explore My Work
           </a>
         </div>
       </div>
@@ -163,7 +169,7 @@
               rel="noopener noreferrer"
               class="experience-link"
             >
-              <i class="fab fa-google-play"></i> Google Play
+              <i class="hgi-stroke hgi-play-store" aria-hidden="true"></i> Google Play
             </a>
             <a
               href="https://picstar-social.web.app/"
@@ -171,7 +177,7 @@
               rel="noopener noreferrer"
               class="experience-link"
             >
-              <i class="fas fa-globe"></i> Website
+              <i class="hgi-stroke hgi-globe-02" aria-hidden="true"></i> Website
             </a>
           </div>
         </article>
@@ -225,7 +231,7 @@
       <div class="project-category">
         <div class="category-header">
           <span class="category-label">
-            <i class="fas fa-wrench"></i> Systems &amp; Tools
+            <i class="hgi-stroke hgi-wrench-01" aria-hidden="true"></i> Systems &amp; Tools
           </span>
           <div class="category-divider"></div>
         </div>
@@ -237,7 +243,7 @@
       <div class="project-category">
         <div class="category-header">
           <span class="category-label">
-            <i class="fas fa-gamepad"></i> Game Projects
+            <i class="hgi-stroke hgi-gamepad" aria-hidden="true"></i> Game Projects
           </span>
           <div class="category-divider"></div>
         </div>
@@ -515,8 +521,9 @@
       <div class="contact-content">
         <h2 class="contact-title">Get in Touch</h2>
         <p class="contact-description">
-          I'm open to freelance work and new job opportunities in full-stack
-          systems and backend APIs. If you have something to build, let's talk.
+          Open to freelance work, software engineering roles, and game
+          development or teaching collaborations. Got something in mind? Let's
+          talk.
         </p>
         <form
           id="contact-form"
@@ -568,7 +575,7 @@
         <option value="General Question">General Question</option>
         <option value="__custom__">Other (Custom Subject)</option>
       </select>
-      <i class="fas fa-chevron-down select-icon" aria-hidden="true"></i>
+      <i class="hgi-stroke hgi-chevron-down select-icon" aria-hidden="true"></i>
     </div>
     <input
       type="text"
@@ -596,8 +603,8 @@
     ></textarea>
   </div>
   <button type="submit" class="form-submit" id="submit-btn">
-    <span class="btn-text"><i class="fas fa-paper-plane"></i> Send Message</span>
-    <span class="btn-spinner" style="display:none"><i class="fas fa-spinner fa-spin"></i> Sending…</span>
+    <span class="btn-text"><i class="hgi-stroke hgi-sent" aria-hidden="true"></i> Send Message</span>
+    <span class="btn-spinner" style="display:none"><i class="hgi-stroke hgi-loading-03 hgi-spin" aria-hidden="true"></i> Sending…</span>
   </button>
   <p class="form-toast" id="form-toast" role="status" aria-live="polite"></p>
 </form>
@@ -608,7 +615,7 @@
             rel="noopener noreferrer"
             aria-label="Bluesky"
             class="social-link"
-            ><i class="fab fa-bluesky"></i
+            ><i class="hgi-stroke hgi-bluesky" aria-hidden="true"></i
           ></a>
           <a
             href="https://dev.to/haruchanz64"
@@ -616,7 +623,7 @@
             rel="noopener noreferrer"
             aria-label="DEV"
             class="social-link"
-            ><i class="fab fa-dev"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"/></svg
           ></a>
           <a
             href="https://discord.com/users/1467554639527547125"
@@ -624,7 +631,7 @@
             rel="noopener noreferrer"
             aria-label="Discord"
             class="social-link"
-            ><i class="fab fa-discord"></i
+            ><i class="hgi-stroke hgi-discord" aria-hidden="true"></i
           ></a>
           <a
             href="https://www.facebook.com/aj.prsnl"
@@ -632,7 +639,7 @@
             rel="noopener noreferrer"
             aria-label="Facebook"
             class="social-link"
-            ><i class="fab fa-facebook"></i
+            ><i class="hgi-stroke hgi-facebook-02" aria-hidden="true"></i
           ></a>
           <a
             href="https://www.github.com/haruchanz64"
@@ -640,7 +647,7 @@
             rel="noopener noreferrer"
             aria-label="GitHub"
             class="social-link"
-            ><i class="fab fa-github"></i
+            ><i class="hgi-stroke hgi-github" aria-hidden="true"></i
           ></a>
           <a
             href="https://haruchanz64.itch.io/"
@@ -648,7 +655,7 @@
             rel="noopener noreferrer"
             aria-label="itch.io"
             class="social-link"
-            ><i class="fab fa-itch-io"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z"/></svg
           ></a>
           <a
             href="https://leetcode.com/u/haruchanz64/"
@@ -664,7 +671,7 @@
             rel="noopener noreferrer"
             aria-label="LinkedIn"
             class="social-link"
-            ><i class="fab fa-linkedin"></i
+            ><i class="hgi-stroke hgi-linkedin-02" aria-hidden="true"></i
           ></a>
           <a
             href="https://mastodon.social/@haruchanz64"
@@ -672,7 +679,7 @@
             rel="noopener noreferrer me"
             aria-label="Mastodon"
             class="social-link"
-            ><i class="fab fa-mastodon"></i
+            ><i class="hgi-stroke hgi-mastodon" aria-hidden="true"></i
           ></a>
           <a
             href="https://x.com/haruchanz64"
@@ -680,7 +687,7 @@
             rel="noopener noreferrer"
             aria-label="X"
             class="social-link"
-            ><i class="fab fa-x-twitter"></i
+            ><i class="hgi-stroke hgi-new-twitter" aria-hidden="true"></i
           ></a>
         </div>
       </div>

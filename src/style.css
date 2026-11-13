@@ -7,12 +7,20 @@
   --bg-primary: var(--first-color);
   --bg-secondary: var(--second-color);
   --bg-tertiary: var(--first-color);
+  --nav-bg: rgba(48, 41, 57, 0.78);
   --text-primary: var(--fourth-color);
   --text-secondary: var(--fourth-color);
   --text-muted: var(--third-color);
   --accent-primary: var(--third-color);
   --accent-secondary: var(--fourth-color);
   --border-color: var(--second-color);
+  --bg-pattern-sz: 20px;
+  --bg-pattern-c0: transparent;
+  --bg-pattern-c1: color-mix(in srgb, var(--first-color) 72%, var(--second-color));
+  --bg-pattern-c2: var(--first-color);
+  --bg-pattern-c3: color-mix(in srgb, var(--first-color) 78%, #000000);
+  --bg-pattern-g1: color-mix(in srgb, var(--first-color) 20%, transparent);
+  --bg-pattern-g2: color-mix(in srgb, var(--third-color) 16%, transparent);
   --font-main: "Inter", sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -24,12 +32,18 @@
   --bg-primary: var(--fourth-color);
   --bg-secondary: var(--third-color);
   --bg-tertiary: var(--fourth-color);
+  --nav-bg: rgba(255, 216, 216, 0.78);
   --text-primary: var(--first-color);
   --text-secondary: var(--second-color);
   --text-muted: var(--second-color);
   --accent-primary: var(--first-color);
   --accent-secondary: var(--second-color);
   --border-color: var(--second-color);
+  --bg-pattern-c1: var(--fourth-color);
+  --bg-pattern-c2: color-mix(in srgb, var(--fourth-color) 62%, var(--third-color));
+  --bg-pattern-c3: color-mix(in srgb, var(--third-color) 82%, var(--second-color));
+  --bg-pattern-g1: color-mix(in srgb, var(--third-color) 20%, transparent);
+  --bg-pattern-g2: color-mix(in srgb, var(--second-color) 14%, transparent);
 }
 
 * {
@@ -45,13 +59,9 @@ html {
 }
 
 body {
+  position: relative;
+  isolation: isolate;
   background-color: var(--bg-primary);
-  background-image: radial-gradient(
-    circle,
-    var(--border-color) 1px,
-    transparent 1px
-  );
-  background-size: 30px 30px;
   font-family: var(--font-main);
   color: var(--text-primary);
   line-height: 1.6;
@@ -61,16 +71,52 @@ body {
     color 0.5s ease;
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.3;
+  --ts: 50% / calc(var(--bg-pattern-sz) * 13.25) calc(var(--bg-pattern-sz) * 11.7);
+  background:
+    repeating-conic-gradient(var(--bg-pattern-g1) 0.000001%, var(--bg-pattern-c0) 0.00005%, var(--bg-pattern-c0) 0.00035%, var(--bg-pattern-c0) 0.00005%) var(--ts),
+    repeating-conic-gradient(var(--bg-pattern-g2) 0.00002%, var(--bg-pattern-c0) 0.00008%, var(--bg-pattern-c0) 0.0008%, var(--bg-pattern-c0) 0.00008%) var(--ts),
+    repeating-linear-gradient(90deg, var(--bg-pattern-c0) 0 24.33%, var(--bg-pattern-c3) 0 25%) var(--ts),
+    linear-gradient(210deg, var(--bg-pattern-c0) 0 80%, var(--bg-pattern-c3) calc(80% + 1px) 80.5%, var(--bg-pattern-c0) calc(80.5% + 1px) 100%) var(--ts),
+    conic-gradient(from -90deg at 49.75% 100%, var(--bg-pattern-c1) 0 30deg, var(--bg-pattern-c0) 0 150deg, var(--bg-pattern-c2) 0 60deg) var(--ts),
+    conic-gradient(from -180deg at 24.5% 50.5%, var(--bg-pattern-c1) 0 119deg, var(--bg-pattern-c0) 0 100%) var(--ts),
+    conic-gradient(from 120deg at 74.5% 50%, var(--bg-pattern-c3) 0 120deg, var(--bg-pattern-c0) 0 100%) var(--ts),
+    conic-gradient(from 180deg at 49.5% 34%, var(--bg-pattern-c2) 0 60deg, var(--bg-pattern-c0) 0 100%) var(--ts),
+    conic-gradient(from -120deg at 50% 34%, var(--bg-pattern-c3) 0 60deg, var(--bg-pattern-c0) 0 100%) var(--ts),
+    conic-gradient(from 0deg at 74.5% 17.5%, var(--bg-pattern-c2) 0 60deg, var(--bg-pattern-c3) 0 121deg, var(--bg-pattern-c0) 0 100%) var(--ts),
+    linear-gradient(150deg, var(--bg-pattern-c0) 0 40%, var(--bg-pattern-c3) calc(40% + 1px) 40.5%, var(--bg-pattern-c0) calc(40.5% + 1px) 100%) var(--ts),
+    linear-gradient(90deg, var(--bg-pattern-c0) 0 50%, var(--bg-pattern-c2) 0 75%, var(--bg-pattern-c0) 0 100%) var(--ts),
+    repeating-linear-gradient(90deg, var(--bg-pattern-c1) 0 24.33%, var(--bg-pattern-c3) 0 25%) var(--ts);
+}
+
 .nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   padding: 0.6rem 1rem;
-  background: var(--bg-primary);
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   z-index: 1000;
-  transition: all var(--transition);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    background-color var(--transition),
+    border-color var(--transition);
+}
+
+.nav.nav--hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
 }
 
 .nav-container {
@@ -79,34 +125,59 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.75rem;
 }
 
 .nav-logo {
   display: inline-flex;
+  flex-direction: row;
   align-items: center;
-  font-size: 1.5rem;
-  font-weight: 700;
+  gap: 0.6rem;
   font-family: var(--font-display);
   color: var(--accent-primary);
   text-decoration: none;
   flex: 1;
-  transition: opacity 0.25s ease;
+  min-width: 0;
 }
 
-.nav-logo.nav-logo--hidden {
-  opacity: 0;
-  pointer-events: none;
+.nav-avatar {
+  height: 36px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.nav-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.nav-brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--accent-primary);
+}
+
+.nav-brand-role {
+  font-family: var(--font-main);
+  font-size: 0.68rem;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--text-muted);
 }
 
 .nav-current-section {
   font-family: var(--font-mono);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-primary);
-  text-align: center;
+  text-align: right;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  flex-shrink: 0;
   opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
@@ -167,11 +238,7 @@ body {
 }
 
 .nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex: 1;
-  justify-content: flex-end;
+  display: none;
 }
 
 .burger-menu {
@@ -185,7 +252,7 @@ body {
   justify-content: center;
   text-align: center;
   position: relative;
-  padding-top: 70px;
+  padding: 2rem 1rem;
   box-sizing: border-box;
 }
 
@@ -223,7 +290,7 @@ body {
   font-size: clamp(3.5rem, 12vw, 7rem);
   font-family: var(--font-display);
   font-weight: 700;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   line-height: 1.05;
   color: var(--accent-primary);
   animation-delay: 0.4s;
@@ -231,13 +298,18 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(1.1rem, 3vw, 1.75rem);
+  font-size: clamp(1.05rem, 2.5vw, 1.45rem);
   font-weight: 300;
   color: var(--text-secondary);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
   animation-delay: 0.6s;
-  max-width: 520px;
-  line-height: 1.4;
+  max-width: 660px;
+  line-height: 1.5;
+}
+
+.hero-title strong {
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 .cta-button,
@@ -377,6 +449,14 @@ body {
 .form-submit:hover:not(:disabled) { background: var(--accent-secondary); }
 .form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
+.hgi-spin {
+  animation: hgi-spin 1s linear infinite;
+}
+
+@keyframes hgi-spin {
+  to { transform: rotate(360deg); }
+}
+
 .form-toast {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -415,9 +495,22 @@ body {
 
 .hero-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.hero-actions .cta-button {
+  min-width: 260px;
+  padding: 1.2rem 2.75rem;
+  font-size: 1.125rem;
   justify-content: center;
-  gap: 1rem;
+}
+
+.hero-actions .cta-button.cta-secondary {
+  min-width: 200px;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.9rem;
 }
 
 .cta-button.cta-secondary {
@@ -858,12 +951,11 @@ section[id] {
 
 .social-links {
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
   margin: 2rem auto 0;
-  width: fit-content;
   max-width: 100%;
-  flex-wrap: nowrap;
-  overflow-x: auto;
   padding: 0.25rem 0;
 }
 
@@ -971,10 +1063,27 @@ code {
     gap: 2rem;
   }
 
+  .nav-avatar {
+    height: 44px;
+  }
+
+  .nav-brand-name {
+    font-size: 1.25rem;
+  }
+
+  .nav-brand-role {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
   .nav-links {
     display: flex;
     flex-direction: row;
     align-items: center;
+  }
+
+  .social-links {
+    gap: 1rem;
   }
 
   .nav-current-section {
