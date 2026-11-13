@@ -7,23 +7,16 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preconnect" href="https://use.hugeicons.com" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-    <link rel="preload" href="/res/icon.png" as="image" />
+    <link rel="preload" href="/res/icon.webp" as="image" type="image/webp" />
 
     <link rel="stylesheet" href="/src/style.css" />
-    <link rel="stylesheet" href="https://use.hugeicons.com/font/icons.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" /></noscript>
 
-    <link rel="icon" type="image/png" href="/res/icon.png" />
+    <link rel="icon" type="image/x-icon" href="/res/favicon.ico" />
 
-    <script src="/js/paths.js"></script>
     <script type="module" src="/src/js/main.js"></script>
-    <script src="/js/github.js"></script>
-    <script src="/js/itch.js"></script>
   </head>
   <body>
     <nav class="nav nav--hidden" aria-label="Primary" inert>
@@ -34,7 +27,7 @@
           aria-label="Haru — Back to top"
         >
           <!--Profile Credit: https://ph.pinterest.com/pin/1009650810211802747/-->
-          <img src="/res/icon.png" alt="" class="nav-avatar" />
+          <img src="/res/icon.webp" alt="" class="nav-avatar" width="36" height="36" />
           <span class="nav-brand-text">
             <span class="nav-brand-name">Haru</span>
             <span class="nav-brand-role">Software Engineer &amp; College Instructor</span>
@@ -55,9 +48,11 @@
     <section id="hero" class="hero">
       <div class="hero-content">
         <img
-          src="/res/icon.png"
+          src="/res/icon.webp"
           alt="Haru Logo"
-          style="height: 256px; margin-bottom: 1rem"
+          width="256"
+          height="256"
+          style="height: 256px; width: auto; margin-bottom: 1rem"
           fetchpriority="high"
         />
         <div class="hero-greeting">I'm</div>
@@ -169,7 +164,7 @@
               rel="noopener noreferrer"
               class="experience-link"
             >
-              <i class="hgi-stroke hgi-play-store" aria-hidden="true"></i> Google Play
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3.61 1.814L13.793 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/></svg> Google Play
             </a>
             <a
               href="https://picstar-social.web.app/"
@@ -177,7 +172,7 @@
               rel="noopener noreferrer"
               class="experience-link"
             >
-              <i class="hgi-stroke hgi-globe-02" aria-hidden="true"></i> Website
+              <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> Website
             </a>
           </div>
         </article>
@@ -231,7 +226,7 @@
       <div class="project-category">
         <div class="category-header">
           <span class="category-label">
-            <i class="hgi-stroke hgi-wrench-01" aria-hidden="true"></i> Systems &amp; Tools
+            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Systems &amp; Tools
           </span>
           <div class="category-divider"></div>
         </div>
@@ -243,7 +238,7 @@
       <div class="project-category">
         <div class="category-header">
           <span class="category-label">
-            <i class="hgi-stroke hgi-gamepad" aria-hidden="true"></i> Game Projects
+            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="4"/></svg> Game Projects
           </span>
           <div class="category-divider"></div>
         </div>
@@ -575,7 +570,7 @@
         <option value="General Question">General Question</option>
         <option value="__custom__">Other (Custom Subject)</option>
       </select>
-      <i class="hgi-stroke hgi-chevron-down select-icon" aria-hidden="true"></i>
+      <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <input
       type="text"
@@ -603,8 +598,8 @@
     ></textarea>
   </div>
   <button type="submit" class="form-submit" id="submit-btn">
-    <span class="btn-text"><i class="hgi-stroke hgi-sent" aria-hidden="true"></i> Send Message</span>
-    <span class="btn-spinner" style="display:none"><i class="hgi-stroke hgi-loading-03 hgi-spin" aria-hidden="true"></i> Sending…</span>
+    <span class="btn-text"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message</span>
+    <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending…</span>
   </button>
   <p class="form-toast" id="form-toast" role="status" aria-live="polite"></p>
 </form>
@@ -615,7 +610,7 @@
             rel="noopener noreferrer"
             aria-label="Bluesky"
             class="social-link"
-            ><i class="hgi-stroke hgi-bluesky" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg
           ></a>
           <a
             href="https://dev.to/haruchanz64"
@@ -631,7 +626,7 @@
             rel="noopener noreferrer"
             aria-label="Discord"
             class="social-link"
-            ><i class="hgi-stroke hgi-discord" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg
           ></a>
           <a
             href="https://www.facebook.com/aj.prsnl"
@@ -639,7 +634,7 @@
             rel="noopener noreferrer"
             aria-label="Facebook"
             class="social-link"
-            ><i class="hgi-stroke hgi-facebook-02" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg
           ></a>
           <a
             href="https://www.github.com/haruchanz64"
@@ -647,7 +642,7 @@
             rel="noopener noreferrer"
             aria-label="GitHub"
             class="social-link"
-            ><i class="hgi-stroke hgi-github" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg
           ></a>
           <a
             href="https://haruchanz64.itch.io/"
@@ -671,7 +666,7 @@
             rel="noopener noreferrer"
             aria-label="LinkedIn"
             class="social-link"
-            ><i class="hgi-stroke hgi-linkedin-02" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg
           ></a>
           <a
             href="https://mastodon.social/@haruchanz64"
@@ -679,7 +674,7 @@
             rel="noopener noreferrer me"
             aria-label="Mastodon"
             class="social-link"
-            ><i class="hgi-stroke hgi-mastodon" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg
           ></a>
           <a
             href="https://x.com/haruchanz64"
@@ -687,7 +682,7 @@
             rel="noopener noreferrer"
             aria-label="X"
             class="social-link"
-            ><i class="hgi-stroke hgi-new-twitter" aria-hidden="true"></i
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg
           ></a>
         </div>
       </div>

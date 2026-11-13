@@ -1,19 +1,3 @@
-function waitForGamesGrid(id, timeout = 6000) {
-  return new Promise((resolve) => {
-    const start = Date.now();
-    const timer = setInterval(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        clearInterval(timer);
-        resolve(el);
-      } else if (Date.now() - start > timeout) {
-        clearInterval(timer);
-        resolve(null);
-      }
-    }, 100);
-  });
-}
-
 function createTagSpan(className, text) {
   const span = document.createElement("span");
   span.className = className;
@@ -22,11 +6,8 @@ function createTagSpan(className, text) {
 }
 
 async function initItchProjects() {
-  const grid = await waitForGamesGrid("games-grid");
-  if (!grid) {
-    console.warn("games-grid element not found");
-    return;
-  }
+  const grid = document.getElementById("games-grid");
+  if (!grid) return;
 
   try {
     const res = await fetch("/data/itch-projects.json");
@@ -90,4 +71,8 @@ async function initItchProjects() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", initItchProjects);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initItchProjects);
+} else {
+  initItchProjects();
+}

@@ -1,20 +1,27 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import { resolve } from "path";
 
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd(), "VITE_");
-
+function minifyHtmlPlugin() {
   return {
-    base: "/",
-    build: {
-      rollupOptions: {
-        input: {
-          main: resolve(__dirname, "index.html"),
-        },
-      },
-    },
-    define: {
-      __ENV__: env,
+    name: "minify-html",
+    transformIndexHtml(html) {
+      return html
+        .replace(/<!--(?!\[if)[\s\S]*?-->/g, "")
+        .replace(/>\s+</g, "><")
+        .replace(/\s{2,}/g, " ")
+        .trim();
     },
   };
+}
+
+export default defineConfig({
+  base: "/",
+  plugins: [minifyHtmlPlugin()],
+  build: {
+    rollupOptions: {
+      input: {
+        main: resolve(__dirname, "index.html"),
+      },
+    },
+  },
 });

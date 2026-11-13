@@ -7,28 +7,9 @@ const PINNED_REPOS = [
   "SaveEncryptionToolkit",
 ];
 
-function waitForElement(id, timeout = 6000) {
-  return new Promise((resolve) => {
-    const start = Date.now();
-    const timer = setInterval(() => {
-      const el = document.getElementById(id);
-      if (el) {
-        clearInterval(timer);
-        resolve(el);
-      } else if (Date.now() - start > timeout) {
-        clearInterval(timer);
-        resolve(null);
-      }
-    }, 100);
-  });
-}
-
 async function initGithubProjects() {
-  const grid = await waitForElement("tools-grid");
-  if (!grid) {
-    console.warn("tools-grid element not found");
-    return;
-  }
+  const grid = document.getElementById("tools-grid");
+  if (!grid) return;
 
   try {
     const res = await fetch(
@@ -42,7 +23,6 @@ async function initGithubProjects() {
     if (filtered.length === 0) {
       grid.innerHTML =
         '<p class="loading-text">No matching projects found.</p>';
-      console.warn("No repos matched PINNED_REPOS:", PINNED_REPOS);
       return;
     }
 
@@ -74,4 +54,8 @@ async function initGithubProjects() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", initGithubProjects);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initGithubProjects);
+} else {
+  initGithubProjects();
+}

@@ -716,7 +716,8 @@ section[id] {
   border-radius: 4px;
 }
 
-.category-label i {
+.category-label i,
+.category-label svg {
   font-size: 0.75rem;
 }
 
