@@ -45,13 +45,19 @@ html {
 }
 
 body {
-  background: var(--bg-primary);
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(
+    circle,
+    var(--border-color) 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
   font-family: var(--font-main);
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
   transition:
-    background 0.5s ease,
+    background-color 0.5s ease,
     color 0.5s ease;
 }
 
@@ -178,13 +184,6 @@ body {
   justify-content: center;
   text-align: center;
   position: relative;
-  background: var(--bg-primary);
-  background-image: radial-gradient(
-    circle,
-    var(--border-color) 1px,
-    transparent 1px
-  );
-  background-size: 30px 30px;
   padding-top: 70px;
   box-sizing: border-box;
 }
@@ -822,13 +821,12 @@ section[id] {
 }
 
 .contact {
-  background: var(--bg-secondary);
   text-align: center;
   padding: 6rem 1rem;
 }
 
 .contact-content {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -842,21 +840,26 @@ section[id] {
 .contact-description {
   font-size: 1.1rem;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
 }
 
 .social-links {
   display: flex;
-  justify-content: center;
   gap: 1rem;
-  margin-top: 2rem;
-  flex-wrap: wrap;
+  margin: 2rem auto 0;
+  width: fit-content;
+  max-width: 100%;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  padding: 0.25rem 0;
 }
 
 .social-link {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   width: 50px;
   height: 50px;
   background: var(--bg-tertiary);
