@@ -534,14 +534,17 @@
   </div>
   <div class="form-field">
     <label for="subject-select">Subject</label>
-    <select id="subject-select" required>
-      <option value="" disabled selected>Select a subject…</option>
-      <option value="Freelance / Project Inquiry">Freelance / Project Inquiry</option>
-      <option value="Job Opportunity / Interview">Job Opportunity / Interview</option>
-      <option value="Game Development / Teaching Collaboration">Game Development / Teaching Collaboration</option>
-      <option value="General Question">General Question</option>
-      <option value="__custom__">Other (Custom Subject)</option>
-    </select>
+    <div class="select-wrapper">
+      <select id="subject-select" required>
+        <option value="" disabled selected>Select a subject…</option>
+        <option value="Freelance / Project Inquiry">Freelance / Project Inquiry</option>
+        <option value="Job Opportunity / Interview">Job Opportunity / Interview</option>
+        <option value="Game Development / Teaching Collaboration">Game Development / Teaching Collaboration</option>
+        <option value="General Question">General Question</option>
+        <option value="__custom__">Other (Custom Subject)</option>
+      </select>
+      <i class="fas fa-chevron-down select-icon" aria-hidden="true"></i>
+    </div>
     <input
       type="text"
       id="subject-custom"

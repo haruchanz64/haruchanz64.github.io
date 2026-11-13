@@ -316,8 +316,33 @@ body {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+.select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .form-field select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.5rem;
   cursor: pointer;
+}
+
+.select-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  transition: color var(--transition);
+}
+
+.select-wrapper:focus-within .select-icon {
+  color: var(--accent-primary);
 }
 
 .form-field select option[value=""] {
