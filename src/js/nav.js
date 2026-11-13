@@ -97,6 +97,36 @@ function initNav() {
   );
 
   highlightNavOnScroll();
+
+  const navLogo = document.querySelector(".nav-logo");
+  const heroTarget =
+    document.querySelector("#hero img") || document.getElementById("hero");
+
+  function setNavLogoVisible(visible) {
+    if (!navLogo) return;
+    navLogo.classList.toggle("nav-logo--hidden", !visible);
+    if (visible) {
+      navLogo.removeAttribute("aria-hidden");
+      navLogo.removeAttribute("tabindex");
+    } else {
+      navLogo.setAttribute("aria-hidden", "true");
+      navLogo.setAttribute("tabindex", "-1");
+    }
+  }
+
+  if (navLogo && heroTarget && "IntersectionObserver" in window) {
+    const heroObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setNavLogoVisible(!entry.isIntersecting);
+        });
+      },
+      { rootMargin: "-64px 0px 0px 0px", threshold: 0 },
+    );
+    heroObserver.observe(heroTarget);
+  } else {
+    setNavLogoVisible(true);
+  }
 }
 
 window.initNav = initNav;
