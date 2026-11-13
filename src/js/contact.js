@@ -81,7 +81,7 @@ export async function sendEmail(e) {
     nameEl.focus();
     return;
   }
-  if (!email) {
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     showToast(toast, "Please enter a valid email address.", "error");
     emailEl.focus();
     return;
@@ -94,6 +94,25 @@ export async function sendEmail(e) {
   if (!message) {
     showToast(toast, "Please enter a message.", "error");
     messageEl.focus();
+    return;
+  }
+
+  if (typeof navigator !== "undefined" && navigator.onLine === false) {
+    showToast(
+      toast,
+      "✕ You appear to be offline. Please check your connection and try again.",
+      "error"
+    );
+    return;
+  }
+
+  // Vite dev server returns 200 OK for POST / without processing Netlify Forms.
+  if (import.meta.env.DEV && window.location.port !== "8888") {
+    showToast(
+      toast,
+      "✕ Email not sent: local Vite dev has no Netlify Forms handler. Deploy to Netlify or run `netlify dev`.",
+      "error"
+    );
     return;
   }
 
@@ -120,7 +139,9 @@ export async function sendEmail(e) {
     });
 
     if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
+      const statusError = new Error(`Request failed with status ${response.status}`);
+      statusError.status = response.status;
+      throw statusError;
     }
 
     showToast(toast, "✓ Message sent! I'll get back to you soon.", "success");
@@ -132,11 +153,19 @@ export async function sendEmail(e) {
     }
   } catch (err) {
     console.error("Netlify form submission error:", err);
-    const errorMsg =
-      err.name === "AbortError"
-        ? "✕ Request timed out. Please check your connection and try again."
-        : "✕ Something went wrong sending your message. Please try again.";
+    let errorMsg =
+      "✕ Email could not be sent. Please try again or reach out via the social links below.";
+
+    if (err.name === "AbortError") {
+      errorMsg = "✕ Request timed out. Please check your connection and try again.";
+    } else if (err.status === 404 || err.status === 405) {
+      errorMsg = `✕ Form endpoint unavailable (HTTP ${err.status}). Please reach out via the social links below.`;
+    } else if (err.status >= 500) {
+      errorMsg = `✕ Server error (HTTP ${err.status}). Please try again later or reach out via the social links below.`;
+    }
+
     showToast(toast, errorMsg, "error");
+    toast.scrollIntoView({ behavior: "smooth", block: "nearest" });
   } finally {
     clearTimeout(timeoutId);
     setSubmitting(btn, false);
