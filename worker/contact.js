@@ -131,13 +131,14 @@ async function handleResumeGatePost(request, env) {
     return respond({ error: "Missing Turnstile token." }, 400);
   }
 
-  if (!env.TURNSTILE_SECRET_KEY) {
+  const secretKey = String(env.TURNSTILE_SECRET_KEY || "").trim();
+  if (!secretKey) {
     console.error("Missing TURNSTILE_SECRET_KEY environment variable.");
     return respond({ error: "Verification service is not configured." }, 500);
   }
 
   const verifyBody = {
-    secret: env.TURNSTILE_SECRET_KEY,
+    secret: secretKey,
     response: token,
   };
   const ip = request.headers.get("CF-Connecting-IP");
