@@ -18,10 +18,19 @@ document
         targetSection.scrollIntoView({
           behavior: "smooth",
         });
-
-        if (window.location.hash !== `#${targetId}`) {
-          window.history.pushState(null, "", `#${targetId}`);
-        }
       }
     });
   });
+
+if (window.location.hash) {
+  const initialId = window.location.hash.slice(1);
+  const initialSection = document.getElementById(initialId);
+  if (initialSection) {
+    initialSection.scrollIntoView({ behavior: "smooth" });
+  }
+  window.history.replaceState(
+    null,
+    "",
+    window.location.pathname + window.location.search
+  );
+}
