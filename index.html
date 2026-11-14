@@ -3,13 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Haru · Portfolio</title>
+    <meta
+      name="description"
+      content="Portfolio of Aron Jake Radam (Haru) — Lead Full-Stack Software Engineer & College Instructor working across production software and game development."
+    />
+    <title>Aron Jake Radam (Haru) · Portfolio</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-    <link rel="preload" href="/res/icon.webp" as="image" type="image/webp" />
+    <link rel="preload" href="/res/profile_photo.webp" as="image" type="image/webp" />
 
     <link rel="stylesheet" href="/src/style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
@@ -27,7 +31,7 @@
           aria-label="Haru — Back to top"
         >
           <!--Profile Credit: https://ph.pinterest.com/pin/1009650810211802747/-->
-          <img src="/res/icon.webp" alt="" class="nav-avatar" width="36" height="36" />
+          <img src="/res/profile_photo.webp" alt="" class="nav-avatar" width="36" height="36" />
           <span class="nav-brand-text">
             <span class="nav-brand-name">Haru</span>
             <span class="nav-brand-role">Software Engineer &amp; College Instructor</span>
@@ -48,7 +52,7 @@
     <section id="hero" class="hero">
       <div class="hero-content">
         <img
-          src="/res/icon.webp"
+          src="/res/profile_photo.webp"
           alt="Haru Logo"
           width="256"
           height="256"
@@ -58,16 +62,16 @@
         <div class="hero-greeting">I'm</div>
         <h1 class="hero-name">Haru,</h1>
         <p class="hero-title">
-          a <strong>software engineer &amp; college instructor</strong> passionate
-          about <strong>game design</strong> and
-          <strong>teaching game development</strong>, with a growing focus on
-          <strong>Backend &amp; DevOps</strong>.
+          a <strong>software engineer &amp; college instructor</strong> who
+          teaches <strong>game development</strong> and spends time on
+          <strong>game design theory</strong>, <strong>backend</strong>, and
+          <strong>DevOps</strong>.
         </p>
         <div class="hero-actions">
           <a href="#contact" class="cta-button">
             Get in Touch
           </a>
-          <a href="#about" class="cta-button cta-secondary">
+          <a href="#projects" class="cta-button cta-secondary">
             Explore My Work
           </a>
         </div>
@@ -75,31 +79,40 @@
     </section>
 
     <section id="about" class="section">
-      <h2 class="section-title">About Me</h2>
+      <h2 class="section-title">About</h2>
       <div class="background-text">
         <p>
-          I'm a <strong>Lead Full-Stack Software Engineer</strong> and
-          <strong>College Instructor</strong> who bridges production software
-          engineering with game development. My path started in game QA and
-          playtesting at <strong>GridLock-Games Studio</strong>, where
-          collaborating with developers and designers on bug reproduction,
-          release testing, and build stability shaped how I build reliable
-          systems today.
+          I'm <strong>Aron Jake Radam</strong> (also known online as
+          <strong>Haru</strong>), a <strong>Lead Full-Stack Software Engineer</strong>
+          and <strong>College Instructor</strong> working across production
+          software and game development. I started out in game playtesting and
+          QA at
+          <strong>GridLock-Games Studio</strong>, testing builds, reporting
+          bugs, and working with developers and designers ahead of releases.
         </p>
         <p>
-          Currently, I serve as the sole technical lead at
-          <strong>PicStar Software OPC</strong>, architecting and shipping a
-          live location-based social platform with <strong>Flutter</strong>,
-          <strong>Supabase</strong>, and <strong>PostgreSQL</strong>—from
-          mobile UI to real-time feeds and media pipelines. Alongside industry
-          work, I teach sophomore to senior students at the
-          <strong>University of Caloocan City</strong>, mentoring teams on game
-          design, OOP, networking, and production pipelines. Outside of my core
-          stack, I'm actively exploring <strong>C# (.NET)</strong>,
-          <strong>Java (Spring Boot)</strong>, and <strong>Docker</strong>
-          through self-study and personal projects, and I leverage AI coding
-          tools in my workflow to prototype, debug, and ship faster. I'm open to
-          freelance work or new job opportunities.
+          Right now, I'm the sole full-stack engineer at
+          <strong>PicStar Software OPC</strong> in
+          <strong>Las Piñas, Philippines</strong>, building
+          <strong>PicStar</strong> with <strong>Flutter</strong> and
+          <strong>Supabase</strong>—from the mobile UI and PostgreSQL backend to
+          real-time Top and Board feeds, Shineouts, rankings, and city-based
+          filtering.
+        </p>
+        <p>
+          Alongside industry work, I teach sophomore through senior students at
+          the <strong>University of Caloocan City</strong>, covering game design
+          theory, prototyping, OOP, math in games, AI, networking, and
+          production pipelines while guiding their projects from initial
+          mechanics to full production.
+        </p>
+        <p>
+          Outside of my main stack, I study
+          <strong>game design theory</strong> and build personal projects with
+          <strong>C# (.NET)</strong>, <strong>Java (Spring Boot)</strong>, and
+          <strong>Docker</strong>. I also use AI coding tools in my daily
+          workflow to prototype and debug faster, and I'm open to freelance work
+          or new roles.
         </p>
       </div>
     </section>
@@ -118,16 +131,23 @@
           </div>
           <ul class="experience-list">
             <li>
-              Taught sophomore to senior students game design theory, networking, and
-              full-scale production pipelines from concept to pitch.
+              Teach game design theory, prototyping, and production pipelines to
+              sophomore through senior students, guiding projects from initial
+              mechanics to full production.
             </li>
             <li>
-              Led laboratory sessions on OOP, physics, collision detection,
-              and engine code optimization.
+              Lead lectures and lab sessions on game programming, networking, and
+              production, helping students turn game ideas into working builds.
             </li>
             <li>
-              Mentored student teams and troubleshooted complex codebases to
-              align projects with industry standards.
+              Cover core scripting and engine fundamentals including OOP, math
+              in games, physics, collision detection, AI, networking, and code
+              optimization.
+            </li>
+            <li>
+              Manage lab sessions, guide student project progress and help with
+              questions, and keep coursework grounded in current industry
+              practices.
             </li>
           </ul>
         </article>
@@ -143,18 +163,22 @@
           </div>
           <ul class="experience-list">
             <li>
-              Sole technical lead for <strong>PicStar</strong>, owning
-              architecture, implementation, and deployment for a location-based
-              social platform.
+              Owned the technical direction and day-to-day engineering of a
+              social media startup as the sole engineer, from architecture
+              through deployment.
             </li>
             <li>
-              Built the cross-platform <strong>Flutter</strong> mobile app with
-              clean, modular architecture and consistent UI/UX.
+              Built the cross-platform mobile app in Flutter with a modular
+              codebase and consistent UI/UX.
             </li>
             <li>
-              Architected the <strong>Supabase PostgreSQL</strong> backend,
-              optimizing queries, data egress, media pipelines, and real-time
-              feeds.
+              Designed and maintained the Supabase PostgreSQL backend, tuning
+              queries, data egress, and real-time feeds.
+            </li>
+            <li>
+              Implemented core PicStar features including the Top and Board
+              feeds, Shineouts for promoting posts and shots from Board to Top,
+              Top rankings, and city-based content filtering.
             </li>
           </ul>
           <div class="experience-links">
@@ -180,12 +204,16 @@
           </div>
           <ul class="experience-list">
             <li>
-              Partnered with 10+ developers and designers across the full
-              release lifecycle to ship stable builds.
+              Worked with developers and designers to test builds and catch
+              issues before release.
             </li>
             <li>
-              Tracked, reproduced, and verified defects in Trello while
-              supporting backend debugging workflows.
+              Logged, reproduced, and tracked bugs in Trello to keep fixes
+              moving smoothly.
+            </li>
+            <li>
+              Supported the full release cycle through regression testing and
+              build verification.
             </li>
           </ul>
         </article>
@@ -201,12 +229,15 @@
           </div>
           <ul class="experience-list">
             <li>
-              Tested pre-release game builds to surface bugs, exploits, and
-              gameplay balance issues.
+              Playtested different game builds to find bugs, glitches, and
+              exploits.
             </li>
             <li>
-              Delivered structured feedback and verified fixes directly with
-              engineering teams.
+              Gave written and verbal feedback on gameplay mechanics, balance,
+              and overall feel.
+            </li>
+            <li>
+              Worked with developers to report issues clearly and verify fixes.
             </li>
           </ul>
         </article>
@@ -583,7 +614,7 @@
     <textarea
       id="message"
       name="message"
-      rows="5"
+      rows="4"
       placeholder="Write your message here…"
       maxlength="2000"
       required
@@ -593,8 +624,12 @@
     <span class="btn-text"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message</span>
     <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending…</span>
   </button>
+  <button type="button" class="form-secondary-cta" data-request-resume>
+    View My Resume
+  </button>
   <p class="form-toast" id="form-toast" role="status" aria-live="polite"></p>
 </form>
+        <p class="social-links-title">Find me online</p>
         <div class="social-links">
           <a
             href="https://bsky.app/profile/haruchanz64.bsky.social"
@@ -669,6 +704,14 @@
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg
           ></a>
           <a
+            href="https://stackoverflow.com/users/11249879/haru"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="StackOverflow"
+            class="social-link"
+            ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M15.725 0l-1.72 1.277 6.39 8.588 1.716-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154Z"/></svg
+          ></a>
+          <a
             href="https://x.com/haruchanz64"
             target="_blank"
             rel="noopener noreferrer"
@@ -681,7 +724,7 @@
     </section>
 
     <footer class="footer">
-      <p>&copy; 2026 Haru. All rights reserved.</p>
+      <p>&copy; 2026 Aron Jake Radam (Haru). All rights reserved.</p>
     </footer>
   </body>
 </html>
