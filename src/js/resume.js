@@ -90,6 +90,24 @@ export function extractResumeData(doc = document) {
   const location =
     experience.find((item) => item.location)?.location || RESUME_DEFAULT_LOCATION;
 
+  const educationSection = doc.getElementById("education");
+  const educationItems = educationSection
+    ? Array.from(educationSection.querySelectorAll(".experience-item"))
+    : [];
+
+  const education = educationItems
+    .map((item) => {
+      const degree = getText(item, ".experience-role");
+      const dateEl = item.querySelector(".experience-date");
+      const date = normalizeText(
+        dateEl?.dataset?.dateRange || dateEl?.textContent,
+      );
+      const school = getText(item, ".experience-company");
+      const eduLocation = getText(item, ".experience-location");
+      return { degree, date, school, location: eduLocation };
+    })
+    .filter((entry) => entry.degree || entry.school);
+
   const skillsSection = doc.getElementById("skills");
   const skillTabs = skillsSection
     ? Array.from(skillsSection.querySelectorAll(".skill-tab"))
@@ -130,6 +148,7 @@ export function extractResumeData(doc = document) {
     links,
     experience,
     skills,
+    education,
   };
 }
 
@@ -180,6 +199,20 @@ export function buildAtsResumeHtml(data) {
           group.items.join(", "),
         )}</p>`,
     )
+    .join("");
+
+  const educationHtml = (data.education || [])
+    .map((item) => {
+      const metaParts = [item.school, item.location].filter(Boolean).map(escapeHtml);
+      return `
+        <article class="resume-item">
+          <div class="item-header">
+            <h3 class="item-title">${escapeHtml(item.degree)}</h3>
+            <span class="item-date">${escapeHtml(item.date)}</span>
+          </div>
+          ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
+        </article>`;
+    })
     .join("");
 
   return `<!DOCTYPE html>
@@ -305,6 +338,7 @@ export function buildAtsResumeHtml(data) {
   <main>
     ${experienceHtml ? `<section aria-labelledby="sec-exp"><h2 id="sec-exp">Experience</h2>${experienceHtml}</section>` : ""}
     ${skillsHtml ? `<section aria-labelledby="sec-skills"><h2 id="sec-skills">Technical Skills</h2>${skillsHtml}</section>` : ""}
+    ${educationHtml ? `<section aria-labelledby="sec-edu"><h2 id="sec-edu">Education</h2>${educationHtml}</section>` : ""}
   </main>
 </body>
 </html>`;
@@ -344,6 +378,16 @@ export function buildAtsResumeText(data) {
     lines.push("TECHNICAL SKILLS", "================");
     for (const group of data.skills) {
       lines.push(`${group.category}: ${group.items.join(", ")}`);
+    }
+    lines.push("");
+  }
+
+  if (data.education?.length) {
+    lines.push("EDUCATION", "=========");
+    for (const item of data.education) {
+      lines.push(`${item.degree}${item.date ? ` (${item.date})` : ""}`);
+      const meta = [item.school, item.location].filter(Boolean).join(" | ");
+      if (meta) lines.push(meta);
     }
   }
 

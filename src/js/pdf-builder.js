@@ -495,6 +495,18 @@ export function buildAtsResumePdfBytes(data) {
     }
   }
 
+  // Education
+  if (data.education?.length) {
+    doc.drawSectionHeading("Education");
+    for (const item of data.education) {
+      doc.drawTwoColumnRow(item.degree, item.date, { font: "F2", size: 10, lineHeight: 12.5 });
+      if (item.school || item.location) {
+        doc.drawTwoColumnRow(item.school, item.location, { font: "F1", size: 9.8, lineHeight: 12.25 });
+      }
+      doc.y -= 3;
+    }
+  }
+
   return assemblePdfBytes(doc.pages, {
     title: `${data.fullName} - Resume`,
     author: data.fullName,

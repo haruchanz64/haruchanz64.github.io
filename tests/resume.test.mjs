@@ -102,6 +102,34 @@ function createMockDocument() {
     },
   });
 
+  const educationSection = createElement({
+    childrenBySelector: {
+      ".experience-item": [
+        createElement({
+          childrenBySelector: {
+            ".experience-role": [
+              createElement({
+                textContent: "Bachelor of Science in Entertainment and Multimedia Computing",
+              }),
+            ],
+            ".experience-date": [
+              createElement({
+                textContent: "August 2021 – April 2025",
+                dataset: { dateRange: "August 2021 – April 2025" },
+              }),
+            ],
+            ".experience-company": [
+              createElement({ textContent: "University of Caloocan City" }),
+            ],
+            ".experience-location": [
+              createElement({ textContent: "Caloocan City, Metro Manila" }),
+            ],
+          },
+        }),
+      ],
+    },
+  });
+
   const skillsSection = createElement({
     childrenBySelector: {
       ".skill-tab": [
@@ -144,6 +172,7 @@ function createMockDocument() {
   const byId = {
     about: aboutSection,
     experience: experienceSection,
+    education: educationSection,
     projects: projectsSection,
     skills: skillsSection,
     languages: languagesPanel,
@@ -209,6 +238,11 @@ describe("extractResumeData", () => {
     assert.equal(data.location, "Caloocan City, Metro Manila");
     assert.equal(data.experience.length, 1);
     assert.equal(data.experience[0].date, "July 2026 – Present");
+    assert.equal(data.education.length, 1);
+    assert.equal(
+      data.education[0].degree,
+      "Bachelor of Science in Entertainment and Multimedia Computing",
+    );
     assert.equal(data.projects, undefined);
     assert.deepEqual(data.skills, [
       { category: "Programming Languages", items: ["C#", "Dart"] },
@@ -272,6 +306,10 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("/URI (https://haruchanz64.github.io/)"));
     assert.ok(pdfText.includes("(EXPERIENCE) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
+    assert.ok(pdfText.includes("(EDUCATION) Tj"));
+    assert.ok(
+      pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"),
+    );
     assert.equal(pdfText.includes("(PROJECTS) Tj"), false);
     assert.equal(pdfText.includes("GDriveDesktop"), false);
     assert.ok(pdfText.includes("/BaseFont /ArialMT"));
