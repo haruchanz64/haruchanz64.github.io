@@ -348,11 +348,11 @@ class PdfDocCursor {
   }
 
   drawSectionHeading(title) {
-    this.y -= 5;
-    this.ensureSpace(24);
+    this.y -= 8;
+    this.ensureSpace(28);
     this.drawTextAt(toPdfSafeText(title).toUpperCase(), MARGIN_X, this.y, { font: "F1", size: 10.5 });
-    this.y -= 4;
-    this.drawRule({ thickness: 0.75, gapBefore: 0, gapAfter: 9 });
+    this.y -= 4.5;
+    this.drawRule({ thickness: 0.75, gapBefore: 0, gapAfter: 13 });
   }
 }
 
