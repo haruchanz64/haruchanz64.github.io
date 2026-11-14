@@ -136,18 +136,22 @@ async function handleResumeGatePost(request, env) {
     return respond({ error: "Verification service is not configured." }, 500);
   }
 
-  const formData = new FormData();
-  formData.append("secret", env.TURNSTILE_SECRET_KEY);
-  formData.append("response", token);
+  const verifyBody = {
+    secret: env.TURNSTILE_SECRET_KEY,
+    response: token,
+  };
   const ip = request.headers.get("CF-Connecting-IP");
-  if (ip) formData.append("remoteip", ip);
+  if (ip) verifyBody.remoteip = ip;
 
   const verifyRes = await fetch(TURNSTILE_SITEVERIFY_URL, {
     method: "POST",
-    body: formData,
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(verifyBody),
   });
 
   if (!verifyRes.ok) {
+    const errText = await verifyRes.text().catch(() => "");
+    console.error("Turnstile siteverify HTTP error:", verifyRes.status, errText);
     return respond({ error: "Turnstile verification unavailable." }, 502);
   }
 
