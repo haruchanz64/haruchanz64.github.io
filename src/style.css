@@ -661,6 +661,8 @@ section[id] {
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--text-primary);
+  flex: 1 1 260px;
+  min-width: 0;
 }
 
 .experience-date {
@@ -668,6 +670,7 @@ section[id] {
   font-size: 0.8rem;
   color: var(--accent-primary);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .experience-meta {
