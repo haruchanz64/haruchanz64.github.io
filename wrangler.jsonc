@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "haru-portfolio",
+  "compatibility_date": "2025-04-01",
+  "main": "worker/contact.js",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS"
+  }
+}

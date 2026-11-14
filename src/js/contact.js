@@ -108,7 +108,7 @@ if (document.readyState === "loading") {
 }
 
 /**
- * Handles contact form submission via Netlify Forms AJAX with validation, timeout, and accessible toast feedback.
+ * Handles contact form submission via /api/contact with validation, timeout, and accessible toast feedback.
  * @param {SubmitEvent} e
  */
 export async function sendEmail(e) {
@@ -198,11 +198,11 @@ export async function sendEmail(e) {
     return;
   }
 
-  // Vite dev server returns 200 OK for POST / without processing Netlify Forms.
-  if (import.meta.env.DEV && window.location.port !== "8888") {
+  // Vite dev server returns 200 OK for POST without processing the Worker endpoint.
+  if (import.meta.env.DEV && window.location.port !== "8787") {
     showToast(
       toast,
-      "Email not sent: local Vite dev has no Netlify Forms handler. Deploy to Netlify or run `netlify dev`.",
+      "Email not sent: local Vite dev has no /api/contact handler. Deploy to Cloudflare or run `npx wrangler dev`.",
       "error"
     );
     return;
@@ -221,7 +221,7 @@ export async function sendEmail(e) {
     formData.set("subject", subject);
     formData.set("message", message);
 
-    const response = await fetch("/", {
+    const response = await fetch("/api/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -240,7 +240,7 @@ export async function sendEmail(e) {
     showToast(toast, "Message sent! I'll get back to you soon.", "success");
     resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl);
   } catch (err) {
-    console.error("Netlify form submission error:", err);
+    console.error("Contact form submission error:", err);
     let errorMsg =
       "Email could not be sent. Please try again or reach out via the social links below.";
 
