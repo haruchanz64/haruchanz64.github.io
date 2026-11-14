@@ -77,10 +77,10 @@ export function computeExperienceDuration(dateRangeText, now = new Date()) {
 }
 
 /**
- * Append calculated durations to all `.experience-date` elements in `root`.
+ * Append calculated durations to `.experience-date` elements in `#experience`.
  */
 export function applyExperienceDurations(root = document, now = new Date()) {
-  const dateEls = root.querySelectorAll(".experience-date");
+  const dateEls = root.querySelectorAll("#experience .experience-date");
   for (const el of dateEls) {
     const raw = el.dataset.dateRange ?? el.textContent.trim();
     el.dataset.dateRange = raw;
