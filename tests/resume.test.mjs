@@ -109,7 +109,7 @@ function createMockDocument() {
           childrenBySelector: {
             ".experience-role": [
               createElement({
-                textContent: "BSc in Entertainment and Multimedia Computing",
+                textContent: "B.S. in Entertainment and Multimedia Computing",
               }),
             ],
             ".experience-major": [
@@ -246,7 +246,7 @@ describe("extractResumeData", () => {
     assert.equal(data.education.length, 1);
     assert.equal(
       data.education[0].degree,
-      "BSc in Entertainment and Multimedia Computing",
+      "B.S. in Entertainment and Multimedia Computing",
     );
     assert.equal(data.projects, undefined);
     assert.deepEqual(data.skills, [
