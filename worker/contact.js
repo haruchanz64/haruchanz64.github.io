@@ -1,6 +1,5 @@
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
-const TURNSTILE_SITEVERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 const ALLOWED_CORS_ORIGINS = new Set([
   "https://haruchanz64.github.io",
   "https://haru-portfolio.haruchanz64.workers.dev",
@@ -116,60 +115,6 @@ async function handleContactPost(request, env) {
   return respond({ ok: true }, 200);
 }
 
-async function handleResumeGatePost(request, env) {
-  const respond = (body, status = 200) => jsonResponse(body, status, request);
-
-  let payload;
-  try {
-    payload = await request.json();
-  } catch {
-    return respond({ error: "Invalid JSON body." }, 400);
-  }
-
-  const token = typeof payload?.token === "string" ? payload.token.trim() : "";
-  if (!token) {
-    return respond({ error: "Missing Turnstile token." }, 400);
-  }
-
-  const secretKey = String(env.TURNSTILE_SECRET_KEY || "").trim();
-  if (!secretKey) {
-    console.error("Missing TURNSTILE_SECRET_KEY environment variable.");
-    return respond({ error: "Verification service is not configured." }, 500);
-  }
-
-  const verifyBody = {
-    secret: secretKey,
-    response: token,
-  };
-  const ip = request.headers.get("CF-Connecting-IP");
-  if (ip) verifyBody.remoteip = ip;
-
-  const verifyRes = await fetch(TURNSTILE_SITEVERIFY_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(verifyBody),
-  });
-
-  if (!verifyRes.ok) {
-    const errText = await verifyRes.text().catch(() => "");
-    console.error("Turnstile siteverify HTTP error:", verifyRes.status, errText);
-    return respond({ error: "Turnstile verification unavailable." }, 502);
-  }
-
-  const verifyData = await verifyRes.json();
-  if (!verifyData.success) {
-    return respond({ error: "Human verification failed." }, 403);
-  }
-
-  return respond(
-    {
-      phone: env.RESUME_PHONE || "",
-      email: env.RESUME_EMAIL || "",
-    },
-    200,
-  );
-}
-
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -182,16 +127,6 @@ export default {
         return jsonResponse({ error: "Method not allowed." }, 405, request);
       }
       return handleContactPost(request, env);
-    }
-
-    if (url.pathname === "/api/resume-gate") {
-      if (request.method === "OPTIONS") {
-        return new Response(null, { status: 204, headers: corsHeaders(request) });
-      }
-      if (request.method !== "POST") {
-        return jsonResponse({ error: "Method not allowed." }, 405, request);
-      }
-      return handleResumeGatePost(request, env);
     }
 
     return env.ASSETS.fetch(request);

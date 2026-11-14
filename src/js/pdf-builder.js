@@ -448,11 +448,8 @@ export function buildAtsResumePdfBytes(data) {
   const doc = new PdfDocCursor();
 
   const contactItems = [];
-  if (data.phone) {
-    contactItems.push({ text: data.phone });
-  }
-  if (data.email) {
-    contactItems.push({ text: data.email, url: `mailto:${data.email}` });
+  if (data.location) {
+    contactItems.push({ text: data.location });
   }
   if (data.website) {
     contactItems.push({ text: data.website, url: data.website });

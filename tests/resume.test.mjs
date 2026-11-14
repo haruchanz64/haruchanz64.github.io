@@ -3,14 +3,13 @@ import assert from "node:assert/strict";
 import {
   MIN_RESUME_PAGE_TIME_MS,
   RESUME_COOLDOWN_MS,
+  RESUME_DEFAULT_LOCATION,
   RESUME_FULL_NAME,
   RESUME_WEBSITE,
   buildAtsResumeHtml,
   buildAtsResumeText,
   escapeHtml,
   extractResumeData,
-  getResumeEmail,
-  getResumePhone,
   isResumeRequestAllowed,
   normalizeText,
 } from "../src/js/resume.js";
@@ -170,10 +169,9 @@ describe("resume helpers", () => {
     assert.equal(escapeHtml('<script>"test"</script>'), "&lt;script&gt;&quot;test&quot;&lt;/script&gt;");
   });
 
-  it("decodes phone and email without storing plaintext literals", () => {
+  it("uses full name, default location, and website without phone or email", () => {
     assert.equal(RESUME_FULL_NAME, "Aron Jake S. Radam");
-    assert.equal(getResumePhone(), "(+63) 961 226 2083");
-    assert.equal(getResumeEmail(), "radam.aronjake@gmail.com");
+    assert.equal(RESUME_DEFAULT_LOCATION, "Caloocan City, Metro Manila");
     assert.equal(RESUME_WEBSITE, "https://haruchanz64.github.io/");
   });
 
@@ -205,8 +203,8 @@ describe("extractResumeData", () => {
     const data = extractResumeData(doc);
 
     assert.equal(data.fullName, "Aron Jake S. Radam");
-    assert.equal(data.phone, "(+63) 961 226 2083");
-    assert.equal(data.email, "radam.aronjake@gmail.com");
+    assert.equal(data.phone, undefined);
+    assert.equal(data.email, undefined);
     assert.equal(data.headline, "Software Engineer & College Instructor");
     assert.equal(data.location, "Caloocan City, Metro Manila");
     assert.equal(data.experience.length, 1);
@@ -269,15 +267,13 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("startxref\n"));
     assert.ok(pdfText.endsWith("%%EOF\n"));
     assert.ok(pdfText.includes("(Aron Jake S. Radam) Tj"));
-    assert.ok(pdfText.includes("(\\(+63\\) 961 226 2083) Tj"));
-    assert.ok(pdfText.includes("(radam.aronjake@gmail.com) Tj"));
+    assert.ok(pdfText.includes("(Caloocan City, Metro Manila) Tj"));
     assert.ok(pdfText.includes("(https://haruchanz64.github.io/) Tj"));
     assert.ok(pdfText.includes("/URI (https://haruchanz64.github.io/)"));
     assert.ok(pdfText.includes("(EXPERIENCE) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.equal(pdfText.includes("(PROJECTS) Tj"), false);
     assert.equal(pdfText.includes("GDriveDesktop"), false);
-    assert.ok(pdfText.includes("/URI (mailto:radam.aronjake@gmail.com)"));
     assert.ok(pdfText.includes("/BaseFont /ArialMT"));
     assert.ok(pdfText.includes("/MediaBox [0 0 595.28 841.89]"));
     assert.ok(pdfText.includes("/Title (Aron Jake S. Radam - Resume)"));

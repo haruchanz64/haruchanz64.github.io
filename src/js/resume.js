@@ -1,41 +1,12 @@
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
+export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
 export const RESUME_WEBSITE = "https://haruchanz64.github.io/";
 export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
 export const MIN_RESUME_PAGE_TIME_MS = 1200;
 export const RESUME_COOLDOWN_MS = 2000;
-
-const CHAR_OFFSET = 7;
-const ENCODED_PHONE = [47, 50, 61, 58, 48, 39, 64, 61, 56, 39, 57, 57, 61, 39, 57, 55, 63, 58];
-const ENCODED_EMAIL = [
-  121, 104, 107, 104, 116, 53, 104, 121, 118, 117, 113, 104,
-  114, 108, 71, 110, 116, 104, 112, 115, 53, 106, 118, 116,
-];
-
-const TURNSTILE_SITE_KEY =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_TURNSTILE_SITE_KEY) ||
-  "0x4AAAAAAGAwbWneFQYFo-Nq";
-const DEFAULT_RESUME_GATE_URL =
-  typeof window !== "undefined" && window.location.hostname.endsWith(".workers.dev")
-    ? "/api/resume-gate"
-    : "https://haru-portfolio.haruchanz64.workers.dev/api/resume-gate";
-const RESUME_GATE_URL =
-  (typeof import.meta !== "undefined" && import.meta.env?.VITE_RESUME_GATE_URL) ||
-  DEFAULT_RESUME_GATE_URL;
-
-function decodeContact(codes, offset = CHAR_OFFSET) {
-  return String.fromCharCode(...codes.map((code) => code - offset));
-}
-
-export function getResumePhone() {
-  return decodeContact(ENCODED_PHONE);
-}
-
-export function getResumeEmail() {
-  return decodeContact(ENCODED_EMAIL);
-}
 
 /**
  * Verify that a resume trigger came from a real, human-paced interaction.
@@ -89,9 +60,8 @@ function getText(parent, selector) {
 /**
  * Extract structured resume data from the portfolio DOM, explicitly excluding `#about`.
  * @param {Document} doc
- * @param {{ phone?: string, email?: string } | null} contactOverride
  */
-export function extractResumeData(doc = document, contactOverride = null) {
+export function extractResumeData(doc = document) {
   const headline =
     getText(doc, ".nav-brand-role") || DEFAULT_HEADLINE;
 
@@ -117,7 +87,8 @@ export function extractResumeData(doc = document, contactOverride = null) {
     })
     .filter((entry) => entry.role || entry.company);
 
-  const location = experience.find((item) => item.location)?.location || "";
+  const location =
+    experience.find((item) => item.location)?.location || RESUME_DEFAULT_LOCATION;
 
   const skillsSection = doc.getElementById("skills");
   const skillTabs = skillsSection
@@ -153,11 +124,9 @@ export function extractResumeData(doc = document, contactOverride = null) {
 
   return {
     fullName: RESUME_FULL_NAME,
-    phone: contactOverride?.phone ?? getResumePhone(),
-    email: contactOverride?.email ?? getResumeEmail(),
+    location,
     website: RESUME_WEBSITE,
     headline,
-    location,
     links,
     experience,
     skills,
@@ -171,13 +140,8 @@ export function extractResumeData(doc = document, contactOverride = null) {
  */
 export function buildAtsResumeHtml(data) {
   const contactParts = [];
-  if (data.phone) {
-    contactParts.push(escapeHtml(data.phone));
-  }
-  if (data.email) {
-    contactParts.push(
-      `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`,
-    );
+  if (data.location) {
+    contactParts.push(escapeHtml(data.location));
   }
   if (data.website) {
     contactParts.push(
@@ -356,8 +320,7 @@ export function buildAtsResumeText(data) {
   if (data.headline) lines.push(data.headline);
 
   const contactParts = [];
-  if (data.phone) contactParts.push(data.phone);
-  if (data.email) contactParts.push(data.email);
+  if (data.location) contactParts.push(data.location);
   if (data.website) contactParts.push(data.website);
   for (const link of data.links || []) {
     contactParts.push(link.url);
@@ -402,23 +365,10 @@ export function buildAtsResumePdfBlob(data) {
 
 let activeModal = null;
 let activePdfUrl = null;
-let activeTurnstileWidgetId = null;
 let lastTriggerEl = null;
 
 function closeResumeModal() {
   if (!activeModal) return;
-  if (
-    activeTurnstileWidgetId !== null &&
-    typeof window !== "undefined" &&
-    window.turnstile?.remove
-  ) {
-    try {
-      window.turnstile.remove(activeTurnstileWidgetId);
-    } catch {
-      // Ignore cleanup errors if widget was already removed.
-    }
-    activeTurnstileWidgetId = null;
-  }
   activeModal.remove();
   activeModal = null;
   if (activePdfUrl) {
@@ -432,67 +382,27 @@ function closeResumeModal() {
   lastTriggerEl = null;
 }
 
-function renderPdfPreviewInModal(overlay, contactOverride = null) {
-  const data = extractResumeData(document, contactOverride);
-  const pdfBlob = buildAtsResumePdfBlob(data);
-  const pdfUrl = URL.createObjectURL(pdfBlob);
-
-  if (activePdfUrl) {
-    URL.revokeObjectURL(activePdfUrl);
-  }
-  activePdfUrl = pdfUrl;
-
-  const safeTitle = escapeHtml(`${data.fullName} — Resume`);
-  const safeFilename = escapeHtml(RESUME_PDF_FILENAME);
-  const safeUrl = escapeHtml(pdfUrl);
-
-  const controls = overlay.querySelector(".resume-modal-controls");
-  const body = overlay.querySelector(".resume-modal-body");
-
-  controls.innerHTML = `
-    <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">Download Resume</a>
-    <button type="button" class="resume-modal-close" aria-label="Close resume preview">&times;</button>
-  `;
-  controls.querySelector(".resume-modal-close").addEventListener("click", closeResumeModal);
-
-  body.className = "resume-modal-body resume-preview-frame-wrap";
-  body.innerHTML = `
-    <iframe class="resume-preview-frame" src="${safeUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit" title="${safeTitle}"></iframe>
-  `;
-
-  controls.querySelector(".resume-download-btn")?.focus();
-  return { data, pdfUrl, filename: RESUME_PDF_FILENAME };
-}
-
-async function verifyTurnstileToken(token) {
-  const response = await fetch(RESUME_GATE_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ token }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Verification failed (${response.status})`);
-  }
-
-  return response.json();
-}
-
 /**
  * Build the ATS-friendly PDF resume from the current portfolio DOM (excluding `#about`)
  * and display it in an accessible in-page preview modal with a manual Download Resume button.
- * When `VITE_TURNSTILE_SITE_KEY` and `VITE_RESUME_GATE_URL` are configured, verifies
- * human interaction via Cloudflare Turnstile + Worker before generating the PDF.
  */
 export function requestResume(triggerEl = null) {
   if (typeof document === "undefined") return null;
+
+  const data = extractResumeData(document);
+  const pdfBlob = buildAtsResumePdfBlob(data);
+  const pdfUrl = URL.createObjectURL(pdfBlob);
 
   if (activeModal) {
     closeResumeModal();
   }
 
+  activePdfUrl = pdfUrl;
   lastTriggerEl = triggerEl || document.activeElement;
-  const safeTitle = escapeHtml(`${RESUME_FULL_NAME} — Resume`);
+
+  const safeTitle = escapeHtml(`${data.fullName} — Resume`);
+  const safeFilename = escapeHtml(RESUME_PDF_FILENAME);
+  const safeUrl = escapeHtml(pdfUrl);
 
   const overlay = document.createElement("div");
   overlay.id = "resume-modal";
@@ -508,10 +418,13 @@ export function requestResume(triggerEl = null) {
           <h2 id="resume-modal-title" class="resume-modal-title">${safeTitle}</h2>
         </div>
         <div class="resume-modal-controls">
+          <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">Download Resume</a>
           <button type="button" class="resume-modal-close" aria-label="Close resume preview">&times;</button>
         </div>
       </div>
-      <div class="resume-modal-body"></div>
+      <div class="resume-preview-frame-wrap">
+        <iframe class="resume-preview-frame" src="${safeUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit" title="${safeTitle}"></iframe>
+      </div>
     </div>
   `;
 
@@ -524,57 +437,9 @@ export function requestResume(triggerEl = null) {
   document.body.style.overflow = "hidden";
   activeModal = overlay;
 
-  const isTurnstileEnabled =
-    Boolean(TURNSTILE_SITE_KEY) &&
-    typeof window !== "undefined" &&
-    Boolean(window.turnstile?.render);
+  overlay.querySelector(".resume-download-btn")?.focus();
 
-  if (!isTurnstileEnabled) {
-    return renderPdfPreviewInModal(overlay);
-  }
-
-  const body = overlay.querySelector(".resume-modal-body");
-  body.className = "resume-modal-body resume-gate-panel";
-  body.innerHTML = `
-    <p class="resume-gate-message">Quick human verification before loading the resume…</p>
-    <div id="resume-turnstile-widget"></div>
-    <p class="resume-gate-error" role="alert" hidden></p>
-  `;
-
-  const errorEl = body.querySelector(".resume-gate-error");
-  const messageEl = body.querySelector(".resume-gate-message");
-
-  activeTurnstileWidgetId = window.turnstile.render("#resume-turnstile-widget", {
-    sitekey: TURNSTILE_SITE_KEY,
-    theme: document.documentElement.classList.contains("light-theme") ? "light" : "dark",
-    callback: async (token) => {
-      if (!RESUME_GATE_URL) {
-        if (!activeModal) return;
-        renderPdfPreviewInModal(overlay);
-        return;
-      }
-
-      messageEl.textContent = "Verifying…";
-      errorEl.hidden = true;
-      try {
-        const contact = await verifyTurnstileToken(token);
-        if (!activeModal) return;
-        renderPdfPreviewInModal(overlay, contact);
-      } catch (err) {
-        console.error("Resume gate verification error:", err);
-        messageEl.textContent = "Verification failed. Please try again.";
-        errorEl.textContent = "Unable to verify right now. Please refresh or use the contact form.";
-        errorEl.hidden = false;
-        window.turnstile?.reset?.(activeTurnstileWidgetId);
-      }
-    },
-    "error-callback": () => {
-      errorEl.textContent = "Verification challenge could not load. Please disable strict blockers or try again.";
-      errorEl.hidden = false;
-    },
-  });
-
-  return { gated: true, filename: RESUME_PDF_FILENAME };
+  return { data, pdfUrl, filename: RESUME_PDF_FILENAME };
 }
 
 function initResumeTriggers() {
