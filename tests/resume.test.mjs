@@ -1,14 +1,17 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
-  RESUME_EMAIL,
+  MIN_RESUME_PAGE_TIME_MS,
+  RESUME_COOLDOWN_MS,
   RESUME_FULL_NAME,
-  RESUME_PHONE,
   RESUME_WEBSITE,
   buildAtsResumeHtml,
   buildAtsResumeText,
   escapeHtml,
   extractResumeData,
+  getResumeEmail,
+  getResumePhone,
+  isResumeRequestAllowed,
   normalizeText,
 } from "../src/js/resume.js";
 import {
@@ -167,11 +170,32 @@ describe("resume helpers", () => {
     assert.equal(escapeHtml('<script>"test"</script>'), "&lt;script&gt;&quot;test&quot;&lt;/script&gt;");
   });
 
-  it("uses the full name Aron Jake S. Radam, phone, email, and website", () => {
+  it("decodes phone and email without storing plaintext literals", () => {
     assert.equal(RESUME_FULL_NAME, "Aron Jake S. Radam");
-    assert.equal(RESUME_PHONE, "(+63) 961 226 2083");
-    assert.equal(RESUME_EMAIL, "radam.aronjake@gmail.com");
+    assert.equal(getResumePhone(), "(+63) 961 226 2083");
+    assert.equal(getResumeEmail(), "radam.aronjake@gmail.com");
     assert.equal(RESUME_WEBSITE, "https://haruchanz64.github.io/");
+  });
+
+  it("gates resume requests against untrusted, rushed, or rapid-repeat triggers", () => {
+    const ok = {
+      isTrusted: true,
+      elapsedMs: MIN_RESUME_PAGE_TIME_MS + 500,
+      hasInteracted: true,
+      lastTriggeredAt: 0,
+      now: 10_000,
+    };
+    assert.equal(isResumeRequestAllowed(ok), true);
+    assert.equal(isResumeRequestAllowed({ ...ok, isTrusted: false }), false);
+    assert.equal(isResumeRequestAllowed({ ...ok, hasInteracted: false }), false);
+    assert.equal(isResumeRequestAllowed({ ...ok, elapsedMs: MIN_RESUME_PAGE_TIME_MS - 1 }), false);
+    assert.equal(
+      isResumeRequestAllowed({
+        ...ok,
+        lastTriggeredAt: 10_000 - (RESUME_COOLDOWN_MS - 100),
+      }),
+      false,
+    );
   });
 });
 

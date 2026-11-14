@@ -1201,3 +1201,26 @@ code {
   border: none;
   display: block;
 }
+
+.resume-gate-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1.25rem;
+  text-align: center;
+}
+
+.resume-gate-message {
+  margin: 0;
+  color: var(--text-secondary, #a1a1aa);
+  font-size: 0.95rem;
+}
+
+.resume-gate-error {
+  margin: 0;
+  color: #f87171;
+  font-size: 0.85rem;
+}
