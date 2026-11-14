@@ -42,7 +42,7 @@ function initFormControls() {
   const messageEl = document.getElementById("message");
   const counterEl = document.getElementById("message-char-count");
   if (messageEl && counterEl) {
-    const maxLen = messageEl.getAttribute("maxlength") || "2000";
+    const maxLen = messageEl.getAttribute("maxlength") || "1000";
     const update = () => {
       counterEl.textContent = `${messageEl.value.length} / ${maxLen}`;
     };
@@ -96,7 +96,7 @@ function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
   }
   const counterEl = document.getElementById("message-char-count");
   if (counterEl) {
-    const maxLen = messageEl.getAttribute("maxlength") || "2000";
+    const maxLen = messageEl.getAttribute("maxlength") || "1000";
     counterEl.textContent = `0 / ${maxLen}`;
   }
 }

@@ -70,7 +70,7 @@ async function handleContactPost(request, env) {
     return respond({ error: "Please provide a valid email address." }, 400);
   }
 
-  if (name.length > 100 || email.length > 160 || subject.length > 160 || message.length > 2000) {
+  if (name.length > 100 || email.length > 160 || subject.length > 160 || message.length > 1000) {
     return respond({ error: "Input exceeds maximum allowed length." }, 400);
   }
 
