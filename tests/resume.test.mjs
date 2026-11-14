@@ -68,6 +68,11 @@ function createMockDocument() {
               createElement({ textContent: "Caloocan City, Metro Manila" }),
             ],
             ".experience-list li": [
+              createElement({
+                textContent: "Capstone Project — Trash Frenzy: Educational game raising water pollution awareness.",
+              }),
+            ],
+            ".experience-list li": [
               createElement({ textContent: "Teach game design theory and prototyping." }),
             ],
           },
@@ -128,6 +133,11 @@ function createMockDocument() {
             ],
             ".experience-location": [
               createElement({ textContent: "Caloocan City, Metro Manila" }),
+            ],
+            ".experience-list li": [
+              createElement({
+                textContent: "Capstone Project — Trash Frenzy: Educational game raising water pollution awareness.",
+              }),
             ],
           },
         }),
@@ -284,6 +294,7 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(text.includes("TECHNICAL SKILLS"));
     assert.equal(text.includes("PROJECTS"), false);
     assert.ok(text.includes("Programming Languages: C#, Dart"));
+    assert.ok(text.includes("- Capstone Project — Trash Frenzy:"));
     assert.equal(text.includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
 });
@@ -313,6 +324,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("(Major in Game Development) Tj"));
+    assert.ok(pdfText.includes("Trash Frenzy"));
     assert.ok(
       pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"),
     );

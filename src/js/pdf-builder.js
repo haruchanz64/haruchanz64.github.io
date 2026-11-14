@@ -508,6 +508,9 @@ export function buildAtsResumePdfBytes(data) {
       if (item.school || item.location) {
         doc.drawTwoColumnRow(item.school, item.location, { font: "F1", size: 9.8, lineHeight: 12.25 });
       }
+      for (const bullet of item.bullets || []) {
+        doc.drawBullet(bullet, { size: 9.6, lineHeight: 12 });
+      }
       doc.y -= 3;
     }
   }

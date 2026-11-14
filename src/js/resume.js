@@ -105,7 +105,10 @@ export function extractResumeData(doc = document) {
       );
       const school = getText(item, ".experience-company");
       const eduLocation = getText(item, ".experience-location");
-      return { degree, major, date, school, location: eduLocation };
+      const bullets = Array.from(item.querySelectorAll(".experience-list li"))
+        .map((li) => normalizeText(li.textContent))
+        .filter(Boolean);
+      return { degree, major, date, school, location: eduLocation, bullets };
     })
     .filter((entry) => entry.degree || entry.school);
 
@@ -205,6 +208,9 @@ export function buildAtsResumeHtml(data) {
   const educationHtml = (data.education || [])
     .map((item) => {
       const metaParts = [item.school, item.location].filter(Boolean).map(escapeHtml);
+      const bulletsHtml = item.bullets?.length
+        ? `<ul>${item.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
+        : "";
       return `
         <article class="resume-item">
           <div class="item-header">
@@ -213,6 +219,7 @@ export function buildAtsResumeHtml(data) {
           </div>
           ${item.major ? `<div class="item-subtitle">${escapeHtml(item.major)}</div>` : ""}
           ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
+          ${bulletsHtml}
         </article>`;
     })
     .join("");
@@ -391,6 +398,9 @@ export function buildAtsResumeText(data) {
       if (item.major) lines.push(item.major);
       const meta = [item.school, item.location].filter(Boolean).join(" | ");
       if (meta) lines.push(meta);
+      for (const bullet of item.bullets || []) {
+        lines.push(`- ${bullet}`);
+      }
     }
   }
 
