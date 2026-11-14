@@ -63,14 +63,8 @@ export function extractResumeData(doc = document) {
       const bullets = Array.from(item.querySelectorAll(".experience-list li"))
         .map((li) => normalizeText(li.textContent))
         .filter(Boolean);
-      const links = Array.from(item.querySelectorAll(".experience-links a"))
-        .map((a) => ({
-          label: normalizeText(a.textContent),
-          url: normalizeText(a.getAttribute("href") || a.href),
-        }))
-        .filter((link) => link.url);
 
-      return { role, date, company, location, bullets, links };
+      return { role, date, company, location, bullets };
     })
     .filter((entry) => entry.role || entry.company);
 
@@ -153,14 +147,6 @@ export function buildAtsResumeHtml(data) {
       const bulletsHtml = item.bullets
         .map((bullet) => `<li>${escapeHtml(bullet)}</li>`)
         .join("");
-      const linksHtml = item.links?.length
-        ? `<p class="item-links">${item.links
-            .map(
-              (l) =>
-                `${escapeHtml(l.label)}: <a href="${escapeHtml(l.url)}">${escapeHtml(l.url)}</a>`,
-            )
-            .join(" | ")}</p>`
-        : "";
 
       return `
         <article class="resume-item">
@@ -170,7 +156,6 @@ export function buildAtsResumeHtml(data) {
           </div>
           ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
           ${bulletsHtml ? `<ul>${bulletsHtml}</ul>` : ""}
-          ${linksHtml}
         </article>`;
     })
     .join("");
@@ -236,7 +221,6 @@ export function buildAtsResumeHtml(data) {
       margin: 0;
     }
     .contact-line a,
-    .item-links a,
     .item-date a {
       color: #111111;
       text-decoration: none;
@@ -283,8 +267,7 @@ export function buildAtsResumeHtml(data) {
       font-style: italic;
       margin: 1pt 0 3pt 0;
     }
-    .item-desc,
-    .item-links {
+    .item-desc {
       font-size: 10pt;
       margin: 2pt 0 0 0;
     }
@@ -340,9 +323,6 @@ export function buildAtsResumeText(data) {
       if (meta) lines.push(meta);
       for (const bullet of item.bullets || []) {
         lines.push(`- ${bullet}`);
-      }
-      for (const link of item.links || []) {
-        lines.push(`${link.label}: ${link.url}`);
       }
       lines.push("");
     }

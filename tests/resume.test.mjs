@@ -68,7 +68,6 @@ function createMockDocument() {
             ".experience-list li": [
               createElement({ textContent: "Teach game design theory and prototyping." }),
             ],
-            ".experience-links a": [],
           },
         }),
       ],

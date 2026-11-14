@@ -844,32 +844,44 @@ section[id] {
   font-size: 0.85em;
 }
 
+.experience-company-group {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.65rem;
+}
+
 .experience-links {
-  display: flex;
+  display: inline-flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 1.25rem;
-  margin-top: 1.15rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid color-mix(in srgb, var(--fourth-color) 15%, transparent);
+  gap: 0.4rem;
 }
 
 .experience-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.35rem;
   font-family: var(--font-mono);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   font-weight: 500;
+  line-height: 1.2;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-primary) 88%, var(--accent-primary));
+  border: 1px solid color-mix(in srgb, var(--accent-primary) 25%, var(--border-color));
   color: var(--text-secondary);
   text-decoration: none;
-  transition: color var(--transition);
+  transition:
+    color var(--transition),
+    border-color var(--transition),
+    background var(--transition);
 }
 
 .experience-link::after {
   content: "↗";
-  font-size: 0.78em;
-  opacity: 0.65;
+  font-size: 0.8em;
+  opacity: 0.7;
   transition:
     transform var(--transition),
     opacity var(--transition);
@@ -877,9 +889,8 @@ section[id] {
 
 .experience-link:hover {
   color: var(--accent-primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  text-decoration-color: color-mix(in srgb, var(--accent-primary) 55%, transparent);
+  border-color: var(--accent-primary);
+  background: color-mix(in srgb, var(--bg-primary) 82%, var(--accent-primary));
 }
 
 .experience-link:hover::after {
