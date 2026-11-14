@@ -1,14 +1,14 @@
 # Haru Portfolio
 
-Personal portfolio website for **Haru** — Lead Full-Stack Software Engineer & College Instructor. Built with vanilla HTML, CSS, and JavaScript (ES modules) and bundled with [Vite](https://vite.dev/).
+My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engineer & College Instructor. Built with vanilla HTML, CSS, and JavaScript (ES modules) and bundled with [Vite](https://vite.dev/).
 
 ## Features
 
 - **Portfolio Sections**: Hero, About Me, Experience timeline, Projects, tabbed Skills showcase, and Contact.
 - **Dynamic Project Feeds**:
-  - **Systems & Tools**: Fetches pinned repositories for `haruchanz64` from the GitHub API (`src/js/github.js`).
-  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
-- **Contact Form**: Submits to a Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact.js`, `src/js/spam-detector.js`).
+  - **Systems & Tools**: Fetches my pinned repositories (`haruchanz64`) from the GitHub API (`src/js/github.js`).
+  - **Game Projects**: Renders my itch.io game metadata from `public/data/itch-projects.json` (`src/js/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
+- **Contact Form**: Submits to my Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact.js`, `src/js/spam-detector.js`).
 - **Interactive UI**: Theme management, intersection-observer section tracking, URL hash synchronization, and tabbed skill categories.
 
 ## Tech Stack
@@ -73,9 +73,9 @@ node --test
 ## Deployment
 
 - **Frontend (GitHub Pages)**: Automatically built and deployed to `https://haruchanz64.github.io` on push to `main` via `.github/workflows/deploy.yml`.
-- **Contact Endpoint (Cloudflare Worker)**: `worker/contact.js` handles `POST /api/contact` with CORS enabled for `https://haruchanz64.github.io`. Configure the following runtime variables/secrets on the Cloudflare Worker:
+- **Contact Endpoint (Cloudflare Worker)**: `worker/contact.js` handles `POST /api/contact` with CORS enabled for `https://haruchanz64.github.io`. My Cloudflare Worker uses the following runtime variables/secrets:
   - `RESEND_API_KEY` *(Secret)* — Resend API key with Sending access
-  - `CONTACT_TO_EMAIL` — Destination email address for contact submissions
+  - `CONTACT_TO_EMAIL` — My email address for receiving contact submissions
 
 ## Project Structure
 
