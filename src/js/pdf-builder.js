@@ -194,31 +194,17 @@ class PdfDocCursor {
 
     if (contactItems.length > 0) {
       const sepChar = "|";
-      let contactSize = 9;
-      let sepGap = 6;
-      const calcTotalWidth = (size, gap) => {
-        const sepW = estimateTextWidth(sepChar, size, false);
-        return (
-          contactItems.reduce((sum, item) => sum + estimateTextWidth(item.text, size, false), 0) +
-          (gap * 2 + sepW) * Math.max(0, contactItems.length - 1)
-        );
-      };
-
-      let totalWidth = calcTotalWidth(contactSize, sepGap);
-      if (totalWidth > CONTENT_WIDTH) {
-        sepGap = 4.5;
-        totalWidth = calcTotalWidth(contactSize, sepGap);
-      }
-      while (totalWidth > CONTENT_WIDTH && contactSize > 7.5) {
-        contactSize = Math.max(7.5, contactSize - 0.25);
-        totalWidth = calcTotalWidth(contactSize, sepGap);
-      }
-
+      const sepGap = 6;
+      const contactSize = 9;
       const sepCharWidth = estimateTextWidth(sepChar, contactSize, false);
+      const calcRowWidth = (items) =>
+        items.reduce((sum, item) => sum + estimateTextWidth(item.text, contactSize, false), 0) +
+        (sepGap * 2 + sepCharWidth) * Math.max(0, items.length - 1);
 
-      if (totalWidth <= CONTENT_WIDTH) {
-        let cursorX = (PAGE_WIDTH - totalWidth) / 2;
-        contactItems.forEach((item, idx) => {
+      const drawCenteredContactRow = (items) => {
+        const rowWidth = calcRowWidth(items);
+        let cursorX = Math.max(MARGIN_X, (PAGE_WIDTH - rowWidth) / 2);
+        items.forEach((item, idx) => {
           if (idx > 0) {
             cursorX += sepGap;
             this.drawTextAt(sepChar, cursorX, this.y, { font: "F1", size: contactSize });
@@ -239,11 +225,17 @@ class PdfDocCursor {
           }
           cursorX += itemWidth;
         });
-        this.y -= 14;
+        this.y -= 13;
+      };
+
+      if (calcRowWidth(contactItems) <= CONTENT_WIDTH) {
+        drawCenteredContactRow(contactItems);
       } else {
-        const line = contactItems.map((i) => i.text).join(" | ");
-        this.drawWrapped(line, { font: "F1", size: contactSize, lineHeight: 12 });
+        const splitIdx = Math.ceil(contactItems.length / 2);
+        drawCenteredContactRow(contactItems.slice(0, splitIdx));
+        drawCenteredContactRow(contactItems.slice(splitIdx));
       }
+      this.y -= 2;
     }
   }
 
@@ -461,6 +453,9 @@ export function buildAtsResumePdfBytes(data) {
   }
   if (data.email) {
     contactItems.push({ text: data.email, url: `mailto:${data.email}` });
+  }
+  if (data.website) {
+    contactItems.push({ text: data.website, url: data.website });
   }
   for (const link of data.links || []) {
     contactItems.push({ text: link.url, url: link.url });

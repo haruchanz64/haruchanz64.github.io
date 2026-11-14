@@ -4,6 +4,7 @@ import {
   RESUME_EMAIL,
   RESUME_FULL_NAME,
   RESUME_PHONE,
+  RESUME_WEBSITE,
   buildAtsResumeHtml,
   buildAtsResumeText,
   escapeHtml,
@@ -167,10 +168,11 @@ describe("resume helpers", () => {
     assert.equal(escapeHtml('<script>"test"</script>'), "&lt;script&gt;&quot;test&quot;&lt;/script&gt;");
   });
 
-  it("uses the full name Aron Jake S. Radam, phone, and email", () => {
+  it("uses the full name Aron Jake S. Radam, phone, email, and website", () => {
     assert.equal(RESUME_FULL_NAME, "Aron Jake S. Radam");
     assert.equal(RESUME_PHONE, "(+63) 961 226 2083");
     assert.equal(RESUME_EMAIL, "radam.aronjake@gmail.com");
+    assert.equal(RESUME_WEBSITE, "https://haruchanz64.github.io/");
   });
 });
 
@@ -246,6 +248,8 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(Aron Jake S. Radam) Tj"));
     assert.ok(pdfText.includes("(\\(+63\\) 961 226 2083) Tj"));
     assert.ok(pdfText.includes("(radam.aronjake@gmail.com) Tj"));
+    assert.ok(pdfText.includes("(https://haruchanz64.github.io/) Tj"));
+    assert.ok(pdfText.includes("/URI (https://haruchanz64.github.io/)"));
     assert.ok(pdfText.includes("(EXPERIENCE) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.equal(pdfText.includes("(PROJECTS) Tj"), false);

@@ -3,6 +3,7 @@ import { buildAtsResumePdfBytes } from "./pdf-builder.js";
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_PHONE = "(+63) 961 226 2083";
 export const RESUME_EMAIL = "radam.aronjake@gmail.com";
+export const RESUME_WEBSITE = "https://haruchanz64.github.io/";
 export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
 const DEFAULT_HEADLINE = "Software Engineer & College Instructor";
@@ -111,6 +112,7 @@ export function extractResumeData(doc = document) {
     fullName: RESUME_FULL_NAME,
     phone: RESUME_PHONE,
     email: RESUME_EMAIL,
+    website: RESUME_WEBSITE,
     headline,
     location,
     links,
@@ -132,6 +134,11 @@ export function buildAtsResumeHtml(data) {
   if (data.email) {
     contactParts.push(
       `<a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>`,
+    );
+  }
+  if (data.website) {
+    contactParts.push(
+      `<a href="${escapeHtml(data.website)}">${escapeHtml(data.website)}</a>`,
     );
   }
   for (const link of data.links || []) {
@@ -319,6 +326,7 @@ export function buildAtsResumeText(data) {
   const contactParts = [];
   if (data.phone) contactParts.push(data.phone);
   if (data.email) contactParts.push(data.email);
+  if (data.website) contactParts.push(data.website);
   for (const link of data.links || []) {
     contactParts.push(link.url);
   }
