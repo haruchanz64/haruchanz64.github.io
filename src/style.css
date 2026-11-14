@@ -1201,3 +1201,9 @@ code {
   border: none;
   display: block;
 }
+
+.experience-major {
+  margin: 0.15rem 0 0.35rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}

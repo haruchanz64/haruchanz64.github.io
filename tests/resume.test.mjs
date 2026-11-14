@@ -112,6 +112,11 @@ function createMockDocument() {
                 textContent: "Bachelor of Science in Entertainment and Multimedia Computing",
               }),
             ],
+            ".experience-major": [
+              createElement({
+                textContent: "Major in Game Development",
+              }),
+            ],
             ".experience-date": [
               createElement({
                 textContent: "August 2021 – April 2025",
@@ -307,6 +312,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(EXPERIENCE) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
+    assert.ok(pdfText.includes("(Major in Game Development) Tj"));
     assert.ok(
       pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"),
     );

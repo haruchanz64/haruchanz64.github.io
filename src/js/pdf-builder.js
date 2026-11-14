@@ -500,6 +500,11 @@ export function buildAtsResumePdfBytes(data) {
     doc.drawSectionHeading("Education");
     for (const item of data.education) {
       doc.drawTwoColumnRow(item.degree, item.date, { font: "F2", size: 10, lineHeight: 12.5 });
+      if (item.major) {
+        doc.ensureSpace(12);
+        doc.drawTextAt(item.major, MARGIN_X, doc.y, { font: "F3", size: 9.6 });
+        doc.y -= 12;
+      }
       if (item.school || item.location) {
         doc.drawTwoColumnRow(item.school, item.location, { font: "F1", size: 9.8, lineHeight: 12.25 });
       }

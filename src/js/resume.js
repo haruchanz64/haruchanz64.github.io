@@ -98,13 +98,14 @@ export function extractResumeData(doc = document) {
   const education = educationItems
     .map((item) => {
       const degree = getText(item, ".experience-role");
+      const major = getText(item, ".experience-major");
       const dateEl = item.querySelector(".experience-date");
       const date = normalizeText(
         dateEl?.dataset?.dateRange || dateEl?.textContent,
       );
       const school = getText(item, ".experience-company");
       const eduLocation = getText(item, ".experience-location");
-      return { degree, date, school, location: eduLocation };
+      return { degree, major, date, school, location: eduLocation };
     })
     .filter((entry) => entry.degree || entry.school);
 
@@ -210,6 +211,7 @@ export function buildAtsResumeHtml(data) {
             <h3 class="item-title">${escapeHtml(item.degree)}</h3>
             <span class="item-date">${escapeHtml(item.date)}</span>
           </div>
+          ${item.major ? `<div class="item-subtitle">${escapeHtml(item.major)}</div>` : ""}
           ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
         </article>`;
     })
@@ -386,6 +388,7 @@ export function buildAtsResumeText(data) {
     lines.push("EDUCATION", "=========");
     for (const item of data.education) {
       lines.push(`${item.degree}${item.date ? ` (${item.date})` : ""}`);
+      if (item.major) lines.push(item.major);
       const meta = [item.school, item.location].filter(Boolean).join(" | ");
       if (meta) lines.push(meta);
     }
