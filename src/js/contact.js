@@ -221,7 +221,12 @@ export async function sendEmail(e) {
     formData.set("subject", subject);
     formData.set("message", message);
 
-    const response = await fetch("/api/contact", {
+    const contactEndpoint =
+      window.location.hostname.endsWith(".workers.dev") || window.location.port === "8787"
+        ? "/api/contact"
+        : "https://haruchanz64-portfolio.haruchanz64.workers.dev/api/contact";
+
+    const response = await fetch(contactEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",

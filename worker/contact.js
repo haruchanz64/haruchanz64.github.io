@@ -19,16 +19,18 @@ async function parseSubmission(request) {
 }
 
 async function handleContactPost(request, env) {
+  const respond = (body, status = 200) => jsonResponse(body, status, request);
+
   let payload;
   try {
     payload = await parseSubmission(request);
   } catch {
-    return jsonResponse({ error: "Invalid request body." }, 400);
+    return respond({ error: "Invalid request body." }, 400);
   }
 
   // Silently accept honeypot submissions so bots do not retry.
   if (typeof payload["bot-field"] === "string" && payload["bot-field"].trim() !== "") {
-    return jsonResponse({ ok: true }, 200);
+    return respond({ ok: true }, 200);
   }
 
   const name = typeof payload.name === "string" ? payload.name.trim() : "";
@@ -37,20 +39,20 @@ async function handleContactPost(request, env) {
   const message = typeof payload.message === "string" ? payload.message.trim() : "";
 
   if (!name || !email || !subject || !message) {
-    return jsonResponse({ error: "All fields are required." }, 400);
+    return respond({ error: "All fields are required." }, 400);
   }
 
   if (!EMAIL_PATTERN.test(email)) {
-    return jsonResponse({ error: "Please provide a valid email address." }, 400);
+    return respond({ error: "Please provide a valid email address." }, 400);
   }
 
   if (name.length > 100 || email.length > 160 || subject.length > 160 || message.length > 2000) {
-    return jsonResponse({ error: "Input exceeds maximum allowed length." }, 400);
+    return respond({ error: "Input exceeds maximum allowed length." }, 400);
   }
 
   if (!env.RESEND_API_KEY || !env.CONTACT_TO_EMAIL) {
     console.error("Missing RESEND_API_KEY or CONTACT_TO_EMAIL environment variable.");
-    return jsonResponse({ error: "Email service is not configured." }, 500);
+    return respond({ error: "Email service is not configured." }, 500);
   }
 
   const safeName = name.replace(/[\r\n<>"]/g, "").trim() || "Visitor";
@@ -83,10 +85,10 @@ async function handleContactPost(request, env) {
   if (!resendRes.ok) {
     const errText = await resendRes.text();
     console.error("Resend API error:", resendRes.status, errText);
-    return jsonResponse({ error: "Failed to send email." }, 502);
+    return respond({ error: "Failed to send email." }, 502);
   }
 
-  return jsonResponse({ ok: true }, 200);
+  return respond({ ok: true }, 200);
 }
 
 export default {
@@ -94,8 +96,11 @@ export default {
     const url = new URL(request.url);
 
     if (url.pathname === "/api/contact") {
+      if (request.method === "OPTIONS") {
+        return new Response(null, { status: 204, headers: corsHeaders(request) });
+      }
       if (request.method !== "POST") {
-        return jsonResponse({ error: "Method not allowed." }, 405);
+        return jsonResponse({ error: "Method not allowed." }, 405, request);
       }
       return handleContactPost(request, env);
     }
