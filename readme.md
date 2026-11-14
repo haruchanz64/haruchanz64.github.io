@@ -76,7 +76,6 @@ node --test
 - **Contact Endpoint (Cloudflare Worker)**: `worker/contact.js` handles `POST /api/contact` with CORS enabled for `https://haruchanz64.github.io`. Configure the following runtime variables/secrets on the Cloudflare Worker:
   - `RESEND_API_KEY` *(Secret)* — Resend API key with Sending access
   - `CONTACT_TO_EMAIL` — Destination email address for contact submissions
-  - `CONTACT_FROM_EMAIL` *(Optional)* — Verified sender address (defaults to `onboarding@resend.dev`)
 
 ## Project Structure
 
