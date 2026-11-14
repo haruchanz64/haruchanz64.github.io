@@ -16,7 +16,7 @@ const ENCODED_EMAIL = [
 
 const TURNSTILE_SITE_KEY =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_TURNSTILE_SITE_KEY) ||
-  "0x4AAAAAAGAwbWneFQYFo";
+  "0x4AAAAAAGAwbWneFQYFo-Nq";
 const DEFAULT_RESUME_GATE_URL =
   typeof window !== "undefined" && window.location.hostname.endsWith(".workers.dev")
     ? "/api/resume-gate"
