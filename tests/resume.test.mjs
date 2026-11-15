@@ -13,12 +13,12 @@ import {
   isResumeRequestAllowed,
   normalizeText,
   requestResume,
-} from "../src/js/resume.js";
+} from "../src/js/resume/resume.js";
 import {
   buildAtsResumePdfBytes,
   toPdfSafeText,
   wrapPdfText,
-} from "../src/js/pdf-builder.js";
+} from "../src/js/resume/pdf-builder.js";
 
 function createElement({
   textContent = "",

@@ -1,14 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-
-const GITHUB_USERNAME = "haruchanz64";
-const PINNED_REPOS = [
-  "UnityEventToolkit",
-  "DebugCommandSystem",
-  "ScriptableBatchTool",
-  "SaveEncryptionToolkit",
-];
+import { GITHUB_USERNAME, mapPinnedRepos } from "../src/js/projects/github-config.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/data/github-projects.json");
@@ -32,17 +25,7 @@ async function main() {
     throw new Error(`GitHub API ${res.status}`);
   }
 
-  const repos = await res.json();
-  const pinned = PINNED_REPOS.map((name) => {
-    const repo = repos.find((r) => r.name === name);
-    if (!repo) return null;
-    return {
-      name: repo.name,
-      html_url: repo.html_url,
-      description: repo.description || "",
-      language: repo.language || "N/A",
-    };
-  }).filter(Boolean);
+  const pinned = mapPinnedRepos(await res.json());
 
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(pinned, null, 2)}\n`, "utf8");

@@ -9,7 +9,7 @@ import {
   MIN_INTERACTION_TIME_MS,
   MIN_PAGE_TIME_MS,
   recordSubmissionTime,
-} from "../src/js/spam-detector.js";
+} from "../src/js/contact/spam-detector.js";
 
 function createMemoryStorage() {
   const map = new Map();

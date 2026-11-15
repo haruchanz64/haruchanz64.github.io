@@ -1,5 +1,6 @@
-import en_us from "../locales/en_us.json" with { type: "json" };
-import { readCache, writeCache } from "./cache.js";
+import en_us from "../../locales/en_us.json" with { type: "json" };
+import { readCache, writeCache, writeStorageItem } from "./cache.js";
+import { onDomReady } from "./dom.js";
 
 export const LOCALES = { en_us };
 export const SUPPORTED_LOCALES = ["en_us", "fil_ph", "ja_jp"];
@@ -8,8 +9,8 @@ const LOCALE_CACHE_PREFIX = "haru_locale_dict_v2:";
 const LOCALE_STORAGE_KEY = "haru_locale";
 
 const LOCALE_LOADERS = {
-  fil_ph: () => import("../locales/fil_ph.json", { with: { type: "json" } }),
-  ja_jp: () => import("../locales/ja_jp.json", { with: { type: "json" } }),
+  fil_ph: () => import("../../locales/fil_ph.json", { with: { type: "json" } }),
+  ja_jp: () => import("../../locales/ja_jp.json", { with: { type: "json" } }),
 };
 
 const pendingLocaleLoads = new Map();
@@ -159,13 +160,7 @@ export function getCurrentLocale() {
  */
 export function setCurrentLocale(locale) {
   currentLocale = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
-  try {
-    if (typeof window !== "undefined" && typeof window.localStorage !== "undefined") {
-      window.localStorage.setItem(LOCALE_STORAGE_KEY, currentLocale);
-    }
-  } catch {
-    // Ignore storage errors.
-  }
+  writeStorageItem(LOCALE_STORAGE_KEY, currentLocale);
 }
 
 /**
@@ -206,25 +201,13 @@ export function applyI18n(doc = document, locale = currentLocale) {
     if (key) el.innerHTML = getTranslation(currentLocale, key);
   });
 
-  doc.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
-    const key = el.getAttribute("data-i18n-placeholder");
-    if (key) el.setAttribute("placeholder", getTranslation(currentLocale, key));
-  });
-
-  doc.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
-    const key = el.getAttribute("data-i18n-aria-label");
-    if (key) el.setAttribute("aria-label", getTranslation(currentLocale, key));
-  });
-
-  doc.querySelectorAll("[data-i18n-alt]").forEach((el) => {
-    const key = el.getAttribute("data-i18n-alt");
-    if (key) el.setAttribute("alt", getTranslation(currentLocale, key));
-  });
-
-  doc.querySelectorAll("[data-i18n-content]").forEach((el) => {
-    const key = el.getAttribute("data-i18n-content");
-    if (key) el.setAttribute("content", getTranslation(currentLocale, key));
-  });
+  for (const attr of ["placeholder", "aria-label", "alt", "content"]) {
+    const dataAttr = `data-i18n-${attr}`;
+    doc.querySelectorAll(`[${dataAttr}]`).forEach((el) => {
+      const key = el.getAttribute(dataAttr);
+      if (key) el.setAttribute(attr, getTranslation(currentLocale, key));
+    });
+  }
 }
 
 async function initI18n() {
@@ -235,13 +218,4 @@ async function initI18n() {
   applyI18n(document, locale);
 }
 
-export const i18nReady =
-  typeof document !== "undefined"
-    ? document.readyState === "loading"
-      ? new Promise((resolve) => {
-          document.addEventListener("DOMContentLoaded", () => resolve(initI18n()), {
-            once: true,
-          });
-        })
-      : initI18n()
-    : Promise.resolve();
+export const i18nReady = onDomReady(initI18n);

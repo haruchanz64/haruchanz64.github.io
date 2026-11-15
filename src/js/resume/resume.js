@@ -1,67 +1,22 @@
+import { bindModalDismiss, setButtonLoading } from "../core/dom.js";
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
-import { DEFAULT_LOCALE, getTranslation, t } from "./i18n.js";
+import { DEFAULT_LOCALE, getTranslation, t } from "../core/i18n.js";
+export {
+  MIN_RESUME_PAGE_TIME_MS,
+  RESUME_COOLDOWN_MS,
+  isResumeRequestAllowed,
+} from "./resume-guard.js";
+import { escapeHtml, normalizeText, stripHtml } from "../core/text.js";
+export { escapeHtml, normalizeText };
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
 export const RESUME_WEBSITE = "https://haruchanz64.github.io/";
 export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
-export const MIN_RESUME_PAGE_TIME_MS = 1200;
-export const RESUME_COOLDOWN_MS = 2000;
-
-/**
- * Verify that a resume trigger came from a real, human-paced interaction.
- */
-export function isResumeRequestAllowed({
-  isTrusted = false,
-  elapsedMs = 0,
-  hasInteracted = false,
-  lastTriggeredAt = 0,
-  now = Date.now(),
-} = {}) {
-  if (!isTrusted) return false;
-  if (!hasInteracted) return false;
-  if (elapsedMs < MIN_RESUME_PAGE_TIME_MS) return false;
-  if (lastTriggeredAt > 0 && now - lastTriggeredAt < RESUME_COOLDOWN_MS) return false;
-  return true;
-}
-
 const DEFAULT_HEADLINE = "Software Engineer & College Instructor";
 
 const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub"]);
-
-/**
- * Collapse consecutive whitespace into single spaces and trim.
- * @param {string | null | undefined} value
- * @returns {string}
- */
-export function normalizeText(value) {
-  return String(value ?? "").replace(/\s+/g, " ").trim();
-}
-
-/**
- * Escape special HTML characters for safe interpolation into generated HTML.
- * @param {string | null | undefined} value
- * @returns {string}
- */
-export function escapeHtml(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function stripHtml(html) {
-  return String(html ?? "")
-    .replace(/<[^>]+>/g, "")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-}
 
 function getElementEnglishText(el) {
   if (!el) return "";
@@ -83,6 +38,27 @@ function getText(parent, selector) {
   return getElementEnglishText(el);
 }
 
+function extractTimelineItems(doc, sectionId) {
+  const section = doc.getElementById(sectionId);
+  if (!section) return [];
+
+  return Array.from(section.querySelectorAll(".experience-item")).map((item) => {
+    const dateEl = item.querySelector(".experience-date");
+    return {
+      title: getText(item, ".experience-role"),
+      major: getText(item, ".experience-major"),
+      date: normalizeText(
+        dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
+      ),
+      organization: getText(item, ".experience-company"),
+      location: getText(item, ".experience-location"),
+      bullets: Array.from(item.querySelectorAll(".experience-list li"))
+        .map((li) => getElementEnglishText(li))
+        .filter(Boolean),
+    };
+  });
+}
+
 /**
  * Extract structured resume data from the portfolio DOM, explicitly excluding `#about`.
  * @param {Document} doc
@@ -91,51 +67,28 @@ export function extractResumeData(doc = document) {
   const headline =
     getText(doc, ".nav-brand-role") || DEFAULT_HEADLINE;
 
-  const experienceSection = doc.getElementById("experience");
-  const experienceItems = experienceSection
-    ? Array.from(experienceSection.querySelectorAll(".experience-item"))
-    : [];
-
-  const experience = experienceItems
-    .map((item) => {
-      const role = getText(item, ".experience-role");
-      const dateEl = item.querySelector(".experience-date");
-      const date = normalizeText(
-        dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
-      );
-      const company = getText(item, ".experience-company");
-      const location = getText(item, ".experience-location");
-      const bullets = Array.from(item.querySelectorAll(".experience-list li"))
-        .map((li) => getElementEnglishText(li))
-        .filter(Boolean);
-
-      return { role, date, company, location, bullets };
-    })
+  const experience = extractTimelineItems(doc, "experience")
+    .map(({ title, date, organization, location, bullets }) => ({
+      role: title,
+      date,
+      company: organization,
+      location,
+      bullets,
+    }))
     .filter((entry) => entry.role || entry.company);
 
   const location =
     experience.find((item) => item.location)?.location || RESUME_DEFAULT_LOCATION;
 
-  const educationSection = doc.getElementById("education");
-  const educationItems = educationSection
-    ? Array.from(educationSection.querySelectorAll(".experience-item"))
-    : [];
-
-  const education = educationItems
-    .map((item) => {
-      const degree = getText(item, ".experience-role");
-      const major = getText(item, ".experience-major");
-      const dateEl = item.querySelector(".experience-date");
-      const date = normalizeText(
-        dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
-      );
-      const school = getText(item, ".experience-company");
-      const eduLocation = getText(item, ".experience-location");
-      const bullets = Array.from(item.querySelectorAll(".experience-list li"))
-        .map((li) => getElementEnglishText(li))
-        .filter(Boolean);
-      return { degree, major, date, school, location: eduLocation, bullets };
-    })
+  const education = extractTimelineItems(doc, "education")
+    .map(({ title, major, date, organization, location: eduLocation, bullets }) => ({
+      degree: title,
+      major,
+      date,
+      school: organization,
+      location: eduLocation,
+      bullets,
+    }))
     .filter((entry) => entry.degree || entry.school);
 
   const skillsSection = doc.getElementById("skills");
@@ -182,6 +135,24 @@ export function extractResumeData(doc = document) {
   };
 }
 
+function renderResumeArticleHtml({ title, date, major = "", org = "", location = "", bullets = [] }) {
+  const metaParts = [org, location].filter(Boolean).map(escapeHtml);
+  const bulletsHtml = bullets.length
+    ? `<ul>${bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
+    : "";
+
+  return `
+        <article class="resume-item">
+          <div class="item-header">
+            <h3 class="item-title">${escapeHtml(title)}</h3>
+            <span class="item-date">${escapeHtml(date)}</span>
+          </div>
+          ${major ? `<div class="item-subtitle">${escapeHtml(major)}</div>` : ""}
+          ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
+          ${bulletsHtml}
+        </article>`;
+}
+
 /**
  * Build a clean, single-column, ATS-friendly HTML resume document.
  * @param {ReturnType<typeof extractResumeData>} data
@@ -204,22 +175,15 @@ export function buildAtsResumeHtml(data) {
   }
 
   const experienceHtml = (data.experience || [])
-    .map((item) => {
-      const metaParts = [item.company, item.location].filter(Boolean).map(escapeHtml);
-      const bulletsHtml = item.bullets
-        .map((bullet) => `<li>${escapeHtml(bullet)}</li>`)
-        .join("");
-
-      return `
-        <article class="resume-item">
-          <div class="item-header">
-            <h3 class="item-title">${escapeHtml(item.role)}</h3>
-            <span class="item-date">${escapeHtml(item.date)}</span>
-          </div>
-          ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
-          ${bulletsHtml ? `<ul>${bulletsHtml}</ul>` : ""}
-        </article>`;
-    })
+    .map((item) =>
+      renderResumeArticleHtml({
+        title: item.role,
+        date: item.date,
+        org: item.company,
+        location: item.location,
+        bullets: item.bullets,
+      }),
+    )
     .join("");
 
   const skillsHtml = (data.skills || [])
@@ -232,22 +196,16 @@ export function buildAtsResumeHtml(data) {
     .join("");
 
   const educationHtml = (data.education || [])
-    .map((item) => {
-      const metaParts = [item.school, item.location].filter(Boolean).map(escapeHtml);
-      const bulletsHtml = item.bullets?.length
-        ? `<ul>${item.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
-        : "";
-      return `
-        <article class="resume-item">
-          <div class="item-header">
-            <h3 class="item-title">${escapeHtml(item.degree)}</h3>
-            <span class="item-date">${escapeHtml(item.date)}</span>
-          </div>
-          ${item.major ? `<div class="item-subtitle">${escapeHtml(item.major)}</div>` : ""}
-          ${metaParts.length ? `<div class="item-subtitle">${metaParts.join(" | ")}</div>` : ""}
-          ${bulletsHtml}
-        </article>`;
-    })
+    .map((item) =>
+      renderResumeArticleHtml({
+        title: item.degree,
+        date: item.date,
+        major: item.major,
+        org: item.school,
+        location: item.location,
+        bullets: item.bullets,
+      }),
+    )
     .join("");
 
   return `<!DOCTYPE html>
@@ -475,17 +433,6 @@ function yieldToPaint() {
   return new Promise((resolve) => setTimeout(resolve, 0));
 }
 
-function setTriggerLoading(triggerEl, isLoading) {
-  if (!triggerEl) return;
-  const btnText = triggerEl.querySelector?.(".btn-text");
-  const spinner = triggerEl.querySelector?.(".btn-spinner");
-
-  triggerEl.disabled = isLoading;
-  triggerEl.setAttribute?.("aria-busy", String(isLoading));
-  if (btnText) btnText.style.display = isLoading ? "none" : "inline";
-  if (spinner) spinner.style.display = isLoading ? "inline" : "none";
-}
-
 /**
  * Build the ATS-friendly PDF resume from the current portfolio DOM (excluding `#about`)
  * and display it in an accessible in-page preview modal with a manual Download Resume button.
@@ -495,7 +442,7 @@ export async function requestResume(triggerEl = null) {
 
   const ownsLoading = Boolean(triggerEl && triggerEl.getAttribute?.("aria-busy") !== "true");
   if (ownsLoading) {
-    setTriggerLoading(triggerEl, true);
+    setButtonLoading(triggerEl, true);
   }
 
   try {
@@ -543,30 +490,25 @@ export async function requestResume(triggerEl = null) {
       </div>
     `;
 
-    overlay.querySelector(".resume-modal-close").addEventListener("click", closeResumeModal);
-    overlay.addEventListener("click", (event) => {
-      if (event.target === overlay) closeResumeModal();
+    bindModalDismiss({
+      modal: overlay,
+      closeButton: overlay.querySelector(".resume-modal-close"),
+      isOpen: () => Boolean(activeModal),
+      onClose: closeResumeModal,
+      attachEscape: !escapeListenerAttached,
     });
+    escapeListenerAttached = true;
 
     document.body.appendChild(overlay);
     document.documentElement?.classList?.add("modal-open");
     activeModal = overlay;
-
-    if (!escapeListenerAttached) {
-      escapeListenerAttached = true;
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && activeModal) {
-          closeResumeModal();
-        }
-      });
-    }
 
     overlay.querySelector(".resume-download-btn")?.focus();
 
     return { data, pdfUrl, filename: RESUME_PDF_FILENAME };
   } finally {
     if (ownsLoading) {
-      setTriggerLoading(triggerEl, false);
+      setButtonLoading(triggerEl, false);
     }
   }
 }

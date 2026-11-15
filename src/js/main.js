@@ -1,50 +1,31 @@
-import "./i18n.js";
-import { cacheAllDocumentAssets, registerAssetCacheServiceWorker } from "./cache.js";
-import { sendEmail } from "./contact.js";
-import "./observer.js";
-import "./url-hash-manager.js";
-import "./theme.js";
-import "./nav.js";
-import "./tabs.js";
-import "./github.js";
-import "./itch.js";
-import "./hero-loader.js";
-import "./experience-duration.js";
-import "./about-handle.js";
+import "./core/i18n.js";
+import { cacheAllDocumentAssets, registerAssetCacheServiceWorker } from "./core/cache.js";
+import { sendEmail } from "./contact/contact.js";
+import { onDomReady, setButtonLoading } from "./core/dom.js";
+import { isResumeRequestAllowed } from "./resume/resume-guard.js";
+import "./ui/observer.js";
+import "./ui/url-hash-manager.js";
+import "./ui/theme.js";
+import "./ui/nav.js";
+import "./ui/tabs.js";
+import "./projects/github.js";
+import "./projects/itch.js";
+import "./ui/hero-loader.js";
+import "./ui/experience-duration.js";
+import "./ui/about-handle.js";
 
 registerAssetCacheServiceWorker();
-if (document.readyState === "loading") {
-  document.addEventListener(
-    "DOMContentLoaded",
-    () => {
-      void cacheAllDocumentAssets(document);
-    },
-    { once: true },
-  );
-} else {
+void onDomReady(() => {
   void cacheAllDocumentAssets(document);
-}
+});
 
-const RESUME_MIN_PAGE_TIME_MS = 1200;
-const RESUME_COOLDOWN_MS = 2000;
 let resumeModulePromise = null;
 
 function loadResumeModule() {
   if (!resumeModulePromise) {
-    resumeModulePromise = import("./resume.js");
+    resumeModulePromise = import("./resume/resume.js");
   }
   return resumeModulePromise;
-}
-
-function setResumeTriggerLoading(trigger, isLoading) {
-  if (!trigger) return;
-  const btnText = trigger.querySelector?.(".btn-text");
-  const spinner = trigger.querySelector?.(".btn-spinner");
-
-  trigger.disabled = isLoading;
-  trigger.setAttribute?.("aria-busy", String(isLoading));
-  if (btnText) btnText.style.display = isLoading ? "none" : "inline";
-  if (spinner) spinner.style.display = isLoading ? "inline" : "none";
 }
 
 function initResumeTrigger() {
@@ -73,21 +54,24 @@ function initResumeTrigger() {
 
     const now = Date.now();
     if (
-      event.isTrusted !== true ||
-      now - pageLoadedAt < RESUME_MIN_PAGE_TIME_MS ||
-      !(hasInteracted || event.detail > 0) ||
-      (lastTriggeredAt > 0 && now - lastTriggeredAt < RESUME_COOLDOWN_MS)
+      !isResumeRequestAllowed({
+        isTrusted: event.isTrusted === true,
+        elapsedMs: now - pageLoadedAt,
+        hasInteracted: hasInteracted || event.detail > 0,
+        lastTriggeredAt,
+        now,
+      })
     ) {
       return;
     }
 
     lastTriggeredAt = now;
-    setResumeTriggerLoading(trigger, true);
+    setButtonLoading(trigger, true);
     try {
       const { requestResume } = await loadResumeModule();
       await requestResume(trigger);
     } finally {
-      setResumeTriggerLoading(trigger, false);
+      setButtonLoading(trigger, false);
     }
   });
 }

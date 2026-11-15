@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { decodeHtmlEntities } from "../src/js/core/text.js";
 
 const ITCH_PROJECTS = [
   { url: "https://haruchanz64.itch.io/night-light" },
@@ -14,15 +15,6 @@ const ITCH_PROJECTS = [
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/data/itch-projects.json");
-
-function decodeHtmlEntities(text) {
-  return text
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'");
-}
 
 function getMetaContent(html, attrName, attrValue) {
   const escaped = attrValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");

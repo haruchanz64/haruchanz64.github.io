@@ -1,3 +1,5 @@
+import { bindModalDismiss } from "../core/dom.js";
+
 /**
  * Opens the `@haruchanz64` origin modal when clicking "Haru" in About.
  * Uses event delegation on `#about` so locale switches that replace
@@ -38,18 +40,11 @@ function initAboutHandleModal() {
     }
   });
 
-  closeBtn?.addEventListener("click", closeModal);
-
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) {
-      closeModal();
-    }
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !modal.hidden) {
-      closeModal();
-    }
+  bindModalDismiss({
+    modal,
+    closeButton: closeBtn,
+    isOpen: () => !modal.hidden,
+    onClose: closeModal,
   });
 }
 

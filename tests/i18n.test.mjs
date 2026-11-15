@@ -10,8 +10,8 @@ import {
   loadLocale,
   normalizeLocaleTag,
   resolveLocale,
-} from "../src/js/i18n.js";
-import { applyExperienceDurations } from "../src/js/experience-duration.js";
+} from "../src/js/core/i18n.js";
+import { applyExperienceDurations } from "../src/js/ui/experience-duration.js";
 
 before(async () => {
   await Promise.all(SUPPORTED_LOCALES.map(loadLocale));

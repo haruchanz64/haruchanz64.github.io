@@ -1,3 +1,5 @@
+import { readStorageItem, writeStorageItem } from "../core/cache.js";
+
 export const MIN_PAGE_TIME_MS = 3000;
 export const MIN_INTERACTION_TIME_MS = 1200;
 export const COOLDOWN_MS = 60_000;
@@ -144,16 +146,11 @@ export function checkSubmissionTiming({
  * @returns {number}
  */
 export function getCooldownRemainingMs(storage, now = Date.now()) {
-  if (!storage) return 0;
-  try {
-    const raw = storage.getItem(COOLDOWN_STORAGE_KEY);
-    if (!raw) return 0;
-    const lastSubmit = Number(raw);
-    if (!Number.isFinite(lastSubmit) || lastSubmit > now) return 0;
-    return Math.max(0, COOLDOWN_MS - (now - lastSubmit));
-  } catch {
-    return 0;
-  }
+  const raw = readStorageItem(COOLDOWN_STORAGE_KEY, storage);
+  if (!raw) return 0;
+  const lastSubmit = Number(raw);
+  if (!Number.isFinite(lastSubmit) || lastSubmit > now) return 0;
+  return Math.max(0, COOLDOWN_MS - (now - lastSubmit));
 }
 
 /**
@@ -162,12 +159,7 @@ export function getCooldownRemainingMs(storage, now = Date.now()) {
  * @param {number} [now]
  */
 export function recordSubmissionTime(storage, now = Date.now()) {
-  if (!storage) return;
-  try {
-    storage.setItem(COOLDOWN_STORAGE_KEY, String(now));
-  } catch {
-    // Ignore storage quota or private-browsing errors.
-  }
+  writeStorageItem(COOLDOWN_STORAGE_KEY, String(now), storage);
 }
 
 /**

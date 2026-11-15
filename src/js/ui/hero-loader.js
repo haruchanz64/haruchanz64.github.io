@@ -1,6 +1,6 @@
-import { cacheAllDocumentAssets } from "./cache.js";
-import { githubProjectsReady } from "./github.js";
-import { itchProjectsReady } from "./itch.js";
+import { cacheAllDocumentAssets, readStorageItem, writeStorageItem } from "../core/cache.js";
+import { githubProjectsReady } from "../projects/github.js";
+import { itchProjectsReady } from "../projects/itch.js";
 
 const INTRO_SEEN_KEY = "has_seen_intro";
 const MIN_LOADING_MS = 1500;
@@ -8,26 +8,19 @@ const MAX_WAIT_MS = 3500;
 const MORPH_TRANSITION_MS = 650;
 
 export function hasSeenIntro(storage = typeof localStorage !== "undefined" ? localStorage : null) {
-  try {
-    if (storage?.getItem(INTRO_SEEN_KEY) === "true") {
-      return true;
-    }
-    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(INTRO_SEEN_KEY) === "true") {
-      storage?.setItem(INTRO_SEEN_KEY, "true");
-      return true;
-    }
-    return false;
-  } catch {
-    return false;
+  if (readStorageItem(INTRO_SEEN_KEY, storage) === "true") {
+    return true;
   }
+  const session = typeof sessionStorage !== "undefined" ? sessionStorage : null;
+  if (readStorageItem(INTRO_SEEN_KEY, session) === "true") {
+    writeStorageItem(INTRO_SEEN_KEY, "true", storage);
+    return true;
+  }
+  return false;
 }
 
 export function markIntroSeen(storage = typeof localStorage !== "undefined" ? localStorage : null) {
-  try {
-    storage?.setItem(INTRO_SEEN_KEY, "true");
-  } catch {
-    // Ignore storage errors in restricted browsing contexts.
-  }
+  writeStorageItem(INTRO_SEEN_KEY, "true", storage);
 }
 
 function delay(ms) {

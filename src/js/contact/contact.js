@@ -1,5 +1,6 @@
 import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
-import { t } from "./i18n.js";
+import { onDomReady, setButtonLoading } from "../core/dom.js";
+import { t } from "../core/i18n.js";
 
 const REQUEST_TIMEOUT_MS = 15000;
 const TOAST_AUTO_HIDE_MS = 6000;
@@ -25,16 +26,6 @@ function showToast(toast, message, type) {
       toastTimer = null;
     }, TOAST_AUTO_HIDE_MS);
   }
-}
-
-function setSubmitting(btn, isSubmitting) {
-  const btnText = btn.querySelector(".btn-text");
-  const spinner = btn.querySelector(".btn-spinner");
-
-  btn.disabled = isSubmitting;
-  btn.setAttribute("aria-busy", String(isSubmitting));
-  btnText.style.display = isSubmitting ? "none" : "inline";
-  spinner.style.display = isSubmitting ? "inline" : "none";
 }
 
 const CUSTOM_SUBJECT_VALUE = "__custom__";
@@ -102,11 +93,7 @@ function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
   }
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initFormControls);
-} else {
-  initFormControls();
-}
+void onDomReady(initFormControls);
 
 /**
  * Handles contact form submission via /api/contact with validation, timeout, and accessible toast feedback.
@@ -210,7 +197,7 @@ export async function sendEmail(e) {
   }
 
   showToast(toast, "", "");
-  setSubmitting(btn, true);
+  setButtonLoading(btn, true);
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
@@ -261,6 +248,6 @@ export async function sendEmail(e) {
     toast.scrollIntoView({ behavior: "smooth", block: "nearest" });
   } finally {
     clearTimeout(timeoutId);
-    setSubmitting(btn, false);
+    setButtonLoading(btn, false);
   }
 }

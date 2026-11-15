@@ -11,15 +11,15 @@ import {
   readCachedAssetDataUrl,
   writeCache,
   writeCachedAssetDataUrl,
-} from "../src/js/cache.js";
+} from "../src/js/core/cache.js";
 import {
   THEME_STORAGE_KEY,
   animateThemeSwitch,
   applyThemeState,
   getSavedTheme,
   saveTheme,
-} from "../src/js/theme.js";
-import { LOCALES } from "../src/js/i18n.js";
+} from "../src/js/ui/theme.js";
+import { LOCALES } from "../src/js/core/i18n.js";
 
 function createMemoryStorage() {
   const map = new Map();

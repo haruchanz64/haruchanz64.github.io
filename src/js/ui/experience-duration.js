@@ -1,3 +1,5 @@
+import { onDomReady } from "../core/dom.js";
+
 const MONTHS = {
   jan: 0,
   january: 0,
@@ -93,10 +95,4 @@ export function applyExperienceDurations(root = document, now = new Date()) {
   }
 }
 
-if (typeof document !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => applyExperienceDurations());
-  } else {
-    applyExperienceDurations();
-  }
-}
+void onDomReady(() => applyExperienceDurations());

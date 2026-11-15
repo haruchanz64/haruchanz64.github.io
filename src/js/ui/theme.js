@@ -1,24 +1,19 @@
+import { readStorageItem, writeStorageItem } from "../core/cache.js";
+import { onDomReady } from "../core/dom.js";
+
 export const THEME_STORAGE_KEY = "theme";
 export const THEME_TRANSITION_MS = 200;
 
 export function getSavedTheme(storage = typeof localStorage !== "undefined" ? localStorage : null) {
-  try {
-    const val = storage?.getItem(THEME_STORAGE_KEY);
-    return val === "dark" || val === "light" ? val : null;
-  } catch {
-    return null;
-  }
+  const val = readStorageItem(THEME_STORAGE_KEY, storage);
+  return val === "dark" || val === "light" ? val : null;
 }
 
 export function saveTheme(
   theme,
   storage = typeof localStorage !== "undefined" ? localStorage : null,
 ) {
-  try {
-    storage?.setItem(THEME_STORAGE_KEY, theme);
-  } catch {
-    // Ignore storage errors (e.g. private browsing)
-  }
+  writeStorageItem(THEME_STORAGE_KEY, theme, storage);
 }
 
 export function applyThemeState(isDark, doc = typeof document !== "undefined" ? document : null) {
@@ -107,9 +102,5 @@ export function initThemeToggle() {
 
 if (typeof window !== "undefined") {
   window.initThemeToggle = initThemeToggle;
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initThemeToggle, { once: true });
-  } else {
-    initThemeToggle();
-  }
+  void onDomReady(initThemeToggle);
 }

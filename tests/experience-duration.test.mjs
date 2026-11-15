@@ -4,7 +4,7 @@ import {
   computeExperienceDuration,
   formatDuration,
   parseMonthYear,
-} from "../src/js/experience-duration.js";
+} from "../src/js/ui/experience-duration.js";
 
 describe("parseMonthYear", () => {
   it("parses full and abbreviated month names", () => {

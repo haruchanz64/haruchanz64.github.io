@@ -1,3 +1,5 @@
+import { onDomReady } from "../core/dom.js";
+
 function initNav() {
   const navLinkItems = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
@@ -99,8 +101,4 @@ function initNav() {
 
 window.initNav = initNav;
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initNav);
-} else {
-  initNav();
-}
+void onDomReady(initNav);

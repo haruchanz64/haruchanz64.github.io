@@ -22,6 +22,37 @@ function getDefaultCaches() {
 }
 
 /**
+ * Safely read a raw string value from Web Storage.
+ * @param {string} key
+ * @param {Storage | null} [storage]
+ * @returns {string | null}
+ */
+export function readStorageItem(key, storage = getDefaultStorage()) {
+  try {
+    return storage?.getItem(key) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Safely write a raw string value to Web Storage, ignoring quota/restricted-mode errors.
+ * @param {string} key
+ * @param {string} value
+ * @param {Storage | null} [storage]
+ * @returns {boolean}
+ */
+export function writeStorageItem(key, value, storage = getDefaultStorage()) {
+  try {
+    if (!storage) return false;
+    storage.setItem(key, value);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Read a JSON value from localStorage if present and within ttlMs (or stale when allowed).
  * @param {string} key
  * @param {number} [ttlMs]
@@ -36,8 +67,7 @@ export function readCache(
   storage = getDefaultStorage(),
 ) {
   try {
-    if (!storage) return null;
-    const raw = storage.getItem(key);
+    const raw = readStorageItem(key, storage);
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!parsed || typeof parsed.timestamp !== "number" || !("data" in parsed)) {
@@ -64,12 +94,9 @@ export function readCache(
  */
 export function writeCache(key, data, storage = getDefaultStorage()) {
   try {
-    storage?.setItem(
-      key,
-      JSON.stringify({ timestamp: Date.now(), data }),
-    );
+    writeStorageItem(key, JSON.stringify({ timestamp: Date.now(), data }), storage);
   } catch {
-    // Ignore quota or storage errors in restricted browsing contexts.
+    // Ignore serialization errors.
   }
 }
 
@@ -81,15 +108,8 @@ export function writeCache(key, data, storage = getDefaultStorage()) {
  */
 export function readCachedAssetDataUrl(url, storage = getDefaultStorage()) {
   if (!url || typeof url !== "string") return null;
-  try {
-    const raw = storage?.getItem(`${ASSET_CACHE_PREFIX}${url}`);
-    if (raw && raw.startsWith("data:")) {
-      return raw;
-    }
-    return null;
-  } catch {
-    return null;
-  }
+  const raw = readStorageItem(`${ASSET_CACHE_PREFIX}${url}`, storage);
+  return raw && raw.startsWith("data:") ? raw : null;
 }
 
 /**
@@ -101,12 +121,7 @@ export function readCachedAssetDataUrl(url, storage = getDefaultStorage()) {
  */
 export function writeCachedAssetDataUrl(url, dataUrl, storage = getDefaultStorage()) {
   if (!url || !dataUrl || !dataUrl.startsWith("data:")) return false;
-  try {
-    storage?.setItem(`${ASSET_CACHE_PREFIX}${url}`, dataUrl);
-    return true;
-  } catch {
-    return false;
-  }
+  return writeStorageItem(`${ASSET_CACHE_PREFIX}${url}`, dataUrl, storage);
 }
 
 /**
@@ -144,6 +159,13 @@ export async function blobToDataUrl(blob) {
   return `data:${mime};base64,${base64}`;
 }
 
+async function responseToCachedDataUrl(url, response, storage) {
+  const blob = await response.blob();
+  const dataUrl = await blobToDataUrl(blob);
+  writeCachedAssetDataUrl(url, dataUrl, storage);
+  return dataUrl;
+}
+
 /**
  * Fetch and cache an asset (image, devicon SVG, icon) in both localStorage and CacheStorage.
  * Returns a `data:` URL when readable via CORS/same-origin, or the original URL if opaque.
@@ -167,29 +189,17 @@ export async function cacheAssetUrl(
   if (url.startsWith("data:") || url.startsWith("blob:")) return url;
 
   const existingLocal = readCachedAssetDataUrl(url, storage);
-  if (existingLocal) {
-    return existingLocal;
-  }
-
-  if (inFlightAssetLoads.has(url)) {
-    return inFlightAssetLoads.get(url);
-  }
+  if (existingLocal) return existingLocal;
+  if (inFlightAssetLoads.has(url)) return inFlightAssetLoads.get(url);
 
   const loadPromise = (async () => {
+    let cacheBox = null;
     try {
-      let cacheBox = null;
       if (cachesApi?.open) {
-        try {
-          cacheBox = await cachesApi.open(CACHE_STORAGE_NAME);
-          const matched = await cacheBox.match(url);
-          if (matched && matched.ok && matched.type !== "opaque") {
-            const blob = await matched.blob();
-            const dataUrl = await blobToDataUrl(blob);
-            writeCachedAssetDataUrl(url, dataUrl, storage);
-            return dataUrl;
-          }
-        } catch {
-          // Ignore CacheStorage read errors.
+        cacheBox = await cachesApi.open(CACHE_STORAGE_NAME).catch(() => null);
+        const matched = await cacheBox?.match(url).catch(() => null);
+        if (matched?.ok && matched.type !== "opaque") {
+          return await responseToCachedDataUrl(url, matched, storage);
         }
       }
 
@@ -205,30 +215,18 @@ export async function cacheAssetUrl(
         isCrossOrigin ? { mode: "cors", credentials: "omit" } : undefined,
       );
 
-      if (response && response.ok && response.type !== "opaque") {
-        if (cacheBox) {
-          try {
-            await cacheBox.put(url, response.clone());
-          } catch {
-            // Ignore CacheStorage write errors.
-          }
-        }
-        const blob = await response.blob();
-        const dataUrl = await blobToDataUrl(blob);
-        writeCachedAssetDataUrl(url, dataUrl, storage);
-        return dataUrl;
+      if (response?.ok && response.type !== "opaque") {
+        await cacheBox?.put(url, response.clone()).catch(() => {});
+        return await responseToCachedDataUrl(url, response, storage);
       }
     } catch {
       // If CORS fetch fails on a third-party image host, cache an opaque response in CacheStorage.
-      if (cachesApi?.open && fetchImpl) {
+      if (cacheBox && fetchImpl) {
         try {
-          const cacheBox = await cachesApi.open(CACHE_STORAGE_NAME);
           const existing = await cacheBox.match(url);
           if (!existing) {
             const opaqueRes = await fetchImpl(url, { mode: "no-cors" });
-            if (opaqueRes) {
-              await cacheBox.put(url, opaqueRes);
-            }
+            if (opaqueRes) await cacheBox.put(url, opaqueRes);
           }
         } catch {
           // Ignore fallback errors.
@@ -244,41 +242,53 @@ export async function cacheAssetUrl(
   return loadPromise;
 }
 
+async function hydrateElementAsset(el, { attr, datasetKey, applyUrl, onlyDataUrl = false }, options = {}) {
+  if (!el) return "";
+  const originalUrl =
+    el.dataset?.[datasetKey] ||
+    el.getAttribute?.(attr) ||
+    el[attr] ||
+    "";
+  if (!originalUrl || originalUrl.startsWith("data:") || originalUrl.startsWith("blob:")) {
+    return originalUrl;
+  }
+
+  if (el.dataset) {
+    el.dataset[datasetKey] = originalUrl;
+  }
+
+  const storage = options.storage !== undefined ? options.storage : getDefaultStorage();
+  const syncDataUrl = readCachedAssetDataUrl(originalUrl, storage);
+  if (syncDataUrl) {
+    applyUrl(el, syncDataUrl);
+    return syncDataUrl;
+  }
+
+  const resolvedUrl = await cacheAssetUrl(originalUrl, options);
+  if (resolvedUrl && (!onlyDataUrl || resolvedUrl.startsWith("data:"))) {
+    applyUrl(el, resolvedUrl);
+  }
+  return resolvedUrl;
+}
+
 /**
  * Hydrate an `<img>` element from user storage (localStorage / CacheStorage) or fetch & persist it.
  * @param {HTMLImageElement} img
  * @param {Parameters<typeof cacheAssetUrl>[1]} [options]
  * @returns {Promise<string>}
  */
-export async function cacheImageElement(img, options = {}) {
-  if (!img) return "";
-  const originalUrl =
-    img.dataset?.originalSrc ||
-    img.getAttribute?.("src") ||
-    img.src ||
-    "";
-  if (!originalUrl || originalUrl.startsWith("data:") || originalUrl.startsWith("blob:")) {
-    return originalUrl;
-  }
-
-  if (img.dataset) {
-    img.dataset.originalSrc = originalUrl;
-  }
-
-  const storage = options.storage !== undefined ? options.storage : getDefaultStorage();
-  const syncDataUrl = readCachedAssetDataUrl(originalUrl, storage);
-  if (syncDataUrl) {
-    if (img.src !== syncDataUrl) {
-      img.src = syncDataUrl;
-    }
-    return syncDataUrl;
-  }
-
-  const resolvedUrl = await cacheAssetUrl(originalUrl, options);
-  if (resolvedUrl && img.src !== resolvedUrl) {
-    img.src = resolvedUrl;
-  }
-  return resolvedUrl;
+export function cacheImageElement(img, options = {}) {
+  return hydrateElementAsset(
+    img,
+    {
+      attr: "src",
+      datasetKey: "originalSrc",
+      applyUrl: (el, url) => {
+        if (el.src !== url) el.src = url;
+      },
+    },
+    options,
+  );
 }
 
 /**
@@ -287,39 +297,30 @@ export async function cacheImageElement(img, options = {}) {
  * @param {Parameters<typeof cacheAssetUrl>[1]} [options]
  * @returns {Promise<string[]>}
  */
-export async function cacheAllDocumentAssets(
+export function cacheAllDocumentAssets(
   doc = typeof document !== "undefined" ? document : null,
   options = {},
 ) {
-  if (!doc) return [];
+  if (!doc) return Promise.resolve([]);
 
   const tasks = [];
-  const images = doc.querySelectorAll?.("img[src]") || [];
-  images.forEach((img) => {
+  (doc.querySelectorAll?.("img[src]") || []).forEach((img) => {
     tasks.push(cacheImageElement(img, options));
   });
 
-  const iconLinks = doc.querySelectorAll?.('link[rel*="icon"][href]') || [];
-  iconLinks.forEach((link) => {
-    const href = link.dataset?.originalHref || link.getAttribute?.("href");
-    if (href && !href.startsWith("data:")) {
-      if (link.dataset) link.dataset.originalHref = href;
-      const storage = options.storage !== undefined ? options.storage : getDefaultStorage();
-      const syncCached = readCachedAssetDataUrl(href, storage);
-      if (syncCached) {
-        link.setAttribute("href", syncCached);
-        tasks.push(Promise.resolve(syncCached));
-      } else {
-        tasks.push(
-          cacheAssetUrl(href, options).then((resolved) => {
-            if (resolved && resolved.startsWith("data:")) {
-              link.setAttribute("href", resolved);
-            }
-            return resolved;
-          }),
-        );
-      }
-    }
+  (doc.querySelectorAll?.('link[rel*="icon"][href]') || []).forEach((link) => {
+    tasks.push(
+      hydrateElementAsset(
+        link,
+        {
+          attr: "href",
+          datasetKey: "originalHref",
+          onlyDataUrl: true,
+          applyUrl: (el, url) => el.setAttribute("href", url),
+        },
+        options,
+      ),
+    );
   });
 
   return Promise.all(tasks);
