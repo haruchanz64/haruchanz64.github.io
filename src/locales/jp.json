@@ -1,12 +1,12 @@
 {
   "meta": {
-    "title": "Haru · ポートフォリオ",
-    "description": "Aron Jake Radam (Haru) のポートフォリオ — プロダクションソフトウェア開発とゲーム開発の両分野で活動する Lead Full-Stack Software Engineer 兼 大学講師。"
+    "title": "ハル · ポートフォリオ",
+    "description": "Aron Jake Radam（ハル）のポートフォリオ — プロダクションソフトウェア開発とゲーム開発の両分野で活動する Lead Full-Stack Software Engineer 兼 大学講師。"
   },
   "nav": {
     "ariaLabel": "メインナビゲーション",
-    "logoAriaLabel": "Haru — トップへ戻る",
-    "brandName": "Haru",
+    "logoAriaLabel": "ハル — トップへ戻る",
+    "brandName": "ハル",
     "brandRole": "ソフトウェアエンジニア & 大学講師",
     "links": {
       "about": "自己紹介",
@@ -18,16 +18,16 @@
     }
   },
   "hero": {
-    "logoAlt": "Haru Logo",
+    "logoAlt": "ハルのロゴ",
     "greeting": "はじめまして、",
-    "name": "Haruです。",
+    "name": "ハルです。",
     "titleHtml": "<strong>ゲーム開発</strong>を教える<strong>ソフトウェアエンジニア &amp; 大学講師</strong>として、<strong>ゲームデザイン理論</strong>、<strong>バックエンド</strong>、<strong>DevOps</strong> に取り組んでいます。",
     "ctaContact": "お問い合わせ",
     "ctaProjects": "制作実績を見る"
   },
   "about": {
     "title": "自己紹介",
-    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <strong>Haru</strong> としても活動）です。プロダクションソフトウェアとゲーム開発の両分野に携わる <strong>Lead Full-Stack Software Engineer</strong> 兼 <strong>大学講師</strong>として活動しています。キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと連携する業務を担当しました。",
+    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <strong>ハル</strong> としても活動）です。プロダクションソフトウェアとゲーム開発の両分野に携わる <strong>Lead Full-Stack Software Engineer</strong> 兼 <strong>大学講師</strong>として活動しています。キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと連携する業務を担当しました。",
     "p2Html": "現在は <strong>Las Piñas, Philippines</strong> にある <strong>PicStar Software OPC</strong> の唯一のフルスタックエンジニアとして、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を開発しています。モバイル UI や PostgreSQL バックエンドから、リアルタイムの Top および Board フィード、Shineouts、ランキング、都市別フィルタリングまで一貫して担当しています。",
     "p3Html": "実務と並行して、<strong>University of Caloocan City</strong> で2年生から4年生までの学生を指導しており、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを支援しています。",
     "p4Html": "メインの技術スタック以外にも、<strong>ゲームデザイン理論</strong>を学びながら <strong>C# (.NET)</strong>、<strong>Java (Spring Boot)</strong>、<strong>Docker</strong> を使った個人プロジェクトを制作しています。日々のワークフローでは AI コーディングツールも活用してプロトタイピングやデバッグを高速化しており、フリーランスの案件や新しいポジションのご相談も歓迎しています。"
@@ -155,6 +155,6 @@
     }
   },
   "footer": {
-    "copyright": "© 2026 Aron Jake Radam (Haru). All rights reserved."
+    "copyright": "© 2026 Aron Jake Radam（ハル）. All rights reserved."
   }
 }
