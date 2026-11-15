@@ -16,6 +16,14 @@
 
     <link rel="preload" href="/res/profile_photo.webp" as="image" type="image/webp" />
 
+    <script>
+      try {
+        if (sessionStorage.getItem("haru_intro_seen") === "1") {
+          document.documentElement.classList.add("intro-seen");
+        }
+      } catch {}
+    </script>
+
     <link rel="stylesheet" href="/src/style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+JP:wght@300..700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
@@ -52,35 +60,56 @@
       </div>
     </nav>
 
-    <section id="hero" class="hero">
-      <div class="hero-content">
-        <img
-          src="/res/profile_photo.webp"
-          alt="Haru Logo"
-          data-i18n-alt="hero.logoAlt"
-          class="hero-avatar"
-          width="248"
-          height="248"
-          fetchpriority="high"
-        />
-        <div class="hero-greeting" data-i18n="hero.greeting">I'm</div>
-        <h1 class="hero-name" data-i18n="hero.name">Haru,</h1>
-        <p class="hero-title" data-i18n-html="hero.titleHtml">
-          a <strong>software engineer &amp; college instructor</strong> who
-          teaches <strong>game development</strong> and spends time on
-          <strong>game design theory</strong>, <strong>backend</strong>, and
-          <strong>DevOps</strong>.
-        </p>
-        <div class="hero-actions">
-          <a href="#contact" class="cta-button" data-i18n="hero.ctaContact">
-            Get in Touch
-          </a>
-          <a href="#projects" class="cta-button cta-secondary" data-i18n="hero.ctaProjects">
-            Explore My Work
-          </a>
+    <div class="hero-stage">
+      <section
+        id="hero-loading"
+        class="hero hero-loading"
+        aria-label="Loading portfolio"
+      >
+        <div class="hero-content hero-loading-content">
+          <img
+            src="/res/profile_photo.webp"
+            alt="Haru Logo"
+            data-i18n-alt="hero.logoAlt"
+            class="hero-avatar hero-avatar--loading"
+            width="400"
+            height="400"
+            fetchpriority="high"
+          />
+          <div class="hero-loading-progress" aria-hidden="true">0%</div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section id="hero" class="hero hero--pending" aria-hidden="true" inert>
+        <div class="hero-content">
+          <img
+            src="/res/profile_photo.webp"
+            alt="Haru Logo"
+            data-i18n-alt="hero.logoAlt"
+            class="hero-avatar"
+            width="248"
+            height="248"
+            fetchpriority="high"
+          />
+          <div class="hero-greeting" data-i18n="hero.greeting">I'm</div>
+          <h1 class="hero-name" data-i18n="hero.name">Haru,</h1>
+          <p class="hero-title" data-i18n-html="hero.titleHtml">
+            a <strong>software engineer &amp; college instructor</strong> who
+            teaches <strong>game development</strong> and spends time on
+            <strong>game design theory</strong>, <strong>backend</strong>, and
+            <strong>DevOps</strong>.
+          </p>
+          <div class="hero-actions">
+            <a href="#contact" class="cta-button" data-i18n="hero.ctaContact">
+              Get in Touch
+            </a>
+            <a href="#projects" class="cta-button cta-secondary" data-i18n="hero.ctaProjects">
+              Explore My Work
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
 
     <section id="about" class="section">
       <h2 class="section-title" data-i18n="about.title">About</h2>
@@ -568,7 +597,7 @@
 
     <section id="contact" class="contact">
       <div class="contact-content">
-        <h2 class="contact-title" data-i18n="contact.title">Get in Touch</h2>
+        <h2 class="contact-title" data-i18n="contact.title">Contact</h2>
         <p class="contact-description" data-i18n="contact.description">
           Open to freelance work, software engineering roles, and game
           development or teaching collaborations. Got something in mind? Let's
@@ -655,7 +684,7 @@
     ></textarea>
   </div>
   <button type="submit" class="form-submit" id="submit-btn">
-    <span class="btn-text"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> <span data-i18n="contact.form.submit">Send Message</span></span>
+    <span class="btn-text" data-i18n="contact.form.submit">Send Message</span>
     <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span data-i18n="contact.form.sending">Sending…</span></span>
   </button>
   <button type="button" class="form-secondary-cta" data-request-resume data-i18n="contact.form.resume">

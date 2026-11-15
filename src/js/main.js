@@ -8,6 +8,7 @@ import "./nav.js";
 import "./tabs.js";
 import "./github.js";
 import "./itch.js";
+import "./hero-loader.js";
 import "./experience-duration.js";
 
 window.sendEmail = sendEmail;

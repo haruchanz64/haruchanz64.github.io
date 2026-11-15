@@ -73,8 +73,13 @@ async function initItchProjects() {
   }
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initItchProjects);
-} else {
-  initItchProjects();
-}
+export const itchProjectsReady =
+  document.readyState === "loading"
+    ? new Promise((resolve) => {
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => resolve(initItchProjects()),
+          { once: true },
+        );
+      })
+    : initItchProjects();

@@ -56,8 +56,13 @@ async function initGithubProjects() {
   }
 }
 
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initGithubProjects);
-} else {
-  initGithubProjects();
-}
+export const githubProjectsReady =
+  document.readyState === "loading"
+    ? new Promise((resolve) => {
+        document.addEventListener(
+          "DOMContentLoaded",
+          () => resolve(initGithubProjects()),
+          { once: true },
+        );
+      })
+    : initGithubProjects();
