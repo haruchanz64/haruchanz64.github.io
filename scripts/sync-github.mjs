@@ -1,0 +1,56 @@
+import { mkdir, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const GITHUB_USERNAME = "haruchanz64";
+const PINNED_REPOS = [
+  "GDriveDesktop",
+  "UnityEventToolkit",
+  "DebugCommandSystem",
+  "ScriptableBatchTool",
+  "SaveEncryptionToolkit",
+];
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const OUTPUT_PATH = resolve(__dirname, "../public/data/github-projects.json");
+
+async function main() {
+  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "User-Agent": "haru-portfolio-sync/1.0",
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  const res = await fetch(
+    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner`,
+    { headers },
+  );
+
+  if (!res.ok) {
+    throw new Error(`GitHub API ${res.status}`);
+  }
+
+  const repos = await res.json();
+  const pinned = PINNED_REPOS.map((name) => {
+    const repo = repos.find((r) => r.name === name);
+    if (!repo) return null;
+    return {
+      name: repo.name,
+      html_url: repo.html_url,
+      description: repo.description || "",
+      language: repo.language || "N/A",
+    };
+  }).filter(Boolean);
+
+  await mkdir(dirname(OUTPUT_PATH), { recursive: true });
+  await writeFile(OUTPUT_PATH, `${JSON.stringify(pinned, null, 2)}\n`, "utf8");
+  console.log(`Synced ${pinned.length} GitHub projects to ${OUTPUT_PATH}`);
+}
+
+main().catch((err) => {
+  console.warn(`Warning: failed to sync GitHub projects (${err.message})`);
+  process.exitCode = 0;
+});

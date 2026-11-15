@@ -8,7 +8,7 @@ const MORPH_TRANSITION_MS = 650;
 
 function hasSeenIntro() {
   try {
-    return sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
+    return sessionStorage.getItem(INTRO_SEEN_KEY) === "true";
   } catch {
     return false;
   }
@@ -16,7 +16,7 @@ function hasSeenIntro() {
 
 function markIntroSeen() {
   try {
-    sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+    sessionStorage.setItem(INTRO_SEEN_KEY, "true");
   } catch {
     // Ignore storage errors in restricted browsing contexts.
   }

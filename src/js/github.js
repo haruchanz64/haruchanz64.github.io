@@ -1,3 +1,4 @@
+import { readCache, writeCache } from "./cache.js";
 import { t } from "./i18n.js";
 
 const GITHUB_USERNAME = "haruchanz64";
@@ -8,51 +9,105 @@ const PINNED_REPOS = [
   "ScriptableBatchTool",
   "SaveEncryptionToolkit",
 ];
+const CACHE_KEY = "haru_github_projects_v1";
+const CACHE_TTL_MS = 60 * 60 * 1000;
+
+function renderGithubProjects(grid, repos) {
+  if (!Array.isArray(repos) || repos.length === 0) {
+    grid.innerHTML = `<p class="loading-text">${t("projects.noneFound")}</p>`;
+    return;
+  }
+
+  grid.innerHTML = "";
+
+  repos.forEach((repo) => {
+    const card = document.createElement("a");
+    card.href = repo.html_url;
+    card.target = "_blank";
+    card.rel = "noopener noreferrer";
+    card.className = "project-card uniform";
+
+    const info = document.createElement("div");
+    info.className = "project-info";
+
+    const title = document.createElement("h3");
+    title.className = "project-title";
+    title.textContent = repo.name;
+    info.appendChild(title);
+
+    const desc = document.createElement("p");
+    desc.className = "project-description";
+    desc.textContent = repo.description || t("projects.noDescription");
+    info.appendChild(desc);
+
+    const meta = document.createElement("div");
+    meta.className = "project-meta";
+    const lang = document.createElement("span");
+    lang.className = "project-language";
+    lang.textContent = repo.language || "N/A";
+    meta.appendChild(lang);
+    info.appendChild(meta);
+
+    card.appendChild(info);
+    grid.appendChild(card);
+    if (window.observeReveal) window.observeReveal(card);
+  });
+}
+
+async function fetchLiveGithubProjects() {
+  const res = await fetch(
+    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner`,
+  );
+  if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+  const repos = await res.json();
+
+  return PINNED_REPOS.map((name) => {
+    const repo = repos.find((r) => r.name === name);
+    if (!repo) return null;
+    return {
+      name: repo.name,
+      html_url: repo.html_url,
+      description: repo.description || "",
+      language: repo.language || "N/A",
+    };
+  }).filter(Boolean);
+}
+
+async function fetchFallbackGithubProjects() {
+  const res = await fetch("/data/github-projects.json");
+  if (!res.ok) throw new Error(`Fallback GitHub JSON ${res.status}`);
+  return res.json();
+}
 
 async function initGithubProjects() {
   const grid = document.getElementById("tools-grid");
   if (!grid) return;
 
+  const cached = readCache(CACHE_KEY, CACHE_TTL_MS);
+  if (Array.isArray(cached) && cached.length > 0) {
+    renderGithubProjects(grid, cached);
+    return;
+  }
+
   try {
-    const res = await fetch(
-      `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner`,
-    );
-    if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-    const repos = await res.json();
-
-    const filtered = repos.filter((r) => PINNED_REPOS.includes(r.name));
-
-    if (filtered.length === 0) {
-      grid.innerHTML =
-        `<p class="loading-text">${t("projects.noneFound")}</p>`;
+    const projects = await fetchLiveGithubProjects();
+    writeCache(CACHE_KEY, projects);
+    renderGithubProjects(grid, projects);
+  } catch (err) {
+    console.warn("GitHub API unavailable, using fallback:", err.message);
+    const stale = readCache(CACHE_KEY, CACHE_TTL_MS, true);
+    if (Array.isArray(stale) && stale.length > 0) {
+      renderGithubProjects(grid, stale);
       return;
     }
 
-    grid.innerHTML = "";
-
-    PINNED_REPOS.forEach((name) => {
-      const repo = filtered.find((r) => r.name === name);
-      if (!repo) return;
-      const card = document.createElement("a");
-      card.href = repo.html_url;
-      card.target = "_blank";
-      card.rel = "noopener noreferrer";
-      card.className = "project-card uniform";
-      card.innerHTML = `
-        <div class="project-info">
-          <h3 class="project-title">${repo.name}</h3>
-          <p class="project-description">${repo.description || t("projects.noDescription")}</p>
-          <div class="project-meta">
-            <span class="project-language">${repo.language || "N/A"}</span>
-          </div>
-        </div>
-      `;
-      grid.appendChild(card);
-      if (window.observeReveal) window.observeReveal(card);
-    });
-  } catch (err) {
-    console.error("Failed to load GitHub projects:", err);
-    grid.innerHTML = `<p class="loading-text">${t("projects.failedToLoad")}</p>`;
+    try {
+      const fallback = await fetchFallbackGithubProjects();
+      renderGithubProjects(grid, fallback);
+    } catch (fallbackErr) {
+      console.error("Failed to load GitHub projects:", fallbackErr);
+      grid.innerHTML = `<p class="loading-text">${t("projects.failedToLoad")}</p>`;
+    }
   }
 }
 
