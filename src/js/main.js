@@ -1,3 +1,4 @@
+import "./i18n.js";
 import { sendEmail } from "./contact.js";
 import { requestResume } from "./resume.js";
 import "./observer.js";

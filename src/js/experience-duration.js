@@ -87,7 +87,8 @@ export function applyExperienceDurations(root = document, now = new Date()) {
 
     const duration = computeExperienceDuration(raw, now);
     if (duration) {
-      el.textContent = `${raw} · ${duration}`;
+      const displayRange = el.textContent.trim().split(" · ")[0] || raw;
+      el.textContent = `${displayRange} · ${duration}`;
     }
   }
 }

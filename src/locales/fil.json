@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "Haru · Portfolio",
+    "description": "Portfolio ni Aron Jake Radam (Haru) — Lead Full-Stack Software Engineer at College Instructor na nagtatrabaho sa production software at game development."
+  },
+  "nav": {
+    "ariaLabel": "Pangunahing nabigasyon",
+    "logoAriaLabel": "Haru — Bumalik sa itaas",
+    "brandName": "Haru",
+    "brandRole": "Software Engineer at College Instructor",
+    "links": {
+      "about": "Tungkol",
+      "experience": "Karanasan",
+      "education": "Edukasyon",
+      "projects": "Mga Proyekto",
+      "skills": "Mga Kasanayan",
+      "contact": "Makipag-ugnayan"
+    }
+  },
+  "hero": {
+    "logoAlt": "Logo ng Haru",
+    "greeting": "Ako si",
+    "name": "Haru,",
+    "titleHtml": "isang <strong>software engineer at college instructor</strong> na nagtuturo ng <strong>game development</strong> at nakatuon sa <strong>game design theory</strong>, <strong>backend</strong>, at <strong>DevOps</strong>.",
+    "ctaContact": "Makipag-ugnayan",
+    "ctaProjects": "Tingnan ang Aking mga Gawa"
+  },
+  "about": {
+    "title": "Tungkol",
+    "p1Html": "Ako si <strong>Aron Jake Radam</strong> (kilala rin online bilang <strong>Haru</strong>), isang <strong>Lead Full-Stack Software Engineer</strong> at <strong>College Instructor</strong> na nagtatrabaho sa production software at game development. Nagsimula ako sa game playtesting at QA sa <strong>GridLock-Games Studio</strong>, kung saan sumusuri ako ng mga build, nag-uulat ng mga bug, at nakikipagtulungan sa mga developer at designer bago ang release.",
+    "p2Html": "Sa kasalukuyan, ako ang nag-iisang full-stack engineer sa <strong>PicStar Software OPC</strong> sa <strong>Las Piñas, Philippines</strong>, na gumagawa ng <strong>PicStar</strong> gamit ang <strong>Flutter</strong> at <strong>Supabase</strong>—mula sa mobile UI at PostgreSQL backend hanggang sa real-time na Top at Board feeds, Shineouts, rankings, at city-based filtering.",
+    "p3Html": "Kasabay ng trabaho sa industriya, nagtuturo ako sa mga sophomore hanggang senior na estudyante sa <strong>University of Caloocan City</strong>, na sumasaklaw sa game design theory, prototyping, OOP, math in games, AI, networking, at production pipelines habang ginagabayan ang kanilang mga proyekto mula sa unang mechanics hanggang sa full production.",
+    "p4Html": "Bukod sa aking pangunahing stack, pinag-aaralan ko ang <strong>game design theory</strong> at gumagawa ng mga personal na proyekto gamit ang <strong>C# (.NET)</strong>, <strong>Java (Spring Boot)</strong>, at <strong>Docker</strong>. Gumagamit din ako ng mga AI coding tool sa aking pang-araw-araw na workflow upang mas mabilis na makapag-prototype at mag-debug, at bukas ako sa freelance work o mga bagong oportunidad."
+  },
+  "experience": {
+    "title": "Karanasan",
+    "items": {
+      "0": {
+        "role": "College Instructor",
+        "date": "Hulyo 2026 – Kasalukuyan",
+        "company": "University of Caloocan City · Full-time",
+        "location": "Caloocan City, Metro Manila",
+        "b0": "Nagtuturo ng game design theory, prototyping, at production pipelines sa mga sophomore hanggang senior na estudyante, habang ginagabayan ang mga proyekto mula sa unang mechanics hanggang sa full production.",
+        "b1": "Nangunguna sa mga lecture at lab session tungkol sa game programming, networking, at production upang matulungan ang mga estudyante na gawing gumaganang build ang kanilang mga ideya sa laro.",
+        "b2": "Sumasaklaw sa mahahalagang scripting at engine fundamentals kabilang ang OOP, math in games, physics, collision detection, AI, networking, at code optimization.",
+        "b3": "Namamahala ng mga lab session, gumagabay sa pag-usad ng proyekto ng mga estudyante at tumutulong sa kanilang mga tanong, at tinitiyak na nakabatay ang coursework sa kasalukuyang gawain sa industriya."
+      },
+      "1": {
+        "role": "Lead Full-Stack Software Engineer",
+        "date": "Agosto 2025 – Kasalukuyan",
+        "company": "PicStar Software OPC · Kontraktwal",
+        "location": "Las Piñas, Metro Manila",
+        "b0": "Pinangasiwaan ang teknikal na direksyon at pang-araw-araw na engineering ng isang social media startup bilang nag-iisang engineer, mula sa arkitektura hanggang sa deployment.",
+        "b1": "Binuo ang cross-platform mobile app sa Flutter na may modular codebase at pare-parehong UI/UX.",
+        "b2": "Dinisenyo at pinanatili ang Supabase PostgreSQL backend, habang inaayos ang mga query, data egress, at real-time feeds.",
+        "b3": "Ipinatupad ang mga pangunahing feature ng PicStar kabilang ang Top at Board feeds, Shineouts para sa pag-promote ng mga post at shot mula Board patungong Top, Top rankings, at city-based content filtering."
+      },
+      "2": {
+        "role": "Quality Assurance Analyst",
+        "date": "Mayo 2024 – Abril 2025",
+        "company": "GridLock-Games Studio · Internship",
+        "location": "Taguig, Metro Manila",
+        "b0": "Nakipagtulungan sa mga developer at designer upang subukan ang mga build at mahuli ang mga isyu bago ang release.",
+        "b1": "Nag-log, nag-reproduce, at sumubaybay ng mga bug sa Trello upang mapanatiling maayos ang daloy ng pag-aayos.",
+        "b2": "Sumuporta sa buong release cycle sa pamamagitan ng regression testing at build verification."
+      },
+      "3": {
+        "role": "Video Game Playtester",
+        "date": "Disyembre 2022 – Mayo 2024",
+        "company": "GridLock-Games Studio · External",
+        "location": "Taguig, Metro Manila",
+        "b0": "Nag-playtest ng iba't ibang game build upang makahanap ng mga bug, glitch, at exploit.",
+        "b1": "Nagbigay ng nakasulat at berbal na feedback tungkol sa gameplay mechanics, balanse, at kabuuang pakiramdam ng laro.",
+        "b2": "Nakipagtulungan sa mga developer upang malinaw na maiulat ang mga isyu at ma-verify ang mga pag-aayos."
+      }
+    }
+  },
+  "education": {
+    "title": "Edukasyon",
+    "items": {
+      "0": {
+        "degree": "BS in Entertainment and Multimedia Computing",
+        "date": "Agosto 2021 – Abril 2025",
+        "major": "Major sa Game Development",
+        "school": "University of Caloocan City",
+        "location": "Caloocan City, Metro Manila",
+        "b0Html": "<strong>Capstone Project — Trash Frenzy:</strong> Larong pang-edukasyon para sa mga estudyante sa Baitang 5 pataas na nagpapataas ng kamalayan tungkol sa polusyon sa tubig sa Pilipinas at nagtuturo ng tamang pagtatapon ng basura sa pamamagitan ng kwento at gameplay.",
+        "b1Html": "<strong>Papel sa Capstone:</strong> Nagsilbing Project Manager, Game Designer, Game Programmer, at Game QA—nagkoordina ng mga milestone ng proyekto, nagdisenyo ng gameplay mechanics at daloy ng kwento, nagpatupad ng mga pangunahing sistema, at sumubok ng mga build para sa quality assurance.",
+        "b2Html": "<strong>Mga Kaugnay na Kurso:</strong> Introduction to Game Design and Development, Advanced Game Design, Game Programming 1–3, Artificial Intelligence (AI) in Games, Applied Mathematics for Games, Game Networking, at Game Production."
+      }
+    }
+  },
+  "projects": {
+    "title": "Mga Proyekto",
+    "systemsTools": "Mga Sistema at Tool",
+    "gameProjects": "Mga Proyektong Laro",
+    "loading": "Nilo-load ang mga proyekto...",
+    "noneFound": "Walang nahanap na katugmang proyekto.",
+    "noneGamesFound": "Walang nahanap na proyektong laro.",
+    "noDescription": "Walang paglalarawan",
+    "failedToLoad": "Nabigong i-load ang mga proyekto.",
+    "untitled": "Walang Pamagat",
+    "gameAlt": "Proyektong laro"
+  },
+  "skills": {
+    "title": "Mga Kasanayan",
+    "ariaLabel": "Mga kategorya ng kasanayan",
+    "tabs": {
+      "languages": "Mga Programming Language",
+      "frameworks": "Mga Framework",
+      "gameEngines": "Mga Game Engine",
+      "databases": "Mga Database",
+      "tools": "Mga Tool at Software"
+    }
+  },
+  "contact": {
+    "title": "Makipag-ugnayan",
+    "description": "Bukas para sa freelance work, mga tungkulin sa software engineering, at kolaborasyon sa game development o pagtuturo. May naiisip ka ba? Mag-usap tayo.",
+    "form": {
+      "nameLabel": "Pangalan",
+      "namePlaceholder": "Ang iyong pangalan",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subjectLabel": "Paksa",
+      "subjectPlaceholder": "Pumili ng paksa…",
+      "subjects": {
+        "freelance": "Freelance / Pagtatanong sa Proyekto",
+        "job": "Oportunidad sa Trabaho / Panayam",
+        "collab": "Kolaborasyon sa Game Development / Pagtuturo",
+        "general": "Pangkalahatang Tanong",
+        "custom": "Iba pa (Pasadyang Paksa)"
+      },
+      "customSubjectPlaceholder": "Ilagay ang iyong pasadyang paksa…",
+      "customSubjectAriaLabel": "Pasadyang paksa",
+      "messageLabel": "Mensahe",
+      "messagePlaceholder": "Isulat ang iyong mensahe dito…",
+      "submit": "Ipadala ang Mensahe",
+      "sending": "Ipinapadala…",
+      "resume": "Tingnan ang Aking Resume"
+    },
+    "socialTitle": "Hanapin ako online",
+    "toast": {
+      "enterName": "Pakilagay ang iyong pangalan.",
+      "invalidEmail": "Pakilagay ang wastong email address.",
+      "selectSubject": "Pakipili ang isang paksa.",
+      "enterCustomSubject": "Pakilagay ang iyong pasadyang paksa.",
+      "enterMessage": "Pakilagay ang mensahe.",
+      "sent": "Naipadala ang mensahe! Babalikan kita sa lalong madaling panahon.",
+      "offline": "Mukhang wala kang koneksyon sa internet. Pakisuri ang iyong koneksyon at subukang muli.",
+      "devMode": "Hindi naipadala ang email: walang /api/contact handler ang lokal na Vite dev. I-deploy sa Cloudflare o patakbuhin ang `npx wrangler dev`.",
+      "genericError": "Hindi maipadala ang email. Pakisubukang muli o makipag-ugnayan sa pamamagitan ng mga social link sa ibaba.",
+      "timeout": "Nag-time out ang kahilingan. Pakisuri ang iyong koneksyon at subukang muli.",
+      "endpointUnavailable": "Hindi magamit ang form endpoint (HTTP {status}). Pakimakipag-ugnayan sa pamamagitan ng mga social link sa ibaba.",
+      "serverError": "May error sa server (HTTP {status}). Pakisubukang muli mamaya o makipag-ugnayan sa pamamagitan ng mga social link sa ibaba."
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Aron Jake Radam (Haru). Nakalaan ang lahat ng karapatan."
+  }
+}

@@ -1,3 +1,5 @@
+import { t } from "./i18n.js";
+
 const GITHUB_USERNAME = "haruchanz64";
 const PINNED_REPOS = [
   "GDriveDesktop",
@@ -22,7 +24,7 @@ async function initGithubProjects() {
 
     if (filtered.length === 0) {
       grid.innerHTML =
-        '<p class="loading-text">No matching projects found.</p>';
+        `<p class="loading-text">${t("projects.noneFound")}</p>`;
       return;
     }
 
@@ -39,7 +41,7 @@ async function initGithubProjects() {
       card.innerHTML = `
         <div class="project-info">
           <h3 class="project-title">${repo.name}</h3>
-          <p class="project-description">${repo.description || "No description"}</p>
+          <p class="project-description">${repo.description || t("projects.noDescription")}</p>
           <div class="project-meta">
             <span class="project-language">${repo.language || "N/A"}</span>
           </div>
@@ -50,7 +52,7 @@ async function initGithubProjects() {
     });
   } catch (err) {
     console.error("Failed to load GitHub projects:", err);
-    grid.innerHTML = '<p class="loading-text">Failed to load projects.</p>';
+    grid.innerHTML = `<p class="loading-text">${t("projects.failedToLoad")}</p>`;
   }
 }
 

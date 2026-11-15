@@ -1,3 +1,5 @@
+import { t } from "./i18n.js";
+
 function createTagSpan(className, text) {
   const span = document.createElement("span");
   span.className = className;
@@ -15,7 +17,7 @@ async function initItchProjects() {
     const projects = await res.json();
 
     if (!Array.isArray(projects) || projects.length === 0) {
-      grid.innerHTML = '<p class="loading-text">No game projects found.</p>';
+      grid.innerHTML = `<p class="loading-text">${t("projects.noneGamesFound")}</p>`;
       return;
     }
 
@@ -31,7 +33,7 @@ async function initItchProjects() {
       if (project.image) {
         const img = document.createElement("img");
         img.src = project.image;
-        img.alt = project.title || "Game project";
+        img.alt = project.title || t("projects.gameAlt");
         img.className = "project-thumb";
         img.loading = "lazy";
         card.appendChild(img);
@@ -42,12 +44,12 @@ async function initItchProjects() {
 
       const title = document.createElement("h3");
       title.className = "project-title";
-      title.textContent = project.title || "Untitled";
+      title.textContent = project.title || t("projects.untitled");
       info.appendChild(title);
 
       const desc = document.createElement("p");
       desc.className = "project-description";
-      desc.textContent = project.description || "No description";
+      desc.textContent = project.description || t("projects.noDescription");
       info.appendChild(desc);
 
       const meta = document.createElement("div");
@@ -67,7 +69,7 @@ async function initItchProjects() {
     });
   } catch (err) {
     console.error("Failed to load itch.io projects:", err);
-    grid.innerHTML = '<p class="loading-text">Failed to load projects.</p>';
+    grid.innerHTML = `<p class="loading-text">${t("projects.failedToLoad")}</p>`;
   }
 }
 

@@ -1,4 +1,5 @@
 import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
+import { t } from "./i18n.js";
 
 const REQUEST_TIMEOUT_MS = 15000;
 const TOAST_AUTO_HIDE_MS = 6000;
@@ -139,27 +140,27 @@ export async function sendEmail(e) {
   const message = messageEl.value.trim();
 
   if (!name) {
-    showToast(toast, "Please enter your name.", "error");
+    showToast(toast, t("contact.toast.enterName"), "error");
     nameEl.focus();
     return;
   }
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast(toast, "Please enter a valid email address.", "error");
+    showToast(toast, t("contact.toast.invalidEmail"), "error");
     emailEl.focus();
     return;
   }
   if (!selectedSubject) {
-    showToast(toast, "Please select a subject.", "error");
+    showToast(toast, t("contact.toast.selectSubject"), "error");
     subjectSelectEl.focus();
     return;
   }
   if (isCustomSubject && !subject) {
-    showToast(toast, "Please enter your custom subject.", "error");
+    showToast(toast, t("contact.toast.enterCustomSubject"), "error");
     subjectCustomEl.focus();
     return;
   }
   if (!message) {
-    showToast(toast, "Please enter a message.", "error");
+    showToast(toast, t("contact.toast.enterMessage"), "error");
     messageEl.focus();
     return;
   }
@@ -181,7 +182,7 @@ export async function sendEmail(e) {
 
   if (spamCheck.blocked) {
     if (spamCheck.silent) {
-      showToast(toast, "Message sent! I'll get back to you soon.", "success");
+      showToast(toast, t("contact.toast.sent"), "success");
       resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl);
     } else {
       showToast(toast, spamCheck.userMessage, "error");
@@ -192,7 +193,7 @@ export async function sendEmail(e) {
   if (typeof navigator !== "undefined" && navigator.onLine === false) {
     showToast(
       toast,
-      "You appear to be offline. Please check your connection and try again.",
+      t("contact.toast.offline"),
       "error"
     );
     return;
@@ -202,7 +203,7 @@ export async function sendEmail(e) {
   if (import.meta.env.DEV && window.location.port !== "8787") {
     showToast(
       toast,
-      "Email not sent: local Vite dev has no /api/contact handler. Deploy to Cloudflare or run `npx wrangler dev`.",
+      t("contact.toast.devMode"),
       "error"
     );
     return;
@@ -242,19 +243,18 @@ export async function sendEmail(e) {
     }
 
     recordSubmissionTime(typeof window !== "undefined" ? window.localStorage : null);
-    showToast(toast, "Message sent! I'll get back to you soon.", "success");
+    showToast(toast, t("contact.toast.sent"), "success");
     resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl);
   } catch (err) {
     console.error("Contact form submission error:", err);
-    let errorMsg =
-      "Email could not be sent. Please try again or reach out via the social links below.";
+    let errorMsg = t("contact.toast.genericError");
 
     if (err.name === "AbortError") {
-      errorMsg = "Request timed out. Please check your connection and try again.";
+      errorMsg = t("contact.toast.timeout");
     } else if (err.status === 404 || err.status === 405) {
-      errorMsg = `Form endpoint unavailable (HTTP ${err.status}). Please reach out via the social links below.`;
+      errorMsg = t("contact.toast.endpointUnavailable", { status: err.status });
     } else if (err.status >= 500) {
-      errorMsg = `Server error (HTTP ${err.status}). Please try again later or reach out via the social links below.`;
+      errorMsg = t("contact.toast.serverError", { status: err.status });
     }
 
     showToast(toast, errorMsg, "error");

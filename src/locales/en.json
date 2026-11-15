@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "Haru · Portfolio",
+    "description": "Portfolio of Aron Jake Radam (Haru) — Lead Full-Stack Software Engineer & College Instructor working across production software and game development."
+  },
+  "nav": {
+    "ariaLabel": "Primary",
+    "logoAriaLabel": "Haru — Back to top",
+    "brandName": "Haru",
+    "brandRole": "Software Engineer & College Instructor",
+    "links": {
+      "about": "About",
+      "experience": "Experience",
+      "education": "Education",
+      "projects": "Projects",
+      "skills": "Skills",
+      "contact": "Contact"
+    }
+  },
+  "hero": {
+    "logoAlt": "Haru Logo",
+    "greeting": "I'm",
+    "name": "Haru,",
+    "titleHtml": "a <strong>software engineer &amp; college instructor</strong> who teaches <strong>game development</strong> and spends time on <strong>game design theory</strong>, <strong>backend</strong>, and <strong>DevOps</strong>.",
+    "ctaContact": "Get in Touch",
+    "ctaProjects": "Explore My Work"
+  },
+  "about": {
+    "title": "About",
+    "p1Html": "I'm <strong>Aron Jake Radam</strong> (also known online as <strong>Haru</strong>), a <strong>Lead Full-Stack Software Engineer</strong> and <strong>College Instructor</strong> working across production software and game development. I started out in game playtesting and QA at <strong>GridLock-Games Studio</strong>, testing builds, reporting bugs, and working with developers and designers ahead of releases.",
+    "p2Html": "Right now, I'm the sole full-stack engineer at <strong>PicStar Software OPC</strong> in <strong>Las Piñas, Philippines</strong>, building <strong>PicStar</strong> with <strong>Flutter</strong> and <strong>Supabase</strong>—from the mobile UI and PostgreSQL backend to real-time Top and Board feeds, Shineouts, rankings, and city-based filtering.",
+    "p3Html": "Alongside industry work, I teach sophomore through senior students at the <strong>University of Caloocan City</strong>, covering game design theory, prototyping, OOP, math in games, AI, networking, and production pipelines while guiding their projects from initial mechanics to full production.",
+    "p4Html": "Outside of my main stack, I study <strong>game design theory</strong> and build personal projects with <strong>C# (.NET)</strong>, <strong>Java (Spring Boot)</strong>, and <strong>Docker</strong>. I also use AI coding tools in my daily workflow to prototype and debug faster, and I'm open to freelance work or new roles."
+  },
+  "experience": {
+    "title": "Experience",
+    "items": {
+      "0": {
+        "role": "College Instructor",
+        "date": "July 2026 – Present",
+        "company": "University of Caloocan City · Full-time",
+        "location": "Caloocan City, Metro Manila",
+        "b0": "Teach game design theory, prototyping, and production pipelines to sophomore through senior students, guiding projects from initial mechanics to full production.",
+        "b1": "Lead lectures and lab sessions on game programming, networking, and production, helping students turn game ideas into working builds.",
+        "b2": "Cover core scripting and engine fundamentals including OOP, math in games, physics, collision detection, AI, networking, and code optimization.",
+        "b3": "Manage lab sessions, guide student project progress and help with questions, and keep coursework grounded in current industry practices."
+      },
+      "1": {
+        "role": "Lead Full-Stack Software Engineer",
+        "date": "August 2025 – Present",
+        "company": "PicStar Software OPC · Contractual",
+        "location": "Las Piñas, Metro Manila",
+        "b0": "Owned the technical direction and day-to-day engineering of a social media startup as the sole engineer, from architecture through deployment.",
+        "b1": "Built the cross-platform mobile app in Flutter with a modular codebase and consistent UI/UX.",
+        "b2": "Designed and maintained the Supabase PostgreSQL backend, tuning queries, data egress, and real-time feeds.",
+        "b3": "Implemented core PicStar features including the Top and Board feeds, Shineouts for promoting posts and shots from Board to Top, Top rankings, and city-based content filtering."
+      },
+      "2": {
+        "role": "Quality Assurance Analyst",
+        "date": "May 2024 – April 2025",
+        "company": "GridLock-Games Studio · Internship",
+        "location": "Taguig, Metro Manila",
+        "b0": "Worked with developers and designers to test builds and catch issues before release.",
+        "b1": "Logged, reproduced, and tracked bugs in Trello to keep fixes moving smoothly.",
+        "b2": "Supported the full release cycle through regression testing and build verification."
+      },
+      "3": {
+        "role": "Video Game Playtester",
+        "date": "December 2022 – May 2024",
+        "company": "GridLock-Games Studio · External",
+        "location": "Taguig, Metro Manila",
+        "b0": "Playtested different game builds to find bugs, glitches, and exploits.",
+        "b1": "Gave written and verbal feedback on gameplay mechanics, balance, and overall feel.",
+        "b2": "Worked with developers to report issues clearly and verify fixes."
+      }
+    }
+  },
+  "education": {
+    "title": "Education",
+    "items": {
+      "0": {
+        "degree": "BS in Entertainment and Multimedia Computing",
+        "date": "August 2021 – April 2025",
+        "major": "Major in Game Development",
+        "school": "University of Caloocan City",
+        "location": "Caloocan City, Metro Manila",
+        "b0Html": "<strong>Capstone Project — Trash Frenzy:</strong> Educational game for Grade 5 students and above that raises water pollution awareness in the Philippines and teaches proper waste disposal through storytelling and gameplay.",
+        "b1Html": "<strong>Capstone Role:</strong> Served as Project Manager, Game Designer, Game Programmer, and Game QA—coordinating project milestones, designing gameplay mechanics and narrative flow, implementing core systems, and testing builds for quality assurance.",
+        "b2Html": "<strong>Relevant Coursework:</strong> Introduction to Game Design and Development, Advanced Game Design, Game Programming 1–3, Artificial Intelligence (AI) in Games, Applied Mathematics for Games, Game Networking, and Game Production."
+      }
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "systemsTools": "Systems & Tools",
+    "gameProjects": "Game Projects",
+    "loading": "Loading projects...",
+    "noneFound": "No matching projects found.",
+    "noneGamesFound": "No game projects found.",
+    "noDescription": "No description",
+    "failedToLoad": "Failed to load projects.",
+    "untitled": "Untitled",
+    "gameAlt": "Game project"
+  },
+  "skills": {
+    "title": "Skills",
+    "ariaLabel": "Skill categories",
+    "tabs": {
+      "languages": "Programming Languages",
+      "frameworks": "Frameworks",
+      "gameEngines": "Game Engines",
+      "databases": "Databases",
+      "tools": "Tools & Software"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "description": "Open to freelance work, software engineering roles, and game development or teaching collaborations. Got something in mind? Let's talk.",
+    "form": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Select a subject…",
+      "subjects": {
+        "freelance": "Freelance / Project Inquiry",
+        "job": "Job Opportunity / Interview",
+        "collab": "Game Development / Teaching Collaboration",
+        "general": "General Question",
+        "custom": "Other (Custom Subject)"
+      },
+      "customSubjectPlaceholder": "Enter your custom subject…",
+      "customSubjectAriaLabel": "Custom subject",
+      "messageLabel": "Message",
+      "messagePlaceholder": "Write your message here…",
+      "submit": "Send Message",
+      "sending": "Sending…",
+      "resume": "View My Resume"
+    },
+    "socialTitle": "Find me online",
+    "toast": {
+      "enterName": "Please enter your name.",
+      "invalidEmail": "Please enter a valid email address.",
+      "selectSubject": "Please select a subject.",
+      "enterCustomSubject": "Please enter your custom subject.",
+      "enterMessage": "Please enter a message.",
+      "sent": "Message sent! I'll get back to you soon.",
+      "offline": "You appear to be offline. Please check your connection and try again.",
+      "devMode": "Email not sent: local Vite dev has no /api/contact handler. Deploy to Cloudflare or run `npx wrangler dev`.",
+      "genericError": "Email could not be sent. Please try again or reach out via the social links below.",
+      "timeout": "Request timed out. Please check your connection and try again.",
+      "endpointUnavailable": "Form endpoint unavailable (HTTP {status}). Please reach out via the social links below.",
+      "serverError": "Server error (HTTP {status}). Please try again later or reach out via the social links below."
+    }
+  },
+  "footer": {
+    "copyright": "© 2026 Aron Jake Radam (Haru). All rights reserved."
+  }
+}

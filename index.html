@@ -6,6 +6,7 @@
     <meta
       name="description"
       content="Portfolio of Aron Jake Radam (Haru) — Lead Full-Stack Software Engineer & College Instructor working across production software and game development."
+      data-i18n-content="meta.description"
     />
     <title>Haru · Portfolio</title>
 
@@ -23,28 +24,29 @@
     <script type="module" src="/src/js/main.js"></script>
   </head>
   <body>
-    <nav class="nav nav--hidden" aria-label="Primary" inert>
+    <nav class="nav nav--hidden" aria-label="Primary" data-i18n-aria-label="nav.ariaLabel" inert>
       <div class="nav-container">
         <a
           href="#hero"
           class="nav-logo"
           aria-label="Haru — Back to top"
+          data-i18n-aria-label="nav.logoAriaLabel"
         >
           <!--Profile Credit: https://ph.pinterest.com/pin/1009650810211802747/-->
           <img src="/res/profile_photo.webp" alt="" class="nav-avatar" width="36" height="36" />
           <span class="nav-brand-text">
-            <span class="nav-brand-name">Haru</span>
-            <span class="nav-brand-role">Software Engineer &amp; College Instructor</span>
+            <span class="nav-brand-name" data-i18n="nav.brandName">Haru</span>
+            <span class="nav-brand-role" data-i18n="nav.brandRole">Software Engineer &amp; College Instructor</span>
           </span>
         </a>
         <span class="nav-current-section" aria-hidden="true"></span>
         <ul id="primary-nav" class="nav-links">
-          <li><a href="#about" class="nav-link">About</a></li>
-          <li><a href="#experience" class="nav-link">Experience</a></li>
-          <li><a href="#education" class="nav-link">Education</a></li>
-          <li><a href="#projects" class="nav-link">Projects</a></li>
-          <li><a href="#skills" class="nav-link">Skills</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#about" class="nav-link" data-i18n="nav.links.about">About</a></li>
+          <li><a href="#experience" class="nav-link" data-i18n="nav.links.experience">Experience</a></li>
+          <li><a href="#education" class="nav-link" data-i18n="nav.links.education">Education</a></li>
+          <li><a href="#projects" class="nav-link" data-i18n="nav.links.projects">Projects</a></li>
+          <li><a href="#skills" class="nav-link" data-i18n="nav.links.skills">Skills</a></li>
+          <li><a href="#contact" class="nav-link" data-i18n="nav.links.contact">Contact</a></li>
         </ul>
         <div class="nav-actions" aria-hidden="true"></div>
       </div>
@@ -55,24 +57,25 @@
         <img
           src="/res/profile_photo.webp"
           alt="Haru Logo"
+          data-i18n-alt="hero.logoAlt"
           width="256"
           height="256"
           style="height: 256px; width: auto; margin-bottom: 1rem"
           fetchpriority="high"
         />
-        <div class="hero-greeting">I'm</div>
-        <h1 class="hero-name">Haru,</h1>
-        <p class="hero-title">
+        <div class="hero-greeting" data-i18n="hero.greeting">I'm</div>
+        <h1 class="hero-name" data-i18n="hero.name">Haru,</h1>
+        <p class="hero-title" data-i18n-html="hero.titleHtml">
           a <strong>software engineer &amp; college instructor</strong> who
           teaches <strong>game development</strong> and spends time on
           <strong>game design theory</strong>, <strong>backend</strong>, and
           <strong>DevOps</strong>.
         </p>
         <div class="hero-actions">
-          <a href="#contact" class="cta-button">
+          <a href="#contact" class="cta-button" data-i18n="hero.ctaContact">
             Get in Touch
           </a>
-          <a href="#projects" class="cta-button cta-secondary">
+          <a href="#projects" class="cta-button cta-secondary" data-i18n="hero.ctaProjects">
             Explore My Work
           </a>
         </div>
@@ -80,9 +83,9 @@
     </section>
 
     <section id="about" class="section">
-      <h2 class="section-title">About</h2>
+      <h2 class="section-title" data-i18n="about.title">About</h2>
       <div class="background-text">
-        <p>
+        <p data-i18n-html="about.p1Html">
           I'm <strong>Aron Jake Radam</strong> (also known online as
           <strong>Haru</strong>), a <strong>Lead Full-Stack Software Engineer</strong>
           and <strong>College Instructor</strong> working across production
@@ -91,7 +94,7 @@
           <strong>GridLock-Games Studio</strong>, testing builds, reporting
           bugs, and working with developers and designers ahead of releases.
         </p>
-        <p>
+        <p data-i18n-html="about.p2Html">
           Right now, I'm the sole full-stack engineer at
           <strong>PicStar Software OPC</strong> in
           <strong>Las Piñas, Philippines</strong>, building
@@ -100,14 +103,14 @@
           real-time Top and Board feeds, Shineouts, rankings, and city-based
           filtering.
         </p>
-        <p>
+        <p data-i18n-html="about.p3Html">
           Alongside industry work, I teach sophomore through senior students at
           the <strong>University of Caloocan City</strong>, covering game design
           theory, prototyping, OOP, math in games, AI, networking, and
           production pipelines while guiding their projects from initial
           mechanics to full production.
         </p>
-        <p>
+        <p data-i18n-html="about.p4Html">
           Outside of my main stack, I study
           <strong>game design theory</strong> and build personal projects with
           <strong>C# (.NET)</strong>, <strong>Java (Spring Boot)</strong>, and
@@ -119,33 +122,33 @@
     </section>
 
     <section id="experience" class="section">
-      <h2 class="section-title">Experience</h2>
+      <h2 class="section-title" data-i18n="experience.title">Experience</h2>
       <div class="experience-timeline">
         <article class="experience-item">
           <div class="experience-header">
-            <h3 class="experience-role">College Instructor</h3>
-            <span class="experience-date">July 2026 – Present</span>
+            <h3 class="experience-role" data-i18n="experience.items.0.role">College Instructor</h3>
+            <span class="experience-date" data-date-range="July 2026 – Present" data-i18n="experience.items.0.date">July 2026 – Present</span>
           </div>
           <div class="experience-meta">
-            <span class="experience-company">University of Caloocan City · Full-time</span>
-            <span class="experience-location">Caloocan City, Metro Manila</span>
+            <span class="experience-company" data-i18n="experience.items.0.company">University of Caloocan City · Full-time</span>
+            <span class="experience-location" data-i18n="experience.items.0.location">Caloocan City, Metro Manila</span>
           </div>
           <ul class="experience-list">
-            <li>
+            <li data-i18n="experience.items.0.b0">
               Teach game design theory, prototyping, and production pipelines to
               sophomore through senior students, guiding projects from initial
               mechanics to full production.
             </li>
-            <li>
+            <li data-i18n="experience.items.0.b1">
               Lead lectures and lab sessions on game programming, networking, and
               production, helping students turn game ideas into working builds.
             </li>
-            <li>
+            <li data-i18n="experience.items.0.b2">
               Cover core scripting and engine fundamentals including OOP, math
               in games, physics, collision detection, AI, networking, and code
               optimization.
             </li>
-            <li>
+            <li data-i18n="experience.items.0.b3">
               Manage lab sessions, guide student project progress and help with
               questions, and keep coursework grounded in current industry
               practices.
@@ -155,28 +158,28 @@
 
         <article class="experience-item">
           <div class="experience-header">
-            <h3 class="experience-role">Lead Full-Stack Software Engineer</h3>
-            <span class="experience-date">August 2025 – Present</span>
+            <h3 class="experience-role" data-i18n="experience.items.1.role">Lead Full-Stack Software Engineer</h3>
+            <span class="experience-date" data-date-range="August 2025 – Present" data-i18n="experience.items.1.date">August 2025 – Present</span>
           </div>
           <div class="experience-meta">
-            <span class="experience-company">PicStar Software OPC · Contractual</span>
-            <span class="experience-location">Las Piñas, Metro Manila</span>
+            <span class="experience-company" data-i18n="experience.items.1.company">PicStar Software OPC · Contractual</span>
+            <span class="experience-location" data-i18n="experience.items.1.location">Las Piñas, Metro Manila</span>
           </div>
           <ul class="experience-list">
-            <li>
+            <li data-i18n="experience.items.1.b0">
               Owned the technical direction and day-to-day engineering of a
               social media startup as the sole engineer, from architecture
               through deployment.
             </li>
-            <li>
+            <li data-i18n="experience.items.1.b1">
               Built the cross-platform mobile app in Flutter with a modular
               codebase and consistent UI/UX.
             </li>
-            <li>
+            <li data-i18n="experience.items.1.b2">
               Designed and maintained the Supabase PostgreSQL backend, tuning
               queries, data egress, and real-time feeds.
             </li>
-            <li>
+            <li data-i18n="experience.items.1.b3">
               Implemented core PicStar features including the Top and Board
               feeds, Shineouts for promoting posts and shots from Board to Top,
               Top rankings, and city-based content filtering.
@@ -186,23 +189,23 @@
 
         <article class="experience-item">
           <div class="experience-header">
-            <h3 class="experience-role">Quality Assurance Analyst</h3>
-            <span class="experience-date">May 2024 – April 2025</span>
+            <h3 class="experience-role" data-i18n="experience.items.2.role">Quality Assurance Analyst</h3>
+            <span class="experience-date" data-date-range="May 2024 – April 2025" data-i18n="experience.items.2.date">May 2024 – April 2025</span>
           </div>
           <div class="experience-meta">
-            <span class="experience-company">GridLock-Games Studio · Internship</span>
-            <span class="experience-location">Taguig, Metro Manila</span>
+            <span class="experience-company" data-i18n="experience.items.2.company">GridLock-Games Studio · Internship</span>
+            <span class="experience-location" data-i18n="experience.items.2.location">Taguig, Metro Manila</span>
           </div>
           <ul class="experience-list">
-            <li>
+            <li data-i18n="experience.items.2.b0">
               Worked with developers and designers to test builds and catch
               issues before release.
             </li>
-            <li>
+            <li data-i18n="experience.items.2.b1">
               Logged, reproduced, and tracked bugs in Trello to keep fixes
               moving smoothly.
             </li>
-            <li>
+            <li data-i18n="experience.items.2.b2">
               Supported the full release cycle through regression testing and
               build verification.
             </li>
@@ -211,23 +214,23 @@
 
         <article class="experience-item">
           <div class="experience-header">
-            <h3 class="experience-role">Video Game Playtester</h3>
-            <span class="experience-date">December 2022 – May 2024</span>
+            <h3 class="experience-role" data-i18n="experience.items.3.role">Video Game Playtester</h3>
+            <span class="experience-date" data-date-range="December 2022 – May 2024" data-i18n="experience.items.3.date">December 2022 – May 2024</span>
           </div>
           <div class="experience-meta">
-            <span class="experience-company">GridLock-Games Studio · External</span>
-            <span class="experience-location">Taguig, Metro Manila</span>
+            <span class="experience-company" data-i18n="experience.items.3.company">GridLock-Games Studio · External</span>
+            <span class="experience-location" data-i18n="experience.items.3.location">Taguig, Metro Manila</span>
           </div>
           <ul class="experience-list">
-            <li>
+            <li data-i18n="experience.items.3.b0">
               Playtested different game builds to find bugs, glitches, and
               exploits.
             </li>
-            <li>
+            <li data-i18n="experience.items.3.b1">
               Gave written and verbal feedback on gameplay mechanics, balance,
               and overall feel.
             </li>
-            <li>
+            <li data-i18n="experience.items.3.b2">
               Worked with developers to report issues clearly and verify fixes.
             </li>
           </ul>
@@ -236,64 +239,64 @@
     </section>
 
     <section id="education" class="section">
-      <h2 class="section-title">Education</h2>
+      <h2 class="section-title" data-i18n="education.title">Education</h2>
       <div class="experience-timeline">
         <article class="experience-item">
           <div class="experience-header">
-            <h3 class="experience-role">BS in Entertainment and Multimedia Computing</h3>
-            <span class="experience-date">August 2021 – April 2025</span>
+            <h3 class="experience-role" data-i18n="education.items.0.degree">BS in Entertainment and Multimedia Computing</h3>
+            <span class="experience-date" data-i18n="education.items.0.date">August 2021 – April 2025</span>
           </div>
-          <p class="experience-major">Major in Game Development</p>
+          <p class="experience-major" data-i18n="education.items.0.major">Major in Game Development</p>
           <div class="experience-meta">
-            <span class="experience-company">University of Caloocan City</span>
-            <span class="experience-location">Caloocan City, Metro Manila</span>
+            <span class="experience-company" data-i18n="education.items.0.school">University of Caloocan City</span>
+            <span class="experience-location" data-i18n="education.items.0.location">Caloocan City, Metro Manila</span>
           </div>
           <ul class="experience-list">
-            <li><strong>Capstone Project — Trash Frenzy:</strong> Educational game for Grade 5 students and above that raises water pollution awareness in the Philippines and teaches proper waste disposal through storytelling and gameplay.</li>
-            <li><strong>Capstone Role:</strong> Served as Project Manager, Game Designer, Game Programmer, and Game QA—coordinating project milestones, designing gameplay mechanics and narrative flow, implementing core systems, and testing builds for quality assurance.</li>
-            <li><strong>Relevant Coursework:</strong> Introduction to Game Design and Development, Advanced Game Design, Game Programming 1–3, Artificial Intelligence (AI) in Games, Applied Mathematics for Games, Game Networking, and Game Production.</li>
+            <li data-i18n-html="education.items.0.b0Html"><strong>Capstone Project — Trash Frenzy:</strong> Educational game for Grade 5 students and above that raises water pollution awareness in the Philippines and teaches proper waste disposal through storytelling and gameplay.</li>
+            <li data-i18n-html="education.items.0.b1Html"><strong>Capstone Role:</strong> Served as Project Manager, Game Designer, Game Programmer, and Game QA—coordinating project milestones, designing gameplay mechanics and narrative flow, implementing core systems, and testing builds for quality assurance.</li>
+            <li data-i18n-html="education.items.0.b2Html"><strong>Relevant Coursework:</strong> Introduction to Game Design and Development, Advanced Game Design, Game Programming 1–3, Artificial Intelligence (AI) in Games, Applied Mathematics for Games, Game Networking, and Game Production.</li>
           </ul>
         </article>
       </div>
     </section>
 
     <section id="projects" class="section">
-      <h2 class="section-title">Projects</h2>
+      <h2 class="section-title" data-i18n="projects.title">Projects</h2>
       <div class="project-category">
         <div class="category-header">
           <span class="category-label">
-            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Systems &amp; Tools
+            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> <span data-i18n="projects.systemsTools">Systems &amp; Tools</span>
           </span>
           <div class="category-divider"></div>
         </div>
         <div class="projects-grid" id="tools-grid">
-          <p class="loading-text">Loading projects...</p>
+          <p class="loading-text" data-i18n="projects.loading">Loading projects...</p>
         </div>
       </div>
 
       <div class="project-category">
         <div class="category-header">
           <span class="category-label">
-            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="4"/></svg> Game Projects
+            <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="4"/></svg> <span data-i18n="projects.gameProjects">Game Projects</span>
           </span>
           <div class="category-divider"></div>
         </div>
         <div class="projects-grid" id="games-grid">
-          <p class="loading-text">Loading projects...</p>
+          <p class="loading-text" data-i18n="projects.loading">Loading projects...</p>
         </div>
       </div>
     </section>
 
     <section id="skills" class="section">
-      <h2 class="section-title">Skills</h2>
-      <div class="skills-tabs" role="tablist" aria-label="Skill categories">
-        <button class="skill-tab active" data-skill="languages" role="tab" aria-selected="true" aria-controls="languages">
+      <h2 class="section-title" data-i18n="skills.title">Skills</h2>
+      <div class="skills-tabs" role="tablist" aria-label="Skill categories" data-i18n-aria-label="skills.ariaLabel">
+        <button class="skill-tab active" data-skill="languages" role="tab" aria-selected="true" aria-controls="languages" data-i18n="skills.tabs.languages">
           Programming Languages
         </button>
-        <button class="skill-tab" data-skill="frameworks" role="tab" aria-selected="false" aria-controls="frameworks">Frameworks</button>
-        <button class="skill-tab" data-skill="game-engines" role="tab" aria-selected="false" aria-controls="game-engines">Game Engines</button>
-        <button class="skill-tab" data-skill="databases" role="tab" aria-selected="false" aria-controls="databases">Databases</button>
-        <button class="skill-tab" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools">Tools &amp; Software</button>
+        <button class="skill-tab" data-skill="frameworks" role="tab" aria-selected="false" aria-controls="frameworks" data-i18n="skills.tabs.frameworks">Frameworks</button>
+        <button class="skill-tab" data-skill="game-engines" role="tab" aria-selected="false" aria-controls="game-engines" data-i18n="skills.tabs.gameEngines">Game Engines</button>
+        <button class="skill-tab" data-skill="databases" role="tab" aria-selected="false" aria-controls="databases" data-i18n="skills.tabs.databases">Databases</button>
+        <button class="skill-tab" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools" data-i18n="skills.tabs.tools">Tools &amp; Software</button>
       </div>
 
       <div id="languages" class="tab-content active" role="tabpanel">
@@ -550,8 +553,8 @@
 
     <section id="contact" class="contact">
       <div class="contact-content">
-        <h2 class="contact-title">Get in Touch</h2>
-        <p class="contact-description">
+        <h2 class="contact-title" data-i18n="contact.title">Get in Touch</h2>
+        <p class="contact-description" data-i18n="contact.description">
           Open to freelance work, software engineering roles, and game
           development or teaching collaborations. Got something in mind? Let's
           talk.
@@ -569,40 +572,42 @@
   </p>
   <div class="form-row">
     <div class="form-field">
-      <label for="name">Name</label>
+      <label for="name" data-i18n="contact.form.nameLabel">Name</label>
       <input
         type="text"
         id="name"
         name="name"
         autocomplete="name"
         placeholder="Your name"
+        data-i18n-placeholder="contact.form.namePlaceholder"
         maxlength="100"
         required
       />
     </div>
     <div class="form-field">
-      <label for="email">Email</label>
+      <label for="email" data-i18n="contact.form.emailLabel">Email</label>
       <input
         type="email"
         id="email"
         name="email"
         autocomplete="email"
         placeholder="you@example.com"
+        data-i18n-placeholder="contact.form.emailPlaceholder"
         maxlength="160"
         required
       />
     </div>
   </div>
   <div class="form-field">
-    <label for="subject-select">Subject</label>
+    <label for="subject-select" data-i18n="contact.form.subjectLabel">Subject</label>
     <div class="select-wrapper">
       <select id="subject-select" required>
-        <option value="" disabled selected>Select a subject…</option>
-        <option value="Freelance / Project Inquiry">Freelance / Project Inquiry</option>
-        <option value="Job Opportunity / Interview">Job Opportunity / Interview</option>
-        <option value="Game Development / Teaching Collaboration">Game Development / Teaching Collaboration</option>
-        <option value="General Question">General Question</option>
-        <option value="__custom__">Other (Custom Subject)</option>
+        <option value="" disabled selected data-i18n="contact.form.subjectPlaceholder">Select a subject…</option>
+        <option value="Freelance / Project Inquiry" data-i18n="contact.form.subjects.freelance">Freelance / Project Inquiry</option>
+        <option value="Job Opportunity / Interview" data-i18n="contact.form.subjects.job">Job Opportunity / Interview</option>
+        <option value="Game Development / Teaching Collaboration" data-i18n="contact.form.subjects.collab">Game Development / Teaching Collaboration</option>
+        <option value="General Question" data-i18n="contact.form.subjects.general">General Question</option>
+        <option value="__custom__" data-i18n="contact.form.subjects.custom">Other (Custom Subject)</option>
       </select>
       <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
@@ -611,15 +616,17 @@
       id="subject-custom"
       autocomplete="off"
       placeholder="Enter your custom subject…"
+      data-i18n-placeholder="contact.form.customSubjectPlaceholder"
       maxlength="160"
       style="display: none"
       aria-label="Custom subject"
+      data-i18n-aria-label="contact.form.customSubjectAriaLabel"
     />
     <input type="hidden" id="subject" name="subject" />
   </div>
   <div class="form-field">
     <div class="form-label-row">
-      <label for="message">Message</label>
+      <label for="message" data-i18n="contact.form.messageLabel">Message</label>
       <span class="char-count" id="message-char-count" aria-live="off">0 / 1000</span>
     </div>
     <textarea
@@ -627,20 +634,21 @@
       name="message"
       rows="4"
       placeholder="Write your message here…"
+      data-i18n-placeholder="contact.form.messagePlaceholder"
       maxlength="1000"
       required
     ></textarea>
   </div>
   <button type="submit" class="form-submit" id="submit-btn">
-    <span class="btn-text"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message</span>
-    <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Sending…</span>
+    <span class="btn-text"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> <span data-i18n="contact.form.submit">Send Message</span></span>
+    <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span data-i18n="contact.form.sending">Sending…</span></span>
   </button>
-  <button type="button" class="form-secondary-cta" data-request-resume>
+  <button type="button" class="form-secondary-cta" data-request-resume data-i18n="contact.form.resume">
     View My Resume
   </button>
   <p class="form-toast" id="form-toast" role="status" aria-live="polite"></p>
 </form>
-        <p class="social-links-title">Find me online</p>
+        <p class="social-links-title" data-i18n="contact.socialTitle">Find me online</p>
         <div class="social-links">
           <a
             href="https://bsky.app/profile/haruchanz64.bsky.social"
@@ -735,7 +743,7 @@
     </section>
 
     <footer class="footer">
-      <p>&copy; 2026 Aron Jake Radam (Haru). All rights reserved.</p>
+      <p data-i18n="footer.copyright">&copy; 2026 Aron Jake Radam (Haru). All rights reserved.</p>
     </footer>
   </body>
 </html>
