@@ -4,7 +4,6 @@ import { fileURLToPath } from "node:url";
 
 const GITHUB_USERNAME = "haruchanz64";
 const PINNED_REPOS = [
-  "GDriveDesktop",
   "UnityEventToolkit",
   "DebugCommandSystem",
   "ScriptableBatchTool",
