@@ -429,7 +429,7 @@ describe("extractResumeData i18n fallback", () => {
               ".experience-list li": [
                 createElement({
                   textContent: "卒業制作",
-                  attributes: { "data-i18n-html": "education.items.0.b0Html" },
+                  attributes: { "data-i18n": "education.items.0.b0" },
                 }),
               ],
             },
@@ -474,7 +474,7 @@ describe("extractResumeData i18n fallback", () => {
     assert.match(data.experience[0].bullets[0], /^Teach game design theory/);
     assert.equal(data.education[0].major, "Major in Game Development");
     assert.equal(data.education[0].date, "August 2021 – April 2025");
-    assert.match(data.education[0].bullets[0], /^Capstone Project — Trash Frenzy:/);
+    assert.match(data.education[0].bullets[0], /^Developed Trash Frenzy/);
     assert.equal(data.skills[0].category, "Programming Languages");
   });
 });
