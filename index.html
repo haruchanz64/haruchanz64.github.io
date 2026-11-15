@@ -20,8 +20,12 @@
       try {
         if (sessionStorage.getItem("has_seen_intro") === "true") {
           document.documentElement.classList.add("intro-seen");
+        } else {
+          document.documentElement.classList.add("intro-loading");
         }
-      } catch {}
+      } catch {
+        document.documentElement.classList.add("intro-loading");
+      }
     </script>
 
     <link rel="stylesheet" href="/src/style.css" />

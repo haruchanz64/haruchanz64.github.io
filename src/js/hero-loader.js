@@ -79,10 +79,21 @@ function startProgressTicker(progressEl, minMs) {
   };
 }
 
+function lockScroll() {
+  document.documentElement.classList.add("intro-loading");
+}
+
+function unlockScroll() {
+  document.documentElement.classList.remove("intro-loading");
+}
+
 function swapToDedicatedHero() {
   const loadingHero = document.getElementById("hero-loading");
   const dedicatedHero = document.getElementById("hero");
-  if (!dedicatedHero) return;
+  if (!dedicatedHero) {
+    unlockScroll();
+    return;
+  }
 
   const loadingAvatar = loadingHero?.querySelector(".hero-avatar--loading");
   const targetAvatar = dedicatedHero.querySelector(".hero-avatar");
@@ -110,7 +121,10 @@ function swapToDedicatedHero() {
   dedicatedHero.removeAttribute("aria-hidden");
   dedicatedHero.inert = false;
 
-  if (!loadingHero) return;
+  if (!loadingHero) {
+    unlockScroll();
+    return;
+  }
 
   if (morphTransform && loadingAvatar) {
     dedicatedHero.classList.add("hero--morphing");
@@ -127,6 +141,7 @@ function swapToDedicatedHero() {
       finalized = true;
       dedicatedHero.classList.remove("hero--morphing");
       loadingHero.hidden = true;
+      unlockScroll();
     };
 
     loadingAvatar.addEventListener("transitionend", finalize, { once: true });
@@ -137,6 +152,7 @@ function swapToDedicatedHero() {
   loadingHero.classList.add("is-leaving");
   loadingHero.setAttribute("aria-hidden", "true");
   loadingHero.hidden = true;
+  unlockScroll();
 }
 
 /**
@@ -146,9 +162,13 @@ function swapToDedicatedHero() {
 export async function initHeroLoader() {
   const loadingHero = document.getElementById("hero-loading");
   const dedicatedHero = document.getElementById("hero");
-  if (!loadingHero || !dedicatedHero) return;
+  if (!loadingHero || !dedicatedHero) {
+    unlockScroll();
+    return;
+  }
 
   if (hasSeenIntro()) {
+    unlockScroll();
     dedicatedHero.classList.remove("hero--pending");
     dedicatedHero.removeAttribute("aria-hidden");
     dedicatedHero.inert = false;
@@ -157,25 +177,32 @@ export async function initHeroLoader() {
     return;
   }
 
-  const progressEl = loadingHero.querySelector(".hero-loading-progress");
-  const completeProgress = startProgressTicker(progressEl, MIN_LOADING_MS);
+  lockScroll();
 
-  const fontsReady = document.fonts?.ready ?? Promise.resolve();
-  const portfolioReady = Promise.allSettled([
-    githubProjectsReady,
-    itchProjectsReady,
-    waitForWindowLoad(),
-    fontsReady,
-  ]);
+  try {
+    const progressEl = loadingHero.querySelector(".hero-loading-progress");
+    const completeProgress = startProgressTicker(progressEl, MIN_LOADING_MS);
 
-  await Promise.all([
-    delay(MIN_LOADING_MS),
-    Promise.race([portfolioReady, delay(MAX_WAIT_MS)]),
-  ]);
+    const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    const portfolioReady = Promise.allSettled([
+      githubProjectsReady,
+      itchProjectsReady,
+      waitForWindowLoad(),
+      fontsReady,
+    ]);
 
-  await completeProgress();
-  markIntroSeen();
-  requestAnimationFrame(swapToDedicatedHero);
+    await Promise.all([
+      delay(MIN_LOADING_MS),
+      Promise.race([portfolioReady, delay(MAX_WAIT_MS)]),
+    ]);
+
+    await completeProgress();
+    markIntroSeen();
+    requestAnimationFrame(swapToDedicatedHero);
+  } catch (error) {
+    unlockScroll();
+    throw error;
+  }
 }
 
 initHeroLoader();
