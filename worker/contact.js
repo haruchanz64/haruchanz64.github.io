@@ -1,3 +1,5 @@
+import { handleOAuthCallback, handleOAuthStart } from "./oauth.js";
+
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 const ALLOWED_CORS_ORIGINS = new Set([
@@ -118,6 +120,14 @@ async function handleContactPost(request, env) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/auth" && request.method === "GET") {
+      return handleOAuthStart(request, env);
+    }
+
+    if (url.pathname === "/api/callback" && request.method === "GET") {
+      return handleOAuthCallback(request, env);
+    }
 
     if (url.pathname === "/api/contact") {
       if (request.method === "OPTIONS") {
