@@ -689,6 +689,96 @@ section[id] {
   margin-bottom: 1.5rem;
 }
 
+.haru-trigger {
+  font: inherit;
+  font-weight: 700;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-color: var(--accent-primary);
+  text-underline-offset: 4px;
+  transition: color var(--transition);
+}
+
+.haru-trigger:hover,
+.haru-trigger:focus-visible {
+  color: var(--accent-primary);
+}
+
+.haru-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.haru-modal-overlay[hidden] {
+  display: none;
+}
+
+.haru-modal {
+  background: color-mix(in srgb, var(--bg-primary) 95%, var(--accent-primary));
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  width: min(520px, 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.haru-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.haru-modal-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-family: var(--font-display);
+}
+
+.haru-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  transition: color var(--transition), background var(--transition);
+}
+
+.haru-modal-close:hover,
+.haru-modal-close:focus-visible {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--text-primary) 10%, transparent);
+}
+
+.haru-modal-body {
+  padding: 1.15rem 1.25rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+}
+
+.haru-modal-body p {
+  margin: 0;
+}
+
 .experience-timeline {
   position: relative;
   max-width: 800px;

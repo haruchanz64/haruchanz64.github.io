@@ -27,7 +27,10 @@
   },
   "about": {
     "title": "自己紹介",
-    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <strong>ハル</strong> としても活動）です。プロダクションソフトウェアとゲーム開発の両分野に携わる <strong>Lead Full-Stack Software Engineer</strong> 兼 <strong>大学講師</strong>として活動しています。キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと連携する業務を担当しました。",
+    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。プロダクションソフトウェアとゲーム開発の両分野に携わる <strong>Lead Full-Stack Software Engineer</strong> 兼 <strong>大学講師</strong>として活動しています。キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと連携する業務を担当しました。",
+    "haruOriginTitle": "なぜ @haruchanz64 なのか？",
+    "haruOriginClose": "閉じる",
+    "haruOriginHtml": "<strong>ハル</strong> は日本語で「春」を意味し（当時親しかった人からもらった<em>原神</em>のゲーム内ネームがきっかけ）、<strong>Chan</strong> は Discord で女性に間違われることがあったことへのちょっとしたオマージュ、そして <strong>Z64</strong> は <em>Zelda 64</em> の略で、友人の N64 で初めて遊んだゼルダ作品が『<em>ゼルダの伝説 ムジュラの仮面</em>』で、その後に『<em>ゼルダの伝説 時のオカリナ</em>』を遊んだことに由来しています。",
     "p2Html": "現在は <strong>Las Piñas, Philippines</strong> に拠点を置くスタートアップ企業 <strong>PicStar Software OPC</strong> の唯一のフルスタックエンジニアとして、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を開発しています。モバイル UI や PostgreSQL バックエンドから、リアルタイムの Top および Board フィード、Shineouts、ランキング、都市別フィルタリングまで一貫して担当しています。",
     "p3Html": "実務と並行して、<strong>University of Caloocan City</strong> で2年生から4年生までの学生を指導しており、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを支援しています。",
     "p4Html": "メインの技術スタック以外にも、<strong>ゲームデザイン理論</strong>を学びながら <strong>C# (.NET)</strong>、<strong>Java (Spring Boot)</strong>、<strong>Docker</strong> を使った個人プロジェクトを制作しています。日々のワークフローでは AI コーディングツールも活用してプロトタイピングやデバッグを高速化しており、フリーランスの案件や新しいポジションのご相談も歓迎しています。"

@@ -10,6 +10,7 @@ import "./github.js";
 import "./itch.js";
 import "./hero-loader.js";
 import "./experience-duration.js";
+import "./about-handle.js";
 
 window.sendEmail = sendEmail;
 window.requestResume = requestResume;
