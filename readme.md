@@ -5,13 +5,13 @@ My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engin
 ## Features
 
 - **Portfolio Sections**: Hero, About Me, Experience timeline (with automatic duration calculation), Projects, tabbed Skills showcase, and Contact.
-- **Multi-Language Support (i18n)**: Supports English (`en_us`), Filipino (`fil_ph`), and Japanese (`ja_jp`) via `src/js/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
-- **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume.js`, `src/js/pdf-builder.js`).
+- **Multi-Language Support (i18n)**: Supports English (`en_us`), Filipino (`fil_ph`), and Japanese (`ja_jp`) via `src/js/core/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
+- **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume/resume.js`, `src/js/resume/pdf-builder.js`, `src/js/resume/resume-guard.js`).
 - **Dynamic Project Feeds**:
-  - **Systems & Tools**: Displays pinned repositories (`haruchanz64`) via `src/js/github.js` with local caching (`src/js/cache.js`) and build-time sync to `public/data/github-projects.json` (`scripts/sync-github.mjs`).
-  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
-- **Contact Form**: Submits to a Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact.js`, `src/js/spam-detector.js`).
-- **Interactive UI**: Theme management, intersection-observer reveal tracking, URL hash synchronization, and tabbed skill categories.
+  - **Systems & Tools**: Displays pinned repositories (`haruchanz64`) via `src/js/projects/github.js` (with shared config in `src/js/projects/github-config.js`) and local caching (`src/js/core/cache.js`), plus build-time sync to `public/data/github-projects.json` (`scripts/sync-github.mjs`).
+  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/projects/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
+- **Contact Form**: Submits to a Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact/contact.js`, `src/js/contact/spam-detector.js`).
+- **Interactive UI**: Theme management, hero loading transition, intersection-observer reveal tracking, URL hash synchronization, and tabbed skill categories (`src/js/ui/`).
 
 ## Tech Stack
 
@@ -92,11 +92,13 @@ node --test
 │   └── workflows/
 │       └── deploy.yml                # GitHub Pages sync, build & deploy workflow
 ├── index.html                        # Main HTML entry point
+├── 404.html                          # Custom 404 page
 ├── package.json                      # Project metadata and npm scripts
 ├── vite.config.js                    # Vite configuration
 ├── wrangler.jsonc                    # Cloudflare Worker configuration
 ├── license                           # MIT License
 ├── public/
+│   ├── sw.js                         # Service Worker for offline asset caching
 │   ├── data/
 │   │   ├── github-projects.json      # Synced GitHub pinned repository metadata
 │   │   └── itch-projects.json        # Synced itch.io game metadata
@@ -107,8 +109,15 @@ node --test
 ├── src/
 │   ├── style.css                     # Main stylesheet
 │   ├── locales/                      # i18n translation files (en_us, fil_ph, ja_jp)
-│   └── js/                           # ES modules (i18n, resume, pdf-builder, contact, github, itch, etc.)
+│   └── js/
+│       ├── main.js                   # Application entry point
+│       ├── core/                     # Shared utilities (cache, dom, i18n, text)
+│       ├── ui/                       # UI behaviors (theme, nav, tabs, hero-loader, observer, etc.)
+│       ├── projects/                 # GitHub & itch.io project feeds and shared rendering
+│       ├── contact/                  # Contact form handler & spam detector
+│       └── resume/                   # ATS resume extraction, guard & PDF builder
 ├── tests/
+│   ├── cache-and-theme.test.mjs      # Unit tests for caching, assets, and theme switching
 │   ├── experience-duration.test.mjs  # Unit tests for experience duration formatting
 │   ├── i18n.test.mjs                 # Unit tests for localization and key parity
 │   ├── resume.test.mjs               # Unit tests for ATS resume generation
