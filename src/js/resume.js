@@ -1,4 +1,5 @@
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
+import { getTranslation } from "./i18n.js";
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
@@ -52,9 +53,34 @@ export function escapeHtml(value) {
     .replace(/'/g, "&#39;");
 }
 
+function stripHtml(html) {
+  return String(html ?? "")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function getElementEnglishText(el) {
+  if (!el) return "";
+  const i18nKey = el.getAttribute?.("data-i18n");
+  if (i18nKey) {
+    const translated = getTranslation("en", i18nKey);
+    if (translated !== i18nKey) return normalizeText(translated);
+  }
+  const i18nHtmlKey = el.getAttribute?.("data-i18n-html");
+  if (i18nHtmlKey) {
+    const translated = getTranslation("en", i18nHtmlKey);
+    if (translated !== i18nHtmlKey) return normalizeText(stripHtml(translated));
+  }
+  return normalizeText(el.textContent);
+}
+
 function getText(parent, selector) {
   const el = parent?.querySelector?.(selector);
-  return normalizeText(el?.textContent);
+  return getElementEnglishText(el);
 }
 
 /**
@@ -75,12 +101,12 @@ export function extractResumeData(doc = document) {
       const role = getText(item, ".experience-role");
       const dateEl = item.querySelector(".experience-date");
       const date = normalizeText(
-        dateEl?.dataset?.dateRange || dateEl?.textContent,
+        dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
       );
       const company = getText(item, ".experience-company");
       const location = getText(item, ".experience-location");
       const bullets = Array.from(item.querySelectorAll(".experience-list li"))
-        .map((li) => normalizeText(li.textContent))
+        .map((li) => getElementEnglishText(li))
         .filter(Boolean);
 
       return { role, date, company, location, bullets };
@@ -101,12 +127,12 @@ export function extractResumeData(doc = document) {
       const major = getText(item, ".experience-major");
       const dateEl = item.querySelector(".experience-date");
       const date = normalizeText(
-        dateEl?.dataset?.dateRange || dateEl?.textContent,
+        dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
       );
       const school = getText(item, ".experience-company");
       const eduLocation = getText(item, ".experience-location");
       const bullets = Array.from(item.querySelectorAll(".experience-list li"))
-        .map((li) => normalizeText(li.textContent))
+        .map((li) => getElementEnglishText(li))
         .filter(Boolean);
       return { degree, major, date, school, location: eduLocation, bullets };
     })
@@ -119,7 +145,7 @@ export function extractResumeData(doc = document) {
 
   const skills = skillTabs
     .map((tab) => {
-      const category = normalizeText(tab.textContent);
+      const category = getElementEnglishText(tab);
       const targetId = tab.getAttribute("data-skill") || tab.getAttribute("aria-controls");
       const panel = targetId ? doc.getElementById(targetId) : null;
       const items = panel

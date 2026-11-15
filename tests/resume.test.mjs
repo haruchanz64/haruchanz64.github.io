@@ -365,3 +365,116 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("/Count 2"));
   });
 });
+
+describe("extractResumeData i18n fallback", () => {
+  it("always pulls English text from en.json when data-i18n attributes are present", () => {
+    const headlineEl = createElement({
+      textContent: "ソフトウェアエンジニア & 大学講師",
+      attributes: { "data-i18n": "nav.brandRole" },
+    });
+    const experienceSection = createElement({
+      childrenBySelector: {
+        ".experience-item": [
+          createElement({
+            childrenBySelector: {
+              ".experience-role": [
+                createElement({
+                  textContent: "大学講師",
+                  attributes: { "data-i18n": "experience.items.0.role" },
+                }),
+              ],
+              ".experience-date": [
+                createElement({
+                  textContent: "2026年7月 – 現在",
+                  dataset: { dateRange: "July 2026 – Present" },
+                }),
+              ],
+              ".experience-company": [
+                createElement({
+                  textContent: "University of Caloocan City · フルタイム",
+                  attributes: { "data-i18n": "experience.items.0.company" },
+                }),
+              ],
+              ".experience-location": [
+                createElement({ textContent: "Caloocan City, Metro Manila" }),
+              ],
+              ".experience-list li": [
+                createElement({
+                  textContent: "日本語の箇条書き",
+                  attributes: { "data-i18n": "experience.items.0.b0" },
+                }),
+              ],
+            },
+          }),
+        ],
+      },
+    });
+    const educationSection = createElement({
+      childrenBySelector: {
+        ".experience-item": [
+          createElement({
+            childrenBySelector: {
+              ".experience-role": [
+                createElement({ textContent: "BS in Entertainment and Multimedia Computing" }),
+              ],
+              ".experience-major": [
+                createElement({
+                  textContent: "ゲーム開発専攻",
+                  attributes: { "data-i18n": "education.items.0.major" },
+                }),
+              ],
+              ".experience-date": [createElement({ textContent: "2021年8月 – 2025年4月", attributes: { "data-i18n": "education.items.0.date" } })],
+              ".experience-company": [createElement({ textContent: "University of Caloocan City" })],
+              ".experience-location": [createElement({ textContent: "Caloocan City, Metro Manila" })],
+              ".experience-list li": [
+                createElement({
+                  textContent: "卒業制作",
+                  attributes: { "data-i18n-html": "education.items.0.b0Html" },
+                }),
+              ],
+            },
+          }),
+        ],
+      },
+    });
+    const skillsSection = createElement({
+      childrenBySelector: {
+        ".skill-tab": [
+          createElement({
+            textContent: "プログラミング言語",
+            attributes: { "data-i18n": "skills.tabs.languages", "data-skill": "languages" },
+          }),
+        ],
+      },
+    });
+    const languagesPanel = createElement({
+      childrenBySelector: {
+        ".skill-name": [createElement({ textContent: "C#" })],
+      },
+    });
+
+    const doc = {
+      querySelector(selector) {
+        if (selector === ".nav-brand-role") return headlineEl;
+        return null;
+      },
+      getElementById(id) {
+        if (id === "experience") return experienceSection;
+        if (id === "education") return educationSection;
+        if (id === "skills") return skillsSection;
+        if (id === "languages") return languagesPanel;
+        return null;
+      },
+    };
+
+    const data = extractResumeData(doc);
+    assert.equal(data.headline, "Software Engineer & College Instructor");
+    assert.equal(data.experience[0].role, "College Instructor");
+    assert.equal(data.experience[0].company, "University of Caloocan City · Full-time");
+    assert.match(data.experience[0].bullets[0], /^Teach game design theory/);
+    assert.equal(data.education[0].major, "Major in Game Development");
+    assert.equal(data.education[0].date, "August 2021 – April 2025");
+    assert.match(data.education[0].bullets[0], /^Capstone Project — Trash Frenzy:/);
+    assert.equal(data.skills[0].category, "Programming Languages");
+  });
+});
