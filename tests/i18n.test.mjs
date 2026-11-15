@@ -32,7 +32,7 @@ function collectKeys(obj, prefix = "") {
 
 describe("locale JSON parity", () => {
   it("has identical keys across EN, FIL, and JP", () => {
-    const enKeys = collectKeys(LOCALES.en);
+    const enKeys = collectKeys(LOCALES.en_us);
     for (const locale of SUPPORTED_LOCALES) {
       assert.deepEqual(
         collectKeys(LOCALES[locale]),
@@ -45,15 +45,18 @@ describe("locale JSON parity", () => {
 
 describe("normalizeLocaleTag", () => {
   it("maps EN, FIL/TL, and JA/JP tags", () => {
-    assert.equal(normalizeLocaleTag("en"), "en");
-    assert.equal(normalizeLocaleTag("en-US"), "en");
-    assert.equal(normalizeLocaleTag("fil"), "fil");
-    assert.equal(normalizeLocaleTag("fil-PH"), "fil");
-    assert.equal(normalizeLocaleTag("tl"), "fil");
-    assert.equal(normalizeLocaleTag("tl-PH"), "fil");
-    assert.equal(normalizeLocaleTag("ja"), "jp");
-    assert.equal(normalizeLocaleTag("ja-JP"), "jp");
-    assert.equal(normalizeLocaleTag("jp"), "jp");
+    assert.equal(normalizeLocaleTag("en"), "en_us");
+    assert.equal(normalizeLocaleTag("en-US"), "en_us");
+    assert.equal(normalizeLocaleTag("en_us"), "en_us");
+    assert.equal(normalizeLocaleTag("fil"), "fil_ph");
+    assert.equal(normalizeLocaleTag("fil-PH"), "fil_ph");
+    assert.equal(normalizeLocaleTag("fil_ph"), "fil_ph");
+    assert.equal(normalizeLocaleTag("tl"), "fil_ph");
+    assert.equal(normalizeLocaleTag("tl-PH"), "fil_ph");
+    assert.equal(normalizeLocaleTag("ja"), "ja_jp");
+    assert.equal(normalizeLocaleTag("ja-JP"), "ja_jp");
+    assert.equal(normalizeLocaleTag("ja_jp"), "ja_jp");
+    assert.equal(normalizeLocaleTag("jp"), "ja_jp");
     assert.equal(normalizeLocaleTag("fr-FR"), null);
     assert.equal(normalizeLocaleTag(""), null);
   });
@@ -61,33 +64,37 @@ describe("normalizeLocaleTag", () => {
 
 describe("detectBrowserLocale", () => {
   it("picks the first supported language from navigator.languages", () => {
-    assert.equal(detectBrowserLocale({ languages: ["ja-JP", "en-US"] }), "jp");
-    assert.equal(detectBrowserLocale({ languages: ["fil-PH", "en-US"] }), "fil");
-    assert.equal(detectBrowserLocale({ languages: ["tl-PH", "en"] }), "fil");
-    assert.equal(detectBrowserLocale({ languages: ["es-ES", "ja"] }), "jp");
+    assert.equal(detectBrowserLocale({ languages: ["ja-JP", "en-US"] }), "ja_jp");
+    assert.equal(detectBrowserLocale({ languages: ["fil-PH", "en-US"] }), "fil_ph");
+    assert.equal(detectBrowserLocale({ languages: ["tl-PH", "en"] }), "fil_ph");
+    assert.equal(detectBrowserLocale({ languages: ["es-ES", "ja"] }), "ja_jp");
   });
 
-  it("falls back to navigator.language and defaults to en", () => {
-    assert.equal(detectBrowserLocale({ language: "ja" }), "jp");
-    assert.equal(detectBrowserLocale({ language: "tl" }), "fil");
-    assert.equal(detectBrowserLocale({ language: "de-DE" }), "en");
-    assert.equal(detectBrowserLocale(null), "en");
+  it("falls back to navigator.language and defaults to en_us", () => {
+    assert.equal(detectBrowserLocale({ language: "ja" }), "ja_jp");
+    assert.equal(detectBrowserLocale({ language: "tl" }), "fil_ph");
+    assert.equal(detectBrowserLocale({ language: "de-DE" }), "en_us");
+    assert.equal(detectBrowserLocale(null), "en_us");
   });
 });
 
 describe("resolveLocale", () => {
-  it("prefers ?lang= query param over browser language", () => {
+  it("prefers ?locale= or ?lang= query param over browser language", () => {
+    assert.equal(
+      resolveLocale({ search: "?locale=ja_jp", nav: { language: "en-US" } }),
+      "ja_jp",
+    );
+    assert.equal(
+      resolveLocale({ search: "?locale=fil_ph", nav: { language: "ja-JP" } }),
+      "fil_ph",
+    );
     assert.equal(
       resolveLocale({ search: "?lang=jp", nav: { language: "en-US" } }),
-      "jp",
+      "ja_jp",
     );
     assert.equal(
-      resolveLocale({ search: "?lang=fil", nav: { language: "ja-JP" } }),
-      "fil",
-    );
-    assert.equal(
-      resolveLocale({ search: "?lang=unknown", nav: { language: "ja-JP" } }),
-      "jp",
+      resolveLocale({ search: "?locale=unknown", nav: { language: "ja-JP" } }),
+      "ja_jp",
     );
   });
 });
@@ -95,14 +102,14 @@ describe("resolveLocale", () => {
 describe("getTranslation", () => {
   it("interpolates placeholders and falls back to EN for missing keys", () => {
     assert.equal(
-      getTranslation("en", "contact.toast.serverError", { status: 503 }),
+      getTranslation("en_us", "contact.toast.serverError", { status: 503 }),
       "Server error (HTTP 503). Please try again later or reach out via the social links below.",
     );
     assert.equal(
-      getTranslation("jp", "contact.toast.endpointUnavailable", { status: 404 }),
+      getTranslation("ja_jp", "contact.toast.endpointUnavailable", { status: 404 }),
       "フォームの送信先が利用できません（HTTP 404）。下のSNSリンクからご連絡ください。",
     );
-    assert.equal(getTranslation("jp", "nonexistent.key"), "nonexistent.key");
+    assert.equal(getTranslation("ja_jp", "nonexistent.key"), "nonexistent.key");
   });
 });
 
@@ -137,9 +144,9 @@ describe("applyI18n and experience duration integration", () => {
       },
     };
 
-    applyI18n(doc, "jp");
+    applyI18n(doc, "ja_jp");
     assert.equal(doc.documentElement.lang, "ja");
-    assert.equal(doc.title, LOCALES.jp.meta.title);
+    assert.equal(doc.title, LOCALES.ja_jp.meta.title);
     assert.equal(elements.titleEl.textContent, "自己紹介");
     assert.equal(elements.inputEl.attrs.placeholder, "お名前を入力");
     assert.equal(elements.dateEl.textContent, "2026年7月 – 現在");

@@ -1,19 +1,19 @@
-import en from "../locales/en.json" with { type: "json" };
+import en_us from "../locales/en_us.json" with { type: "json" };
 
-export const LOCALES = { en };
-export const SUPPORTED_LOCALES = ["en", "fil", "jp"];
-export const DEFAULT_LOCALE = "en";
+export const LOCALES = { en_us };
+export const SUPPORTED_LOCALES = ["en_us", "fil_ph", "ja_jp"];
+export const DEFAULT_LOCALE = "en_us";
 
 const LOCALE_LOADERS = {
-  fil: () => import("../locales/fil.json", { with: { type: "json" } }),
-  jp: () => import("../locales/jp.json", { with: { type: "json" } }),
+  fil_ph: () => import("../locales/fil_ph.json", { with: { type: "json" } }),
+  ja_jp: () => import("../locales/ja_jp.json", { with: { type: "json" } }),
 };
 
 const pendingLocaleLoads = new Map();
 
 /**
  * Lazy-load a locale dictionary into `LOCALES` if not already loaded.
- * @param {"en" | "fil" | "jp"} locale
+ * @param {"en_us" | "fil_ph" | "ja_jp"} locale
  * @returns {Promise<Record<string, unknown>>}
  */
 export async function loadLocale(locale) {
@@ -39,29 +39,29 @@ export async function loadLocale(locale) {
 }
 
 const HTML_LANG_MAP = {
-  en: "en",
-  fil: "fil",
-  jp: "ja",
+  en_us: "en",
+  fil_ph: "fil",
+  ja_jp: "ja",
 };
 
 /**
- * Normalize a BCP-47 language tag (e.g. "ja-JP", "fil-PH", "tl") to a supported locale key.
+ * Normalize a Unicode or BCP-47 language tag (e.g. "en_us", "ja-JP", "fil-PH", "tl") to a supported locale key.
  * @param {string | null | undefined} tag
- * @returns {"en" | "fil" | "jp" | null}
+ * @returns {"en_us" | "fil_ph" | "ja_jp" | null}
  */
 export function normalizeLocaleTag(tag) {
   if (!tag || typeof tag !== "string") return null;
   const base = tag.trim().toLowerCase().split(/[-_]/)[0];
-  if (base === "ja" || base === "jp") return "jp";
-  if (base === "fil" || base === "tl") return "fil";
-  if (base === "en") return "en";
+  if (base === "ja" || base === "jp") return "ja_jp";
+  if (base === "fil" || base === "tl") return "fil_ph";
+  if (base === "en") return "en_us";
   return null;
 }
 
 /**
  * Detect the best matching supported locale from the browser's navigator language preferences.
  * @param {{ languages?: readonly string[], language?: string, userLanguage?: string } | null} nav
- * @returns {"en" | "fil" | "jp"}
+ * @returns {"en_us" | "fil_ph" | "ja_jp"}
  */
 export function detectBrowserLocale(
   nav = typeof navigator !== "undefined" ? navigator : null,
@@ -84,9 +84,9 @@ export function detectBrowserLocale(
 }
 
 /**
- * Resolve the active locale from an optional `?lang=` query parameter or browser preferences.
+ * Resolve the active locale from an optional `?locale=` or `?lang=` query parameter or browser preferences.
  * @param {{ search?: string, nav?: { languages?: readonly string[], language?: string, userLanguage?: string } | null }} [options]
- * @returns {"en" | "fil" | "jp"}
+ * @returns {"en_us" | "fil_ph" | "ja_jp"}
  */
 export function resolveLocale({
   search = typeof window !== "undefined" ? window.location.search : "",
@@ -94,8 +94,9 @@ export function resolveLocale({
 } = {}) {
   if (search) {
     try {
-      const langParam = new URLSearchParams(search).get("lang");
-      const matched = normalizeLocaleTag(langParam);
+      const params = new URLSearchParams(search);
+      const localeParam = params.get("locale") ?? params.get("lang");
+      const matched = normalizeLocaleTag(localeParam);
       if (matched) return matched;
     } catch {
       // Ignore malformed query strings and fall back to browser detection.
@@ -111,7 +112,7 @@ function lookupKey(dict, key) {
 
 /**
  * Look up a translation key in the specified locale, falling back to English.
- * @param {"en" | "fil" | "jp"} locale
+ * @param {"en_us" | "fil_ph" | "ja_jp"} locale
  * @param {string} key
  * @param {Record<string, string | number>} [params]
  * @returns {string}
@@ -136,7 +137,7 @@ let currentLocale = resolveLocale();
 
 /**
  * Return the currently active locale key.
- * @returns {"en" | "fil" | "jp"}
+ * @returns {"en_us" | "fil_ph" | "ja_jp"}
  */
 export function getCurrentLocale() {
   return currentLocale;
@@ -144,7 +145,7 @@ export function getCurrentLocale() {
 
 /**
  * Set the active locale key.
- * @param {"en" | "fil" | "jp"} locale
+ * @param {"en_us" | "fil_ph" | "ja_jp"} locale
  */
 export function setCurrentLocale(locale) {
   currentLocale = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
@@ -163,7 +164,7 @@ export function t(key, params) {
 /**
  * Apply translations for `locale` to all annotated elements in `doc`.
  * @param {Document} [doc]
- * @param {"en" | "fil" | "jp"} [locale]
+ * @param {"en_us" | "fil_ph" | "ja_jp"} [locale]
  */
 export function applyI18n(doc = document, locale = currentLocale) {
   setCurrentLocale(locale);

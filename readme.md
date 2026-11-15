@@ -4,12 +4,14 @@ My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engin
 
 ## Features
 
-- **Portfolio Sections**: Hero, About Me, Experience timeline, Projects, tabbed Skills showcase, and Contact.
+- **Portfolio Sections**: Hero, About Me, Experience timeline (with automatic duration calculation), Projects, tabbed Skills showcase, and Contact.
+- **Multi-Language Support (i18n)**: Supports English (`en_us`), Filipino (`fil_ph`), and Japanese (`ja_jp`) via `src/js/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
+- **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume.js`, `src/js/pdf-builder.js`).
 - **Dynamic Project Feeds**:
-  - **Systems & Tools**: Fetches my pinned repositories (`haruchanz64`) from the GitHub API (`src/js/github.js`).
-  - **Game Projects**: Renders my itch.io game metadata from `public/data/itch-projects.json` (`src/js/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
-- **Contact Form**: Submits to my Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact.js`, `src/js/spam-detector.js`).
-- **Interactive UI**: Theme management, intersection-observer section tracking, URL hash synchronization, and tabbed skill categories.
+  - **Systems & Tools**: Displays pinned repositories (`haruchanz64`) via `src/js/github.js` with local caching (`src/js/cache.js`) and build-time sync to `public/data/github-projects.json` (`scripts/sync-github.mjs`).
+  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
+- **Contact Form**: Submits to a Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact.js`, `src/js/spam-detector.js`).
+- **Interactive UI**: Theme management, intersection-observer reveal tracking, URL hash synchronization, and tabbed skill categories.
 
 ## Tech Stack
 
@@ -54,7 +56,13 @@ Preview the production build locally:
 npm run preview
 ```
 
-### Syncing itch.io Projects
+### Syncing Project Feeds
+
+Update `public/data/github-projects.json` with the latest pinned repository metadata from GitHub:
+
+```bash
+npm run sync:github
+```
 
 Update `public/data/itch-projects.json` with the latest metadata from itch.io:
 
@@ -72,17 +80,17 @@ node --test
 
 ## Deployment
 
-- **Frontend (GitHub Pages)**: Automatically built and deployed to `https://haruchanz64.github.io` on push to `main` via `.github/workflows/deploy.yml`.
-- **Contact Endpoint (Cloudflare Worker)**: `worker/contact.js` handles `POST /api/contact` with CORS enabled for `https://haruchanz64.github.io`. My Cloudflare Worker uses the following runtime variables/secrets:
+- **Frontend (GitHub Pages)**: Automatically syncs GitHub projects (`npm run sync:github`), builds, and deploys to `https://haruchanz64.github.io` on push to `main` via `.github/workflows/deploy.yml`.
+- **Contact Endpoint (Cloudflare Worker)**: `worker/contact.js` handles `POST /api/contact` with CORS enabled for `https://haruchanz64.github.io`, `https://haru-portfolio.haruchanz64.workers.dev`, and local Vite dev servers. The worker uses the following runtime variables/secrets:
   - `RESEND_API_KEY` *(Secret)* — Resend API key with Sending access
-  - `CONTACT_TO_EMAIL` — My email address for receiving contact submissions
+  - `CONTACT_TO_EMAIL` — Destination email address for contact submissions
 
 ## Project Structure
 
 ```text
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml                # GitHub Pages build & deploy workflow
+│       └── deploy.yml                # GitHub Pages sync, build & deploy workflow
 ├── index.html                        # Main HTML entry point
 ├── package.json                      # Project metadata and npm scripts
 ├── vite.config.js                    # Vite configuration
@@ -90,15 +98,19 @@ node --test
 ├── license                           # MIT License
 ├── public/
 │   ├── data/
+│   │   ├── github-projects.json      # Synced GitHub pinned repository metadata
 │   │   └── itch-projects.json        # Synced itch.io game metadata
 │   └── res/                          # Images and favicon
 ├── scripts/
+│   ├── sync-github.mjs               # Script to sync GitHub pinned repositories
 │   └── sync-itch.mjs                 # Script to sync itch.io project metadata
 ├── src/
 │   ├── style.css                     # Main stylesheet
-│   └── js/                           # ES module source files (contact, resume, github, itch, etc.)
+│   ├── locales/                      # i18n translation files (en_us, fil_ph, ja_jp)
+│   └── js/                           # ES modules (i18n, resume, pdf-builder, contact, github, itch, etc.)
 ├── tests/
 │   ├── experience-duration.test.mjs  # Unit tests for experience duration formatting
+│   ├── i18n.test.mjs                 # Unit tests for localization and key parity
 │   ├── resume.test.mjs               # Unit tests for ATS resume generation
 │   └── spam-detector.test.mjs        # Unit tests for contact form spam detection
 └── worker/

@@ -1,5 +1,5 @@
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
-import { getTranslation, t } from "./i18n.js";
+import { DEFAULT_LOCALE, getTranslation, t } from "./i18n.js";
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
@@ -67,12 +67,12 @@ function getElementEnglishText(el) {
   if (!el) return "";
   const i18nKey = el.getAttribute?.("data-i18n");
   if (i18nKey) {
-    const translated = getTranslation("en", i18nKey);
+    const translated = getTranslation(DEFAULT_LOCALE, i18nKey);
     if (translated !== i18nKey) return normalizeText(translated);
   }
   const i18nHtmlKey = el.getAttribute?.("data-i18n-html");
   if (i18nHtmlKey) {
-    const translated = getTranslation("en", i18nHtmlKey);
+    const translated = getTranslation(DEFAULT_LOCALE, i18nHtmlKey);
     if (translated !== i18nHtmlKey) return normalizeText(stripHtml(translated));
   }
   return normalizeText(el.textContent);
