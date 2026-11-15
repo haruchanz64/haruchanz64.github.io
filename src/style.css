@@ -576,9 +576,14 @@ html:not(.intro-seen) .hero--pending .cta-button {
   transition: background var(--transition), color var(--transition);
 }
 
-.form-secondary-cta:hover {
+.form-secondary-cta:hover:not(:disabled) {
   background: var(--accent-primary);
   color: var(--bg-primary);
+}
+
+.form-secondary-cta:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .hgi-spin {

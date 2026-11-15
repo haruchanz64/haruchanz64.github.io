@@ -139,7 +139,8 @@
       "messagePlaceholder": "メッセージを入力してください…",
       "submit": "メッセージを送信",
       "sending": "送信中…",
-      "resume": "履歴書を見る"
+      "resume": "履歴書をプレビュー",
+      "generatingResume": "生成中…"
     },
     "socialTitle": "オンラインリンク",
     "toast": {

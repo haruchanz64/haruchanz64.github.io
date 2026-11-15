@@ -466,71 +466,105 @@ function closeResumeModal() {
   lastTriggerEl = null;
 }
 
+function yieldToPaint() {
+  if (typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") {
+    return new Promise((resolve) => {
+      window.requestAnimationFrame(() => setTimeout(resolve, 0));
+    });
+  }
+  return new Promise((resolve) => setTimeout(resolve, 0));
+}
+
+function setTriggerLoading(triggerEl, isLoading) {
+  if (!triggerEl) return;
+  const btnText = triggerEl.querySelector?.(".btn-text");
+  const spinner = triggerEl.querySelector?.(".btn-spinner");
+
+  triggerEl.disabled = isLoading;
+  triggerEl.setAttribute?.("aria-busy", String(isLoading));
+  if (btnText) btnText.style.display = isLoading ? "none" : "inline";
+  if (spinner) spinner.style.display = isLoading ? "inline" : "none";
+}
+
 /**
  * Build the ATS-friendly PDF resume from the current portfolio DOM (excluding `#about`)
  * and display it in an accessible in-page preview modal with a manual Download Resume button.
  */
-export function requestResume(triggerEl = null) {
+export async function requestResume(triggerEl = null) {
   if (typeof document === "undefined") return null;
 
-  const data = extractResumeData(document);
-  const pdfBlob = buildAtsResumePdfBlob(data);
-  const pdfUrl = URL.createObjectURL(pdfBlob);
-
-  if (activeModal) {
-    closeResumeModal();
+  const ownsLoading = Boolean(triggerEl && triggerEl.getAttribute?.("aria-busy") !== "true");
+  if (ownsLoading) {
+    setTriggerLoading(triggerEl, true);
   }
 
-  activePdfUrl = pdfUrl;
-  lastTriggerEl = triggerEl || document.activeElement;
+  try {
+    // Allow the browser to paint the loading spinner before synchronous PDF generation.
+    await yieldToPaint();
 
-  const safeTitle = escapeHtml(`${data.fullName} — Resume`);
-  const safeFilename = escapeHtml(RESUME_PDF_FILENAME);
-  const safeUrl = escapeHtml(pdfUrl);
+    const data = extractResumeData(document);
+    const pdfBlob = buildAtsResumePdfBlob(data);
+    const pdfUrl = URL.createObjectURL(pdfBlob);
 
-  const overlay = document.createElement("div");
-  overlay.id = "resume-modal";
-  overlay.className = "resume-modal-overlay";
-  overlay.setAttribute("role", "dialog");
-  overlay.setAttribute("aria-modal", "true");
-  overlay.setAttribute("aria-labelledby", "resume-modal-title");
+    if (activeModal) {
+      closeResumeModal();
+    }
 
-  overlay.innerHTML = `
-    <div class="resume-modal">
-      <div class="resume-modal-header">
-        <div>
-          <h2 id="resume-modal-title" class="resume-modal-title">${safeTitle}</h2>
+    activePdfUrl = pdfUrl;
+    lastTriggerEl = triggerEl || document.activeElement;
+
+    const safeTitle = escapeHtml(`${data.fullName} — Resume`);
+    const safeFilename = escapeHtml(RESUME_PDF_FILENAME);
+    const safeUrl = escapeHtml(pdfUrl);
+
+    const overlay = document.createElement("div");
+    overlay.id = "resume-modal";
+    overlay.className = "resume-modal-overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-labelledby", "resume-modal-title");
+
+    overlay.innerHTML = `
+      <div class="resume-modal">
+        <div class="resume-modal-header">
+          <div>
+            <h2 id="resume-modal-title" class="resume-modal-title">${safeTitle}</h2>
+          </div>
+          <div class="resume-modal-controls">
+            <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">Download Resume</a>
+            <button type="button" class="resume-modal-close" aria-label="Close resume preview">&times;</button>
+          </div>
         </div>
-        <div class="resume-modal-controls">
-          <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">Download Resume</a>
-          <button type="button" class="resume-modal-close" aria-label="Close resume preview">&times;</button>
+        <div class="resume-preview-frame-wrap">
+          <iframe class="resume-preview-frame" src="${safeUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit" title="${safeTitle}"></iframe>
         </div>
       </div>
-      <div class="resume-preview-frame-wrap">
-        <iframe class="resume-preview-frame" src="${safeUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit" title="${safeTitle}"></iframe>
-      </div>
-    </div>
-  `;
+    `;
 
-  overlay.querySelector(".resume-modal-close").addEventListener("click", closeResumeModal);
-  overlay.addEventListener("click", (event) => {
-    if (event.target === overlay) closeResumeModal();
-  });
-
-  document.body.appendChild(overlay);
-  document.body.style.overflow = "hidden";
-  activeModal = overlay;
-
-  if (!escapeListenerAttached) {
-    escapeListenerAttached = true;
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && activeModal) {
-        closeResumeModal();
-      }
+    overlay.querySelector(".resume-modal-close").addEventListener("click", closeResumeModal);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) closeResumeModal();
     });
+
+    document.body.appendChild(overlay);
+    document.body.style.overflow = "hidden";
+    activeModal = overlay;
+
+    if (!escapeListenerAttached) {
+      escapeListenerAttached = true;
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && activeModal) {
+          closeResumeModal();
+        }
+      });
+    }
+
+    overlay.querySelector(".resume-download-btn")?.focus();
+
+    return { data, pdfUrl, filename: RESUME_PDF_FILENAME };
+  } finally {
+    if (ownsLoading) {
+      setTriggerLoading(triggerEl, false);
+    }
   }
-
-  overlay.querySelector(".resume-download-btn")?.focus();
-
-  return { data, pdfUrl, filename: RESUME_PDF_FILENAME };
 }

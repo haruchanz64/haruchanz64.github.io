@@ -139,7 +139,8 @@
       "messagePlaceholder": "Write your message here…",
       "submit": "Send Message",
       "sending": "Sending…",
-      "resume": "View My Resume"
+      "resume": "Preview Resume",
+      "generatingResume": "Generating…"
     },
     "socialTitle": "Find me online",
     "toast": {

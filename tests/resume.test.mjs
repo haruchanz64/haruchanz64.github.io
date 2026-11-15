@@ -12,6 +12,7 @@ import {
   extractResumeData,
   isResumeRequestAllowed,
   normalizeText,
+  requestResume,
 } from "../src/js/resume.js";
 import {
   buildAtsResumePdfBytes,
@@ -476,5 +477,90 @@ describe("extractResumeData i18n fallback", () => {
     assert.equal(data.education[0].date, "August 2021 – April 2025");
     assert.match(data.education[0].bullets[0], /^Developed Trash Frenzy/);
     assert.equal(data.skills[0].category, "Programming Languages");
+  });
+});
+
+describe("requestResume async loading", () => {
+  it("toggles loading state asynchronously on the trigger button while generating", async () => {
+    const prevDocument = globalThis.document;
+    const prevCreateObjectURL = URL.createObjectURL;
+    const prevRevokeObjectURL = URL.revokeObjectURL;
+
+    const btnText = { style: { display: "inline" } };
+    const btnSpinner = { style: { display: "none" } };
+    const attrs = new Map();
+    const triggerEl = {
+      disabled: false,
+      setAttribute(name, value) {
+        attrs.set(name, value);
+      },
+      getAttribute(name) {
+        return attrs.get(name) ?? null;
+      },
+      querySelector(selector) {
+        if (selector === ".btn-text") return btnText;
+        if (selector === ".btn-spinner") return btnSpinner;
+        return null;
+      },
+    };
+
+    const appended = [];
+    const baseDoc = createMockDocument();
+    const downloadBtn = { focus() {} };
+    const closeBtn = { addEventListener() {} };
+    const modalStub = {
+      id: "",
+      className: "",
+      innerHTML: "",
+      setAttribute() {},
+      addEventListener() {},
+      remove() {},
+      querySelector(selector) {
+        if (selector === ".resume-modal-close") return closeBtn;
+        if (selector === ".resume-download-btn") return downloadBtn;
+        return null;
+      },
+    };
+
+    globalThis.document = {
+      ...baseDoc,
+      activeElement: null,
+      body: {
+        style: { overflow: "" },
+        appendChild(el) {
+          appended.push(el);
+        },
+      },
+      createElement() {
+        return modalStub;
+      },
+      addEventListener() {},
+    };
+    URL.createObjectURL = () => "blob:mock-resume";
+    URL.revokeObjectURL = () => {};
+
+    try {
+      const pending = requestResume(triggerEl);
+
+      // Immediately after calling, trigger should be in loading state before async yield completes.
+      assert.equal(triggerEl.disabled, true);
+      assert.equal(triggerEl.getAttribute("aria-busy"), "true");
+      assert.equal(btnText.style.display, "none");
+      assert.equal(btnSpinner.style.display, "inline");
+
+      const result = await pending;
+      assert.equal(result.pdfUrl, "blob:mock-resume");
+      assert.equal(appended.length, 1);
+
+      // After resolution, loading state is restored.
+      assert.equal(triggerEl.disabled, false);
+      assert.equal(triggerEl.getAttribute("aria-busy"), "false");
+      assert.equal(btnText.style.display, "inline");
+      assert.equal(btnSpinner.style.display, "none");
+    } finally {
+      globalThis.document = prevDocument;
+      URL.createObjectURL = prevCreateObjectURL;
+      URL.revokeObjectURL = prevRevokeObjectURL;
+    }
   });
 });

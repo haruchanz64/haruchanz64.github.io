@@ -22,6 +22,17 @@ function loadResumeModule() {
   return resumeModulePromise;
 }
 
+function setResumeTriggerLoading(trigger, isLoading) {
+  if (!trigger) return;
+  const btnText = trigger.querySelector?.(".btn-text");
+  const spinner = trigger.querySelector?.(".btn-spinner");
+
+  trigger.disabled = isLoading;
+  trigger.setAttribute?.("aria-busy", String(isLoading));
+  if (btnText) btnText.style.display = isLoading ? "none" : "inline";
+  if (spinner) spinner.style.display = isLoading ? "inline" : "none";
+}
+
 function initResumeTrigger() {
   const pageLoadedAt = Date.now();
   let hasInteracted = false;
@@ -42,6 +53,10 @@ function initResumeTrigger() {
     if (!trigger) return;
     event.preventDefault();
 
+    if (trigger.disabled || trigger.getAttribute?.("aria-busy") === "true") {
+      return;
+    }
+
     const now = Date.now();
     if (
       event.isTrusted !== true ||
@@ -53,8 +68,13 @@ function initResumeTrigger() {
     }
 
     lastTriggeredAt = now;
-    const { requestResume } = await loadResumeModule();
-    requestResume(trigger);
+    setResumeTriggerLoading(trigger, true);
+    try {
+      const { requestResume } = await loadResumeModule();
+      await requestResume(trigger);
+    } finally {
+      setResumeTriggerLoading(trigger, false);
+    }
   });
 }
 
