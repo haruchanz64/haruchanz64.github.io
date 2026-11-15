@@ -459,7 +459,7 @@ function closeResumeModal() {
     URL.revokeObjectURL(activePdfUrl);
     activePdfUrl = null;
   }
-  document.body.style.overflow = "";
+  document.documentElement?.classList?.remove("modal-open");
   if (lastTriggerEl && typeof lastTriggerEl.focus === "function") {
     lastTriggerEl.focus();
   }
@@ -549,7 +549,7 @@ export async function requestResume(triggerEl = null) {
     });
 
     document.body.appendChild(overlay);
-    document.body.style.overflow = "hidden";
+    document.documentElement?.classList?.add("modal-open");
     activeModal = overlay;
 
     if (!escapeListenerAttached) {

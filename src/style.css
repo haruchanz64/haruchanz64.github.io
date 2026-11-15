@@ -70,6 +70,12 @@ html.intro-loading body {
   touch-action: none;
 }
 
+html.modal-open,
+html.modal-open body {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
 body {
   position: relative;
   isolation: isolate;

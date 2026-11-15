@@ -19,6 +19,7 @@ function initAboutHandleModal() {
 
   const openModal = () => {
     modal.hidden = false;
+    document.documentElement.classList.add("modal-open");
     syncExpandedState();
     closeBtn?.focus();
   };
@@ -26,6 +27,7 @@ function initAboutHandleModal() {
   const closeModal = () => {
     if (modal.hidden) return;
     modal.hidden = true;
+    document.documentElement.classList.remove("modal-open");
     syncExpandedState();
     aboutSection.querySelector(".haru-trigger")?.focus();
   };
