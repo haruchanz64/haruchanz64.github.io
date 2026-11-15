@@ -202,7 +202,7 @@ body::before {
   font-size: 0.68rem;
   font-weight: 400;
   line-height: 1.2;
-  color: var(--text-muted);
+  color: var(--text-secondary);
 }
 
 @media (max-width: 1024px) {
