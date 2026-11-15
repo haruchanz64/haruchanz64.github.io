@@ -1,4 +1,4 @@
-import { readCache, writeCache } from "./cache.js";
+import { cacheImageElement, readCache, writeCache } from "./cache.js";
 import { i18nReady, t } from "./i18n.js";
 
 const CACHE_KEY = "haru_itch_projects_v1";
@@ -33,6 +33,7 @@ function renderItchProjects(grid, projects) {
       img.className = "project-thumb";
       img.loading = "lazy";
       card.appendChild(img);
+      void cacheImageElement(img);
     }
 
     const info = document.createElement("div");

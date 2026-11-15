@@ -1,3 +1,4 @@
+import { cacheAllDocumentAssets } from "./cache.js";
 import { githubProjectsReady } from "./github.js";
 import { itchProjectsReady } from "./itch.js";
 
@@ -6,17 +7,24 @@ const MIN_LOADING_MS = 1500;
 const MAX_WAIT_MS = 3500;
 const MORPH_TRANSITION_MS = 650;
 
-function hasSeenIntro() {
+export function hasSeenIntro(storage = typeof localStorage !== "undefined" ? localStorage : null) {
   try {
-    return sessionStorage.getItem(INTRO_SEEN_KEY) === "true";
+    if (storage?.getItem(INTRO_SEEN_KEY) === "true") {
+      return true;
+    }
+    if (typeof sessionStorage !== "undefined" && sessionStorage.getItem(INTRO_SEEN_KEY) === "true") {
+      storage?.setItem(INTRO_SEEN_KEY, "true");
+      return true;
+    }
+    return false;
   } catch {
     return false;
   }
 }
 
-function markIntroSeen() {
+export function markIntroSeen(storage = typeof localStorage !== "undefined" ? localStorage : null) {
   try {
-    sessionStorage.setItem(INTRO_SEEN_KEY, "true");
+    storage?.setItem(INTRO_SEEN_KEY, "true");
   } catch {
     // Ignore storage errors in restricted browsing contexts.
   }
@@ -184,9 +192,11 @@ export async function initHeroLoader() {
     const completeProgress = startProgressTicker(progressEl, MIN_LOADING_MS);
 
     const fontsReady = document.fonts?.ready ?? Promise.resolve();
+    const assetsReady = cacheAllDocumentAssets(document);
     const portfolioReady = Promise.allSettled([
       githubProjectsReady,
       itchProjectsReady,
+      assetsReady,
       waitForWindowLoad(),
       fontsReady,
     ]);

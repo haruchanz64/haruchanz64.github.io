@@ -1,4 +1,5 @@
 import "./i18n.js";
+import { cacheAllDocumentAssets, registerAssetCacheServiceWorker } from "./cache.js";
 import { sendEmail } from "./contact.js";
 import "./observer.js";
 import "./url-hash-manager.js";
@@ -10,6 +11,19 @@ import "./itch.js";
 import "./hero-loader.js";
 import "./experience-duration.js";
 import "./about-handle.js";
+
+registerAssetCacheServiceWorker();
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+      void cacheAllDocumentAssets(document);
+    },
+    { once: true },
+  );
+} else {
+  void cacheAllDocumentAssets(document);
+}
 
 const RESUME_MIN_PAGE_TIME_MS = 1200;
 const RESUME_COOLDOWN_MS = 2000;

@@ -1,60 +1,115 @@
-const THEME_STORAGE_KEY = "theme";
+export const THEME_STORAGE_KEY = "theme";
+export const THEME_TRANSITION_MS = 200;
 
-window.initThemeToggle = function () {
+export function getSavedTheme(storage = typeof localStorage !== "undefined" ? localStorage : null) {
+  try {
+    const val = storage?.getItem(THEME_STORAGE_KEY);
+    return val === "dark" || val === "light" ? val : null;
+  } catch {
+    return null;
+  }
+}
+
+export function saveTheme(
+  theme,
+  storage = typeof localStorage !== "undefined" ? localStorage : null,
+) {
+  try {
+    storage?.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Ignore storage errors (e.g. private browsing)
+  }
+}
+
+export function applyThemeState(isDark, doc = typeof document !== "undefined" ? document : null) {
+  if (!doc) return;
+  const root = doc.documentElement;
+  const toggleBtn = doc.getElementById?.("theme-toggle");
+
+  root?.classList?.toggle("light-theme", !isDark);
+  if (root?.style) {
+    root.style.colorScheme = isDark ? "dark" : "light";
+  }
+
+  doc.querySelectorAll?.(".github-card").forEach((card) => {
+    card.src = isDark
+      ? card.src.replace("theme=light", "theme=dark")
+      : card.src.replace("theme=dark", "theme=light");
+  });
+
+  if (toggleBtn) {
+    const nextLabel = isDark ? "Switch to light mode" : "Switch to dark mode";
+    toggleBtn.setAttribute("aria-label", nextLabel);
+    toggleBtn.setAttribute("title", nextLabel);
+    toggleBtn.setAttribute("aria-pressed", String(!isDark));
+  }
+}
+
+export function animateThemeSwitch(
+  isDark,
+  {
+    doc = typeof document !== "undefined" ? document : null,
+    win = typeof window !== "undefined" ? window : null,
+  } = {},
+) {
+  if (!doc) return;
+
+  const prefersReducedMotion =
+    win?.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+
+  if (!prefersReducedMotion && typeof doc.startViewTransition === "function") {
+    try {
+      doc.startViewTransition(() => {
+        applyThemeState(isDark, doc);
+      });
+      return;
+    } catch {
+      // Fall back to standard CSS transition below.
+    }
+  }
+
+  applyThemeState(isDark, doc);
+}
+
+export function initThemeToggle() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-  const root = document.documentElement;
   const toggleBtn = document.getElementById("theme-toggle");
-
-  function getSavedTheme() {
-    try {
-      return localStorage.getItem(THEME_STORAGE_KEY);
-    } catch {
-      return null;
-    }
-  }
-
-  function saveTheme(theme) {
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, theme);
-    } catch {
-      // Ignore storage errors (e.g. private browsing)
-    }
-  }
-
-  function applyTheme(isDark) {
-    root.classList.toggle("light-theme", !isDark);
-    document.querySelectorAll(".github-card").forEach((card) => {
-      card.src = isDark
-        ? card.src.replace("theme=light", "theme=dark")
-        : card.src.replace("theme=dark", "theme=light");
-    });
-
-    if (toggleBtn) {
-      const nextLabel = isDark ? "Switch to light mode" : "Switch to dark mode";
-      toggleBtn.setAttribute("aria-label", nextLabel);
-      toggleBtn.setAttribute("title", nextLabel);
-      toggleBtn.setAttribute("aria-pressed", String(!isDark));
-    }
-  }
 
   const saved = getSavedTheme();
   let isDark = saved ? saved === "dark" : prefersDark.matches;
-  applyTheme(isDark);
+  // Always persist the resolved theme in localStorage so it does not clear on tab close.
+  saveTheme(isDark ? "dark" : "light");
+  applyThemeState(isDark, document);
 
-  if (toggleBtn) {
+  if (toggleBtn && !toggleBtn.dataset.themeBound) {
+    toggleBtn.dataset.themeBound = "true";
     toggleBtn.addEventListener("click", () => {
       isDark = !isDark;
       saveTheme(isDark ? "dark" : "light");
-      applyTheme(isDark);
+      animateThemeSwitch(isDark, {
+        doc: document,
+        win: window,
+      });
     });
   }
 
   prefersDark.addEventListener("change", (e) => {
-    if (!getSavedTheme()) {
-      isDark = e.matches;
-      applyTheme(isDark);
-    }
+    isDark = e.matches;
+    saveTheme(isDark ? "dark" : "light");
+    animateThemeSwitch(isDark, {
+      doc: document,
+      win: window,
+    });
   });
-};
+}
 
-document.addEventListener("DOMContentLoaded", window.initThemeToggle);
+if (typeof window !== "undefined") {
+  window.initThemeToggle = initThemeToggle;
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initThemeToggle, { once: true });
+  } else {
+    initThemeToggle();
+  }
+}

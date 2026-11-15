@@ -103,6 +103,7 @@ async function initGithubProjects() {
 
     try {
       const fallback = await fetchFallbackGithubProjects();
+      writeCache(CACHE_KEY, fallback);
       renderGithubProjects(grid, fallback);
     } catch (fallbackErr) {
       console.error("Failed to load GitHub projects:", fallbackErr);

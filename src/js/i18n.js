@@ -1,8 +1,11 @@
 import en_us from "../locales/en_us.json" with { type: "json" };
+import { readCache, writeCache } from "./cache.js";
 
 export const LOCALES = { en_us };
 export const SUPPORTED_LOCALES = ["en_us", "fil_ph", "ja_jp"];
 export const DEFAULT_LOCALE = "en_us";
+const LOCALE_CACHE_PREFIX = "haru_locale_dict_v2:";
+const LOCALE_STORAGE_KEY = "haru_locale";
 
 const LOCALE_LOADERS = {
   fil_ph: () => import("../locales/fil_ph.json", { with: { type: "json" } }),
@@ -20,6 +23,12 @@ export async function loadLocale(locale) {
   const target = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
   if (LOCALES[target]) return LOCALES[target];
 
+  const cachedDict = readCache(`${LOCALE_CACHE_PREFIX}${target}`, Number.POSITIVE_INFINITY, true);
+  if (cachedDict && typeof cachedDict === "object") {
+    LOCALES[target] = cachedDict;
+    return LOCALES[target];
+  }
+
   if (!pendingLocaleLoads.has(target)) {
     const loader = LOCALE_LOADERS[target];
     if (!loader) return LOCALES[DEFAULT_LOCALE];
@@ -27,6 +36,7 @@ export async function loadLocale(locale) {
     const promise = loader()
       .then((mod) => {
         LOCALES[target] = mod.default ?? mod;
+        writeCache(`${LOCALE_CACHE_PREFIX}${target}`, LOCALES[target]);
         return LOCALES[target];
       })
       .finally(() => {
@@ -149,6 +159,13 @@ export function getCurrentLocale() {
  */
 export function setCurrentLocale(locale) {
   currentLocale = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
+  try {
+    if (typeof window !== "undefined" && typeof window.localStorage !== "undefined") {
+      window.localStorage.setItem(LOCALE_STORAGE_KEY, currentLocale);
+    }
+  } catch {
+    // Ignore storage errors.
+  }
 }
 
 /**

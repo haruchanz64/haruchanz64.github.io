@@ -18,11 +18,23 @@
 
     <script>
       try {
-        if (sessionStorage.getItem("has_seen_intro") === "true") {
+        if (
+          localStorage.getItem("has_seen_intro") === "true" ||
+          sessionStorage.getItem("has_seen_intro") === "true"
+        ) {
+          localStorage.setItem("has_seen_intro", "true");
           document.documentElement.classList.add("intro-seen");
         } else {
           document.documentElement.classList.add("intro-loading");
         }
+        const savedTheme = localStorage.getItem("theme");
+        const isDark = savedTheme
+          ? savedTheme === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (!savedTheme) {
+          localStorage.setItem("theme", isDark ? "dark" : "light");
+        }
+        document.documentElement.classList.toggle("light-theme", !isDark);
       } catch {
         document.documentElement.classList.add("intro-loading");
       }
@@ -660,7 +672,7 @@
 
     <section id="contact" class="contact">
       <div class="contact-content">
-        <h2 class="contact-title" data-i18n="contact.title">Contact</h2>
+        <h2 class="section-title" data-i18n="contact.title">Contact</h2>
         <p class="contact-description" data-i18n="contact.description">
           Open to freelance work, software engineering roles, and game
           development or teaching collaborations. Got something in mind? Let's
