@@ -40,10 +40,10 @@
   --accent-secondary: var(--second-color);
   --border-color: var(--second-color);
   --bg-pattern-c1: var(--fourth-color);
-  --bg-pattern-c2: color-mix(in srgb, var(--fourth-color) 62%, var(--third-color));
-  --bg-pattern-c3: color-mix(in srgb, var(--third-color) 82%, var(--second-color));
-  --bg-pattern-g1: color-mix(in srgb, var(--third-color) 20%, transparent);
-  --bg-pattern-g2: color-mix(in srgb, var(--second-color) 14%, transparent);
+  --bg-pattern-c2: color-mix(in srgb, var(--fourth-color) 92%, var(--third-color));
+  --bg-pattern-c3: color-mix(in srgb, var(--fourth-color) 84%, var(--second-color));
+  --bg-pattern-g1: color-mix(in srgb, var(--third-color) 7%, transparent);
+  --bg-pattern-g2: color-mix(in srgb, var(--second-color) 5%, transparent);
 }
 
 * {
@@ -191,6 +191,12 @@ body::before {
   color: var(--text-muted);
 }
 
+@media (max-width: 768px) {
+  .nav-brand-role {
+    display: none;
+  }
+}
+
 .nav-current-section {
   font-family: var(--font-mono);
   font-size: 0.85rem;
@@ -246,20 +252,44 @@ body::before {
 }
 
 .theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
   background: none;
-  border: none;
-  font-size: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
   cursor: pointer;
-  transition: color var(--transition);
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
   color: var(--text-secondary);
 }
 
 .theme-toggle:hover {
   color: var(--text-primary);
+  border-color: color-mix(in srgb, var(--text-primary) 20%, transparent);
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.theme-icon--moon {
+  display: none;
+}
+
+.light-theme .theme-icon--sun {
+  display: none;
+}
+
+.light-theme .theme-icon--moon {
+  display: block;
 }
 
 .nav-actions {
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid color-mix(in srgb, var(--border-color) 65%, transparent);
 }
 
 .burger-menu {
@@ -511,8 +541,21 @@ html:not(.intro-seen) .hero--pending .cta-button {
   width: 100%;
   appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
   padding-right: 2.5rem;
   cursor: pointer;
+}
+
+.form-field select::-ms-expand {
+  display: none;
+}
+
+.form-field select::picker-icon {
+  display: none;
+}
+
+.form-field select option::checkmark {
+  display: none;
 }
 
 .select-icon {
@@ -1306,6 +1349,10 @@ code {
   .nav-brand-role {
     font-size: 0.75rem;
     white-space: nowrap;
+  }
+
+  .nav-actions {
+    margin-left: 0.25rem;
   }
 
   .nav-links {
