@@ -21,9 +21,9 @@
   --bg-pattern-c3: color-mix(in srgb, var(--first-color) 78%, #000000);
   --bg-pattern-g1: color-mix(in srgb, var(--first-color) 20%, transparent);
   --bg-pattern-g2: color-mix(in srgb, var(--third-color) 16%, transparent);
-  --font-main: "Inter", sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-main: "Inter", "Noto Sans JP", sans-serif;
+  --font-display: "Space Grotesk", "Inter", "Noto Sans JP", sans-serif;
+  --font-mono: "JetBrains Mono", "Inter", "Noto Sans JP", monospace;
   --transition: 0.3s ease;
   --radius: 10px;
 }
@@ -142,7 +142,7 @@ body::before {
 
 .nav-avatar {
   height: 36px;
-  width: auto;
+  width: 36px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
@@ -268,9 +268,11 @@ body::before {
   align-items: center;
 }
 
-.hero-content img {
+.hero-avatar {
   margin: 0 auto 1rem;
   display: block;
+  width: 256px;
+  height: 256px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
@@ -1097,6 +1099,7 @@ code {
 
   .nav-avatar {
     height: 44px;
+    width: 44px;
   }
 
   .nav-brand-name {
