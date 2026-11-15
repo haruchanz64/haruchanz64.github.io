@@ -140,7 +140,10 @@
       "submit": "Send Message",
       "sending": "Sending…",
       "resume": "Preview Resume",
-      "generatingResume": "Generating…"
+      "generatingResume": "Generating…",
+      "downloadResume": "Download Resume",
+      "closeResumePreview": "Close resume preview",
+      "resumeModalTitle": "{name} — Resume"
     },
     "socialTitle": "Find me online",
     "toast": {

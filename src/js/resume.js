@@ -1,5 +1,5 @@
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
-import { getTranslation } from "./i18n.js";
+import { getTranslation, t } from "./i18n.js";
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
@@ -513,9 +513,11 @@ export async function requestResume(triggerEl = null) {
     activePdfUrl = pdfUrl;
     lastTriggerEl = triggerEl || document.activeElement;
 
-    const safeTitle = escapeHtml(`${data.fullName} — Resume`);
+    const safeTitle = escapeHtml(t("contact.form.resumeModalTitle", { name: data.fullName }));
     const safeFilename = escapeHtml(RESUME_PDF_FILENAME);
     const safeUrl = escapeHtml(pdfUrl);
+    const safeDownloadLabel = escapeHtml(t("contact.form.downloadResume"));
+    const safeCloseLabel = escapeHtml(t("contact.form.closeResumePreview"));
 
     const overlay = document.createElement("div");
     overlay.id = "resume-modal";
@@ -531,8 +533,8 @@ export async function requestResume(triggerEl = null) {
             <h2 id="resume-modal-title" class="resume-modal-title">${safeTitle}</h2>
           </div>
           <div class="resume-modal-controls">
-            <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">Download Resume</a>
-            <button type="button" class="resume-modal-close" aria-label="Close resume preview">&times;</button>
+            <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">${safeDownloadLabel}</a>
+            <button type="button" class="resume-modal-close" aria-label="${safeCloseLabel}">&times;</button>
           </div>
         </div>
         <div class="resume-preview-frame-wrap">

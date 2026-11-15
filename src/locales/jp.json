@@ -140,7 +140,10 @@
       "submit": "メッセージを送信",
       "sending": "送信中…",
       "resume": "履歴書をプレビュー",
-      "generatingResume": "生成中…"
+      "generatingResume": "生成中…",
+      "downloadResume": "履歴書をダウンロード",
+      "closeResumePreview": "履歴書のプレビューを閉じる",
+      "resumeModalTitle": "{name} — 履歴書"
     },
     "socialTitle": "オンラインリンク",
     "toast": {

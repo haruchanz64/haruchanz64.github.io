@@ -140,7 +140,10 @@
       "submit": "Ipadala ang Mensahe",
       "sending": "Ipinapadala…",
       "resume": "I-preview ang Resume",
-      "generatingResume": "Ginagawa…"
+      "generatingResume": "Ginagawa…",
+      "downloadResume": "I-download ang Resume",
+      "closeResumePreview": "Isara ang preview ng resume",
+      "resumeModalTitle": "{name} — Resume"
     },
     "socialTitle": "Hanapin ako online",
     "toast": {
