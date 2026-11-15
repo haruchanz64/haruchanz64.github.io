@@ -18,13 +18,10 @@
   --card-hover-shadow:
     0 0 20px color-mix(in srgb, var(--third-color) 15%, transparent),
     0 8px 24px color-mix(in srgb, var(--first-color) 35%, transparent);
-  --bg-pattern-sz: 20px;
-  --bg-pattern-c0: transparent;
-  --bg-pattern-c1: color-mix(in srgb, var(--first-color) 72%, var(--second-color));
-  --bg-pattern-c2: var(--first-color);
-  --bg-pattern-c3: color-mix(in srgb, var(--first-color) 78%, #000000);
-  --bg-pattern-g1: color-mix(in srgb, var(--first-color) 20%, transparent);
-  --bg-pattern-g2: color-mix(in srgb, var(--third-color) 16%, transparent);
+  --dot-bg: var(--bg-primary);
+  --dot-color: var(--text-primary);
+  --dot-size: 1px;
+  --dot-space: 22px;
   --font-main: "Inter", "Noto Sans JP", sans-serif;
   --font-display: "Space Grotesk", "Inter", "Noto Sans JP", sans-serif;
   --font-mono: "JetBrains Mono", "Inter", "Noto Sans JP", monospace;
@@ -47,11 +44,6 @@
   --card-hover-shadow:
     0 4px 20px color-mix(in srgb, var(--third-color) 12%, transparent),
     0 8px 24px color-mix(in srgb, var(--first-color) 10%, transparent);
-  --bg-pattern-c1: var(--fourth-color);
-  --bg-pattern-c2: color-mix(in srgb, var(--fourth-color) 92%, var(--third-color));
-  --bg-pattern-c3: color-mix(in srgb, var(--fourth-color) 84%, var(--second-color));
-  --bg-pattern-g1: color-mix(in srgb, var(--third-color) 7%, transparent);
-  --bg-pattern-g2: color-mix(in srgb, var(--second-color) 5%, transparent);
 }
 
 * {
@@ -110,21 +102,10 @@ body::before {
   z-index: -1;
   pointer-events: none;
   opacity: 0.3;
-  --ts: 50% / calc(var(--bg-pattern-sz) * 13.25) calc(var(--bg-pattern-sz) * 11.7);
   background:
-    repeating-conic-gradient(var(--bg-pattern-g1) 0.000001%, var(--bg-pattern-c0) 0.00005%, var(--bg-pattern-c0) 0.00035%, var(--bg-pattern-c0) 0.00005%) var(--ts),
-    repeating-conic-gradient(var(--bg-pattern-g2) 0.00002%, var(--bg-pattern-c0) 0.00008%, var(--bg-pattern-c0) 0.0008%, var(--bg-pattern-c0) 0.00008%) var(--ts),
-    repeating-linear-gradient(90deg, var(--bg-pattern-c0) 0 24.33%, var(--bg-pattern-c3) 0 25%) var(--ts),
-    linear-gradient(210deg, var(--bg-pattern-c0) 0 80%, var(--bg-pattern-c3) calc(80% + 1px) 80.5%, var(--bg-pattern-c0) calc(80.5% + 1px) 100%) var(--ts),
-    conic-gradient(from -90deg at 49.75% 100%, var(--bg-pattern-c1) 0 30deg, var(--bg-pattern-c0) 0 150deg, var(--bg-pattern-c2) 0 60deg) var(--ts),
-    conic-gradient(from -180deg at 24.5% 50.5%, var(--bg-pattern-c1) 0 119deg, var(--bg-pattern-c0) 0 100%) var(--ts),
-    conic-gradient(from 120deg at 74.5% 50%, var(--bg-pattern-c3) 0 120deg, var(--bg-pattern-c0) 0 100%) var(--ts),
-    conic-gradient(from 180deg at 49.5% 34%, var(--bg-pattern-c2) 0 60deg, var(--bg-pattern-c0) 0 100%) var(--ts),
-    conic-gradient(from -120deg at 50% 34%, var(--bg-pattern-c3) 0 60deg, var(--bg-pattern-c0) 0 100%) var(--ts),
-    conic-gradient(from 0deg at 74.5% 17.5%, var(--bg-pattern-c2) 0 60deg, var(--bg-pattern-c3) 0 121deg, var(--bg-pattern-c0) 0 100%) var(--ts),
-    linear-gradient(150deg, var(--bg-pattern-c0) 0 40%, var(--bg-pattern-c3) calc(40% + 1px) 40.5%, var(--bg-pattern-c0) calc(40.5% + 1px) 100%) var(--ts),
-    linear-gradient(90deg, var(--bg-pattern-c0) 0 50%, var(--bg-pattern-c2) 0 75%, var(--bg-pattern-c0) 0 100%) var(--ts),
-    repeating-linear-gradient(90deg, var(--bg-pattern-c1) 0 24.33%, var(--bg-pattern-c3) 0 25%) var(--ts);
+    linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+    linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
 }
 
 .nav {
