@@ -1,5 +1,5 @@
 import { readCache, writeCache } from "./cache.js";
-import { t } from "./i18n.js";
+import { i18nReady, t } from "./i18n.js";
 
 const GITHUB_USERNAME = "haruchanz64";
 const PINNED_REPOS = [
@@ -79,6 +79,7 @@ async function fetchFallbackGithubProjects() {
 }
 
 async function initGithubProjects() {
+  await i18nReady;
   const grid = document.getElementById("tools-grid");
   if (!grid) return;
 

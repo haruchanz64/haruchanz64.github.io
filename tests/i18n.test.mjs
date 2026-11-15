@@ -1,4 +1,4 @@
-import { describe, it } from "node:test";
+import { before, describe, it } from "node:test";
 import assert from "node:assert/strict";
 
 import {
@@ -7,10 +7,15 @@ import {
   applyI18n,
   detectBrowserLocale,
   getTranslation,
+  loadLocale,
   normalizeLocaleTag,
   resolveLocale,
 } from "../src/js/i18n.js";
 import { applyExperienceDurations } from "../src/js/experience-duration.js";
+
+before(async () => {
+  await Promise.all(SUPPORTED_LOCALES.map(loadLocale));
+});
 
 function collectKeys(obj, prefix = "") {
   const keys = [];

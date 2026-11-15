@@ -1,5 +1,5 @@
 import { readCache, writeCache } from "./cache.js";
-import { t } from "./i18n.js";
+import { i18nReady, t } from "./i18n.js";
 
 const CACHE_KEY = "haru_itch_projects_v1";
 const CACHE_TTL_MS = 60 * 60 * 1000;
@@ -66,6 +66,7 @@ function renderItchProjects(grid, projects) {
 }
 
 async function initItchProjects() {
+  await i18nReady;
   const grid = document.getElementById("games-grid");
   if (!grid) return;
 

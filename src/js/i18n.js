@@ -1,10 +1,42 @@
 import en from "../locales/en.json" with { type: "json" };
-import fil from "../locales/fil.json" with { type: "json" };
-import jp from "../locales/jp.json" with { type: "json" };
 
-export const LOCALES = { en, fil, jp };
+export const LOCALES = { en };
 export const SUPPORTED_LOCALES = ["en", "fil", "jp"];
 export const DEFAULT_LOCALE = "en";
+
+const LOCALE_LOADERS = {
+  fil: () => import("../locales/fil.json", { with: { type: "json" } }),
+  jp: () => import("../locales/jp.json", { with: { type: "json" } }),
+};
+
+const pendingLocaleLoads = new Map();
+
+/**
+ * Lazy-load a locale dictionary into `LOCALES` if not already loaded.
+ * @param {"en" | "fil" | "jp"} locale
+ * @returns {Promise<Record<string, unknown>>}
+ */
+export async function loadLocale(locale) {
+  const target = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
+  if (LOCALES[target]) return LOCALES[target];
+
+  if (!pendingLocaleLoads.has(target)) {
+    const loader = LOCALE_LOADERS[target];
+    if (!loader) return LOCALES[DEFAULT_LOCALE];
+
+    const promise = loader()
+      .then((mod) => {
+        LOCALES[target] = mod.default ?? mod;
+        return LOCALES[target];
+      })
+      .finally(() => {
+        pendingLocaleLoads.delete(target);
+      });
+    pendingLocaleLoads.set(target, promise);
+  }
+
+  return pendingLocaleLoads.get(target);
+}
 
 const HTML_LANG_MAP = {
   en: "en",
@@ -177,11 +209,21 @@ export function applyI18n(doc = document, locale = currentLocale) {
   });
 }
 
-if (typeof document !== "undefined") {
-  const init = () => applyI18n(document, resolveLocale());
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
+async function initI18n() {
+  const locale = resolveLocale();
+  if (locale !== DEFAULT_LOCALE) {
+    await loadLocale(locale);
   }
+  applyI18n(document, locale);
 }
+
+export const i18nReady =
+  typeof document !== "undefined"
+    ? document.readyState === "loading"
+      ? new Promise((resolve) => {
+          document.addEventListener("DOMContentLoaded", () => resolve(initI18n()), {
+            once: true,
+          });
+        })
+      : initI18n()
+    : Promise.resolve();

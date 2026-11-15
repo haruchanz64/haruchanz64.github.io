@@ -449,6 +449,7 @@ export function buildAtsResumePdfBlob(data) {
 let activeModal = null;
 let activePdfUrl = null;
 let lastTriggerEl = null;
+let escapeListenerAttached = false;
 
 function closeResumeModal() {
   if (!activeModal) return;
@@ -520,59 +521,16 @@ export function requestResume(triggerEl = null) {
   document.body.style.overflow = "hidden";
   activeModal = overlay;
 
+  if (!escapeListenerAttached) {
+    escapeListenerAttached = true;
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && activeModal) {
+        closeResumeModal();
+      }
+    });
+  }
+
   overlay.querySelector(".resume-download-btn")?.focus();
 
   return { data, pdfUrl, filename: RESUME_PDF_FILENAME };
-}
-
-function initResumeTriggers() {
-  const pageLoadedAt = Date.now();
-  let hasInteracted = false;
-  let lastTriggeredAt = 0;
-
-  const markHumanInteraction = (event) => {
-    if (event.isTrusted) {
-      hasInteracted = true;
-    }
-  };
-
-  for (const eventName of ["pointermove", "pointerdown", "keydown", "touchstart", "scroll"]) {
-    document.addEventListener(eventName, markHumanInteraction, { passive: true, capture: true });
-  }
-
-  document.addEventListener("click", (event) => {
-    const trigger = event.target.closest?.("[data-request-resume]");
-    if (!trigger) return;
-    event.preventDefault();
-
-    const now = Date.now();
-    if (
-      !isResumeRequestAllowed({
-        isTrusted: event.isTrusted === true,
-        elapsedMs: now - pageLoadedAt,
-        hasInteracted: hasInteracted || event.detail > 0,
-        lastTriggeredAt,
-        now,
-      })
-    ) {
-      return;
-    }
-
-    lastTriggeredAt = now;
-    requestResume(trigger);
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && activeModal) {
-      closeResumeModal();
-    }
-  });
-}
-
-if (typeof document !== "undefined") {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initResumeTriggers);
-  } else {
-    initResumeTriggers();
-  }
 }
