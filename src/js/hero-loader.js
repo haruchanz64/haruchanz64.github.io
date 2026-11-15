@@ -1,7 +1,7 @@
 import { githubProjectsReady } from "./github.js";
 import { itchProjectsReady } from "./itch.js";
 
-const INTRO_SEEN_KEY = "haru_intro_seen";
+const INTRO_SEEN_KEY = "has_seen_intro";
 const MIN_LOADING_MS = 1500;
 const MAX_WAIT_MS = 3500;
 const MORPH_TRANSITION_MS = 650;
