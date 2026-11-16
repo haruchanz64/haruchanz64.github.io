@@ -73,11 +73,7 @@ export function readCache(
     if (!parsed || typeof parsed.timestamp !== "number" || !("data" in parsed)) {
       return null;
     }
-    if (
-      !allowStale &&
-      Number.isFinite(ttlMs) &&
-      Date.now() - parsed.timestamp > ttlMs
-    ) {
+    if (!allowStale && Number.isFinite(ttlMs) && Date.now() - parsed.timestamp > ttlMs) {
       return null;
     }
     return parsed.data;
@@ -151,10 +147,7 @@ export async function blobToDataUrl(blob) {
   for (let i = 0; i < bytes.length; i += 1) {
     binary += String.fromCharCode(bytes[i]);
   }
-  const base64 =
-    typeof btoa === "function"
-      ? btoa(binary)
-      : Buffer.from(buffer).toString("base64");
+  const base64 = typeof btoa === "function" ? btoa(binary) : Buffer.from(buffer).toString("base64");
   const mime = blob.type || "application/octet-stream";
   return `data:${mime};base64,${base64}`;
 }
@@ -242,13 +235,13 @@ export async function cacheAssetUrl(
   return loadPromise;
 }
 
-async function hydrateElementAsset(el, { attr, datasetKey, applyUrl, onlyDataUrl = false }, options = {}) {
+async function hydrateElementAsset(
+  el,
+  { attr, datasetKey, applyUrl, onlyDataUrl = false },
+  options = {},
+) {
   if (!el) return "";
-  const originalUrl =
-    el.dataset?.[datasetKey] ||
-    el.getAttribute?.(attr) ||
-    el[attr] ||
-    "";
+  const originalUrl = el.dataset?.[datasetKey] || el.getAttribute?.(attr) || el[attr] || "";
   if (!originalUrl || originalUrl.startsWith("data:") || originalUrl.startsWith("blob:")) {
     return originalUrl;
   }
@@ -332,7 +325,11 @@ export function cacheAllDocumentAssets(
 export function registerAssetCacheServiceWorker() {
   if (typeof window === "undefined" || typeof navigator === "undefined") return;
   if (!("serviceWorker" in navigator)) return;
-  if (location.protocol !== "https:" && location.hostname !== "localhost" && location.hostname !== "127.0.0.1") {
+  if (
+    location.protocol !== "https:" &&
+    location.hostname !== "localhost" &&
+    location.hostname !== "127.0.0.1"
+  ) {
     return;
   }
 

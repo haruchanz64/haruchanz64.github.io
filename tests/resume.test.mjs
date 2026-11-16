@@ -1,24 +1,24 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import {
-  MIN_RESUME_PAGE_TIME_MS,
-  RESUME_COOLDOWN_MS,
-  RESUME_DEFAULT_LOCATION,
-  RESUME_FULL_NAME,
-  RESUME_WEBSITE,
-  buildAtsResumeHtml,
-  buildAtsResumeText,
-  escapeHtml,
-  extractResumeData,
-  isResumeRequestAllowed,
-  normalizeText,
-  requestResume,
-} from "../src/js/resume/resume.js";
+import { describe, it } from "node:test";
 import {
   buildAtsResumePdfBytes,
   toPdfSafeText,
   wrapPdfText,
 } from "../src/js/resume/pdf-builder.js";
+import {
+  buildAtsResumeHtml,
+  buildAtsResumeText,
+  escapeHtml,
+  extractResumeData,
+  isResumeRequestAllowed,
+  MIN_RESUME_PAGE_TIME_MS,
+  normalizeText,
+  RESUME_COOLDOWN_MS,
+  RESUME_DEFAULT_LOCATION,
+  RESUME_FULL_NAME,
+  RESUME_WEBSITE,
+  requestResume,
+} from "../src/js/resume/resume.js";
 
 function createElement({
   textContent = "",
@@ -31,9 +31,7 @@ function createElement({
     dataset,
     href: attributes.href || "",
     getAttribute(name) {
-      return Object.prototype.hasOwnProperty.call(attributes, name)
-        ? attributes[name]
-        : null;
+      return Object.hasOwn(attributes, name) ? attributes[name] : null;
     },
     querySelector(selector) {
       const list = childrenBySelector[selector];
@@ -65,14 +63,7 @@ function createMockDocument() {
             ".experience-company": [
               createElement({ textContent: "University of Caloocan City · Full-time" }),
             ],
-            ".experience-location": [
-              createElement({ textContent: "Caloocan City, Metro Manila" }),
-            ],
-            ".experience-list li": [
-              createElement({
-                textContent: "Capstone Project — Trash Frenzy: Educational game raising water pollution awareness.",
-              }),
-            ],
+            ".experience-location": [createElement({ textContent: "Caloocan City, Metro Manila" })],
             ".experience-list li": [
               createElement({ textContent: "Teach game design theory and prototyping." }),
             ],
@@ -93,12 +84,8 @@ function createMockDocument() {
                 attributes: { href: "https://github.com/haruchanz64/GDriveDesktop" },
                 childrenBySelector: {
                   ".project-title": [createElement({ textContent: "GDriveDesktop" })],
-                  ".project-description": [
-                    createElement({ textContent: "Desktop sync client." }),
-                  ],
-                  ".role-tag, .project-language": [
-                    createElement({ textContent: "C#" }),
-                  ],
+                  ".project-description": [createElement({ textContent: "Desktop sync client." })],
+                  ".role-tag, .project-language": [createElement({ textContent: "C#" })],
                 },
               }),
             ],
@@ -129,15 +116,12 @@ function createMockDocument() {
                 dataset: { dateRange: "August 2021 – April 2025" },
               }),
             ],
-            ".experience-company": [
-              createElement({ textContent: "University of Caloocan City" }),
-            ],
-            ".experience-location": [
-              createElement({ textContent: "Caloocan City, Metro Manila" }),
-            ],
+            ".experience-company": [createElement({ textContent: "University of Caloocan City" })],
+            ".experience-location": [createElement({ textContent: "Caloocan City, Metro Manila" })],
             ".experience-list li": [
               createElement({
-                textContent: "Capstone Project — Trash Frenzy: Educational game raising water pollution awareness.",
+                textContent:
+                  "Capstone Project — Trash Frenzy: Educational game raising water pollution awareness.",
               }),
             ],
           },
@@ -159,10 +143,7 @@ function createMockDocument() {
 
   const languagesPanel = createElement({
     childrenBySelector: {
-      ".skill-name": [
-        createElement({ textContent: "C#" }),
-        createElement({ textContent: "Dart" }),
-      ],
+      ".skill-name": [createElement({ textContent: "C#" }), createElement({ textContent: "Dart" })],
     },
   });
 
@@ -211,7 +192,10 @@ function createMockDocument() {
 describe("resume helpers", () => {
   it("normalizes whitespace and escapes HTML", () => {
     assert.equal(normalizeText("  hello \n  world  "), "hello world");
-    assert.equal(escapeHtml('<script>"test"</script>'), "&lt;script&gt;&quot;test&quot;&lt;/script&gt;");
+    assert.equal(
+      escapeHtml('<script>"test"</script>'),
+      "&lt;script&gt;&quot;test&quot;&lt;/script&gt;",
+    );
   });
 
   it("uses full name, default location, and website without phone or email", () => {
@@ -255,14 +239,9 @@ describe("extractResumeData", () => {
     assert.equal(data.experience.length, 1);
     assert.equal(data.experience[0].date, "July 2026 – Present");
     assert.equal(data.education.length, 1);
-    assert.equal(
-      data.education[0].degree,
-      "BS in Entertainment and Multimedia Computing",
-    );
+    assert.equal(data.education[0].degree, "BS in Entertainment and Multimedia Computing");
     assert.equal(data.projects, undefined);
-    assert.deepEqual(data.skills, [
-      { category: "Programming Languages", items: ["C#", "Dart"] },
-    ]);
+    assert.deepEqual(data.skills, [{ category: "Programming Languages", items: ["C#", "Dart"] }]);
     assert.deepEqual(
       data.links.map((l) => l.label),
       ["GitHub", "LinkedIn"],
@@ -326,9 +305,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("(Major in Game Development) Tj"));
     assert.ok(pdfText.includes("Trash Frenzy"));
-    assert.ok(
-      pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"),
-    );
+    assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("(PROJECTS) Tj"), false);
     assert.equal(pdfText.includes("GDriveDesktop"), false);
     assert.ok(pdfText.includes("/BaseFont /ArialMT"));
@@ -358,7 +335,10 @@ describe("buildAtsResumePdfBytes", () => {
 
   it("paginates automatically when content exceeds one page", () => {
     const data = extractResumeData(createMockDocument());
-    const manyBullets = Array.from({ length: 65 }, (_, i) => `Achievement number ${i + 1} with enough detail.`);
+    const manyBullets = Array.from(
+      { length: 65 },
+      (_, i) => `Achievement number ${i + 1} with enough detail.`,
+    );
     data.experience[0].bullets = manyBullets;
 
     const bytes = buildAtsResumePdfBytes(data);
@@ -424,9 +404,18 @@ describe("extractResumeData i18n fallback", () => {
                   attributes: { "data-i18n": "education.items.0.major" },
                 }),
               ],
-              ".experience-date": [createElement({ textContent: "2021年8月 – 2025年4月", attributes: { "data-i18n": "education.items.0.date" } })],
-              ".experience-company": [createElement({ textContent: "University of Caloocan City" })],
-              ".experience-location": [createElement({ textContent: "Caloocan City, Metro Manila" })],
+              ".experience-date": [
+                createElement({
+                  textContent: "2021年8月 – 2025年4月",
+                  attributes: { "data-i18n": "education.items.0.date" },
+                }),
+              ],
+              ".experience-company": [
+                createElement({ textContent: "University of Caloocan City" }),
+              ],
+              ".experience-location": [
+                createElement({ textContent: "Caloocan City, Metro Manila" }),
+              ],
               ".experience-list li": [
                 createElement({
                   textContent: "卒業制作",

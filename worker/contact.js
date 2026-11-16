@@ -83,13 +83,9 @@ async function handleContactPost(request, env) {
   const from =
     env.CONTACT_FROM_EMAIL ||
     `${safeName} (via Contact Form on your portfolio) <onboarding@resend.dev>`;
-  const emailBody = [
-    `Name: ${name}`,
-    `Email: ${email}`,
-    `Subject: ${subject}`,
-    "",
-    message,
-  ].join("\n");
+  const emailBody = [`Name: ${name}`, `Email: ${email}`, `Subject: ${subject}`, "", message].join(
+    "\n",
+  );
 
   const resendRes = await fetch(RESEND_ENDPOINT, {
     method: "POST",

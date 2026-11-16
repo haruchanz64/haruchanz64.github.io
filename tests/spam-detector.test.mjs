@@ -1,9 +1,9 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 import {
   analyzeSpamContent,
-  checkSubmissionTiming,
   COOLDOWN_MS,
+  checkSubmissionTiming,
   detectSpam,
   getCooldownRemainingMs,
   MIN_INTERACTION_TIME_MS,
@@ -78,7 +78,8 @@ describe("analyzeSpamContent", () => {
       name: "Bot",
       email: "bot@example.com",
       subject: "Hello",
-      message: 'Check [url=https://spam.example]this[/url] and <a href="https://spam.example">here</a>',
+      message:
+        'Check [url=https://spam.example]this[/url] and <a href="https://spam.example">here</a>',
     });
     assert.equal(result.isSpam, true);
     assert.ok(result.reasons.includes("markup-injection"));

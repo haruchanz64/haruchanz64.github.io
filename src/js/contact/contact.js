@@ -1,6 +1,6 @@
-import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
 import { onDomReady, setButtonLoading } from "../core/dom.js";
 import { t } from "../core/i18n.js";
+import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
 
 const REQUEST_TIMEOUT_MS = 15000;
 const TOAST_AUTO_HIDE_MS = 6000;
@@ -121,9 +121,7 @@ export async function sendEmail(e) {
   const email = emailEl.value.trim();
   const selectedSubject = subjectSelectEl ? subjectSelectEl.value : "";
   const isCustomSubject = selectedSubject === CUSTOM_SUBJECT_VALUE;
-  const subject = isCustomSubject
-    ? subjectCustomEl.value.trim()
-    : selectedSubject.trim();
+  const subject = isCustomSubject ? subjectCustomEl.value.trim() : selectedSubject.trim();
   const message = messageEl.value.trim();
 
   if (!name) {
@@ -178,21 +176,13 @@ export async function sendEmail(e) {
   }
 
   if (typeof navigator !== "undefined" && navigator.onLine === false) {
-    showToast(
-      toast,
-      t("contact.toast.offline"),
-      "error"
-    );
+    showToast(toast, t("contact.toast.offline"), "error");
     return;
   }
 
   // Vite dev server returns 200 OK for POST without processing the Worker endpoint.
   if (import.meta.env.DEV && window.location.port !== "8787") {
-    showToast(
-      toast,
-      t("contact.toast.devMode"),
-      "error"
-    );
+    showToast(toast, t("contact.toast.devMode"), "error");
     return;
   }
 

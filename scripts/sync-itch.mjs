@@ -19,14 +19,8 @@ const OUTPUT_PATH = resolve(__dirname, "../public/data/itch-projects.json");
 function getMetaContent(html, attrName, attrValue) {
   const escaped = attrValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const patterns = [
-    new RegExp(
-      `<meta[^>]*${attrName}=["']${escaped}["'][^>]*content=["']([^"']*)["'][^>]*>`,
-      "i",
-    ),
-    new RegExp(
-      `<meta[^>]*content=["']([^"']*)["'][^>]*${attrName}=["']${escaped}["'][^>]*>`,
-      "i",
-    ),
+    new RegExp(`<meta[^>]*${attrName}=["']${escaped}["'][^>]*content=["']([^"']*)["'][^>]*>`, "i"),
+    new RegExp(`<meta[^>]*content=["']([^"']*)["'][^>]*${attrName}=["']${escaped}["'][^>]*>`, "i"),
   ];
 
   for (const pattern of patterns) {
@@ -95,7 +89,7 @@ async function fetchItchProject(entry) {
 async function main() {
   const projects = await Promise.all(ITCH_PROJECTS.map(fetchItchProject));
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
-  await writeFile(OUTPUT_PATH, JSON.stringify(projects, null, 2) + "\n");
+  await writeFile(OUTPUT_PATH, `${JSON.stringify(projects, null, 2)}\n`);
   console.log(`Synced ${projects.length} itch.io projects to ${OUTPUT_PATH}`);
 }
 

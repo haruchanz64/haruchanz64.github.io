@@ -14,11 +14,12 @@ function initNav() {
 
   function highlightNavOnScroll() {
     const scrollY = window.pageYOffset;
-    const pageBottom =
-      document.documentElement.scrollHeight - window.innerHeight;
+    const pageBottom = document.documentElement.scrollHeight - window.innerHeight;
 
     if (scrollY >= pageBottom - 5) {
-      navLinkItems.forEach((link) => link.classList.remove("active"));
+      for (const link of navLinkItems) {
+        link.classList.remove("active");
+      }
       const sectionLinks = [...navLinkItems].filter((link) => {
         const href = link.getAttribute("href");
         return href && href.includes("#");
@@ -34,12 +35,12 @@ function initNav() {
       const sectionHeight = section.offsetHeight;
       const sectionTop = section.offsetTop - 120;
       const sectionId = section.getAttribute("id");
-      const correspondingLink = document.querySelector(
-        `.nav-link[href$="#${sectionId}"]`,
-      );
+      const correspondingLink = document.querySelector(`.nav-link[href$="#${sectionId}"]`);
 
       if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
-        navLinkItems.forEach((link) => link.classList.remove("active"));
+        for (const link of navLinkItems) {
+          link.classList.remove("active");
+        }
         if (correspondingLink) {
           correspondingLink.classList.add("active");
           matchedLink = correspondingLink;
@@ -48,7 +49,9 @@ function initNav() {
     });
 
     if (!matchedLink) {
-      navLinkItems.forEach((link) => link.classList.remove("active"));
+      for (const link of navLinkItems) {
+        link.classList.remove("active");
+      }
     }
     updateCurrentSectionLabel(matchedLink);
   }

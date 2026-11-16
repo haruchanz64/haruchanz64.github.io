@@ -1,0 +1,5 @@
+# Copy to `.dev.vars` for local Cloudflare Worker testing (`npx wrangler dev`).
+# Never commit `.dev.vars` (it is gitignored).
+
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxx
+CONTACT_TO_EMAIL=you@example.com

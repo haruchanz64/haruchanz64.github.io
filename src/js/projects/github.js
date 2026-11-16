@@ -1,6 +1,6 @@
 import { onDomReady } from "../core/dom.js";
-import { GITHUB_USERNAME, mapPinnedRepos } from "./github-config.js";
 import { i18nReady, t } from "../core/i18n.js";
+import { GITHUB_USERNAME, mapPinnedRepos } from "./github-config.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
 const CACHE_KEY = "haru_github_projects_v1";

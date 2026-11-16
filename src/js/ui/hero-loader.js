@@ -48,7 +48,7 @@ function startProgressTicker(progressEl, minMs) {
     const elapsed = now - start;
     const t = Math.min(elapsed / minMs, 1);
     // Ease out toward 92% over MIN_LOADING_MS, leaving 92->100% for completion.
-    const eased = 1 - Math.pow(1 - t, 3);
+    const eased = 1 - (1 - t) ** 3;
     current = Math.max(current, Math.floor(eased * 92));
     progressEl.textContent = `${current}%`;
     if (t < 1) {
@@ -109,10 +109,8 @@ function swapToDedicatedHero() {
     const toRect = targetAvatar.getBoundingClientRect();
 
     if (fromRect.width > 0 && toRect.width > 0) {
-      const dx =
-        toRect.left + toRect.width / 2 - (fromRect.left + fromRect.width / 2);
-      const dy =
-        toRect.top + toRect.height / 2 - (fromRect.top + fromRect.height / 2);
+      const dx = toRect.left + toRect.width / 2 - (fromRect.left + fromRect.width / 2);
+      const dy = toRect.top + toRect.height / 2 - (fromRect.top + fromRect.height / 2);
       const scale = toRect.width / fromRect.width;
       morphTransform = `translate(${dx}px, ${dy}px) scale(${scale})`;
     }
@@ -194,10 +192,7 @@ export async function initHeroLoader() {
       fontsReady,
     ]);
 
-    await Promise.all([
-      delay(MIN_LOADING_MS),
-      Promise.race([portfolioReady, delay(MAX_WAIT_MS)]),
-    ]);
+    await Promise.all([delay(MIN_LOADING_MS), Promise.race([portfolioReady, delay(MAX_WAIT_MS)])]);
 
     await completeProgress();
     markIntroSeen();

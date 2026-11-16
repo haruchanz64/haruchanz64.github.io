@@ -1,12 +1,15 @@
 import { bindModalDismiss, setButtonLoading } from "../core/dom.js";
-import { buildAtsResumePdfBytes } from "./pdf-builder.js";
 import { DEFAULT_LOCALE, getTranslation, t } from "../core/i18n.js";
+import { buildAtsResumePdfBytes } from "./pdf-builder.js";
+
 export {
+  isResumeRequestAllowed,
   MIN_RESUME_PAGE_TIME_MS,
   RESUME_COOLDOWN_MS,
-  isResumeRequestAllowed,
 } from "./resume-guard.js";
+
 import { escapeHtml, normalizeText, stripHtml } from "../core/text.js";
+
 export { escapeHtml, normalizeText };
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
@@ -44,11 +47,16 @@ function extractTimelineItems(doc, sectionId) {
 
   return Array.from(section.querySelectorAll(".experience-item")).map((item) => {
     const dateEl = item.querySelector(".experience-date");
+    const hasI18nDate = Boolean(
+      dateEl?.getAttribute?.("data-i18n") || dateEl?.getAttribute?.("data-i18n-html"),
+    );
     return {
       title: getText(item, ".experience-role"),
       major: getText(item, ".experience-major"),
       date: normalizeText(
-        dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
+        hasI18nDate
+          ? getElementEnglishText(dateEl)
+          : dateEl?.dataset?.dateRange || getElementEnglishText(dateEl),
       ),
       organization: getText(item, ".experience-company"),
       location: getText(item, ".experience-location"),
@@ -64,8 +72,7 @@ function extractTimelineItems(doc, sectionId) {
  * @param {Document} doc
  */
 export function extractResumeData(doc = document) {
-  const headline =
-    getText(doc, ".nav-brand-role") || DEFAULT_HEADLINE;
+  const headline = getText(doc, ".nav-brand-role") || DEFAULT_HEADLINE;
 
   const experience = extractTimelineItems(doc, "experience")
     .map(({ title, date, organization, location, bullets }) => ({
@@ -77,8 +84,7 @@ export function extractResumeData(doc = document) {
     }))
     .filter((entry) => entry.role || entry.company);
 
-  const location =
-    experience.find((item) => item.location)?.location || RESUME_DEFAULT_LOCATION;
+  const location = experience.find((item) => item.location)?.location || RESUME_DEFAULT_LOCATION;
 
   const education = extractTimelineItems(doc, "education")
     .map(({ title, major, date, organization, location: eduLocation, bullets }) => ({
@@ -92,9 +98,7 @@ export function extractResumeData(doc = document) {
     .filter((entry) => entry.degree || entry.school);
 
   const skillsSection = doc.getElementById("skills");
-  const skillTabs = skillsSection
-    ? Array.from(skillsSection.querySelectorAll(".skill-tab"))
-    : [];
+  const skillTabs = skillsSection ? Array.from(skillsSection.querySelectorAll(".skill-tab")) : [];
 
   const skills = skillTabs
     .map((tab) => {
@@ -135,7 +139,14 @@ export function extractResumeData(doc = document) {
   };
 }
 
-function renderResumeArticleHtml({ title, date, major = "", org = "", location = "", bullets = [] }) {
+function renderResumeArticleHtml({
+  title,
+  date,
+  major = "",
+  org = "",
+  location = "",
+  bullets = [],
+}) {
   const metaParts = [org, location].filter(Boolean).map(escapeHtml);
   const bulletsHtml = bullets.length
     ? `<ul>${bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
@@ -164,14 +175,10 @@ export function buildAtsResumeHtml(data) {
     contactParts.push(escapeHtml(data.location));
   }
   if (data.website) {
-    contactParts.push(
-      `<a href="${escapeHtml(data.website)}">${escapeHtml(data.website)}</a>`,
-    );
+    contactParts.push(`<a href="${escapeHtml(data.website)}">${escapeHtml(data.website)}</a>`);
   }
   for (const link of data.links || []) {
-    contactParts.push(
-      `<a href="${escapeHtml(link.url)}">${escapeHtml(link.url)}</a>`,
-    );
+    contactParts.push(`<a href="${escapeHtml(link.url)}">${escapeHtml(link.url)}</a>`);
   }
 
   const experienceHtml = (data.experience || [])
@@ -388,7 +395,7 @@ export function buildAtsResumeText(data) {
     }
   }
 
-  return lines.join("\n").trim() + "\n";
+  return `${lines.join("\n").trim()}\n`;
 }
 
 /**

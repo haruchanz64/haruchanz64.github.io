@@ -1,6 +1,6 @@
 import "./core/i18n.js";
-import { cacheAllDocumentAssets, registerAssetCacheServiceWorker } from "./core/cache.js";
 import { sendEmail } from "./contact/contact.js";
+import { cacheAllDocumentAssets, registerAssetCacheServiceWorker } from "./core/cache.js";
 import { onDomReady, setButtonLoading } from "./core/dom.js";
 import { isResumeRequestAllowed } from "./resume/resume-guard.js";
 import "./ui/observer.js";

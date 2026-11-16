@@ -1,6 +1,21 @@
 # Haru Portfolio
 
+[![Deploy to GitHub Pages](https://github.com/haruchanz64/haruchanz64.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/haruchanz64/haruchanz64.github.io/actions/workflows/deploy.yml)
+[![CI](https://github.com/haruchanz64/haruchanz64.github.io/actions/workflows/ci.yml/badge.svg)](https://github.com/haruchanz64/haruchanz64.github.io/actions/workflows/ci.yml)
+![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](license)
+
 My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engineer & College Instructor. Built with vanilla HTML, CSS, and JavaScript (ES modules) and bundled with [Vite](https://vite.dev/).
+
+**Live Demo:** [https://haruchanz64.github.io](https://haruchanz64.github.io)
+
+## Engineering Highlights
+
+- **Zero-Runtime-Dependency Architecture**: Built with native ES modules, CSS custom properties, and browser APIs instead of a frontend framework, keeping the bundle minimal and dependency-free.
+- **Client-Side ATS PDF Engine**: Generates a valid, paginated PDF 1.4 resume directly in the browser (`src/js/resume/pdf-builder.js`) with WinAnsi character encoding, Helvetica width tables, and multi-line bullet justification—no third-party PDF library required.
+- **Layered Spam & Bot Protection**: Combines honeypot fields, interaction-timing checks, cooldown rate limiting, and content-scoring heuristics (`src/js/contact/spam-detector.js`) before hitting the Cloudflare Worker.
+- **Tested Multi-Language Support (i18n)**: Supports `en_us`, `fil_ph`, and `ja_jp` with lazy-loaded locale dictionaries, `localStorage` caching, and automated key-parity tests (`tests/i18n.test.mjs`).
+- **Offline Asset Caching**: Uses a Service Worker (`public/sw.js`) alongside `localStorage` data-URL hydration (`src/js/core/cache.js`) for fast repeat loads.
 
 ## Features
 
@@ -70,12 +85,35 @@ Update `public/data/itch-projects.json` with the latest metadata from itch.io:
 npm run sync:itch
 ```
 
-### Running Tests
+### Running Tests & Linting
 
 Run the unit tests (using Node's built-in test runner):
 
 ```bash
-node --test
+npm test
+```
+
+Run Biome lint and formatting checks:
+
+```bash
+npm run lint
+```
+
+Auto-format supported files:
+
+```bash
+npm run format
+```
+
+### Local Contact Worker Development
+
+To test `worker/contact.js` locally with Wrangler:
+
+1. Copy `.dev.vars.example` to `.dev.vars` and set `RESEND_API_KEY` and `CONTACT_TO_EMAIL`.
+2. Start the local worker:
+
+```bash
+npx wrangler dev
 ```
 
 ## Deployment

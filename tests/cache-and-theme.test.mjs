@@ -1,5 +1,5 @@
-import { describe, it } from "node:test";
 import assert from "node:assert/strict";
+import { describe, it } from "node:test";
 
 import {
   ASSET_CACHE_PREFIX,
@@ -12,14 +12,14 @@ import {
   writeCache,
   writeCachedAssetDataUrl,
 } from "../src/js/core/cache.js";
+import { LOCALES } from "../src/js/core/i18n.js";
 import {
-  THEME_STORAGE_KEY,
   animateThemeSwitch,
   applyThemeState,
   getSavedTheme,
   saveTheme,
+  THEME_STORAGE_KEY,
 } from "../src/js/ui/theme.js";
-import { LOCALES } from "../src/js/core/i18n.js";
 
 function createMemoryStorage() {
   const map = new Map();

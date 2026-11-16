@@ -41,18 +41,101 @@ function escapePdfString(text) {
 }
 
 const HELVETICA_WIDTHS = {
-  " ": 278, "!": 278, '"': 355, "#": 556, "$": 556, "%": 889, "&": 667, "'": 191,
-  "(": 333, ")": 333, "*": 389, "+": 584, ",": 278, "-": 333, ".": 278, "/": 278,
-  "0": 556, "1": 556, "2": 556, "3": 556, "4": 556, "5": 556, "6": 556, "7": 556, "8": 556, "9": 556,
-  ":": 278, ";": 278, "<": 584, "=": 584, ">": 584, "?": 556, "@": 1015,
-  "A": 667, "B": 667, "C": 722, "D": 722, "E": 667, "F": 611, "G": 778, "H": 722,
-  "I": 278, "J": 500, "K": 667, "L": 556, "M": 833, "N": 722, "O": 778, "P": 667,
-  "Q": 778, "R": 722, "S": 667, "T": 611, "U": 722, "V": 667, "W": 944, "X": 667,
-  "Y": 667, "Z": 611, "[": 278, "\\": 278, "]": 278, "^": 469, "_": 556, "`": 333,
-  "a": 556, "b": 556, "c": 500, "d": 556, "e": 556, "f": 278, "g": 556, "h": 556,
-  "i": 222, "j": 222, "k": 500, "l": 222, "m": 833, "n": 556, "o": 556, "p": 556,
-  "q": 556, "r": 333, "s": 500, "t": 278, "u": 556, "v": 500, "w": 722, "x": 500,
-  "y": 500, "z": 500, "{": 334, "|": 260, "}": 334, "~": 584,
+  " ": 278,
+  "!": 278,
+  '"': 355,
+  "#": 556,
+  $: 556,
+  "%": 889,
+  "&": 667,
+  "'": 191,
+  "(": 333,
+  ")": 333,
+  "*": 389,
+  "+": 584,
+  ",": 278,
+  "-": 333,
+  ".": 278,
+  "/": 278,
+  0: 556,
+  1: 556,
+  2: 556,
+  3: 556,
+  4: 556,
+  5: 556,
+  6: 556,
+  7: 556,
+  8: 556,
+  9: 556,
+  ":": 278,
+  ";": 278,
+  "<": 584,
+  "=": 584,
+  ">": 584,
+  "?": 556,
+  "@": 1015,
+  A: 667,
+  B: 667,
+  C: 722,
+  D: 722,
+  E: 667,
+  F: 611,
+  G: 778,
+  H: 722,
+  I: 278,
+  J: 500,
+  K: 667,
+  L: 556,
+  M: 833,
+  N: 722,
+  O: 778,
+  P: 667,
+  Q: 778,
+  R: 722,
+  S: 667,
+  T: 611,
+  U: 722,
+  V: 667,
+  W: 944,
+  X: 667,
+  Y: 667,
+  Z: 611,
+  "[": 278,
+  "\\": 278,
+  "]": 278,
+  "^": 469,
+  _: 556,
+  "`": 333,
+  a: 556,
+  b: 556,
+  c: 500,
+  d: 556,
+  e: 556,
+  f: 278,
+  g: 556,
+  h: 556,
+  i: 222,
+  j: 222,
+  k: 500,
+  l: 222,
+  m: 833,
+  n: 556,
+  o: 556,
+  p: 556,
+  q: 556,
+  r: 333,
+  s: 500,
+  t: 278,
+  u: 556,
+  v: 500,
+  w: 722,
+  x: 500,
+  y: 500,
+  z: 500,
+  "{": 334,
+  "|": 260,
+  "}": 334,
+  "~": 584,
 };
 
 /**
@@ -143,7 +226,12 @@ class PdfDocCursor {
     }
   }
 
-  drawTextAt(text, x, y, { font = "F1", size = 10, color = null, underline = false, wordSpacing = 0 } = {}) {
+  drawTextAt(
+    text,
+    x,
+    y,
+    { font = "F1", size = 10, color = null, underline = false, wordSpacing = 0 } = {},
+  ) {
     const safe = toPdfSafeText(text);
     if (!safe) return 0;
     const isBold = font === "F2";
@@ -239,7 +327,11 @@ class PdfDocCursor {
     }
   }
 
-  drawTwoColumnRow(leftText, rightText, { font = "F1", size = 10, lineHeight = 13.5, rightFont = font } = {}) {
+  drawTwoColumnRow(
+    leftText,
+    rightText,
+    { font = "F1", size = 10, lineHeight = 13.5, rightFont = font } = {},
+  ) {
     const leftSafe = toPdfSafeText(leftText);
     const rightSafe = toPdfSafeText(rightText);
     const rightWidth = rightSafe ? estimateTextWidth(rightSafe, size, rightFont === "F2") : 0;
@@ -262,13 +354,24 @@ class PdfDocCursor {
     }
   }
 
-  drawWrapped(text, { x = MARGIN_X, width = CONTENT_WIDTH, font = "F1", size = 10, lineHeight = size * 1.25, justify = true } = {}) {
+  drawWrapped(
+    text,
+    {
+      x = MARGIN_X,
+      width = CONTENT_WIDTH,
+      font = "F1",
+      size = 10,
+      lineHeight = size * 1.25,
+      justify = true,
+    } = {},
+  ) {
     const isBold = font === "F2";
     const lines = wrapPdfText(text, width, size, isBold);
     lines.forEach((line, idx) => {
       this.ensureSpace(lineHeight);
       const isLast = idx === lines.length - 1;
-      const wordSpacing = justify && !isLast ? this.getJustifiedWordSpacing(line, width, size, isBold) : 0;
+      const wordSpacing =
+        justify && !isLast ? this.getJustifiedWordSpacing(line, width, size, isBold) : 0;
       this.drawTextAt(line, x, this.y, { font, size, wordSpacing });
       this.y -= lineHeight;
     });
@@ -314,11 +417,21 @@ class PdfDocCursor {
 
     const rest = words.slice(splitIdx).join(" ");
     if (rest) {
-      this.drawWrapped(rest, { x: MARGIN_X, width: CONTENT_WIDTH, font: "F1", size, lineHeight, justify: true });
+      this.drawWrapped(rest, {
+        x: MARGIN_X,
+        width: CONTENT_WIDTH,
+        font: "F1",
+        size,
+        lineHeight,
+        justify: true,
+      });
     }
   }
 
-  drawBullet(text, { indent = 22, bulletX = MARGIN_X + 12, size = 9.8, lineHeight = size * 1.25 } = {}) {
+  drawBullet(
+    text,
+    { indent = 22, bulletX = MARGIN_X + 12, size = 9.8, lineHeight = size * 1.25 } = {},
+  ) {
     const textWidth = CONTENT_WIDTH - indent;
     const lines = wrapPdfText(text, textWidth, size, false);
     if (lines.length === 0) return;
@@ -350,7 +463,10 @@ class PdfDocCursor {
   drawSectionHeading(title) {
     this.y -= 8;
     this.ensureSpace(28);
-    this.drawTextAt(toPdfSafeText(title).toUpperCase(), MARGIN_X, this.y, { font: "F1", size: 10.5 });
+    this.drawTextAt(toPdfSafeText(title).toUpperCase(), MARGIN_X, this.y, {
+      font: "F1",
+      size: 10.5,
+    });
     this.y -= 4.5;
     this.drawRule({ thickness: 0.75, gapBefore: 0, gapAfter: 13 });
   }
@@ -362,9 +478,15 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
 
   objects.push("1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n");
   objects.push(""); // Placeholder for 2 0 obj (Pages)
-  objects.push("3 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /ArialMT /Encoding /WinAnsiEncoding >>\nendobj\n");
-  objects.push("4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Arial-BoldMT /Encoding /WinAnsiEncoding >>\nendobj\n");
-  objects.push("5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Arial-ItalicMT /Encoding /WinAnsiEncoding >>\nendobj\n");
+  objects.push(
+    "3 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /ArialMT /Encoding /WinAnsiEncoding >>\nendobj\n",
+  );
+  objects.push(
+    "4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Arial-BoldMT /Encoding /WinAnsiEncoding >>\nendobj\n",
+  );
+  objects.push(
+    "5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Arial-ItalicMT /Encoding /WinAnsiEncoding >>\nendobj\n",
+  );
 
   const infoParts = [];
   if (title) infoParts.push(`/Title (${escapePdfString(toPdfSafeText(title))})`);
@@ -441,7 +563,15 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
 /**
  * Build an ATS-friendly PDF document (as Uint8Array) matching the clean two-column header format.
  * Contact header includes only Email, LinkedIn, and GitHub.
- * @param {object} data
+ * @param {{
+ *   fullName: string,
+ *   location?: string,
+ *   website?: string,
+ *   links?: Array<{ label?: string, url: string }>,
+ *   experience?: Array<{ role: string, date: string, company?: string, location?: string, bullets?: string[] }>,
+ *   education?: Array<{ school: string, degree?: string, date?: string, location?: string }>,
+ *   skills?: Array<{ category: string, items: string[] }>,
+ * }} data
  * @returns {Uint8Array}
  */
 export function buildAtsResumePdfBytes(data) {
@@ -465,9 +595,15 @@ export function buildAtsResumePdfBytes(data) {
     doc.drawSectionHeading("Experience");
     for (const item of data.experience) {
       doc.drawTwoColumnRow(item.role, item.date, { font: "F2", size: 10, lineHeight: 12.5 });
-      const cleanCompany = String(item.company ?? "").split(/\s*·\s*/)[0].trim();
+      const cleanCompany = String(item.company ?? "")
+        .split(/\s*·\s*/)[0]
+        .trim();
       if (cleanCompany || item.location) {
-        doc.drawTwoColumnRow(cleanCompany, item.location, { font: "F1", size: 9.8, lineHeight: 12.25 });
+        doc.drawTwoColumnRow(cleanCompany, item.location, {
+          font: "F1",
+          size: 9.8,
+          lineHeight: 12.25,
+        });
       }
       for (const bullet of item.bullets || []) {
         doc.drawBullet(bullet, { size: 9.6, lineHeight: 12 });
@@ -506,7 +642,11 @@ export function buildAtsResumePdfBytes(data) {
         doc.y -= 12;
       }
       if (item.school || item.location) {
-        doc.drawTwoColumnRow(item.school, item.location, { font: "F1", size: 9.8, lineHeight: 12.25 });
+        doc.drawTwoColumnRow(item.school, item.location, {
+          font: "F1",
+          size: 9.8,
+          lineHeight: 12.25,
+        });
       }
       for (const bullet of item.bullets || []) {
         doc.drawBullet(bullet, { size: 9.6, lineHeight: 12 });

@@ -1,15 +1,15 @@
-import { before, describe, it } from "node:test";
 import assert from "node:assert/strict";
+import { before, describe, it } from "node:test";
 
 import {
-  LOCALES,
-  SUPPORTED_LOCALES,
   applyI18n,
   detectBrowserLocale,
   getTranslation,
+  LOCALES,
   loadLocale,
   normalizeLocaleTag,
   resolveLocale,
+  SUPPORTED_LOCALES,
 } from "../src/js/core/i18n.js";
 import { applyExperienceDurations } from "../src/js/ui/experience-duration.js";
 
@@ -34,11 +34,7 @@ describe("locale JSON parity", () => {
   it("has identical keys across EN, FIL, and JP", () => {
     const enKeys = collectKeys(LOCALES.en_us);
     for (const locale of SUPPORTED_LOCALES) {
-      assert.deepEqual(
-        collectKeys(LOCALES[locale]),
-        enKeys,
-        `Key mismatch for locale "${locale}"`,
-      );
+      assert.deepEqual(collectKeys(LOCALES[locale]), enKeys, `Key mismatch for locale "${locale}"`);
     }
   });
 });
@@ -80,22 +76,10 @@ describe("detectBrowserLocale", () => {
 
 describe("resolveLocale", () => {
   it("prefers ?locale= or ?lang= query param over browser language", () => {
-    assert.equal(
-      resolveLocale({ search: "?locale=ja_jp", nav: { language: "en-US" } }),
-      "ja_jp",
-    );
-    assert.equal(
-      resolveLocale({ search: "?locale=fil_ph", nav: { language: "ja-JP" } }),
-      "fil_ph",
-    );
-    assert.equal(
-      resolveLocale({ search: "?lang=jp", nav: { language: "en-US" } }),
-      "ja_jp",
-    );
-    assert.equal(
-      resolveLocale({ search: "?locale=unknown", nav: { language: "ja-JP" } }),
-      "ja_jp",
-    );
+    assert.equal(resolveLocale({ search: "?locale=ja_jp", nav: { language: "en-US" } }), "ja_jp");
+    assert.equal(resolveLocale({ search: "?locale=fil_ph", nav: { language: "ja-JP" } }), "fil_ph");
+    assert.equal(resolveLocale({ search: "?lang=jp", nav: { language: "en-US" } }), "ja_jp");
+    assert.equal(resolveLocale({ search: "?locale=unknown", nav: { language: "ja-JP" } }), "ja_jp");
   });
 });
 

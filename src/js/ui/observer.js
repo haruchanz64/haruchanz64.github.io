@@ -10,14 +10,14 @@ const observer = new IntersectionObserver(
   { threshold: 0.1 },
 );
 
-window.observeReveal = function (el) {
+window.observeReveal = (el) => {
   if (!el) return;
   el.classList.add("reveal");
   observer.observe(el);
 };
 
-document
-  .querySelectorAll(
-    ".project-card, .skill-item, .section-title, .experience-item, .background-text",
-  )
-  .forEach((el) => window.observeReveal(el));
+for (const el of document.querySelectorAll(
+  ".project-card, .skill-item, .section-title, .experience-item, .background-text",
+)) {
+  window.observeReveal(el);
+}

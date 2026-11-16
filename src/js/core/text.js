@@ -12,7 +12,9 @@ const HTML_ENTITIES = {
  * @returns {string}
  */
 export function normalizeText(value) {
-  return String(value ?? "").replace(/\s+/g, " ").trim();
+  return String(value ?? "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 /**

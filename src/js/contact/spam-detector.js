@@ -23,8 +23,7 @@ const SPAM_CATEGORY_PATTERNS = [
   },
   {
     reason: "messaging-shortener-spam",
-    pattern:
-      /\b(whatsapp\s+me|telegram\s*@|t\.me\/|bit\.ly\/|tinyurl\.com\/)\b/i,
+    pattern: /\b(whatsapp\s+me|telegram\s*@|t\.me\/|bit\.ly\/|tinyurl\.com\/)\b/i,
   },
 ];
 

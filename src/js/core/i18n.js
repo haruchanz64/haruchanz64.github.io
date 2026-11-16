@@ -74,9 +74,7 @@ export function normalizeLocaleTag(tag) {
  * @param {{ languages?: readonly string[], language?: string, userLanguage?: string } | null} nav
  * @returns {"en_us" | "fil_ph" | "ja_jp"}
  */
-export function detectBrowserLocale(
-  nav = typeof navigator !== "undefined" ? navigator : null,
-) {
+export function detectBrowserLocale(nav = typeof navigator !== "undefined" ? navigator : null) {
   if (!nav) return DEFAULT_LOCALE;
 
   const candidates = [];
@@ -138,7 +136,7 @@ export function getTranslation(locale, key, params) {
 
   if (params) {
     return value.replace(/\{(\w+)\}/g, (match, name) =>
-      Object.prototype.hasOwnProperty.call(params, name) ? String(params[name]) : match,
+      Object.hasOwn(params, name) ? String(params[name]) : match,
     );
   }
   return value;
