@@ -21,6 +21,11 @@ const DEFAULT_HEADLINE = "Software Engineer & College Instructor";
 
 const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub"]);
 
+const RESUME_SPOKEN_LANGUAGES = {
+  category: "Languages",
+  items: ["English (Fluent)", "Filipino (Native)"],
+};
+
 function getElementEnglishText(el) {
   if (!el) return "";
   const i18nKey = el.getAttribute?.("data-i18n");
@@ -113,6 +118,8 @@ export function extractResumeData(doc = document) {
       return { category, items };
     })
     .filter((group) => group.category && group.items.length > 0);
+
+  skills.push(RESUME_SPOKEN_LANGUAGES);
 
   const contactSection = doc.getElementById("contact");
   const rawLinks = contactSection

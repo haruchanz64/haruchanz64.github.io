@@ -8,9 +8,17 @@ export const DEFAULT_LOCALE = "en_us";
 const LOCALE_CACHE_PREFIX = "haru_locale_dict_v2:";
 const LOCALE_STORAGE_KEY = "haru_locale";
 
+const isVite = typeof import.meta !== "undefined" && Boolean(import.meta.env);
+
 const LOCALE_LOADERS = {
-  fil_ph: () => import("../../locales/fil_ph.json", { with: { type: "json" } }),
-  ja_jp: () => import("../../locales/ja_jp.json", { with: { type: "json" } }),
+  fil_ph: () =>
+    isVite
+      ? import("../../locales/fil_ph.json")
+      : import(/* @vite-ignore */ "../../locales/fil_ph.json", { with: { type: "json" } }),
+  ja_jp: () =>
+    isVite
+      ? import("../../locales/ja_jp.json")
+      : import(/* @vite-ignore */ "../../locales/ja_jp.json", { with: { type: "json" } }),
 };
 
 const pendingLocaleLoads = new Map();

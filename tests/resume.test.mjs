@@ -241,7 +241,10 @@ describe("extractResumeData", () => {
     assert.equal(data.education.length, 1);
     assert.equal(data.education[0].degree, "BS in Entertainment and Multimedia Computing");
     assert.equal(data.projects, undefined);
-    assert.deepEqual(data.skills, [{ category: "Programming Languages", items: ["C#", "Dart"] }]);
+    assert.deepEqual(data.skills, [
+      { category: "Programming Languages", items: ["C#", "Dart"] },
+      { category: "Languages", items: ["English (Fluent)", "Filipino (Native)"] },
+    ]);
     assert.deepEqual(
       data.links.map((l) => l.label),
       ["GitHub", "LinkedIn"],
