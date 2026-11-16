@@ -13,6 +13,7 @@ import "./projects/itch.js";
 import "./ui/hero-loader.js";
 import "./ui/experience-duration.js";
 import "./ui/about-handle.js";
+import "./ui/case-study.js";
 
 registerAssetCacheServiceWorker();
 void onDomReady(() => {
