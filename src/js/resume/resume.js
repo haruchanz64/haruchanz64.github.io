@@ -1,5 +1,10 @@
 import { bindModalDismiss, setButtonLoading } from "../core/dom.js";
 import { DEFAULT_LOCALE, getTranslation, t } from "../core/i18n.js";
+import {
+  createPdfIframeMarkup,
+  isMobilePdfFallbackNeeded,
+  renderPdfPagesToContainer,
+} from "../ui/pdf-preview.js";
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
 
 export {
@@ -474,11 +479,13 @@ export async function requestResume(triggerEl = null) {
     activePdfUrl = pdfUrl;
     lastTriggerEl = triggerEl || document.activeElement;
 
-    const safeTitle = escapeHtml(t("contact.form.resumeModalTitle", { name: data.fullName }));
+    const modalTitle = t("contact.form.resumeModalTitle", { name: data.fullName });
+    const safeTitle = escapeHtml(modalTitle);
     const safeFilename = escapeHtml(RESUME_PDF_FILENAME);
     const safeUrl = escapeHtml(pdfUrl);
     const safeDownloadLabel = escapeHtml(t("contact.form.downloadResume"));
     const safeCloseLabel = escapeHtml(t("contact.form.closeResumePreview"));
+    const useCanvasViewer = isMobilePdfFallbackNeeded();
 
     const overlay = document.createElement("div");
     overlay.id = "resume-modal";
@@ -499,7 +506,7 @@ export async function requestResume(triggerEl = null) {
           </div>
         </div>
         <div class="resume-preview-frame-wrap">
-          <iframe class="resume-preview-frame" src="${safeUrl}#toolbar=0&navpanes=0&scrollbar=0&view=Fit" title="${safeTitle}"></iframe>
+          ${useCanvasViewer ? "" : createPdfIframeMarkup(pdfUrl, modalTitle)}
         </div>
       </div>
     `;
@@ -516,6 +523,16 @@ export async function requestResume(triggerEl = null) {
     document.body.appendChild(overlay);
     document.documentElement?.classList?.add("modal-open");
     activeModal = overlay;
+
+    if (useCanvasViewer) {
+      const wrap = overlay.querySelector(".resume-preview-frame-wrap");
+      if (wrap) {
+        void renderPdfPagesToContainer(wrap, pdfUrl, {
+          isOpen: () => Boolean(activeModal),
+          title: modalTitle,
+        });
+      }
+    }
 
     overlay.querySelector(".resume-download-btn")?.focus();
 
