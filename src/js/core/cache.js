@@ -105,7 +105,7 @@ export function writeCache(key, data, storage = getDefaultStorage()) {
 export function readCachedAssetDataUrl(url, storage = getDefaultStorage()) {
   if (!url || typeof url !== "string") return null;
   const raw = readStorageItem(`${ASSET_CACHE_PREFIX}${url}`, storage);
-  return raw && raw.startsWith("data:") ? raw : null;
+  return raw?.startsWith("data:") ? raw : null;
 }
 
 /**
@@ -116,7 +116,7 @@ export function readCachedAssetDataUrl(url, storage = getDefaultStorage()) {
  * @returns {boolean}
  */
 export function writeCachedAssetDataUrl(url, dataUrl, storage = getDefaultStorage()) {
-  if (!url || !dataUrl || !dataUrl.startsWith("data:")) return false;
+  if (!url || !dataUrl?.startsWith("data:")) return false;
   return writeStorageItem(`${ASSET_CACHE_PREFIX}${url}`, dataUrl, storage);
 }
 

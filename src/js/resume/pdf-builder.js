@@ -531,9 +531,9 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
   objects[1] = `2 0 obj\n<< /Type /Pages /Kids [${kidsRef}] /Count ${pageObjectIds.length} >>\nendobj\n`;
 
   // Re-order objects by object number so xref matches 1..N sequentially
-  const sortedObjects = objects.map((obj, idx) => {
+  const sortedObjects = objects.map((obj) => {
     const match = /^(\d+) 0 obj/.exec(obj);
-    return { id: match ? Number(match[1]) : idx + 1, body: obj };
+    return { id: Number(match[1]), body: obj };
   });
   sortedObjects.sort((a, b) => a.id - b.id);
 

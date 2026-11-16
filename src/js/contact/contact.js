@@ -119,7 +119,7 @@ export async function sendEmail(e) {
 
   const name = nameEl.value.trim();
   const email = emailEl.value.trim();
-  const selectedSubject = subjectSelectEl ? subjectSelectEl.value : "";
+  const selectedSubject = subjectSelectEl.value;
   const isCustomSubject = selectedSubject === CUSTOM_SUBJECT_VALUE;
   const subject = isCustomSubject ? subjectCustomEl.value.trim() : selectedSubject.trim();
   const message = messageEl.value.trim();
@@ -162,7 +162,7 @@ export async function sendEmail(e) {
     subject,
     message,
     timing: { pageLoadedAt, firstInteractionAt, hasInteracted },
-    storage: typeof window !== "undefined" ? window.localStorage : null,
+    storage: window.localStorage,
   });
 
   if (spamCheck.blocked) {
@@ -219,7 +219,7 @@ export async function sendEmail(e) {
       throw statusError;
     }
 
-    recordSubmissionTime(typeof window !== "undefined" ? window.localStorage : null);
+    recordSubmissionTime(window.localStorage);
     showToast(toast, t("contact.toast.sent"), "success");
     resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl);
   } catch (err) {

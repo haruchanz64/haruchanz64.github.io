@@ -37,10 +37,7 @@ export function escapeHtml(value) {
  * @returns {string}
  */
 export function decodeHtmlEntities(text) {
-  return String(text ?? "").replace(
-    /&(?:amp|lt|gt|quot|#39);/g,
-    (entity) => HTML_ENTITIES[entity] ?? entity,
-  );
+  return String(text ?? "").replace(/&(?:amp|lt|gt|quot|#39);/g, (entity) => HTML_ENTITIES[entity]);
 }
 
 /**

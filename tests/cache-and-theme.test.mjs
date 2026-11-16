@@ -3,7 +3,6 @@ import { describe, it } from "node:test";
 
 import {
   ASSET_CACHE_PREFIX,
-  blobToDataUrl,
   cacheAllDocumentAssets,
   cacheAssetUrl,
   cacheImageElement,
@@ -15,7 +14,6 @@ import {
 import { LOCALES } from "../src/js/core/i18n.js";
 import {
   animateThemeSwitch,
-  applyThemeState,
   getSavedTheme,
   saveTheme,
   THEME_STORAGE_KEY,

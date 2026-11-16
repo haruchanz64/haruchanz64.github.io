@@ -46,7 +46,7 @@ async function initGithubProjects() {
       url: repo.html_url,
       title: repo.name,
       description: repo.description || t("projects.noDescription"),
-      tags: [{ className: "project-language", text: repo.language || "N/A" }],
+      tags: [{ className: "project-language", text: repo.language }],
     }),
   });
 }

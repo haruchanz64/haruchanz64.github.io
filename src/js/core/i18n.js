@@ -31,10 +31,7 @@ export async function loadLocale(locale) {
   }
 
   if (!pendingLocaleLoads.has(target)) {
-    const loader = LOCALE_LOADERS[target];
-    if (!loader) return LOCALES[DEFAULT_LOCALE];
-
-    const promise = loader()
+    const promise = LOCALE_LOADERS[target]()
       .then((mod) => {
         LOCALES[target] = mod.default ?? mod;
         writeCache(`${LOCALE_CACHE_PREFIX}${target}`, LOCALES[target]);
@@ -181,7 +178,7 @@ export function applyI18n(doc = document, locale = currentLocale) {
   if (!doc) return;
 
   if (doc.documentElement) {
-    doc.documentElement.lang = HTML_LANG_MAP[currentLocale] ?? "en";
+    doc.documentElement.lang = HTML_LANG_MAP[currentLocale];
   }
 
   const title = getTranslation(currentLocale, "meta.title");

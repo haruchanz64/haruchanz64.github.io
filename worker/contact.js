@@ -8,7 +8,7 @@ const ALLOWED_CORS_ORIGINS = new Set([
 ]);
 
 function corsHeaders(request) {
-  const origin = request?.headers?.get("Origin") || "";
+  const origin = request.headers.get("Origin") || "";
   if (!ALLOWED_CORS_ORIGINS.has(origin)) {
     return {};
   }
@@ -21,7 +21,7 @@ function corsHeaders(request) {
   };
 }
 
-function jsonResponse(body, status = 200, request = null) {
+function jsonResponse(body, status, request) {
   return new Response(JSON.stringify(body), {
     status,
     headers: {

@@ -91,12 +91,8 @@ function unlockScroll() {
 function swapToDedicatedHero() {
   const loadingHero = document.getElementById("hero-loading");
   const dedicatedHero = document.getElementById("hero");
-  if (!dedicatedHero) {
-    unlockScroll();
-    return;
-  }
 
-  const loadingAvatar = loadingHero?.querySelector(".hero-avatar--loading");
+  const loadingAvatar = loadingHero.querySelector(".hero-avatar--loading");
   const targetAvatar = dedicatedHero.querySelector(".hero-avatar");
 
   let morphTransform = null;
@@ -119,11 +115,6 @@ function swapToDedicatedHero() {
   dedicatedHero.classList.remove("hero--pending");
   dedicatedHero.removeAttribute("aria-hidden");
   dedicatedHero.inert = false;
-
-  if (!loadingHero) {
-    unlockScroll();
-    return;
-  }
 
   if (morphTransform && loadingAvatar) {
     dedicatedHero.classList.add("hero--morphing");

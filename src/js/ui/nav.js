@@ -22,7 +22,7 @@ function initNav() {
       }
       const sectionLinks = [...navLinkItems].filter((link) => {
         const href = link.getAttribute("href");
-        return href && href.includes("#");
+        return href?.includes("#");
       });
       const lastSectionLink = sectionLinks[sectionLinks.length - 1];
       if (lastSectionLink) lastSectionLink.classList.add("active");
