@@ -2,8 +2,8 @@
   {
     "title": "Night Light",
     "url": "https://haruchanz64.itch.io/night-light",
-    "description": "Play as Lila and her companion Aria across five stages to collect scattered light orbs, evade enemies and hazards, and lift the curse of darkness.",
-    "image": "https://img.itch.zone/aW1nLzE0ODEyMjc0LnBuZw==/508x254%23b/Y46LSs.png",
+    "description": "Collect light orbs and end the darkness once and for all.",
+    "image": "/res/itch/night-light.png",
     "tags": [
       "Platformer"
     ],
@@ -14,8 +14,8 @@
   {
     "title": "Orders Please",
     "url": "https://haruchanz64.itch.io/orders-please",
-    "description": "Play as a campus street food vendor racing against the clock to track and fulfill hungry students' cravings.",
-    "image": "https://img.itch.zone/aW1nLzE0ODEyMzAyLnBuZw==/508x254%23b/jkxJ%2Fw.png",
+    "description": "A street food vendor simulator from a university.",
+    "image": "/res/itch/orders-please.png",
     "tags": [
       "Simulation"
     ],
@@ -26,8 +26,8 @@
   {
     "title": "Cyclescape",
     "url": "https://haruchanz64.itch.io/cyclescape",
-    "description": "Play as a curious young girl exploring the four phases of the menstrual cycle.",
-    "image": "https://img.itch.zone/aW1nLzE0ODEyMjEyLnBuZw==/508x254%23b/ZDZLEn.png",
+    "description": "A educational top-down shooter game about menstrual cycle.",
+    "image": "/res/itch/cyclescape.png",
     "tags": [
       "Shooter"
     ],
@@ -38,8 +38,8 @@
   {
     "title": "Trash Frenzy",
     "url": "https://haruchanz64.itch.io/trashfrenzy",
-    "description": "Control Janitor, a robotic fish, to clean up pollution across five famous Philippine water spots and stop the mad robot Atlantis.",
-    "image": "https://img.itch.zone/aW1nLzIwMjI4MzcwLnBuZw==/508x254%23b/8SBQLN.png",
+    "description": "A 2D Fast Paced Action Side Scroller Educational Mobile Game",
+    "image": "/res/itch/trashfrenzy.png",
     "tags": [
       "Capstone Project",
       "Educational"

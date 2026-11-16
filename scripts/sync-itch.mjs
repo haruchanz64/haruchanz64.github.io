@@ -15,6 +15,7 @@ const ITCH_PROJECTS = [
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/data/itch-projects.json");
+const IMAGES_DIR = resolve(__dirname, "../public/res/itch");
 
 function getMetaContent(html, attrName, attrValue) {
   const escaped = attrValue.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -47,6 +48,34 @@ function extractInfoRow(html, label) {
     .filter(Boolean);
 }
 
+async function downloadItchImage(imageUrl, projectUrl) {
+  if (!imageUrl) return "";
+  try {
+    const slug = new URL(projectUrl).pathname.replace(/^\/+|\/+$/g, "") || "cover";
+    const res = await fetch(imageUrl, {
+      headers: { "User-Agent": "haru-portfolio-sync/1.0" },
+    });
+    if (!res.ok) return imageUrl;
+
+    const contentType = res.headers.get("content-type") || "";
+    const extMatch = imageUrl.match(/\.(png|jpe?g|webp|gif)(?:$|\?)/i);
+    const ext = extMatch
+      ? extMatch[1].toLowerCase()
+      : contentType.includes("webp")
+        ? "webp"
+        : contentType.includes("jpeg")
+          ? "jpg"
+          : "png";
+
+    const filename = `${slug}.${ext}`;
+    await mkdir(IMAGES_DIR, { recursive: true });
+    await writeFile(resolve(IMAGES_DIR, filename), Buffer.from(await res.arrayBuffer()));
+    return `/res/itch/${filename}`;
+  } catch {
+    return imageUrl;
+  }
+}
+
 async function fetchItchProject(entry) {
   const res = await fetch(entry.url, {
     headers: {
@@ -69,9 +98,10 @@ async function fetchItchProject(entry) {
     getMetaContent(html, "property", "og:description") ||
     getMetaContent(html, "name", "description");
 
-  const image =
+  const remoteImage =
     getMetaContent(html, "property", "twitter:image") ||
     getMetaContent(html, "property", "og:image");
+  const image = await downloadItchImage(remoteImage, entry.url);
 
   const genres = extractInfoRow(html, "Genre");
   const platforms = extractInfoRow(html, "Platforms");

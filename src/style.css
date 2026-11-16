@@ -31,15 +31,15 @@
 
 .light-theme {
   --bg-primary: var(--fourth-color);
-  --bg-secondary: var(--second-color);
+  --bg-secondary: #e8e8ee;
   --bg-tertiary: var(--fourth-color);
-  --nav-bg: color-mix(in srgb, var(--fourth-color) 78%, transparent);
+  --nav-bg: color-mix(in srgb, var(--fourth-color) 90%, transparent);
   --text-primary: var(--first-color);
-  --text-secondary: var(--second-color);
-  --text-muted: var(--second-color);
+  --text-secondary: #2d2d35;
+  --text-muted: #52525c;
   --accent-primary: color-mix(in srgb, var(--third-color) 85%, #000000);
   --accent-secondary: var(--first-color);
-  --border-color: color-mix(in srgb, var(--second-color) 32%, transparent);
+  --border-color: color-mix(in srgb, var(--first-color) 14%, transparent);
   --card-bg: #ffffff;
   --card-hover-shadow:
     0 4px 20px color-mix(in srgb, var(--third-color) 12%, transparent),
