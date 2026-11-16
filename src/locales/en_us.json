@@ -98,14 +98,22 @@
   "projects": {
     "title": "Projects",
     "systemsTools": "Systems & Tools",
+    "mobileWebApps": "Mobile & Web Applications",
     "gameProjects": "Game Projects",
+    "privateRepo": "Private Repo",
     "loading": "Loading projects...",
     "noneFound": "No matching projects found.",
     "noneGamesFound": "No game projects found.",
     "noDescription": "No description",
     "failedToLoad": "Failed to load projects.",
     "untitled": "Untitled",
-    "gameAlt": "Game project"
+    "gameAlt": "Game project",
+    "items": {
+      "settlesafe": {
+        "status": "MVP",
+        "description": "Verified rental housing and accommodation platform tailored for students and young professionals in the Philippines—featuring PostGIS spatial map search, landlord identity verification, safety audit cards, and inspection scheduling."
+      }
+    }
   },
   "skills": {
     "title": "Skills",

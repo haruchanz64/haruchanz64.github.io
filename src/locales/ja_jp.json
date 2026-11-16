@@ -98,14 +98,22 @@
   "projects": {
     "title": "プロジェクト",
     "systemsTools": "システム & ツール",
+    "mobileWebApps": "モバイル & Web アプリ",
     "gameProjects": "ゲームプロジェクト",
+    "privateRepo": "非公開リポジトリ",
     "loading": "プロジェクトを読み込み中...",
     "noneFound": "該当するプロジェクトが見つかりませんでした。",
     "noneGamesFound": "ゲームプロジェクトが見つかりませんでした。",
     "noDescription": "説明なし",
     "failedToLoad": "プロジェクトの読み込みに失敗しました。",
     "untitled": "無題",
-    "gameAlt": "ゲームプロジェクト"
+    "gameAlt": "ゲームプロジェクト",
+    "items": {
+      "settlesafe": {
+        "status": "MVP",
+        "description": "フィリピンの学生や若手社会人向けの認証済み賃貸住宅プラットフォーム。PostGISによる空間マップ検索、大家の本人確認、安全監査カード、内見予約機能を備えています。"
+      }
+    }
   },
   "skills": {
     "title": "スキル",

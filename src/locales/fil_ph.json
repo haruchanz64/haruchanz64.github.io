@@ -98,14 +98,22 @@
   "projects": {
     "title": "Mga Proyekto",
     "systemsTools": "Mga Sistema at Tool",
+    "mobileWebApps": "Mga Mobile at Web Application",
     "gameProjects": "Mga Proyektong Laro",
+    "privateRepo": "Pribadong Repo",
     "loading": "Nilo-load ang mga proyekto...",
     "noneFound": "Walang nahanap na katugmang proyekto.",
     "noneGamesFound": "Walang nahanap na proyektong laro.",
     "noDescription": "Walang paglalarawan",
     "failedToLoad": "Nabigong i-load ang mga proyekto.",
     "untitled": "Walang Pamagat",
-    "gameAlt": "Proyektong laro"
+    "gameAlt": "Proyektong laro",
+    "items": {
+      "settlesafe": {
+        "status": "MVP",
+        "description": "Beripikadong platform para sa paghahanap ng paupahang tirahan para sa mga estudyante at young professionals sa Pilipinas—may PostGIS spatial map search, beripikasyon ng landlord, safety audit cards, at pag-iskedyul ng viewing."
+      }
+    }
   },
   "skills": {
     "title": "Mga Kasanayan",
