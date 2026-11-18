@@ -31,8 +31,8 @@
     "haruOriginTitle": "なぜ @haruchanz64 なのか？",
     "haruOriginClose": "閉じる",
     "haruOriginHtml": "<strong>ハル</strong> は日本語で「春」を意味し（当時親しかった人からもらった<em>原神</em>のゲーム内ネームがきっかけ）、<strong>Chan</strong> は Discord で女性に間違われることがあったことへのちょっとしたオマージュ、そして <strong>Z64</strong> は <em>Zelda 64</em> の略で、友人の N64 で初めて遊んだゼルダ作品が『<em>ゼルダの伝説 ムジュラの仮面</em>』で、その後に『<em>ゼルダの伝説 時のオカリナ</em>』を遊んだことに由来しています。それが今では GitHub や各種 SNS で統一して使っているハンドルネームとなり、自分なりの小さなパーソナルブランドになっています。",
-    "p2Html": "現在は <strong>Las Piñas, Philippines</strong> に拠点を置くスタートアップ企業 <strong>PicStar Software OPC</strong> の唯一のフルスタックエンジニアとして、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を開発しています。モバイル UI や PostgreSQL バックエンドから、リアルタイムの Top および Board フィード、Shineouts、ランキング、都市別フィルタリングまで一貫して担当しています。",
-    "p3Html": "実務と並行して、<strong>University of Caloocan City</strong> で2年生から4年生までの学生を指導しており、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを支援しています。",
+    "p2Html": "直近では、<strong>Las Piñas, Philippines</strong> に拠点を置くスタートアップ企業 <strong>PicStar Software OPC</strong> の唯一のフルスタックエンジニアとして、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を開発し、Google Play ストアへリリースしました。モバイル UI や PostgreSQL バックエンドから、リアルタイムの Top および Board フィード、Shineouts、ランキング、都市別フィルタリングまで一貫して担当しました。",
+    "p3Html": "現在は、<strong>University of Caloocan City</strong> で2年生から4年生までの学生を指導しており、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを支援しています。",
     "p4Html": "メインの技術スタック以外にも、<strong>ゲームデザイン理論</strong>を学びながら <strong>C# (.NET)</strong>、<strong>Java (Spring Boot)</strong>、<strong>Docker</strong> を使った個人プロジェクトを制作しています。日々のワークフローでは AI コーディングツールも活用してプロトタイピングやデバッグを高速化しており、フリーランスの案件や新しいポジションのご相談も歓迎しています。"
   },
   "experience": {
@@ -50,13 +50,14 @@
       },
       "1": {
         "role": "Lead Full-Stack Software Engineer",
-        "date": "2025年8月 – 現在",
+        "date": "2025年8月 – 2026年10月",
         "company": "PicStar Software OPC · 業務委託",
         "location": "Las Piñas, Metro Manila",
         "b0": "ソーシャルメディアモバイルアプリケーションの唯一のエンジニアとして、アーキテクチャ設計からデプロイまで技術方針と日々のエンジニアリング全般を担当しました。",
         "b1": "モジュラーなコードベースと一貫した UI/UX を備えたクロスプラットフォームのモバイルアプリを Flutter で構築しました。",
         "b2": "Supabase PostgreSQL バックエンドを設計・運用し、クエリ、データエグレス、リアルタイムフィードを最適化しました。",
-        "b3": "Top および Board フィード、Board から Top へ投稿やショットを昇格させる Shineouts、Top ランキング、都市別コンテンツフィルタリングなど、PicStar の主要機能を実装しました。"
+        "b3": "Top および Board フィード、Board から Top へ投稿やショットを昇格させる Shineouts、Top ランキング、都市別コンテンツフィルタリングなど、PicStar の主要機能を実装しました。",
+        "b4": "2026年10月11日に PicStar を設計・開発して Google Play ストアへデプロイし、Flutter アプリと Supabase バックエンドを本番リリースしました。"
       },
       "2": {
         "role": "Quality Assurance Analyst",

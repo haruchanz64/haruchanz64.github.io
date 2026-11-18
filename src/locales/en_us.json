@@ -31,8 +31,8 @@
     "haruOriginTitle": "Why @haruchanz64?",
     "haruOriginClose": "Close",
     "haruOriginHtml": "<strong>Haru</strong> means \"spring\" in Japanese (and started as a <em>Genshin Impact</em> in-game name given to me by someone close at the time), <strong>Chan</strong> is a subtle nod to Discord users who used to mistake me for a woman, and <strong>Z64</strong> is for <em>Zelda 64</em>—<em>The Legend of Zelda: Majora's Mask</em> was the first Zelda game I ever played, followed by <em>The Legend of Zelda: Ocarina of Time</em>, on a friend's N64. Over time it became my consistent handle across GitHub and socials—a small personal brand of my own.",
-    "p2Html": "Right now, I'm the sole full-stack engineer at <strong>PicStar Software OPC</strong>—a startup company based in <strong>Las Piñas, Philippines</strong>, building <strong>PicStar</strong> with <strong>Flutter</strong> and <strong>Supabase</strong>—from the mobile UI and PostgreSQL backend to real-time Top and Board feeds, Shineouts, rankings, and city-based filtering.",
-    "p3Html": "Alongside industry work, I teach sophomore through senior students at the <strong>University of Caloocan City</strong>, covering game design theory, prototyping, OOP, math in games, AI, networking, and production pipelines while guiding their projects from initial mechanics to full production.",
+    "p2Html": "Most recently, I worked as the sole full-stack engineer at <strong>PicStar Software OPC</strong>—a startup company based in <strong>Las Piñas, Philippines</strong>—building and shipping <strong>PicStar</strong> to the Google Play Store with <strong>Flutter</strong> and <strong>Supabase</strong>, from the mobile UI and PostgreSQL backend to real-time Top and Board feeds, Shineouts, rankings, and city-based filtering.",
+    "p3Html": "Currently, I teach sophomore through senior students at the <strong>University of Caloocan City</strong>, covering game design theory, prototyping, OOP, math in games, AI, networking, and production pipelines while guiding their projects from initial mechanics to full production.",
     "p4Html": "Outside of my main stack, I study <strong>game design theory</strong> and build personal projects with <strong>C# (.NET)</strong>, <strong>Java (Spring Boot)</strong>, and <strong>Docker</strong>. I also use AI coding tools in my daily workflow to prototype and debug faster, and I'm open to freelance work or new roles."
   },
   "experience": {
@@ -50,13 +50,14 @@
       },
       "1": {
         "role": "Lead Full-Stack Software Engineer",
-        "date": "August 2025 – Present",
+        "date": "August 2025 – October 2026",
         "company": "PicStar Software OPC · Contractual",
         "location": "Las Piñas, Metro Manila",
         "b0": "Owned the technical direction and day-to-day engineering of a social media mobile application as the sole engineer, from architecture through deployment.",
         "b1": "Built the cross-platform mobile app in Flutter with a modular codebase and consistent UI/UX.",
         "b2": "Designed and maintained the Supabase PostgreSQL backend, tuning queries, data egress, and real-time feeds.",
-        "b3": "Implemented core PicStar features including the Top and Board feeds, Shineouts for promoting posts and shots from Board to Top, Top rankings, and city-based content filtering."
+        "b3": "Implemented core PicStar features including the Top and Board feeds, Shineouts for promoting posts and shots from Board to Top, Top rankings, and city-based content filtering.",
+        "b4": "Successfully engineered and deployed PicStar to the Google Play Store on October 11, 2026, bringing the Flutter app and Supabase backend into production."
       },
       "2": {
         "role": "Quality Assurance Analyst",
