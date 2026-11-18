@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { before, describe, it } from "node:test";
 
+import { isMaintenanceMode } from "../src/js/core/dom.js";
 import {
   applyI18n,
   detectBrowserLocale,
@@ -137,5 +138,27 @@ describe("applyI18n and experience duration integration", () => {
 
     applyExperienceDurations(doc, new Date(2026, 10, 15));
     assert.equal(elements.dateEl.textContent, "2026年7月 – 現在 · 5 mos");
+  });
+
+  it("uses maintenance.metaTitle when data-maintenance is true", () => {
+    const doc = {
+      documentElement: { lang: "en", dataset: { maintenance: "true" } },
+      title: "",
+      querySelectorAll() {
+        return [];
+      },
+    };
+
+    assert.equal(isMaintenanceMode(doc), true);
+    applyI18n(doc, "en_us");
+    assert.equal(doc.title, LOCALES.en_us.maintenance.metaTitle);
+
+    applyI18n(doc, "ja_jp");
+    assert.equal(doc.title, LOCALES.ja_jp.maintenance.metaTitle);
+
+    doc.documentElement.dataset.maintenance = "false";
+    assert.equal(isMaintenanceMode(doc), false);
+    applyI18n(doc, "en_us");
+    assert.equal(doc.title, LOCALES.en_us.meta.title);
   });
 });

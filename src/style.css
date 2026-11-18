@@ -1535,3 +1535,106 @@ code {
   font-size: 0.95rem;
   color: var(--text-secondary);
 }
+
+html[data-maintenance="true"] > body > :not(#maintenance-view) {
+  display: none !important;
+}
+
+html:not([data-maintenance="true"]) #maintenance-view {
+  display: none;
+}
+
+.maintenance {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.maintenance-topbar {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.maintenance-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem 3rem;
+  text-align: center;
+}
+
+.maintenance-content {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.maintenance-avatar {
+  width: clamp(128px, 24vw, 168px);
+  height: clamp(128px, 24vw, 168px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.maintenance-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.maintenance-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 9vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--accent-primary);
+  margin-bottom: 1.25rem;
+}
+
+.maintenance-description {
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin-bottom: 2.25rem;
+}
+
+.maintenance-social {
+  width: 100%;
+  max-width: 560px;
+}
+
+@media (min-width: 769px) {
+  .maintenance-topbar {
+    padding: 0.75rem 2rem;
+  }
+
+  .maintenance-main {
+    padding: 2rem 2rem 3.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .maintenance-content {
+    animation: none;
+  }
+}

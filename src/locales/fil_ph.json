@@ -171,6 +171,13 @@
       "serverError": "May error sa server (HTTP {status}). Pakisubukang muli mamaya o makipag-ugnayan sa pamamagitan ng mga social link sa ibaba."
     }
   },
+  "maintenance": {
+    "ariaLabel": "Pagsasaayos ng site",
+    "metaTitle": "Haru · Inaayos ang Site",
+    "eyebrow": "Naka-iskedyul na Maintenance",
+    "title": "Babalik Agad.",
+    "description": "Kasalukuyang inaayos at ina-update ang aking portfolio. Salamat sa pagbisita—pansamantala, maaari mo akong makaugnayan sa pamamagitan ng mga link sa ibaba."
+  },
   "footer": {
     "copyright": "© 2026 Aron Jake Radam (Haru). Nakalaan ang lahat ng karapatan."
   }

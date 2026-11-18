@@ -20,6 +20,15 @@ export function onDomReady(callback) {
 }
 
 /**
+ * Return true when maintenance mode is enabled on the document root (`data-maintenance="true"`).
+ * @param {Document | null} [doc]
+ * @returns {boolean}
+ */
+export function isMaintenanceMode(doc = typeof document !== "undefined" ? document : null) {
+  return doc?.documentElement?.dataset?.maintenance === "true";
+}
+
+/**
  * Toggle disabled, `aria-busy`, and `.btn-text` / `.btn-spinner` visibility on a button.
  * @param {HTMLElement | null | undefined} button
  * @param {boolean} isLoading

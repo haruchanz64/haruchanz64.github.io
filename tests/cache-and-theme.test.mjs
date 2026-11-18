@@ -157,10 +157,17 @@ describe("theme persistence and switch animation", () => {
     const classes = new Set();
     let viewTransitionCalled = false;
     const toggleAttrs = new Map();
+    const maintenanceToggleAttrs = new Map();
 
     const toggleBtn = {
       setAttribute(k, v) {
         toggleAttrs.set(k, v);
+      },
+    };
+
+    const maintenanceToggleBtn = {
+      setAttribute(k, v) {
+        maintenanceToggleAttrs.set(k, v);
       },
     };
 
@@ -182,7 +189,8 @@ describe("theme persistence and switch animation", () => {
       getElementById(id) {
         return id === "theme-toggle" ? toggleBtn : null;
       },
-      querySelectorAll() {
+      querySelectorAll(sel) {
+        if (sel === "[data-theme-toggle]") return [toggleBtn, maintenanceToggleBtn];
         return [];
       },
       startViewTransition(cb) {
@@ -204,5 +212,6 @@ describe("theme persistence and switch animation", () => {
     assert.equal(classes.has("light-theme"), true);
     assert.equal(root.style.colorScheme, "light");
     assert.equal(toggleAttrs.get("aria-pressed"), "true");
+    assert.equal(maintenanceToggleAttrs.get("aria-pressed"), "true");
   });
 });

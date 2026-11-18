@@ -16,10 +16,20 @@ export function saveTheme(
   writeStorageItem(THEME_STORAGE_KEY, theme, storage);
 }
 
+function getThemeToggleButtons(doc) {
+  if (!doc) return [];
+  const buttons = new Set();
+  const primary = doc.getElementById?.("theme-toggle");
+  if (primary) buttons.add(primary);
+  doc.querySelectorAll?.("[data-theme-toggle]")?.forEach((btn) => {
+    buttons.add(btn);
+  });
+  return [...buttons];
+}
+
 export function applyThemeState(isDark, doc = typeof document !== "undefined" ? document : null) {
   if (!doc) return;
   const root = doc.documentElement;
-  const toggleBtn = doc.getElementById?.("theme-toggle");
 
   root?.classList?.toggle("light-theme", !isDark);
   if (root?.style) {
@@ -32,8 +42,8 @@ export function applyThemeState(isDark, doc = typeof document !== "undefined" ? 
       : card.src.replace("theme=dark", "theme=light");
   });
 
-  if (toggleBtn) {
-    const nextLabel = isDark ? "Switch to light mode" : "Switch to dark mode";
+  const nextLabel = isDark ? "Switch to light mode" : "Switch to dark mode";
+  for (const toggleBtn of getThemeToggleButtons(doc)) {
     toggleBtn.setAttribute("aria-label", nextLabel);
     toggleBtn.setAttribute("title", nextLabel);
     toggleBtn.setAttribute("aria-pressed", String(!isDark));
@@ -70,7 +80,6 @@ export function initThemeToggle() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-  const toggleBtn = document.getElementById("theme-toggle");
 
   const saved = getSavedTheme();
   let isDark = saved ? saved === "dark" : prefersDark.matches;
@@ -78,16 +87,18 @@ export function initThemeToggle() {
   saveTheme(isDark ? "dark" : "light");
   applyThemeState(isDark, document);
 
-  if (toggleBtn && !toggleBtn.dataset.themeBound) {
-    toggleBtn.dataset.themeBound = "true";
-    toggleBtn.addEventListener("click", () => {
-      isDark = !isDark;
-      saveTheme(isDark ? "dark" : "light");
-      animateThemeSwitch(isDark, {
-        doc: document,
-        win: window,
+  for (const toggleBtn of getThemeToggleButtons(document)) {
+    if (!toggleBtn.dataset.themeBound) {
+      toggleBtn.dataset.themeBound = "true";
+      toggleBtn.addEventListener("click", () => {
+        isDark = !isDark;
+        saveTheme(isDark ? "dark" : "light");
+        animateThemeSwitch(isDark, {
+          doc: document,
+          win: window,
+        });
       });
-    });
+    }
   }
 
   prefersDark.addEventListener("change", (e) => {

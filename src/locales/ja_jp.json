@@ -171,6 +171,13 @@
       "serverError": "サーバーエラーが発生しました（HTTP {status}）。時間をおいて再度お試しいただくか、下のSNSリンクからご連絡ください。"
     }
   },
+  "maintenance": {
+    "ariaLabel": "サイトメンテナンス",
+    "metaTitle": "ハル · メンテナンス中",
+    "eyebrow": "メンテナンスのお知らせ",
+    "title": "まもなく再開します。",
+    "description": "現在、ポートフォリオの更新およびメンテナンスを行っております。ご訪問ありがとうございます。再開までの間は、下記のリンクよりお気軽にご連絡ください。"
+  },
   "footer": {
     "copyright": "© 2026 Aron Jake Radam（ハル）. All rights reserved."
   }

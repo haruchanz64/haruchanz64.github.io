@@ -1,6 +1,6 @@
 import en_us from "../../locales/en_us.json" with { type: "json" };
 import { readCache, writeCache, writeStorageItem } from "./cache.js";
-import { onDomReady } from "./dom.js";
+import { isMaintenanceMode, onDomReady } from "./dom.js";
 
 export const LOCALES = { en_us };
 export const SUPPORTED_LOCALES = ["en_us", "fil_ph", "ja_jp"];
@@ -189,7 +189,11 @@ export function applyI18n(doc = document, locale = currentLocale) {
     doc.documentElement.lang = HTML_LANG_MAP[currentLocale];
   }
 
-  const title = getTranslation(currentLocale, "meta.title");
+  const titleKey = isMaintenanceMode(doc) ? "maintenance.metaTitle" : "meta.title";
+  let title = getTranslation(currentLocale, titleKey);
+  if (title === titleKey) {
+    title = getTranslation(currentLocale, "meta.title");
+  }
   if (title && title !== "meta.title") {
     doc.title = title;
   }

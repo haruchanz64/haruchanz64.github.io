@@ -171,6 +171,13 @@
       "serverError": "Server error (HTTP {status}). Please try again later or reach out via the social links below."
     }
   },
+  "maintenance": {
+    "ariaLabel": "Site maintenance",
+    "metaTitle": "Haru · Under Maintenance",
+    "eyebrow": "Scheduled Maintenance",
+    "title": "Back Soon.",
+    "description": "My portfolio is currently undergoing updates and maintenance. Thanks for stopping by—in the meantime, feel free to connect with me through the links below."
+  },
   "footer": {
     "copyright": "© 2026 Aron Jake Radam (Haru). All rights reserved."
   }
