@@ -22,5 +22,11 @@
     "html_url": "https://github.com/haruchanz64/SaveEncryptionToolkit",
     "description": "",
     "language": "C#"
+  },
+  {
+    "name": "CsvXlsxToScriptableObjects",
+    "html_url": "https://github.com/haruchanz64/CsvXlsxToScriptableObjects",
+    "description": "",
+    "language": "C#"
   }
 ]
