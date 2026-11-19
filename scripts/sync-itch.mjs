@@ -4,13 +4,13 @@ import { fileURLToPath } from "node:url";
 import { decodeHtmlEntities } from "../src/js/core/text.js";
 
 const ITCH_PROJECTS = [
-  { url: "https://haruchanz64.itch.io/night-light" },
-  { url: "https://haruchanz64.itch.io/orders-please" },
-  { url: "https://haruchanz64.itch.io/cyclescape" },
   {
     url: "https://haruchanz64.itch.io/trashfrenzy",
     extraTags: ["Capstone Project"],
   },
+  { url: "https://haruchanz64.itch.io/cyclescape" },
+  { url: "https://haruchanz64.itch.io/orders-please" },
+  { url: "https://haruchanz64.itch.io/night-light" },
 ];
 
 const __dirname = dirname(fileURLToPath(import.meta.url));

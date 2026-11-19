@@ -3,7 +3,7 @@ import { onDomReady } from "../core/dom.js";
 import { i18nReady, t } from "../core/i18n.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_itch_projects_v2";
+const CACHE_KEY = "haru_itch_projects_v3";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 async function fetchItchProjects() {

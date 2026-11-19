@@ -1,26 +1,15 @@
 [
   {
-    "title": "Night Light",
-    "url": "https://haruchanz64.itch.io/night-light",
-    "description": "Collect light orbs and end the darkness once and for all.",
-    "image": "/res/itch/night-light.png",
+    "title": "Trash Frenzy",
+    "url": "https://haruchanz64.itch.io/trashfrenzy",
+    "description": "A 2D Fast Paced Action Side Scroller Educational Mobile Game",
+    "image": "/res/itch/trashfrenzy.png",
     "tags": [
-      "Platformer"
+      "Capstone Project",
+      "Educational"
     ],
     "platforms": [
-      "Windows"
-    ]
-  },
-  {
-    "title": "Orders Please",
-    "url": "https://haruchanz64.itch.io/orders-please",
-    "description": "A street food vendor simulator from a university.",
-    "image": "/res/itch/orders-please.png",
-    "tags": [
-      "Simulation"
-    ],
-    "platforms": [
-      "Windows"
+      "Android"
     ]
   },
   {
@@ -36,16 +25,27 @@
     ]
   },
   {
-    "title": "Trash Frenzy",
-    "url": "https://haruchanz64.itch.io/trashfrenzy",
-    "description": "A 2D Fast Paced Action Side Scroller Educational Mobile Game",
-    "image": "/res/itch/trashfrenzy.png",
+    "title": "Orders Please",
+    "url": "https://haruchanz64.itch.io/orders-please",
+    "description": "A street food vendor simulator from a university.",
+    "image": "/res/itch/orders-please.png",
     "tags": [
-      "Capstone Project",
-      "Educational"
+      "Simulation"
     ],
     "platforms": [
-      "Android"
+      "Windows"
+    ]
+  },
+  {
+    "title": "Night Light",
+    "url": "https://haruchanz64.itch.io/night-light",
+    "description": "Collect light orbs and end the darkness once and for all.",
+    "image": "/res/itch/night-light.png",
+    "tags": [
+      "Platformer"
+    ],
+    "platforms": [
+      "Windows"
     ]
   }
 ]
