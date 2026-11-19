@@ -1,13 +1,13 @@
 {
   "meta": {
     "title": "ハル · ポートフォリオ",
-    "description": "Aron Jake Radam（ハル）のポートフォリオ — プロダクションソフトウェア開発とゲーム開発の両分野で活動する Lead Full-Stack Software Engineer 兼 大学講師。"
+    "description": "Aron Jake Radam（ハル）のポートフォリオ — フルスタック開発・ゲームデザイン・QA の経歴を持つ大学講師・ゲーム開発講師。"
   },
   "nav": {
     "ariaLabel": "メインナビゲーション",
     "logoAriaLabel": "ハル — トップへ戻る",
     "brandName": "ハル",
-    "brandRole": "ソフトウェアエンジニア & 大学講師",
+    "brandRole": "大学講師 & ゲーム開発講師",
     "links": {
       "about": "自己紹介",
       "experience": "経歴",
@@ -21,18 +21,18 @@
     "logoAlt": "ハルのロゴ",
     "greeting": "はじめまして、",
     "name": "ハルです。",
-    "titleHtml": "<strong>ゲーム開発</strong>を教える<strong>ソフトウェアエンジニア &amp; 大学講師</strong>として、<strong>ゲームデザイン理論</strong>、<strong>バックエンド</strong>、<strong>DevOps</strong> に取り組んでいます。",
+    "titleHtml": "<strong>大学講師・ゲーム開発講師</strong>として活動しながら、<strong>ゲームデザイン理論</strong>、<strong>バックエンド</strong>、<strong>DevOps</strong> に取り組んでいます。",
     "ctaContact": "お問い合わせ",
     "ctaProjects": "制作実績を見る"
   },
   "about": {
     "title": "自己紹介",
-    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。プロダクションソフトウェアとゲーム開発の両分野に携わる <strong>Lead Full-Stack Software Engineer</strong> 兼 <strong>大学講師</strong>として活動しています。キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと連携する業務を担当しました。",
+    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。<strong>University of Caloocan City</strong> で <strong>大学講師</strong>・<strong>ゲーム開発講師</strong>として活動しています。2年生から4年生までの学生を対象に、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを指導しています。",
     "haruOriginTitle": "なぜ @haruchanz64 なのか？",
     "haruOriginClose": "閉じる",
     "haruOriginHtml": "<strong>ハル</strong> は日本語で「春」を意味し（当時親しかった人からもらった<em>原神</em>のゲーム内ネームがきっかけ）、<strong>Chan</strong> は Discord で女性に間違われることがあったことへのちょっとしたオマージュ、そして <strong>Z64</strong> は <em>Zelda 64</em> の略で、友人の N64 で初めて遊んだゼルダ作品が『<em>ゼルダの伝説 ムジュラの仮面</em>』で、その後に『<em>ゼルダの伝説 時のオカリナ</em>』を遊んだことに由来しています。それが今では GitHub や各種 SNS で統一して使っているハンドルネームとなり、自分なりの小さなパーソナルブランドになっています。",
-    "p2Html": "その後は、<strong>Las Piñas, Philippines</strong> のスタートアップ企業 <strong>PicStar Software OPC</strong> で唯一のフルスタックエンジニアとして働き、<strong>Flutter</strong> と <strong>Supabase</strong> で <strong>PicStar</strong> を開発して Google Play ストアへリリースしました。モバイルアプリと PostgreSQL バックエンドの両方を担当し、リアルタイムの Top および Board フィード、Shineouts、ランキング、都市別フィルタリングなどを実装しました。",
-    "p3Html": "現在は、<strong>University of Caloocan City</strong> で2年生から4年生までの学生を指導しており、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを支援しています。",
+    "p2Html": "フルタイムでの指導に専念する前は、<strong>Las Piñas, Philippines</strong> のスタートアップ企業 <strong>PicStar Software OPC</strong> で唯一のフルスタックエンジニアとして働き、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を設計から本番リリースまで一貫して開発し、Google Play ストアへ公開しました。",
+    "p3Html": "キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと密に連携する業務を担当しました。",
     "p4Html": "メインの技術スタック以外にも、<strong>ゲームデザイン理論</strong>を学びながら <strong>C# (.NET)</strong>、<strong>Java (Spring Boot)</strong>、<strong>Docker</strong> を使った個人プロジェクトを制作しています。日々のワークフローでは AI コーディングツールも活用してプロトタイピングやデバッグを高速化しており、フリーランスの案件や新しいポジションのご相談も歓迎しています。"
   },
   "experience": {

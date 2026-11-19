@@ -22,7 +22,7 @@ export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
 export const RESUME_WEBSITE = "https://haruchanz64.github.io/";
 export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
-const DEFAULT_HEADLINE = "Software Engineer & College Instructor";
+const DEFAULT_HEADLINE = "College Instructor & Game Development Instructor";
 
 const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub"]);
 
