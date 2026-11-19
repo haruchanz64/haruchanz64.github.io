@@ -24,9 +24,15 @@
     "language": "C#"
   },
   {
-    "name": "CsvXlsxToScriptableObjects",
-    "html_url": "https://github.com/haruchanz64/CsvXlsxToScriptableObjects",
-    "description": "",
+    "name": "SpreadsheetToScriptableObjects",
+    "html_url": "https://github.com/haruchanz64/SpreadsheetToScriptableObjects",
+    "description": "A Unity tool that converts .CSV / .XLSX spreadsheet contents to ScriptableObjects",
+    "language": "C#"
+  },
+  {
+    "name": "BugReportToolkit",
+    "html_url": "https://github.com/haruchanz64/BugReportToolkit",
+    "description": "Zero-dependency Unity in-game bug reporter & repro capture toolkit — captures screenshots, console logs, input breadcrumbs, FPS/memory & scene snapshots into .zip bundles or sends directly to Discord, GitHub Issues, Trello, and custom webhooks.",
     "language": "C#"
   }
 ]

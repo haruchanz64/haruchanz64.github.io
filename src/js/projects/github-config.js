@@ -5,7 +5,8 @@ export const PINNED_REPOS = [
   "DebugCommandSystem",
   "ScriptableBatchTool",
   "SaveEncryptionToolkit",
-  "CsvXlsxToScriptableObjects",
+  "SpreadsheetToScriptableObjects",
+  "BugReportToolkit",
 ];
 
 /**
