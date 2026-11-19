@@ -182,7 +182,7 @@ function createMockDocument() {
     },
     querySelector(selector) {
       if (selector === ".nav-brand-role") {
-        return createElement({ textContent: "College Instructor & Game Development Instructor" });
+        return createElement({ textContent: "College Instructor & Game Developer" });
       }
       return null;
     },
@@ -234,7 +234,7 @@ describe("extractResumeData", () => {
     assert.equal(data.fullName, "Aron Jake S. Radam");
     assert.equal(data.phone, undefined);
     assert.equal(data.email, undefined);
-    assert.equal(data.headline, "College Instructor & Game Development Instructor");
+    assert.equal(data.headline, "College Instructor & Game Developer");
     assert.equal(data.location, "Caloocan City, Metro Manila");
     assert.equal(data.experience.length, 1);
     assert.equal(data.experience[0].date, "July 2026 – Present");
@@ -461,7 +461,7 @@ describe("extractResumeData i18n fallback", () => {
     };
 
     const data = extractResumeData(doc);
-    assert.equal(data.headline, "College Instructor & Game Development Instructor");
+    assert.equal(data.headline, "College Instructor & Game Developer");
     assert.equal(data.experience[0].role, "College Instructor");
     assert.equal(data.experience[0].company, "University of Caloocan City · Full-time");
     assert.match(data.experience[0].bullets[0], /^Teach game design theory/);
