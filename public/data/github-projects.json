@@ -1,38 +1,38 @@
 [
   {
-    "name": "UnityEventToolkit",
-    "html_url": "https://github.com/haruchanz64/UnityEventToolkit",
-    "description": "",
-    "language": "C#"
-  },
-  {
-    "name": "DebugCommandSystem",
-    "html_url": "https://github.com/haruchanz64/DebugCommandSystem",
-    "description": "",
-    "language": "C#"
-  },
-  {
-    "name": "ScriptableBatchTool",
-    "html_url": "https://github.com/haruchanz64/ScriptableBatchTool",
-    "description": "",
-    "language": "C#"
-  },
-  {
-    "name": "SaveEncryptionToolkit",
-    "html_url": "https://github.com/haruchanz64/SaveEncryptionToolkit",
-    "description": "",
+    "name": "BugReportToolkit",
+    "html_url": "https://github.com/haruchanz64/BugReportToolkit",
+    "description": "A zero-dependency Unity in-game bug reporter that captures screenshots, logs, and diagnostics into ZIP bundles or sends directly to webhooks.",
     "language": "C#"
   },
   {
     "name": "SpreadsheetToScriptableObjects",
     "html_url": "https://github.com/haruchanz64/SpreadsheetToScriptableObjects",
-    "description": "A Unity tool that converts .CSV / .XLSX spreadsheet contents to ScriptableObjects",
+    "description": "A Unity tool that converts .CSV / .XLSX spreadsheet contents to ScriptableObjects.",
     "language": "C#"
   },
   {
-    "name": "BugReportToolkit",
-    "html_url": "https://github.com/haruchanz64/BugReportToolkit",
-    "description": "Zero-dependency Unity in-game bug reporter & repro capture toolkit — captures screenshots, console logs, input breadcrumbs, FPS/memory & scene snapshots into .zip bundles or sends directly to Discord, GitHub Issues, Trello, and custom webhooks.",
+    "name": "UnityEventToolkit",
+    "html_url": "https://github.com/haruchanz64/UnityEventToolkit",
+    "description": "An intuitive Unity editor tool for scanning, filtering, and cleaning up UnityEvents to keep event listeners organized and working efficiently.",
+    "language": "C#"
+  },
+  {
+    "name": "SaveEncryptionToolkit",
+    "html_url": "https://github.com/haruchanz64/SaveEncryptionToolkit",
+    "description": "A flexible Unity save system toolkit that provides robust encryption and serialization utilities designed to plug into your own save manager.",
+    "language": "C#"
+  },
+  {
+    "name": "ScriptableBatchTool",
+    "html_url": "https://github.com/haruchanz64/ScriptableBatchTool",
+    "description": "A Unity Editor Window tool designed to streamline the creation and management of multiple ScriptableObject instances.",
+    "language": "C#"
+  },
+  {
+    "name": "DebugCommandSystem",
+    "html_url": "https://github.com/haruchanz64/DebugCommandSystem",
+    "description": "An extendable Unity debug console integrated with the New Input System, featuring typed commands, auto-completion, and command suggestions.",
     "language": "C#"
   }
 ]

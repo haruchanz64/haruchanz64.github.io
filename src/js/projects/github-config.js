@@ -1,12 +1,12 @@
 export const GITHUB_USERNAME = "haruchanz64";
 
 export const PINNED_REPOS = [
-  "UnityEventToolkit",
-  "DebugCommandSystem",
-  "ScriptableBatchTool",
-  "SaveEncryptionToolkit",
-  "SpreadsheetToScriptableObjects",
   "BugReportToolkit",
+  "SpreadsheetToScriptableObjects",
+  "UnityEventToolkit",
+  "SaveEncryptionToolkit",
+  "ScriptableBatchTool",
+  "DebugCommandSystem",
 ];
 
 /**

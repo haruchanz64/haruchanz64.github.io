@@ -3,7 +3,7 @@ import { i18nReady, t } from "../core/i18n.js";
 import { GITHUB_USERNAME, mapPinnedRepos } from "./github-config.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v3";
+const CACHE_KEY = "haru_github_projects_v4";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 async function fetchLiveGithubProjects() {
