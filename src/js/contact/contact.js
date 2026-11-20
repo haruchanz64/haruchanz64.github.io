@@ -4,8 +4,8 @@ import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
 
 const REQUEST_TIMEOUT_MS = 15000;
 const TOAST_AUTO_HIDE_MS = 6000;
-const TURNSTILE_SCRIPT_URL =
-  "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const TURNSTILE_ONLOAD_CALLBACK = "haruOnTurnstileLoad";
+const TURNSTILE_SCRIPT_URL = `https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=${TURNSTILE_ONLOAD_CALLBACK}`;
 
 const CUSTOM_OPTION_VALUE = "__custom__";
 const FREELANCE_SUBJECT_VALUE = "Freelance / Project Inquiry";
@@ -245,28 +245,20 @@ function initTurnstile() {
     });
   };
 
-  const scheduleRender = () => {
-    if (typeof window.turnstile?.ready === "function") {
-      window.turnstile.ready(renderWidget);
-    } else {
-      renderWidget();
-    }
-  };
-
-  if (window.turnstile?.render || typeof window.turnstile?.ready === "function") {
-    scheduleRender();
+  if (window.turnstile?.render) {
+    renderWidget();
     return;
   }
 
-  let script = document.querySelector(`script[src="${TURNSTILE_SCRIPT_URL}"]`);
-  if (!script) {
-    script = document.createElement("script");
+  window[TURNSTILE_ONLOAD_CALLBACK] = renderWidget;
+
+  if (!document.querySelector(`script[src="${TURNSTILE_SCRIPT_URL}"]`)) {
+    const script = document.createElement("script");
     script.src = TURNSTILE_SCRIPT_URL;
     script.async = true;
     script.defer = true;
     document.head.appendChild(script);
   }
-  script.addEventListener("load", scheduleRender, { once: true });
 }
 
 function syncCustomSelectField(selectEl, customEl, { focusOnShow = false } = {}) {
