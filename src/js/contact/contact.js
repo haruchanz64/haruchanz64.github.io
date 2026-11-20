@@ -4,11 +4,24 @@ import { detectSpam, recordSubmissionTime } from "./spam-detector.js";
 
 const REQUEST_TIMEOUT_MS = 15000;
 const TOAST_AUTO_HIDE_MS = 6000;
+const TURNSTILE_SCRIPT_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+
+const CUSTOM_SUBJECT_VALUE = "__custom__";
+const FREELANCE_SUBJECT_VALUE = "Freelance / Project Inquiry";
+const JOB_SUBJECT_VALUE = "Job Opportunity / Interview";
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const MAX_COMPANY_LENGTH = 120;
+const MAX_ROLE_LENGTH = 120;
+const MAX_REFERENCE_URL_LENGTH = 300;
 
 const pageLoadedAt = Date.now();
 let firstInteractionAt = null;
 let hasInteracted = false;
 let toastTimer = null;
+let turnstileActive = false;
+let turnstileWidgetId = null;
+let turnstileToken = "";
 
 function showToast(toast, message, type) {
   if (toastTimer) {
@@ -28,21 +41,49 @@ function showToast(toast, message, type) {
   }
 }
 
-const CUSTOM_SUBJECT_VALUE = "__custom__";
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+/**
+ * Check whether a string is a valid http:// or https:// URL.
+ * @param {string} value
+ * @returns {boolean}
+ */
+export function isValidHttpUrl(value) {
+  if (typeof value !== "string") return false;
+  const trimmed = value.trim();
+  if (!trimmed) return false;
+  try {
+    const parsed = new URL(trimmed);
+    return (
+      (parsed.protocol === "http:" || parsed.protocol === "https:") && Boolean(parsed.hostname)
+    );
+  } catch {
+    return false;
+  }
+}
 
 /**
  * Validate contact form field values and return localized message keys for invalid fields.
  * @param {{
  *   name: string,
  *   email: string,
+ *   company?: string,
+ *   referenceUrl?: string,
  *   selectedSubject: string,
  *   customSubject: string,
+ *   role?: string,
  *   message: string,
  * }} fields
- * @returns {Array<{ field: "name" | "email" | "subjectSelect" | "subjectCustom" | "message", messageKey: string }>}
+ * @returns {Array<{ field: "name" | "email" | "company" | "referenceUrl" | "subjectSelect" | "subjectCustom" | "role" | "message", messageKey: string }>}
  */
-export function validateContactFields({ name, email, selectedSubject, customSubject, message }) {
+export function validateContactFields({
+  name,
+  email,
+  company = "",
+  referenceUrl = "",
+  selectedSubject,
+  customSubject,
+  role = "",
+  message,
+}) {
   const errors = [];
 
   if (!name.trim()) {
@@ -52,10 +93,24 @@ export function validateContactFields({ name, email, selectedSubject, customSubj
   if (!trimmedEmail || !EMAIL_PATTERN.test(trimmedEmail)) {
     errors.push({ field: "email", messageKey: "contact.toast.invalidEmail" });
   }
+  if (company.trim().length > MAX_COMPANY_LENGTH) {
+    errors.push({ field: "company", messageKey: "contact.toast.fieldTooLong" });
+  }
+  const trimmedReferenceUrl = referenceUrl.trim();
+  if (trimmedReferenceUrl) {
+    if (trimmedReferenceUrl.length > MAX_REFERENCE_URL_LENGTH) {
+      errors.push({ field: "referenceUrl", messageKey: "contact.toast.fieldTooLong" });
+    } else if (!isValidHttpUrl(trimmedReferenceUrl)) {
+      errors.push({ field: "referenceUrl", messageKey: "contact.toast.invalidUrl" });
+    }
+  }
   if (!selectedSubject) {
     errors.push({ field: "subjectSelect", messageKey: "contact.toast.selectSubject" });
   } else if (selectedSubject === CUSTOM_SUBJECT_VALUE && !customSubject.trim()) {
     errors.push({ field: "subjectCustom", messageKey: "contact.toast.enterCustomSubject" });
+  }
+  if (role.trim().length > MAX_ROLE_LENGTH) {
+    errors.push({ field: "role", messageKey: "contact.toast.fieldTooLong" });
   }
   if (!message.trim()) {
     errors.push({ field: "message", messageKey: "contact.toast.enterMessage" });
@@ -105,9 +160,89 @@ function clearAllFieldErrors(form) {
   });
 }
 
+function getTurnstileSiteKey(widgetEl) {
+  const attrKey = widgetEl?.dataset?.sitekey?.trim() || "";
+  if (attrKey) return attrKey;
+  if (typeof import.meta !== "undefined" && import.meta.env?.VITE_TURNSTILE_SITE_KEY) {
+    return String(import.meta.env.VITE_TURNSTILE_SITE_KEY).trim();
+  }
+  return "";
+}
+
+function setTurnstileError(message) {
+  const errorEl = document.getElementById("turnstile-error");
+  if (errorEl) {
+    errorEl.textContent = message;
+  }
+}
+
+function resetTurnstileWidget() {
+  turnstileToken = "";
+  if (turnstileWidgetId !== null && typeof window !== "undefined" && window.turnstile?.reset) {
+    try {
+      window.turnstile.reset(turnstileWidgetId);
+    } catch {
+      // Ignore widget reset errors if Turnstile has not finished initializing.
+    }
+  }
+}
+
+function initTurnstile() {
+  const wrapper = document.getElementById("turnstile-wrapper");
+  const widgetEl = document.getElementById("turnstile-widget");
+  if (!wrapper || !widgetEl) return;
+
+  const siteKey = getTurnstileSiteKey(widgetEl);
+  if (!siteKey) return;
+
+  turnstileActive = true;
+  wrapper.hidden = false;
+
+  const renderWidget = () => {
+    if (!window.turnstile?.render || turnstileWidgetId !== null) return;
+    const isLight = document.documentElement.classList.contains("light-theme");
+    turnstileWidgetId = window.turnstile.render(widgetEl, {
+      sitekey: siteKey,
+      theme: isLight ? "light" : "dark",
+      callback(token) {
+        turnstileToken = token || "";
+        setTurnstileError("");
+      },
+      "expired-callback"() {
+        turnstileToken = "";
+      },
+      "error-callback"() {
+        turnstileToken = "";
+      },
+    });
+  };
+
+  if (window.turnstile?.render) {
+    renderWidget();
+    return;
+  }
+
+  let script = document.querySelector(`script[src="${TURNSTILE_SCRIPT_URL}"]`);
+  if (!script) {
+    script = document.createElement("script");
+    script.src = TURNSTILE_SCRIPT_URL;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  }
+  script.addEventListener("load", renderWidget, { once: true });
+}
+
 function initFormControls() {
   const nameEl = document.getElementById("name");
   const emailEl = document.getElementById("email");
+  const companyEl = document.getElementById("company");
+  const referenceUrlEl = document.getElementById("reference-url");
+  const roleEl = document.getElementById("role");
+  const budgetEl = document.getElementById("budget");
+  const timelineEl = document.getElementById("timeline");
+  const freelanceGroupEl = document.getElementById("freelance-fields");
+  const jobGroupEl = document.getElementById("job-fields");
   const messageEl = document.getElementById("message");
   const counterEl = document.getElementById("message-char-count");
   if (messageEl && counterEl) {
@@ -123,8 +258,12 @@ function initFormControls() {
   const subjectSelect = document.getElementById("subject-select");
   const subjectCustom = document.getElementById("subject-custom");
   if (subjectSelect && subjectCustom) {
-    const syncCustomSubjectVisibility = () => {
-      const isCustom = subjectSelect.value === CUSTOM_SUBJECT_VALUE;
+    const syncSubjectDependentFields = () => {
+      const value = subjectSelect.value;
+      const isCustom = value === CUSTOM_SUBJECT_VALUE;
+      const isFreelance = value === FREELANCE_SUBJECT_VALUE;
+      const isJob = value === JOB_SUBJECT_VALUE;
+
       subjectCustom.style.display = isCustom ? "block" : "none";
       subjectCustom.required = isCustom;
       clearFieldError(subjectSelect);
@@ -134,13 +273,37 @@ function initFormControls() {
       } else {
         subjectCustom.value = "";
       }
+
+      if (freelanceGroupEl) {
+        freelanceGroupEl.hidden = !isFreelance;
+        if (!isFreelance) {
+          if (budgetEl) budgetEl.value = "";
+          if (timelineEl) timelineEl.value = "";
+        }
+      }
+
+      if (jobGroupEl) {
+        jobGroupEl.hidden = !isJob;
+        if (!isJob && roleEl) {
+          roleEl.value = "";
+          clearFieldError(roleEl);
+        }
+      }
     };
 
-    subjectSelect.addEventListener("change", syncCustomSubjectVisibility);
-    syncCustomSubjectVisibility();
+    subjectSelect.addEventListener("change", syncSubjectDependentFields);
+    syncSubjectDependentFields();
   }
 
-  for (const fieldEl of [nameEl, emailEl, subjectCustom, messageEl]) {
+  for (const fieldEl of [
+    nameEl,
+    emailEl,
+    companyEl,
+    referenceUrlEl,
+    subjectCustom,
+    roleEl,
+    messageEl,
+  ]) {
     fieldEl?.addEventListener("input", () => clearFieldError(fieldEl));
   }
 
@@ -156,6 +319,8 @@ function initFormControls() {
     form.addEventListener("focusin", markInteraction);
     form.addEventListener("input", markInteraction);
   }
+
+  initTurnstile();
 }
 
 function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
@@ -170,11 +335,20 @@ function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
   if (subjectHiddenEl) {
     subjectHiddenEl.value = "";
   }
+  const freelanceGroupEl = document.getElementById("freelance-fields");
+  if (freelanceGroupEl) {
+    freelanceGroupEl.hidden = true;
+  }
+  const jobGroupEl = document.getElementById("job-fields");
+  if (jobGroupEl) {
+    jobGroupEl.hidden = true;
+  }
   const counterEl = document.getElementById("message-char-count");
-  if (counterEl) {
+  if (counterEl && messageEl) {
     const maxLen = messageEl.getAttribute("maxlength") || "1000";
     counterEl.textContent = `0 / ${maxLen}`;
   }
+  resetTurnstileWidget();
 }
 
 void onDomReady(initFormControls);
@@ -196,16 +370,24 @@ export async function sendEmail(e) {
 
   const nameEl = document.getElementById("name");
   const emailEl = document.getElementById("email");
+  const companyEl = document.getElementById("company");
+  const referenceUrlEl = document.getElementById("reference-url");
   const subjectSelectEl = document.getElementById("subject-select");
   const subjectCustomEl = document.getElementById("subject-custom");
   const subjectHiddenEl = document.getElementById("subject");
+  const budgetEl = document.getElementById("budget");
+  const timelineEl = document.getElementById("timeline");
+  const roleEl = document.getElementById("role");
   const messageEl = document.getElementById("message");
 
   const fieldElements = {
     name: nameEl,
     email: emailEl,
+    company: companyEl,
+    referenceUrl: referenceUrlEl,
     subjectSelect: subjectSelectEl,
     subjectCustom: subjectCustomEl,
+    role: roleEl,
     message: messageEl,
   };
 
@@ -214,8 +396,11 @@ export async function sendEmail(e) {
   const validationErrors = validateContactFields({
     name: nameEl.value,
     email: emailEl.value,
+    company: companyEl?.value ?? "",
+    referenceUrl: referenceUrlEl?.value ?? "",
     selectedSubject: subjectSelectEl.value,
     customSubject: subjectCustomEl.value,
+    role: roleEl?.value ?? "",
     message: messageEl.value,
   });
 
@@ -228,11 +413,25 @@ export async function sendEmail(e) {
     return;
   }
 
+  const resolvedTurnstileToken =
+    turnstileToken || form.elements["cf-turnstile-response"]?.value?.trim() || "";
+  if (turnstileActive && !resolvedTurnstileToken) {
+    showToast(toast, "", "");
+    setTurnstileError(t("contact.toast.turnstileRequired"));
+    return;
+  }
+
   const name = nameEl.value.trim();
   const email = emailEl.value.trim();
+  const company = companyEl?.value?.trim() ?? "";
+  const referenceUrl = referenceUrlEl?.value?.trim() ?? "";
   const selectedSubject = subjectSelectEl.value;
   const isCustomSubject = selectedSubject === CUSTOM_SUBJECT_VALUE;
   const subject = isCustomSubject ? subjectCustomEl.value.trim() : selectedSubject.trim();
+  const budget = selectedSubject === FREELANCE_SUBJECT_VALUE ? (budgetEl?.value?.trim() ?? "") : "";
+  const timeline =
+    selectedSubject === FREELANCE_SUBJECT_VALUE ? (timelineEl?.value?.trim() ?? "") : "";
+  const role = selectedSubject === JOB_SUBJECT_VALUE ? (roleEl?.value?.trim() ?? "") : "";
   const message = messageEl.value.trim();
 
   if (subjectHiddenEl) {
@@ -244,6 +443,8 @@ export async function sendEmail(e) {
     honeypot: honeypotEl ? honeypotEl.value : "",
     name,
     email,
+    company,
+    role,
     subject,
     message,
     timing: { pageLoadedAt, firstInteractionAt, hasInteracted },
@@ -284,6 +485,19 @@ export async function sendEmail(e) {
     formData.set("subject", subject);
     formData.set("message", message);
 
+    const optionalFields = { company, referenceUrl, budget, timeline, role };
+    for (const [key, val] of Object.entries(optionalFields)) {
+      if (val) {
+        formData.set(key, val);
+      } else {
+        formData.delete(key);
+      }
+    }
+
+    if (resolvedTurnstileToken) {
+      formData.set("cf-turnstile-response", resolvedTurnstileToken);
+    }
+
     const contactEndpoint =
       window.location.hostname.endsWith(".workers.dev") || window.location.port === "8787"
         ? "/api/contact"
@@ -313,6 +527,9 @@ export async function sendEmail(e) {
 
     if (err.name === "AbortError") {
       errorMsg = t("contact.toast.timeout");
+    } else if (err.status === 403) {
+      errorMsg = t("contact.toast.turnstileFailed");
+      resetTurnstileWidget();
     } else if (err.status === 404 || err.status === 405) {
       errorMsg = t("contact.toast.endpointUnavailable", { status: err.status });
     } else if (err.status >= 500) {

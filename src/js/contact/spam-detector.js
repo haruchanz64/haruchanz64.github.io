@@ -50,10 +50,17 @@ export function countUrls(text) {
 
 /**
  * Scores contact form content for common spam signals.
- * @param {{ name: string, email: string, subject: string, message: string }} fields
+ * @param {{ name: string, email: string, company?: string, role?: string, subject: string, message: string }} fields
  * @returns {{ isSpam: boolean, score: number, reasons: string[] }}
  */
-export function analyzeSpamContent({ name = "", email = "", subject = "", message = "" }) {
+export function analyzeSpamContent({
+  name = "",
+  email = "",
+  company = "",
+  role = "",
+  subject = "",
+  message = "",
+}) {
   let score = 0;
   const reasons = [];
 
@@ -71,7 +78,7 @@ export function analyzeSpamContent({ name = "", email = "", subject = "", messag
     reasons.push("contains-url");
   }
 
-  const combinedText = `${name} ${subject} ${message}`;
+  const combinedText = `${name} ${company} ${role} ${subject} ${message}`;
   if (MARKUP_INJECTION_REGEX.test(combinedText)) {
     score += 4;
     reasons.push("markup-injection");
@@ -167,6 +174,8 @@ export function recordSubmissionTime(storage, now = Date.now()) {
  *   honeypot?: string,
  *   name: string,
  *   email: string,
+ *   company?: string,
+ *   role?: string,
  *   subject: string,
  *   message: string,
  *   timing: { pageLoadedAt: number, firstInteractionAt: number | null, hasInteracted: boolean },
@@ -179,6 +188,8 @@ export function detectSpam({
   honeypot = "",
   name,
   email,
+  company = "",
+  role = "",
   subject,
   message,
   timing,
@@ -215,7 +226,7 @@ export function detectSpam({
     };
   }
 
-  const contentResult = analyzeSpamContent({ name, email, subject, message });
+  const contentResult = analyzeSpamContent({ name, email, company, role, subject, message });
   if (contentResult.isSpam) {
     return {
       blocked: true,

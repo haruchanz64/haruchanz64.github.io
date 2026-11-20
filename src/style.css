@@ -530,6 +530,27 @@ html:not(.intro-seen) .hero--pending .cta-button {
   color: var(--text-muted);
 }
 
+.label-optional {
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  opacity: 0.7;
+  margin-left: 0.25rem;
+}
+
+.form-conditional-group[hidden],
+.turnstile-wrapper[hidden] {
+  display: none;
+}
+
+.form-conditional-group:not([hidden]) {
+  animation: formErrorIn 0.2s ease forwards;
+}
+
+.turnstile-wrapper {
+  align-items: center;
+}
+
 .form-field input,
 .form-field select,
 .form-field textarea {
@@ -663,7 +684,8 @@ html:not(.intro-seen) .hero--pending .cta-button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .form-error:not(:empty) {
+  .form-error:not(:empty),
+  .form-conditional-group:not([hidden]) {
     animation: none;
   }
 }

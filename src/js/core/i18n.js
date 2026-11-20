@@ -5,7 +5,7 @@ import { isMaintenanceMode, onDomReady } from "./dom.js";
 export const LOCALES = { en_us };
 export const SUPPORTED_LOCALES = ["en_us", "fil_ph", "ja_jp"];
 export const DEFAULT_LOCALE = "en_us";
-const LOCALE_CACHE_PREFIX = "haru_locale_dict_v2:";
+const LOCALE_CACHE_PREFIX = "haru_locale_dict_v3:";
 const LOCALE_STORAGE_KEY = "haru_locale";
 
 const isVite = typeof import.meta !== "undefined" && Boolean(import.meta.env);

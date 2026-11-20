@@ -3,3 +3,4 @@
 
 RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxx
 CONTACT_TO_EMAIL=you@example.com
+TURNSTILE_SECRET_KEY=0x4AAAAAAAxxxxxxxxxxxxxxxxx
