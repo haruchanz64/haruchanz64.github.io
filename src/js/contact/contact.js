@@ -217,8 +217,16 @@ function initTurnstile() {
     });
   };
 
-  if (window.turnstile?.render) {
-    renderWidget();
+  const scheduleRender = () => {
+    if (typeof window.turnstile?.ready === "function") {
+      window.turnstile.ready(renderWidget);
+    } else {
+      renderWidget();
+    }
+  };
+
+  if (window.turnstile?.render || typeof window.turnstile?.ready === "function") {
+    scheduleRender();
     return;
   }
 
@@ -230,7 +238,7 @@ function initTurnstile() {
     script.defer = true;
     document.head.appendChild(script);
   }
-  script.addEventListener("load", renderWidget, { once: true });
+  script.addEventListener("load", scheduleRender, { once: true });
 }
 
 function initFormControls() {
