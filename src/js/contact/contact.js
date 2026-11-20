@@ -29,8 +29,85 @@ function showToast(toast, message, type) {
 }
 
 const CUSTOM_SUBJECT_VALUE = "__custom__";
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/**
+ * Validate contact form field values and return localized message keys for invalid fields.
+ * @param {{
+ *   name: string,
+ *   email: string,
+ *   selectedSubject: string,
+ *   customSubject: string,
+ *   message: string,
+ * }} fields
+ * @returns {Array<{ field: "name" | "email" | "subjectSelect" | "subjectCustom" | "message", messageKey: string }>}
+ */
+export function validateContactFields({ name, email, selectedSubject, customSubject, message }) {
+  const errors = [];
+
+  if (!name.trim()) {
+    errors.push({ field: "name", messageKey: "contact.toast.enterName" });
+  }
+  const trimmedEmail = email.trim();
+  if (!trimmedEmail || !EMAIL_PATTERN.test(trimmedEmail)) {
+    errors.push({ field: "email", messageKey: "contact.toast.invalidEmail" });
+  }
+  if (!selectedSubject) {
+    errors.push({ field: "subjectSelect", messageKey: "contact.toast.selectSubject" });
+  } else if (selectedSubject === CUSTOM_SUBJECT_VALUE && !customSubject.trim()) {
+    errors.push({ field: "subjectCustom", messageKey: "contact.toast.enterCustomSubject" });
+  }
+  if (!message.trim()) {
+    errors.push({ field: "message", messageKey: "contact.toast.enterMessage" });
+  }
+
+  return errors;
+}
+
+function getErrorEl(fieldEl) {
+  const errorId = fieldEl?.getAttribute?.("aria-describedby");
+  return errorId ? document.getElementById(errorId) : null;
+}
+
+function setFieldError(fieldEl, message) {
+  if (!fieldEl) return;
+  fieldEl.setAttribute("aria-invalid", "true");
+  fieldEl.closest?.(".form-field")?.classList.add("is-invalid");
+  const errorEl = getErrorEl(fieldEl);
+  if (errorEl) {
+    errorEl.textContent = message;
+  }
+}
+
+function clearFieldError(fieldEl) {
+  if (!fieldEl) return;
+  fieldEl.removeAttribute("aria-invalid");
+  const wrapper = fieldEl.closest?.(".form-field");
+  if (wrapper && !wrapper.querySelector?.('[aria-invalid="true"]')) {
+    wrapper.classList.remove("is-invalid");
+  }
+  const errorEl = getErrorEl(fieldEl);
+  if (errorEl) {
+    errorEl.textContent = "";
+  }
+}
+
+function clearAllFieldErrors(form) {
+  if (!form) return;
+  form.querySelectorAll('[aria-invalid="true"]').forEach((el) => {
+    el.removeAttribute("aria-invalid");
+  });
+  form.querySelectorAll(".form-field.is-invalid").forEach((el) => {
+    el.classList.remove("is-invalid");
+  });
+  form.querySelectorAll(".form-error").forEach((el) => {
+    el.textContent = "";
+  });
+}
 
 function initFormControls() {
+  const nameEl = document.getElementById("name");
+  const emailEl = document.getElementById("email");
   const messageEl = document.getElementById("message");
   const counterEl = document.getElementById("message-char-count");
   if (messageEl && counterEl) {
@@ -50,6 +127,8 @@ function initFormControls() {
       const isCustom = subjectSelect.value === CUSTOM_SUBJECT_VALUE;
       subjectCustom.style.display = isCustom ? "block" : "none";
       subjectCustom.required = isCustom;
+      clearFieldError(subjectSelect);
+      clearFieldError(subjectCustom);
       if (isCustom) {
         subjectCustom.focus();
       } else {
@@ -59,6 +138,10 @@ function initFormControls() {
 
     subjectSelect.addEventListener("change", syncCustomSubjectVisibility);
     syncCustomSubjectVisibility();
+  }
+
+  for (const fieldEl of [nameEl, emailEl, subjectCustom, messageEl]) {
+    fieldEl?.addEventListener("input", () => clearFieldError(fieldEl));
   }
 
   const form = document.getElementById("contact-form");
@@ -77,6 +160,7 @@ function initFormControls() {
 
 function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
   form.reset();
+  clearAllFieldErrors(form);
   firstInteractionAt = null;
   hasInteracted = false;
   if (subjectCustomEl) {
@@ -96,7 +180,7 @@ function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
 void onDomReady(initFormControls);
 
 /**
- * Handles contact form submission via /api/contact with validation, timeout, and accessible toast feedback.
+ * Handles contact form submission via /api/contact with inline validation, timeout, and accessible toast feedback.
  * @param {SubmitEvent} e
  */
 export async function sendEmail(e) {
@@ -117,38 +201,39 @@ export async function sendEmail(e) {
   const subjectHiddenEl = document.getElementById("subject");
   const messageEl = document.getElementById("message");
 
+  const fieldElements = {
+    name: nameEl,
+    email: emailEl,
+    subjectSelect: subjectSelectEl,
+    subjectCustom: subjectCustomEl,
+    message: messageEl,
+  };
+
+  clearAllFieldErrors(form);
+
+  const validationErrors = validateContactFields({
+    name: nameEl.value,
+    email: emailEl.value,
+    selectedSubject: subjectSelectEl.value,
+    customSubject: subjectCustomEl.value,
+    message: messageEl.value,
+  });
+
+  if (validationErrors.length > 0) {
+    showToast(toast, "", "");
+    for (const { field, messageKey } of validationErrors) {
+      setFieldError(fieldElements[field], t(messageKey));
+    }
+    fieldElements[validationErrors[0].field]?.focus();
+    return;
+  }
+
   const name = nameEl.value.trim();
   const email = emailEl.value.trim();
   const selectedSubject = subjectSelectEl.value;
   const isCustomSubject = selectedSubject === CUSTOM_SUBJECT_VALUE;
   const subject = isCustomSubject ? subjectCustomEl.value.trim() : selectedSubject.trim();
   const message = messageEl.value.trim();
-
-  if (!name) {
-    showToast(toast, t("contact.toast.enterName"), "error");
-    nameEl.focus();
-    return;
-  }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast(toast, t("contact.toast.invalidEmail"), "error");
-    emailEl.focus();
-    return;
-  }
-  if (!selectedSubject) {
-    showToast(toast, t("contact.toast.selectSubject"), "error");
-    subjectSelectEl.focus();
-    return;
-  }
-  if (isCustomSubject && !subject) {
-    showToast(toast, t("contact.toast.enterCustomSubject"), "error");
-    subjectCustomEl.focus();
-    return;
-  }
-  if (!message) {
-    showToast(toast, t("contact.toast.enterMessage"), "error");
-    messageEl.focus();
-    return;
-  }
 
   if (subjectHiddenEl) {
     subjectHiddenEl.value = subject;

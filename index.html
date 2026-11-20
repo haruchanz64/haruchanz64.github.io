@@ -865,6 +865,7 @@
           method="POST"
           action="https://haruchanz64-portfolio.haruchanz64.workers.dev/api/contact"
           class="contact-form"
+          novalidate
           onsubmit="sendEmail(event)"
         >
   <p style="display: none" aria-hidden="true">
@@ -880,9 +881,11 @@
         autocomplete="name"
         placeholder="Your name"
         data-i18n-placeholder="contact.form.namePlaceholder"
+        aria-describedby="name-error"
         maxlength="100"
         required
       />
+      <span class="form-error" id="name-error" aria-live="polite"></span>
     </div>
     <div class="form-field">
       <label for="email" data-i18n="contact.form.emailLabel">Email</label>
@@ -893,15 +896,17 @@
         autocomplete="email"
         placeholder="you@example.com"
         data-i18n-placeholder="contact.form.emailPlaceholder"
+        aria-describedby="email-error"
         maxlength="160"
         required
       />
+      <span class="form-error" id="email-error" aria-live="polite"></span>
     </div>
   </div>
   <div class="form-field">
     <label for="subject-select" data-i18n="contact.form.subjectLabel">Subject</label>
     <div class="select-wrapper">
-      <select id="subject-select" required>
+      <select id="subject-select" aria-describedby="subject-error" required>
         <option value="" disabled selected data-i18n="contact.form.subjectPlaceholder">Select a subject…</option>
         <option value="Freelance / Project Inquiry" data-i18n="contact.form.subjects.freelance">Freelance / Project Inquiry</option>
         <option value="Job Opportunity / Interview" data-i18n="contact.form.subjects.job">Job Opportunity / Interview</option>
@@ -921,7 +926,9 @@
       style="display: none"
       aria-label="Custom subject"
       data-i18n-aria-label="contact.form.customSubjectAriaLabel"
+      aria-describedby="subject-error"
     />
+    <span class="form-error" id="subject-error" aria-live="polite"></span>
     <input type="hidden" id="subject" name="subject" />
   </div>
   <div class="form-field">
@@ -935,9 +942,11 @@
       rows="4"
       placeholder="Write your message here…"
       data-i18n-placeholder="contact.form.messagePlaceholder"
+      aria-describedby="message-error"
       maxlength="1000"
       required
     ></textarea>
+    <span class="form-error" id="message-error" aria-live="polite"></span>
   </div>
   <button type="submit" class="form-submit" id="submit-btn">
     <span class="btn-text" data-i18n="contact.form.submit">Send Message</span>

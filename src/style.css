@@ -602,6 +602,72 @@ html:not(.intro-seen) .hero--pending .cta-button {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--third-color) 20%, transparent);
 }
 
+.form-field input[aria-invalid="true"],
+.form-field select[aria-invalid="true"],
+.form-field textarea[aria-invalid="true"] {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--third-color) 16%, transparent);
+}
+
+.form-field input[aria-invalid="true"]:focus,
+.form-field select[aria-invalid="true"]:focus,
+.form-field textarea[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--third-color) 26%, transparent);
+}
+
+.select-wrapper:has(select[aria-invalid="true"]) .select-icon {
+  color: var(--accent-primary);
+}
+
+.form-error {
+  display: none;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--accent-primary);
+  margin-top: 0.05rem;
+}
+
+.form-error:not(:empty) {
+  display: flex;
+  animation: formErrorIn 0.2s ease forwards;
+}
+
+.form-error::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: var(--bg-primary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+@keyframes formErrorIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-error:not(:empty) {
+    animation: none;
+  }
+}
+
 .form-submit {
   display: block;
   width: auto;
