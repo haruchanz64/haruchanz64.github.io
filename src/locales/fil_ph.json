@@ -150,16 +150,22 @@
         "500to2000": "$500 – $2,000",
         "2000to5000": "$2,000 – $5,000",
         "over5000": "$5,000+",
-        "unsure": "Hindi pa sigurado"
+        "unsure": "Hindi pa sigurado",
+        "custom": "Iba pa (Pasadyang Badyet)"
       },
+      "customBudgetPlaceholder": "Ilagay ang iyong pasadyang badyet…",
+      "customBudgetAriaLabel": "Pasadyang badyet",
       "timelineLabel": "Timeline",
       "timelinePlaceholder": "Pumili ng timeline…",
       "timelines": {
         "asap": "Sa lalong madaling panahon",
         "oneToThree": "1–3 buwan",
         "threePlus": "3+ buwan",
-        "flexible": "Flexible"
+        "flexible": "Flexible",
+        "custom": "Iba pa (Pasadyang Timeline)"
       },
+      "customTimelinePlaceholder": "Ilagay ang iyong pasadyang timeline…",
+      "customTimelineAriaLabel": "Pasadyang timeline",
       "roleLabel": "Posisyon / Tungkulin",
       "rolePlaceholder": "hal. Software Engineer, Game Programmer",
       "messageLabel": "Mensahe",
@@ -180,6 +186,8 @@
       "fieldTooLong": "Lumampas ang field na ito sa pinapayagang haba.",
       "selectSubject": "Pakipili ang isang paksa.",
       "enterCustomSubject": "Pakilagay ang iyong pasadyang paksa.",
+      "enterCustomBudget": "Pakilagay ang iyong pasadyang badyet.",
+      "enterCustomTimeline": "Pakilagay ang iyong pasadyang timeline.",
       "enterMessage": "Pakilagay ang mensahe.",
       "turnstileRequired": "Pakikumpleto ang security verification bago magpadala.",
       "turnstileFailed": "Nabigo ang security verification. Pakisubukang muli.",

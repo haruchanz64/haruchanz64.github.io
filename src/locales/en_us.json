@@ -150,16 +150,22 @@
         "500to2000": "$500 – $2,000",
         "2000to5000": "$2,000 – $5,000",
         "over5000": "$5,000+",
-        "unsure": "Not sure yet"
+        "unsure": "Not sure yet",
+        "custom": "Other (Custom Budget)"
       },
+      "customBudgetPlaceholder": "Enter your custom budget…",
+      "customBudgetAriaLabel": "Custom budget",
       "timelineLabel": "Timeline",
       "timelinePlaceholder": "Select a timeline…",
       "timelines": {
         "asap": "ASAP",
         "oneToThree": "1–3 months",
         "threePlus": "3+ months",
-        "flexible": "Flexible"
+        "flexible": "Flexible",
+        "custom": "Other (Custom Timeline)"
       },
+      "customTimelinePlaceholder": "Enter your custom timeline…",
+      "customTimelineAriaLabel": "Custom timeline",
       "roleLabel": "Role / Position",
       "rolePlaceholder": "e.g. Software Engineer, Game Programmer",
       "messageLabel": "Message",
@@ -180,6 +186,8 @@
       "fieldTooLong": "This field exceeds the maximum allowed length.",
       "selectSubject": "Please select a subject.",
       "enterCustomSubject": "Please enter your custom subject.",
+      "enterCustomBudget": "Please enter your custom budget.",
+      "enterCustomTimeline": "Please enter your custom timeline.",
       "enterMessage": "Please enter a message.",
       "turnstileRequired": "Please complete the security verification before sending.",
       "turnstileFailed": "Security verification failed. Please try again.",

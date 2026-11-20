@@ -944,16 +944,30 @@
           <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
         </label>
         <div class="select-wrapper">
-          <select id="budget" name="budget">
-            <option value="" selected data-i18n="contact.form.budgetPlaceholder">Select a range…</option>
+          <select id="budget" name="budget" aria-describedby="budget-error">
+            <option value="" disabled selected data-i18n="contact.form.budgetPlaceholder">Select a range…</option>
             <option value="Under $500" data-i18n="contact.form.budgets.under500">Under $500</option>
             <option value="$500 – $2,000" data-i18n="contact.form.budgets.500to2000">$500 – $2,000</option>
             <option value="$2,000 – $5,000" data-i18n="contact.form.budgets.2000to5000">$2,000 – $5,000</option>
             <option value="$5,000+" data-i18n="contact.form.budgets.over5000">$5,000+</option>
             <option value="Not sure yet" data-i18n="contact.form.budgets.unsure">Not sure yet</option>
+            <option value="__custom__" data-i18n="contact.form.budgets.custom">Other (Custom Budget)</option>
           </select>
           <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
+        <input
+          type="text"
+          id="budget-custom"
+          autocomplete="off"
+          placeholder="Enter your custom budget…"
+          data-i18n-placeholder="contact.form.customBudgetPlaceholder"
+          maxlength="60"
+          style="display: none"
+          aria-label="Custom budget"
+          data-i18n-aria-label="contact.form.customBudgetAriaLabel"
+          aria-describedby="budget-error"
+        />
+        <span class="form-error" id="budget-error" aria-live="polite"></span>
       </div>
       <div class="form-field">
         <label for="timeline">
@@ -961,15 +975,29 @@
           <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
         </label>
         <div class="select-wrapper">
-          <select id="timeline" name="timeline">
-            <option value="" selected data-i18n="contact.form.timelinePlaceholder">Select a timeline…</option>
+          <select id="timeline" name="timeline" aria-describedby="timeline-error">
+            <option value="" disabled selected data-i18n="contact.form.timelinePlaceholder">Select a timeline…</option>
             <option value="ASAP" data-i18n="contact.form.timelines.asap">ASAP</option>
             <option value="1–3 months" data-i18n="contact.form.timelines.oneToThree">1–3 months</option>
             <option value="3+ months" data-i18n="contact.form.timelines.threePlus">3+ months</option>
             <option value="Flexible" data-i18n="contact.form.timelines.flexible">Flexible</option>
+            <option value="__custom__" data-i18n="contact.form.timelines.custom">Other (Custom Timeline)</option>
           </select>
           <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
+        <input
+          type="text"
+          id="timeline-custom"
+          autocomplete="off"
+          placeholder="Enter your custom timeline…"
+          data-i18n-placeholder="contact.form.customTimelinePlaceholder"
+          maxlength="60"
+          style="display: none"
+          aria-label="Custom timeline"
+          data-i18n-aria-label="contact.form.customTimelineAriaLabel"
+          aria-describedby="timeline-error"
+        />
+        <span class="form-error" id="timeline-error" aria-live="polite"></span>
       </div>
     </div>
   </div>

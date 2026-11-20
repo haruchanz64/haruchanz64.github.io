@@ -7,13 +7,15 @@ const TOAST_AUTO_HIDE_MS = 6000;
 const TURNSTILE_SCRIPT_URL =
   "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
-const CUSTOM_SUBJECT_VALUE = "__custom__";
+const CUSTOM_OPTION_VALUE = "__custom__";
 const FREELANCE_SUBJECT_VALUE = "Freelance / Project Inquiry";
 const JOB_SUBJECT_VALUE = "Job Opportunity / Interview";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_COMPANY_LENGTH = 120;
 const MAX_ROLE_LENGTH = 120;
 const MAX_REFERENCE_URL_LENGTH = 300;
+const MAX_BUDGET_LENGTH = 60;
+const MAX_TIMELINE_LENGTH = 60;
 
 const pageLoadedAt = Date.now();
 let firstInteractionAt = null;
@@ -69,10 +71,14 @@ export function isValidHttpUrl(value) {
  *   referenceUrl?: string,
  *   selectedSubject: string,
  *   customSubject: string,
+ *   selectedBudget?: string,
+ *   customBudget?: string,
+ *   selectedTimeline?: string,
+ *   customTimeline?: string,
  *   role?: string,
  *   message: string,
  * }} fields
- * @returns {Array<{ field: "name" | "email" | "company" | "referenceUrl" | "subjectSelect" | "subjectCustom" | "role" | "message", messageKey: string }>}
+ * @returns {Array<{ field: "name" | "email" | "company" | "referenceUrl" | "subjectSelect" | "subjectCustom" | "budgetCustom" | "timelineCustom" | "role" | "message", messageKey: string }>}
  */
 export function validateContactFields({
   name,
@@ -81,6 +87,10 @@ export function validateContactFields({
   referenceUrl = "",
   selectedSubject,
   customSubject,
+  selectedBudget = "",
+  customBudget = "",
+  selectedTimeline = "",
+  customTimeline = "",
   role = "",
   message,
 }) {
@@ -106,8 +116,26 @@ export function validateContactFields({
   }
   if (!selectedSubject) {
     errors.push({ field: "subjectSelect", messageKey: "contact.toast.selectSubject" });
-  } else if (selectedSubject === CUSTOM_SUBJECT_VALUE && !customSubject.trim()) {
+  } else if (selectedSubject === CUSTOM_OPTION_VALUE && !customSubject.trim()) {
     errors.push({ field: "subjectCustom", messageKey: "contact.toast.enterCustomSubject" });
+  }
+  if (selectedSubject === FREELANCE_SUBJECT_VALUE) {
+    if (selectedBudget === CUSTOM_OPTION_VALUE) {
+      const trimmedBudget = customBudget.trim();
+      if (!trimmedBudget) {
+        errors.push({ field: "budgetCustom", messageKey: "contact.toast.enterCustomBudget" });
+      } else if (trimmedBudget.length > MAX_BUDGET_LENGTH) {
+        errors.push({ field: "budgetCustom", messageKey: "contact.toast.fieldTooLong" });
+      }
+    }
+    if (selectedTimeline === CUSTOM_OPTION_VALUE) {
+      const trimmedTimeline = customTimeline.trim();
+      if (!trimmedTimeline) {
+        errors.push({ field: "timelineCustom", messageKey: "contact.toast.enterCustomTimeline" });
+      } else if (trimmedTimeline.length > MAX_TIMELINE_LENGTH) {
+        errors.push({ field: "timelineCustom", messageKey: "contact.toast.fieldTooLong" });
+      }
+    }
   }
   if (role.trim().length > MAX_ROLE_LENGTH) {
     errors.push({ field: "role", messageKey: "contact.toast.fieldTooLong" });
@@ -241,6 +269,22 @@ function initTurnstile() {
   script.addEventListener("load", scheduleRender, { once: true });
 }
 
+function syncCustomSelectField(selectEl, customEl, { focusOnShow = false } = {}) {
+  if (!selectEl || !customEl) return;
+  const isCustom = selectEl.value === CUSTOM_OPTION_VALUE;
+  customEl.style.display = isCustom ? "block" : "none";
+  customEl.required = isCustom;
+  clearFieldError(selectEl);
+  clearFieldError(customEl);
+  if (isCustom) {
+    if (focusOnShow) {
+      customEl.focus();
+    }
+  } else {
+    customEl.value = "";
+  }
+}
+
 function initFormControls() {
   const nameEl = document.getElementById("name");
   const emailEl = document.getElementById("email");
@@ -248,7 +292,9 @@ function initFormControls() {
   const referenceUrlEl = document.getElementById("reference-url");
   const roleEl = document.getElementById("role");
   const budgetEl = document.getElementById("budget");
+  const budgetCustomEl = document.getElementById("budget-custom");
   const timelineEl = document.getElementById("timeline");
+  const timelineCustomEl = document.getElementById("timeline-custom");
   const freelanceGroupEl = document.getElementById("freelance-fields");
   const jobGroupEl = document.getElementById("job-fields");
   const messageEl = document.getElementById("message");
@@ -263,30 +309,37 @@ function initFormControls() {
     update();
   }
 
+  if (budgetEl && budgetCustomEl) {
+    budgetEl.addEventListener("change", () =>
+      syncCustomSelectField(budgetEl, budgetCustomEl, { focusOnShow: true }),
+    );
+    syncCustomSelectField(budgetEl, budgetCustomEl);
+  }
+
+  if (timelineEl && timelineCustomEl) {
+    timelineEl.addEventListener("change", () =>
+      syncCustomSelectField(timelineEl, timelineCustomEl, { focusOnShow: true }),
+    );
+    syncCustomSelectField(timelineEl, timelineCustomEl);
+  }
+
   const subjectSelect = document.getElementById("subject-select");
   const subjectCustom = document.getElementById("subject-custom");
   if (subjectSelect && subjectCustom) {
-    const syncSubjectDependentFields = () => {
+    const syncSubjectDependentFields = ({ focusOnShow = false } = {}) => {
       const value = subjectSelect.value;
-      const isCustom = value === CUSTOM_SUBJECT_VALUE;
       const isFreelance = value === FREELANCE_SUBJECT_VALUE;
       const isJob = value === JOB_SUBJECT_VALUE;
 
-      subjectCustom.style.display = isCustom ? "block" : "none";
-      subjectCustom.required = isCustom;
-      clearFieldError(subjectSelect);
-      clearFieldError(subjectCustom);
-      if (isCustom) {
-        subjectCustom.focus();
-      } else {
-        subjectCustom.value = "";
-      }
+      syncCustomSelectField(subjectSelect, subjectCustom, { focusOnShow });
 
       if (freelanceGroupEl) {
         freelanceGroupEl.hidden = !isFreelance;
         if (!isFreelance) {
           if (budgetEl) budgetEl.value = "";
           if (timelineEl) timelineEl.value = "";
+          syncCustomSelectField(budgetEl, budgetCustomEl);
+          syncCustomSelectField(timelineEl, timelineCustomEl);
         }
       }
 
@@ -299,7 +352,9 @@ function initFormControls() {
       }
     };
 
-    subjectSelect.addEventListener("change", syncSubjectDependentFields);
+    subjectSelect.addEventListener("change", () =>
+      syncSubjectDependentFields({ focusOnShow: true }),
+    );
     syncSubjectDependentFields();
   }
 
@@ -309,6 +364,8 @@ function initFormControls() {
     companyEl,
     referenceUrlEl,
     subjectCustom,
+    budgetCustomEl,
+    timelineCustomEl,
     roleEl,
     messageEl,
   ]) {
@@ -336,9 +393,16 @@ function resetFormState(form, subjectCustomEl, subjectHiddenEl, messageEl) {
   clearAllFieldErrors(form);
   firstInteractionAt = null;
   hasInteracted = false;
-  if (subjectCustomEl) {
-    subjectCustomEl.style.display = "none";
-    subjectCustomEl.required = false;
+  for (const customEl of [
+    subjectCustomEl,
+    document.getElementById("budget-custom"),
+    document.getElementById("timeline-custom"),
+  ]) {
+    if (customEl) {
+      customEl.style.display = "none";
+      customEl.required = false;
+      customEl.value = "";
+    }
   }
   if (subjectHiddenEl) {
     subjectHiddenEl.value = "";
@@ -384,7 +448,9 @@ export async function sendEmail(e) {
   const subjectCustomEl = document.getElementById("subject-custom");
   const subjectHiddenEl = document.getElementById("subject");
   const budgetEl = document.getElementById("budget");
+  const budgetCustomEl = document.getElementById("budget-custom");
   const timelineEl = document.getElementById("timeline");
+  const timelineCustomEl = document.getElementById("timeline-custom");
   const roleEl = document.getElementById("role");
   const messageEl = document.getElementById("message");
 
@@ -395,6 +461,8 @@ export async function sendEmail(e) {
     referenceUrl: referenceUrlEl,
     subjectSelect: subjectSelectEl,
     subjectCustom: subjectCustomEl,
+    budgetCustom: budgetCustomEl,
+    timelineCustom: timelineCustomEl,
     role: roleEl,
     message: messageEl,
   };
@@ -408,6 +476,10 @@ export async function sendEmail(e) {
     referenceUrl: referenceUrlEl?.value ?? "",
     selectedSubject: subjectSelectEl.value,
     customSubject: subjectCustomEl.value,
+    selectedBudget: budgetEl?.value ?? "",
+    customBudget: budgetCustomEl?.value ?? "",
+    selectedTimeline: timelineEl?.value ?? "",
+    customTimeline: timelineCustomEl?.value ?? "",
     role: roleEl?.value ?? "",
     message: messageEl.value,
   });
@@ -434,11 +506,24 @@ export async function sendEmail(e) {
   const company = companyEl?.value?.trim() ?? "";
   const referenceUrl = referenceUrlEl?.value?.trim() ?? "";
   const selectedSubject = subjectSelectEl.value;
-  const isCustomSubject = selectedSubject === CUSTOM_SUBJECT_VALUE;
+  const isCustomSubject = selectedSubject === CUSTOM_OPTION_VALUE;
   const subject = isCustomSubject ? subjectCustomEl.value.trim() : selectedSubject.trim();
-  const budget = selectedSubject === FREELANCE_SUBJECT_VALUE ? (budgetEl?.value?.trim() ?? "") : "";
+  const selectedBudget = budgetEl?.value ?? "";
+  const budget =
+    selectedSubject === FREELANCE_SUBJECT_VALUE
+      ? (selectedBudget === CUSTOM_OPTION_VALUE
+          ? (budgetCustomEl?.value ?? "")
+          : selectedBudget
+        ).trim()
+      : "";
+  const selectedTimeline = timelineEl?.value ?? "";
   const timeline =
-    selectedSubject === FREELANCE_SUBJECT_VALUE ? (timelineEl?.value?.trim() ?? "") : "";
+    selectedSubject === FREELANCE_SUBJECT_VALUE
+      ? (selectedTimeline === CUSTOM_OPTION_VALUE
+          ? (timelineCustomEl?.value ?? "")
+          : selectedTimeline
+        ).trim()
+      : "";
   const role = selectedSubject === JOB_SUBJECT_VALUE ? (roleEl?.value?.trim() ?? "") : "";
   const message = messageEl.value.trim();
 

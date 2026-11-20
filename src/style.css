@@ -612,7 +612,9 @@ html:not(.intro-seen) .hero--pending .cta-button {
   color: var(--text-muted);
 }
 
-#subject-custom {
+#subject-custom,
+#budget-custom,
+#timeline-custom {
   margin-top: 0.45rem;
 }
 

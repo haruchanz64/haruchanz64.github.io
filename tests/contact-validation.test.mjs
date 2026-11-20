@@ -114,6 +114,56 @@ describe("validateContactFields", () => {
     ]);
   });
 
+  it("validates custom budget and timeline when Other is selected under Freelance", () => {
+    const missingCustomFreelance = validateContactFields({
+      name: "Alex Rivera",
+      email: "alex@studio.dev",
+      selectedSubject: "Freelance / Project Inquiry",
+      customSubject: "",
+      selectedBudget: "__custom__",
+      customBudget: "  ",
+      selectedTimeline: "__custom__",
+      customTimeline: "",
+      message: "Let's discuss scope.",
+    });
+
+    assert.deepEqual(missingCustomFreelance, [
+      { field: "budgetCustom", messageKey: "contact.toast.enterCustomBudget" },
+      { field: "timelineCustom", messageKey: "contact.toast.enterCustomTimeline" },
+    ]);
+
+    const tooLongCustomFreelance = validateContactFields({
+      name: "Alex Rivera",
+      email: "alex@studio.dev",
+      selectedSubject: "Freelance / Project Inquiry",
+      customSubject: "",
+      selectedBudget: "__custom__",
+      customBudget: "X".repeat(61),
+      selectedTimeline: "__custom__",
+      customTimeline: "Y".repeat(61),
+      message: "Let's discuss scope.",
+    });
+
+    assert.deepEqual(tooLongCustomFreelance, [
+      { field: "budgetCustom", messageKey: "contact.toast.fieldTooLong" },
+      { field: "timelineCustom", messageKey: "contact.toast.fieldTooLong" },
+    ]);
+
+    const validCustomFreelance = validateContactFields({
+      name: "Alex Rivera",
+      email: "alex@studio.dev",
+      selectedSubject: "Freelance / Project Inquiry",
+      customSubject: "",
+      selectedBudget: "__custom__",
+      customBudget: "PHP 35,000 fixed",
+      selectedTimeline: "__custom__",
+      customTimeline: "Q1 2027 launch",
+      message: "Let's discuss scope.",
+    });
+
+    assert.deepEqual(validCustomFreelance, []);
+  });
+
   it("returns an empty array for valid input", () => {
     const errors = validateContactFields({
       name: "Alex Rivera",

@@ -150,16 +150,22 @@
         "500to2000": "$500 – $2,000",
         "2000to5000": "$2,000 – $5,000",
         "over5000": "$5,000 以上",
-        "unsure": "未定"
+        "unsure": "未定",
+        "custom": "その他（自由入力）"
       },
+      "customBudgetPlaceholder": "ご予算を入力してください…",
+      "customBudgetAriaLabel": "自由入力のご予算",
       "timelineLabel": "スケジュール",
       "timelinePlaceholder": "時期を選択…",
       "timelines": {
         "asap": "なるべく早めに",
         "oneToThree": "1〜3か月",
         "threePlus": "3か月以上",
-        "flexible": "柔軟に相談可能"
+        "flexible": "柔軟に相談可能",
+        "custom": "その他（自由入力）"
       },
+      "customTimelinePlaceholder": "スケジュールを入力してください…",
+      "customTimelineAriaLabel": "自由入力のスケジュール",
       "roleLabel": "募集職種 / ポジション",
       "rolePlaceholder": "例：Software Engineer, Game Programmer",
       "messageLabel": "メッセージ",
@@ -180,6 +186,8 @@
       "fieldTooLong": "入力内容が最大文字数を超えています。",
       "selectSubject": "件名を選択してください。",
       "enterCustomSubject": "件名を入力してください。",
+      "enterCustomBudget": "ご予算を入力してください。",
+      "enterCustomTimeline": "スケジュールを入力してください。",
       "enterMessage": "メッセージを入力してください。",
       "turnstileRequired": "送信前にセキュリティ認証を完了してください。",
       "turnstileFailed": "セキュリティ認証に失敗しました。もう一度お試しください。",
