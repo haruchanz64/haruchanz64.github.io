@@ -206,6 +206,7 @@ function setTurnstileError(message) {
 
 function resetTurnstileWidget() {
   turnstileToken = "";
+  document.getElementById("turnstile-wrapper")?.classList.remove("is-interactive");
   if (turnstileWidgetId !== null && typeof window !== "undefined" && window.turnstile?.reset) {
     try {
       window.turnstile.reset(turnstileWidgetId);
@@ -232,8 +233,16 @@ function initTurnstile() {
     turnstileWidgetId = window.turnstile.render(widgetEl, {
       sitekey: siteKey,
       theme: isLight ? "light" : "dark",
+      appearance: "interaction-only",
+      "before-interactive-callback"() {
+        wrapper.classList.add("is-interactive");
+      },
+      "after-interactive-callback"() {
+        wrapper.classList.remove("is-interactive");
+      },
       callback(token) {
         turnstileToken = token || "";
+        wrapper.classList.remove("is-interactive");
         setTurnstileError("");
       },
       "expired-callback"() {

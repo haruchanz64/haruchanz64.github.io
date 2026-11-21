@@ -549,6 +549,16 @@ html:not(.intro-seen) .hero--pending .cta-button {
 
 .turnstile-wrapper {
   align-items: center;
+  gap: 0;
+}
+
+.turnstile-wrapper.is-interactive,
+.turnstile-wrapper:has(.form-error:not(:empty)) {
+  gap: 0.4rem;
+}
+
+.turnstile-wrapper:not(.is-interactive):not(:has(.form-error:not(:empty))) {
+  margin-top: -0.9rem;
 }
 
 .form-field input,
