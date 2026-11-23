@@ -1,6 +1,8 @@
 import { cacheImageElement } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
 import { i18nReady, t } from "../core/i18n.js";
+import { resolveGameDetails } from "./project-details.js";
+import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
 const CACHE_KEY = "haru_itch_projects_v3";
@@ -33,21 +35,27 @@ async function initItchProjects() {
     grid,
     items: projects,
     emptyMessage: t("projects.noneGamesFound"),
-    mapItem: (project) => ({
-      url: project.url,
-      title: project.title || t("projects.untitled"),
-      description: project.description || t("projects.noDescription"),
-      image: project.image,
-      imageAlt: project.title || t("projects.gameAlt"),
-      onImage: (img) => void cacheImageElement(img),
-      tags: [
-        ...(project.tags || []).map((tag) => ({ className: "role-tag", text: tag })),
-        ...(project.platforms || []).map((platform) => ({
-          className: "project-language",
-          text: platform,
-        })),
-      ],
-    }),
+    mapItem: (project) => {
+      const details = resolveGameDetails(project);
+      return {
+        url: project.url,
+        title: project.title || t("projects.untitled"),
+        eyebrow: `${details.focus} · ${details.engine}`,
+        description: project.description || details.summary || t("projects.noDescription"),
+        image: project.image,
+        imageAlt: project.title || t("projects.gameAlt"),
+        onImage: (img) => void cacheImageElement(img),
+        tags: [
+          ...(project.tags || []).map((tag) => ({ className: "role-tag", text: tag })),
+          ...(project.platforms || []).map((platform) => ({
+            className: "project-language",
+            text: platform,
+          })),
+        ],
+        cueLabel: t("projects.viewBreakdown"),
+        onSelect: (triggerEl) => openProjectModal(details, triggerEl),
+      };
+    },
   });
 }
 

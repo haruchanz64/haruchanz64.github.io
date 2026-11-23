@@ -5,28 +5,28 @@
 ![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](license)
 
-My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engineer & College Instructor. Built with vanilla HTML, JavaScript (ES modules), and [Tailwind CSS v4](https://tailwindcss.com/) compiled at build time with [Vite](https://vite.dev/).
+My personal portfolio website — I'm **Haru**, a Game Developer specializing in gameplay systems, Unity tooling, and technical game design (and College Instructor under the BS EMC Game Development program). Built with vanilla HTML, JavaScript (ES modules), and [Tailwind CSS v4](https://tailwindcss.com/) compiled at build time with [Vite](https://vite.dev/).
 
 **Live Demo:** [https://haruchanz64.github.io](https://haruchanz64.github.io)
 
 ## Engineering Highlights
 
 - **Zero-Runtime-Dependency Architecture**: Built with native ES modules, browser APIs, and build-time Tailwind CSS v4 (`@tailwindcss/vite`) backed by CSS custom properties—no frontend JS framework or runtime dependencies.
-- **Client-Side ATS PDF Engine**: Generates a valid, paginated PDF 1.4 resume directly in the browser (`src/js/resume/pdf-builder.js`) with WinAnsi character encoding, Helvetica width tables, and multi-line bullet justification—no third-party PDF library required.
+- **Client-Side ATS PDF Engine**: Generates a valid, paginated PDF 1.4 resume directly in the browser (`src/js/resume/pdf-builder.js`) with WinAnsi character encoding, Helvetica width tables, Selected Projects, and multi-line bullet justification—no third-party PDF library required.
 - **Layered Spam & Bot Protection**: Combines honeypot fields, interaction-timing checks, cooldown rate limiting, and content-scoring heuristics (`src/js/contact/spam-detector.js`) before hitting the Cloudflare Worker.
 - **Tested Multi-Language Support (i18n)**: Supports `en_us`, `fil_ph`, and `ja_jp` with lazy-loaded locale dictionaries, `localStorage` caching, and automated key-parity tests (`tests/i18n.test.mjs`).
 - **Offline Asset Caching**: Uses a Service Worker (`public/sw.js`) alongside `localStorage` data-URL hydration (`src/js/core/cache.js`) for fast repeat loads.
 
 ## Features
 
-- **Portfolio Sections**: Hero, About Me, Experience timeline (with automatic duration calculation), Projects, tabbed Skills showcase, and Contact.
+- **Portfolio Sections**: Hero, About, Projects (with in-page breakdown modals), Experience timeline (with automatic duration calculation), tabbed Skills showcase, Education, and Contact.
 - **Multi-Language Support (i18n)**: Supports English (`en_us`), Filipino (`fil_ph`), and Japanese (`ja_jp`) via `src/js/core/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
-- **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume/resume.js`, `src/js/resume/pdf-builder.js`, `src/js/resume/resume-guard.js`).
-- **Dynamic Project Feeds**:
-  - **Systems & Tools**: Displays pinned repositories (`haruchanz64`) via `src/js/projects/github.js` (with shared config in `src/js/projects/github-config.js`) and local caching (`src/js/core/cache.js`), plus build-time sync to `public/data/github-projects.json` (`scripts/sync-github.mjs`).
-  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/projects/itch.js`), kept up to date via `scripts/sync-itch.mjs`.
+- **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume/resume.js`, `src/js/resume/pdf-builder.js`, `src/js/resume/resume-guard.js`) featuring Experience, Selected Projects, Technical Skills, and Education.
+- **Dynamic Project Feeds & Breakdown Modals**:
+  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/projects/itch.js`, synced via `scripts/sync-itch.mjs`) enriched with sync-safe role, engine, and design/systems breakdowns (`src/js/projects/project-details.js`, `src/js/projects/project-modal.js`).
+  - **Unity Tools & Designer Workflows**: Displays pinned Unity C# tool repositories (`haruchanz64`) via `src/js/projects/github.js` (with shared config in `src/js/projects/github-config.js`) and local caching (`src/js/core/cache.js`), plus build-time sync to `public/data/github-projects.json` (`scripts/sync-github.mjs`).
 - **Contact Form**: Submits to a Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact/contact.js`, `src/js/contact/spam-detector.js`).
-- **Interactive UI**: Theme management, hero loading transition, intersection-observer reveal tracking, URL hash synchronization, and tabbed skill categories (`src/js/ui/`).
+- **Interactive UI**: Theme management, hero loading transition, intersection-observer reveal tracking, URL hash synchronization, project breakdown & case study PDF modals, and tabbed skill categories (`src/js/ui/`).
 
 ## Tech Stack
 

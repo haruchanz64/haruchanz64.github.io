@@ -1,19 +1,19 @@
 {
   "meta": {
     "title": "ハル · ポートフォリオ",
-    "description": "Aron Jake Radam（ハル）のポートフォリオ — フルスタック開発・ゲームデザイン・QA の経歴を持つ大学講師・ゲーム開発者。"
+    "description": "Aron Jake Radam（ハル）のポートフォリオ — ゲームプレイシステム、Unity ツール開発、テクニカルゲームデザインを専門とするゲーム開発者。QA・大学指導・モバイル本番リリースの経験あり。"
   },
   "nav": {
     "ariaLabel": "メインナビゲーション",
     "logoAriaLabel": "ハル — トップへ戻る",
     "brandName": "ハル",
-    "brandRole": "大学講師 & ゲーム開発者",
+    "brandRole": "ゲーム開発者 · システム / ツール / テクニカルデザイン",
     "links": {
       "about": "自己紹介",
-      "experience": "経歴",
-      "education": "学歴",
       "projects": "プロジェクト",
+      "experience": "経歴",
       "skills": "スキル",
+      "education": "学歴",
       "contact": "お問い合わせ"
     }
   },
@@ -21,19 +21,19 @@
     "logoAlt": "ハルのロゴ",
     "greeting": "はじめまして、",
     "name": "ハルです。",
-    "titleHtml": "<strong>ゲーム開発</strong>を教えながら、<strong>ゲームデザイン理論</strong>を深く探究している<strong>大学講師・ゲーム開発者</strong>です。",
+    "titleHtml": "<strong>ゲームプレイシステム、Unity ツール開発、テクニカルゲームデザイン</strong>を専門とし、UCC でゲーム開発を教えている<strong>ゲーム開発者</strong>です。",
     "ctaContact": "お問い合わせ",
     "ctaProjects": "制作実績を見る"
   },
   "about": {
     "title": "自己紹介",
-    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。<strong>University of Caloocan City</strong> の <strong>BS EMC（ゲーム開発専攻）</strong>プログラムで教鞭を執る<strong>大学講師</strong>・<strong>ゲーム開発者</strong>です。2年生から4年生までの学生を対象に、ゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを教え、初期メカニクスから本格的なプロダクションまでプロジェクトを指導しています。",
+    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。<strong>ゲームプレイシステム、Unity ツール開発、テクニカルゲームデザイン</strong>に注力する<strong>ゲーム開発者</strong>です。また、<strong>University of Caloocan City</strong> の <strong>BS EMC（ゲーム開発専攻）</strong>プログラムで<strong>大学講師</strong>として教鞭を執り、2年生から4年生までの学生にゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを指導しています。",
     "haruOriginTitle": "なぜ @haruchanz64 なのか？",
     "haruOriginClose": "閉じる",
     "haruOriginHtml": "<strong>ハル</strong> は日本語で「春」、<strong>-chan</strong> はカジュアルな呼び方の接尾辞、<strong>Z64</strong> は Nintendo 64 の『<em>ゼルダの伝説 ムジュラの仮面</em>』（最初に遊んだゼルダ作品）と『<em>ゼルダの伝説 時のオカリナ</em>』から取っています。もとはゲーム用のユーザー名でしたが、そのまま GitHub や各種 SNS でも使い続けています。",
-    "p2Html": "フルタイムでの指導に専念する前は、<strong>Las Piñas, Philippines</strong> のスタートアップ企業 <strong>PicStar Software OPC</strong> で唯一のフルスタックエンジニアとして働き、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を設計から本番リリースまで一貫して開発し、Google Play ストアへ公開しました。",
-    "p3Html": "キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルドのテストやバグ報告、リリース前に開発者やデザイナーと密に連携する業務を担当しました。",
-    "p4Html": "指導やゲーム開発の傍ら、<strong>ゲームデザイン理論</strong>を学びながら、<strong>Java (Spring Boot)</strong> と <strong>Docker</strong> を使った個人プロジェクトを通して<strong>バックエンド</strong>や <strong>DevOps</strong> の独学に取り組んでいます。日々のワークフローでは AI コーディングツールも活用してプロトタイピングやデバッグを高速化しており、フリーランスの案件や新しいポジションのご相談も歓迎しています。"
+    "p2Html": "フルタイムでの指導に専念する前は、<strong>Las Piñas, Philippines</strong> の <strong>PicStar Software OPC</strong> で唯一のフルスタックエンジニアとして働き、<strong>Flutter</strong> と <strong>Supabase</strong> を用いて <strong>PicStar</strong> を設計から Google Play ストア公開まで一貫して構築しました。この経験を通じて、ライブバックエンドやパフォーマンス、本番リリースの実践力を磨きました。",
+    "p3Html": "キャリアの出発点は <strong>GridLock-Games Studio</strong> でのゲームプレイテストおよび QA で、ビルド検証やバグ報告を行いながら、開発者・デザイナーと連携してゲームプレイの手触りやバランス、リリース品質を高めました。",
+    "p4Html": "現在は<strong>ゲームデザイン理論</strong>の探究を続けながら、デザイナーや QA の制作ワークフローを高速化するオープンソースの <strong>Unity エディタツールやランタイムシステム</strong>を開発しています。日々の開発では AI コーディングツールも活用してプロトタイピングとデバッグを効率化しており、ゲームスタジオのポジションやフリーランス案件、コラボレーションのご相談を歓迎しています。"
   },
   "experience": {
     "title": "経歴",
@@ -43,10 +43,10 @@
         "date": "2026年7月 – 現在",
         "company": "University of Caloocan City · フルタイム",
         "location": "Caloocan City, Metro Manila",
-        "b0": "2年生から4年生を対象に、ゲームデザイン理論、プロトタイピング、プロダクションパイプラインを指導し、初期メカニクスから本格的なプロダクションまでプロジェクトを導いています。",
-        "b1": "ゲームプログラミング、ネットワーキング、プロダクションに関する講義および実習を担当し、学生がゲームのアイデアを動作するビルドへと形にする支援を行っています。",
-        "b2": "OOP、ゲーム数学、物理演算、衝突判定、AI、ネットワーキング、コード最適化など、スクリプティングとゲームエンジンの基礎を網羅的に指導しています。",
-        "b3": "実習セッションの運営、学生プロジェクトの進捗指導や質疑応答を行い、最新の業界プラクティスに即したカリキュラムを維持しています。"
+        "b0": "2年生から4年生を対象に、ゲームデザイン理論、ラピッドプロトタイピング、プロダクションパイプラインを指導し、初期メカニクスからプレイ可能なビルドまでプロジェクトを導いています。",
+        "b1": "ゲームプログラミング、システムアーキテクチャ、ネットワーキング、プロダクションワークフローの講義・実習を担当し、設計書を動作するプロトタイプへ落とし込む支援を行っています。",
+        "b2": "OOP、ゲーム数学、物理演算、衝突判定、ゲーム AI、ネットワーキング、コード最適化など、スクリプティングとゲームエンジンの基礎を網羅的に指導しています。",
+        "b3": "現在のゲームスタジオの実践に即した実習レビュー、デバッグ支援、プレイテスト講評を通じて学生チームを指導しています。"
       },
       "1": {
         "role": "Lead Full-Stack Software Engineer",
@@ -64,18 +64,18 @@
         "date": "2024年5月 – 2025年4月",
         "company": "GridLock-Games Studio · インターンシップ",
         "location": "Taguig, Metro Manila",
-        "b0": "開発者やデザイナーと連携し、リリース前にビルドをテストして不具合を早期に発見しました。",
-        "b1": "Trello でバグの記録・再現・追跡を行い、修正作業が円滑に進むよう管理しました。",
-        "b2": "リグレッションテストおよびビルド検証を通じて、リリースサイクル全体をサポートしました。"
+        "b0": "ゲーム開発者やデザイナーと連携し、リリース前にゲームプレイビルドをテストしてエッジケースのリグレッションやユーザビリティの課題を早期に発見しました。",
+        "b1": "明確な再現手順とともに Trello でバグを記録・再現・追跡し、エンジニアリングおよびデザインの修正フローを円滑に維持しました。",
+        "b2": "体系的なリグレッションテストとビルド検証を通じて、ゲームのリリースサイクル全体をサポートしました。"
       },
       "3": {
         "role": "ゲームプレイテスター",
         "date": "2022年12月 – 2024年5月",
         "company": "GridLock-Games Studio · 外部協力",
         "location": "Taguig, Metro Manila",
-        "b0": "さまざまなゲームビルドをプレイテストし、バグ、グリッチ、エクスプロイトを発見しました。",
-        "b1": "ゲームプレイのメカニクス、バランス、全体的なプレイ感について、文書および口頭でフィードバックを提供しました。",
-        "b2": "開発者と連携し、問題を明確に報告して修正内容の検証を行いました。"
+        "b0": "開発中のゲームビルドをプレイテストし、ゲームプレイのバグ、物理グリッチ、メカニクスのエクスプロイトを発見しました。",
+        "b1": "コアゲームプレイループ、ペーシング、バランス、ゲームフィールについて、構造化された文書および口頭フィードバックを提供しました。",
+        "b2": "開発者と直接連携し、再現手順を明確にドキュメント化して各パッチでの修正内容を検証しました。"
       }
     }
   },
@@ -98,30 +98,50 @@
   },
   "projects": {
     "title": "プロジェクト",
-    "systemsTools": "システム & ツール",
     "gameProjects": "ゲームプロジェクト",
+    "systemsTools": "Unity ツール & デザイナーワークフロー",
+    "viewBreakdown": "詳細 →",
     "loading": "プロジェクトを読み込み中...",
     "noneFound": "該当するプロジェクトが見つかりませんでした。",
     "noneGamesFound": "ゲームプロジェクトが見つかりませんでした。",
     "noDescription": "説明なし",
     "failedToLoad": "プロジェクトの読み込みに失敗しました。",
     "untitled": "無題",
-    "gameAlt": "ゲームプロジェクト"
+    "gameAlt": "ゲームプロジェクト",
+    "modal": {
+      "close": "プロジェクト詳細を閉じる",
+      "role": "担当役割",
+      "engine": "エンジン / 技術",
+      "scope": "体制 / 形態",
+      "designBreakdown": "デザイン & システム構成",
+      "technicalHighlights": "技術 & ワークフローの特徴",
+      "techStack": "技術・システム",
+      "playOnItch": "itch.io でプレイ",
+      "viewOnGithub": "GitHub で見る"
+    }
   },
   "skills": {
     "title": "スキル",
     "ariaLabel": "スキルカテゴリー",
     "tabs": {
-      "languages": "プログラミング言語",
-      "frameworks": "フレームワーク",
+      "gameDesign": "ゲーム開発 & テクニカルデザイン",
       "gameEngines": "ゲームエンジン",
-      "databases": "データベース",
-      "tools": "ツール & ソフトウェア"
+      "languages": "言語",
+      "tools": "ツール & ソフトウェア",
+      "backendFrameworks": "バックエンド & フレームワーク"
+    },
+    "items": {
+      "gameplaySystems": "ゲームプレイシステム",
+      "unityEditorTooling": "Unity エディタツール開発",
+      "dataDrivenPipelines": "データ駆動パイプライン",
+      "rapidPrototyping": "ラピッドプロトタイピング",
+      "gameDesignBalancing": "ゲームデザイン & バランス調整",
+      "playtestingQa": "プレイテスト & QA"
     }
   },
   "contact": {
     "title": "お問い合わせ",
-    "description": "フリーランス案件、ソフトウェアエンジニアとしてのポジション、ゲーム開発や教育分野でのコラボレーションのご相談を受け付けています。ぜひお気軽にご連絡ください。※お問い合わせは英語またはフィリピン語（タガログ語）でお願いいたします。",
+    "description": "ゲームプレイ／ツールプログラマーやテクニカルゲームデザイナーのポジション、フリーランス案件、ゲーム開発・教育分野でのコラボレーションのご相談を受け付けています。ぜひお気軽にご連絡ください。※お問い合わせは英語またはフィリピン語（タガログ語）でお願いいたします。",
     "form": {
       "nameLabel": "お名前",
       "namePlaceholder": "お名前を入力",
@@ -129,7 +149,7 @@
       "emailPlaceholder": "you@example.com",
       "optional": "（任意）",
       "companyLabel": "会社名 / 所属組織",
-      "companyPlaceholder": "会社名・スタジオ・学校など",
+      "companyPlaceholder": "スタジオ・会社名・学校など",
       "referenceUrlLabel": "Webサイト / 参考リンク",
       "referenceUrlPlaceholder": "https://example.com",
       "subjectLabel": "件名",
@@ -167,7 +187,7 @@
       "customTimelinePlaceholder": "スケジュールを入力してください…",
       "customTimelineAriaLabel": "自由入力のスケジュール",
       "roleLabel": "募集職種 / ポジション",
-      "rolePlaceholder": "例：Software Engineer, Game Programmer",
+      "rolePlaceholder": "例：Gameplay Programmer, Tools Programmer, Technical Game Designer",
       "messageLabel": "メッセージ",
       "messagePlaceholder": "メッセージを入力してください…",
       "submit": "メッセージを送信",

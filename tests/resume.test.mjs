@@ -158,6 +158,12 @@ function createMockDocument() {
         }),
         createElement({
           attributes: {
+            "aria-label": "itch.io",
+            href: "https://haruchanz64.itch.io/",
+          },
+        }),
+        createElement({
+          attributes: {
             "aria-label": "LinkedIn",
             href: "https://www.linkedin.com/in/aronjakeradam/",
           },
@@ -182,7 +188,7 @@ function createMockDocument() {
     },
     querySelector(selector) {
       if (selector === ".nav-brand-role") {
-        return createElement({ textContent: "College Instructor & Game Developer" });
+        return createElement({ textContent: "Game Developer · Systems, Tools & Technical Design" });
       }
       return null;
     },
@@ -227,55 +233,60 @@ describe("resume helpers", () => {
 });
 
 describe("extractResumeData", () => {
-  it("extracts experience, projects, skills, and only LinkedIn/GitHub links while excluding #about", () => {
+  it("extracts experience, selected projects, skills, and LinkedIn/GitHub/itch.io links while excluding #about", () => {
     const doc = createMockDocument();
     const data = extractResumeData(doc);
 
     assert.equal(data.fullName, "Aron Jake S. Radam");
     assert.equal(data.phone, undefined);
     assert.equal(data.email, undefined);
-    assert.equal(data.headline, "College Instructor & Game Developer");
+    assert.equal(data.headline, "Game Developer · Systems, Tools & Technical Design");
     assert.equal(data.location, "Caloocan City, Metro Manila");
     assert.equal(data.experience.length, 1);
     assert.equal(data.experience[0].date, "July 2026 – Present");
     assert.equal(data.education.length, 1);
     assert.equal(data.education[0].degree, "BS in Entertainment and Multimedia Computing");
-    assert.equal(data.projects, undefined);
+    assert.ok(Array.isArray(data.projects));
+    assert.ok(data.projects.length >= 4);
+    assert.ok(data.projects.some((p) => p.name.includes("Trash Frenzy")));
+    assert.ok(data.projects.some((p) => p.name.includes("SpreadsheetToScriptableObjects")));
     assert.deepEqual(data.skills, [
       { category: "Programming Languages", items: ["C#", "Dart"] },
       { category: "Languages", items: ["English (Fluent)", "Filipino (Native)"] },
     ]);
     assert.deepEqual(
       data.links.map((l) => l.label),
-      ["GitHub", "LinkedIn"],
+      ["GitHub", "itch.io", "LinkedIn"],
     );
     assert.equal(JSON.stringify(data).includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
 });
 
 describe("buildAtsResumeHtml and buildAtsResumeText", () => {
-  it("builds ATS-friendly HTML without About or Projects content, images, or SVGs", () => {
+  it("builds ATS-friendly HTML with Selected Projects and without About content, images, or SVGs", () => {
     const data = extractResumeData(createMockDocument());
     const html = buildAtsResumeHtml(data);
 
     assert.ok(html.includes("<h1>Aron Jake S. Radam</h1>"));
     assert.ok(html.includes(">Experience<"));
+    assert.ok(html.includes(">Selected Projects<"));
+    assert.ok(html.includes("SpreadsheetToScriptableObjects"));
     assert.ok(html.includes(">Technical Skills<"));
-    assert.equal(html.includes(">Projects<"), false);
     assert.equal(html.includes("GDriveDesktop"), false);
     assert.equal(html.includes("SECRET_ABOUT_SECTION_TEXT"), false);
     assert.equal(html.includes("<img"), false);
     assert.equal(html.includes("<svg"), false);
   });
 
-  it("builds ATS-friendly plain text without About or Projects content", () => {
+  it("builds ATS-friendly plain text with Selected Projects and without About content", () => {
     const data = extractResumeData(createMockDocument());
     const text = buildAtsResumeText(data);
 
     assert.ok(text.startsWith("Aron Jake S. Radam\n"));
     assert.ok(text.includes("EXPERIENCE"));
+    assert.ok(text.includes("SELECTED PROJECTS"));
+    assert.ok(text.includes("BugReportToolkit"));
     assert.ok(text.includes("TECHNICAL SKILLS"));
-    assert.equal(text.includes("PROJECTS"), false);
     assert.ok(text.includes("Programming Languages: C#, Dart"));
     assert.ok(text.includes("- Capstone Project — Trash Frenzy:"));
     assert.equal(text.includes("SECRET_ABOUT_SECTION_TEXT"), false);
@@ -289,7 +300,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(wrapped.length > 1);
   });
 
-  it("generates a valid PDF 1.4 document with full name and without About or Projects content", () => {
+  it("generates a valid PDF 1.4 document with headline, Selected Projects, itch.io link, and without About content", () => {
     const data = extractResumeData(createMockDocument());
     const bytes = buildAtsResumePdfBytes(data);
     const pdfText = new TextDecoder().decode(bytes);
@@ -300,16 +311,20 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("startxref\n"));
     assert.ok(pdfText.endsWith("%%EOF\n"));
     assert.ok(pdfText.includes("(Aron Jake S. Radam) Tj"));
+    assert.ok(pdfText.includes("(Game Developer | Systems, Tools & Technical Design) Tj"));
     assert.ok(pdfText.includes("(Caloocan City, Metro Manila) Tj"));
     assert.ok(pdfText.includes("(https://haruchanz64.github.io/) Tj"));
     assert.ok(pdfText.includes("/URI (https://haruchanz64.github.io/)"));
+    assert.ok(pdfText.includes("/URI (https://haruchanz64.itch.io/)"));
     assert.ok(pdfText.includes("(EXPERIENCE) Tj"));
+    assert.ok(pdfText.includes("(SELECTED PROJECTS) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("(Major in Game Development) Tj"));
     assert.ok(pdfText.includes("Trash Frenzy"));
+    assert.ok(pdfText.includes("SpreadsheetToScriptableObjects"));
+    assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
-    assert.equal(pdfText.includes("(PROJECTS) Tj"), false);
     assert.equal(pdfText.includes("GDriveDesktop"), false);
     assert.ok(pdfText.includes("/BaseFont /ArialMT"));
     assert.ok(pdfText.includes("/MediaBox [0 0 595.28 841.89]"));
@@ -461,14 +476,14 @@ describe("extractResumeData i18n fallback", () => {
     };
 
     const data = extractResumeData(doc);
-    assert.equal(data.headline, "College Instructor & Game Developer");
+    assert.equal(data.headline, "Game Developer · Systems, Tools & Technical Design");
     assert.equal(data.experience[0].role, "College Instructor");
     assert.equal(data.experience[0].company, "University of Caloocan City · Full-time");
     assert.match(data.experience[0].bullets[0], /^Teach game design theory/);
     assert.equal(data.education[0].major, "Major in Game Development");
     assert.equal(data.education[0].date, "August 2021 – April 2025");
     assert.match(data.education[0].bullets[0], /^Developed Trash Frenzy/);
-    assert.equal(data.skills[0].category, "Programming Languages");
+    assert.equal(data.skills[0].category, "Languages");
   });
 });
 

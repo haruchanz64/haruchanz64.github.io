@@ -270,15 +270,24 @@ class PdfDocCursor {
     return extra / spaces;
   }
 
-  drawCenteredHeader(fullName, contactItems) {
+  drawCenteredHeader(fullName, contactItems, headline = "") {
     const nameSafe = toPdfSafeText(fullName);
     const nameSize = 22;
     const nameWidth = estimateTextWidth(nameSafe, nameSize, true);
     const nameX = Math.max(MARGIN_X, (PAGE_WIDTH - nameWidth) / 2);
 
-    this.ensureSpace(44);
+    this.ensureSpace(headline ? 58 : 44);
     this.drawTextAt(nameSafe, nameX, this.y, { font: "F2", size: nameSize });
-    this.y -= 18;
+    this.y -= headline ? 15 : 18;
+
+    const headlineSafe = toPdfSafeText(headline);
+    if (headlineSafe) {
+      const headlineSize = 10.2;
+      const headlineWidth = estimateTextWidth(headlineSafe, headlineSize, true);
+      const headlineX = Math.max(MARGIN_X, (PAGE_WIDTH - headlineWidth) / 2);
+      this.drawTextAt(headlineSafe, headlineX, this.y, { font: "F2", size: headlineSize });
+      this.y -= 14;
+    }
 
     if (contactItems.length > 0) {
       const sepChar = "|";
@@ -562,13 +571,15 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
 
 /**
  * Build an ATS-friendly PDF document (as Uint8Array) matching the clean two-column header format.
- * Contact header includes only Email, LinkedIn, and GitHub.
+ * Contact header includes location, portfolio website, and preferred profile links (LinkedIn, GitHub, itch.io).
  * @param {{
  *   fullName: string,
+ *   headline?: string,
  *   location?: string,
  *   website?: string,
  *   links?: Array<{ label?: string, url: string }>,
  *   experience?: Array<{ role: string, date: string, company?: string, location?: string, bullets?: string[] }>,
+ *   projects?: Array<{ name: string, role?: string, url?: string, bullets?: string[] }>,
  *   education?: Array<{ school: string, degree?: string, date?: string, location?: string }>,
  *   skills?: Array<{ category: string, items: string[] }>,
  * }} data
@@ -588,7 +599,7 @@ export function buildAtsResumePdfBytes(data) {
     contactItems.push({ text: link.url, url: link.url });
   }
 
-  doc.drawCenteredHeader(data.fullName, contactItems);
+  doc.drawCenteredHeader(data.fullName, contactItems, data.headline || "");
 
   // Experience
   if (data.experience?.length) {
@@ -618,6 +629,37 @@ export function buildAtsResumePdfBytes(data) {
           lineHeight: 11.25,
           justify: false,
         });
+      }
+      doc.y -= 3;
+    }
+  }
+
+  // Selected Projects
+  if (data.projects?.length) {
+    doc.drawSectionHeading("Selected Projects");
+    for (const item of data.projects) {
+      doc.drawTwoColumnRow(item.name, item.role || "", {
+        font: "F2",
+        rightFont: "F3",
+        size: 9.8,
+        lineHeight: 12.25,
+      });
+      if (item.url) {
+        doc.ensureSpace(11.5);
+        const urlWidth = doc.drawTextAt(item.url, MARGIN_X, doc.y, {
+          font: "F1",
+          size: 8.8,
+          color: "0.02 0.39 0.76",
+          underline: true,
+        });
+        doc.currentPage.annotations.push({
+          rect: [MARGIN_X, doc.y - 2, MARGIN_X + urlWidth, doc.y + 8.8],
+          url: item.url,
+        });
+        doc.y -= 11.5;
+      }
+      for (const bullet of item.bullets || []) {
+        doc.drawBullet(bullet, { size: 9.5, lineHeight: 11.8 });
       }
       doc.y -= 3;
     }

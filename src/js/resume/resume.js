@@ -18,14 +18,16 @@ import { escapeHtml, normalizeText, stripHtml } from "../core/text.js";
 
 export { escapeHtml, normalizeText };
 
+import { RESUME_SELECTED_PROJECTS } from "../projects/project-details.js";
+
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
 export const RESUME_WEBSITE = "https://haruchanz64.github.io/";
 export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
-const DEFAULT_HEADLINE = "College Instructor & Game Developer";
+const DEFAULT_HEADLINE = "Game Developer · Systems, Tools & Technical Design";
 
-const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub"]);
+const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub", "itch.io"]);
 
 const RESUME_SPOKEN_LANGUAGES = {
   category: "Languages",
@@ -118,7 +120,7 @@ export function extractResumeData(doc = document) {
       const panel = targetId ? doc.getElementById(targetId) : null;
       const items = panel
         ? Array.from(panel.querySelectorAll(".skill-name"))
-            .map((el) => normalizeText(el.textContent))
+            .map((el) => getElementEnglishText(el))
             .filter(Boolean)
         : [];
       return { category, items };
@@ -140,6 +142,11 @@ export function extractResumeData(doc = document) {
   const preferredLinks = rawLinks.filter((l) => PREFERRED_LINK_LABELS.has(l.label));
   const links = preferredLinks.length > 0 ? preferredLinks : rawLinks;
 
+  const projects = RESUME_SELECTED_PROJECTS.map((project) => ({
+    ...project,
+    bullets: [...project.bullets],
+  }));
+
   return {
     fullName: RESUME_FULL_NAME,
     location,
@@ -147,6 +154,7 @@ export function extractResumeData(doc = document) {
     headline,
     links,
     experience,
+    projects,
     skills,
     education,
   };
@@ -204,6 +212,26 @@ export function buildAtsResumeHtml(data) {
         bullets: item.bullets,
       }),
     )
+    .join("");
+
+  const projectsHtml = (data.projects || [])
+    .map((item) => {
+      const bulletsHtml = item.bullets?.length
+        ? `<ul>${item.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
+        : "";
+      const linkHtml = item.url
+        ? `<span class="item-date"><a href="${escapeHtml(item.url)}">${escapeHtml(item.url)}</a></span>`
+        : "";
+      return `
+        <article class="resume-item">
+          <div class="item-header">
+            <h3 class="item-title">${escapeHtml(item.name)}</h3>
+            ${linkHtml}
+          </div>
+          ${item.role ? `<div class="item-subtitle">${escapeHtml(item.role)}</div>` : ""}
+          ${bulletsHtml}
+        </article>`;
+    })
     .join("");
 
   const skillsHtml = (data.skills || [])
@@ -350,6 +378,7 @@ export function buildAtsResumeHtml(data) {
   </header>
   <main>
     ${experienceHtml ? `<section aria-labelledby="sec-exp"><h2 id="sec-exp">Experience</h2>${experienceHtml}</section>` : ""}
+    ${projectsHtml ? `<section aria-labelledby="sec-projects"><h2 id="sec-projects">Selected Projects</h2>${projectsHtml}</section>` : ""}
     ${skillsHtml ? `<section aria-labelledby="sec-skills"><h2 id="sec-skills">Technical Skills</h2>${skillsHtml}</section>` : ""}
     ${educationHtml ? `<section aria-labelledby="sec-edu"><h2 id="sec-edu">Education</h2>${educationHtml}</section>` : ""}
   </main>
@@ -380,6 +409,18 @@ export function buildAtsResumeText(data) {
       lines.push(`${item.role}${item.date ? ` (${item.date})` : ""}`);
       const meta = [item.company, item.location].filter(Boolean).join(" | ");
       if (meta) lines.push(meta);
+      for (const bullet of item.bullets || []) {
+        lines.push(`- ${bullet}`);
+      }
+      lines.push("");
+    }
+  }
+
+  if (data.projects?.length) {
+    lines.push("SELECTED PROJECTS", "=================");
+    for (const item of data.projects) {
+      lines.push(`${item.name}${item.role ? ` — ${item.role}` : ""}`);
+      if (item.url) lines.push(item.url);
       for (const bullet of item.bullets || []) {
         lines.push(`- ${bullet}`);
       }

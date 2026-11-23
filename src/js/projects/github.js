@@ -1,6 +1,8 @@
 import { onDomReady } from "../core/dom.js";
 import { i18nReady, t } from "../core/i18n.js";
 import { GITHUB_USERNAME, mapPinnedRepos } from "./github-config.js";
+import { resolveToolDetails } from "./project-details.js";
+import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
 const CACHE_KEY = "haru_github_projects_v4";
@@ -42,12 +44,22 @@ async function initGithubProjects() {
     grid,
     items: projects,
     emptyMessage: t("projects.noneFound"),
-    mapItem: (repo) => ({
-      url: repo.html_url,
-      title: repo.name,
-      description: repo.description || t("projects.noDescription"),
-      tags: [{ className: "project-language", text: repo.language }],
-    }),
+    mapItem: (repo) => {
+      const details = resolveToolDetails(repo);
+      const tags = [{ className: "role-tag", text: "Unity" }];
+      if (repo.language) {
+        tags.push({ className: "project-language", text: repo.language });
+      }
+      return {
+        url: repo.html_url,
+        title: repo.name,
+        eyebrow: details.focus,
+        description: repo.description || details.summary || t("projects.noDescription"),
+        tags,
+        cueLabel: t("projects.viewBreakdown"),
+        onSelect: (triggerEl) => openProjectModal(details, triggerEl),
+      };
+    },
   });
 }
 

@@ -1,19 +1,19 @@
 {
   "meta": {
     "title": "Haru · Portfolio",
-    "description": "Portfolio ni Aron Jake Radam (Haru) — College Instructor at Game Developer na may karanasan sa full-stack engineering, game design, at QA."
+    "description": "Portfolio ni Aron Jake Radam (Haru) — Game Developer na nakatuon sa gameplay systems, Unity tooling, at technical game design, na may karanasan sa game QA, pagtuturo, at mobile production."
   },
   "nav": {
     "ariaLabel": "Pangunahing nabigasyon",
     "logoAriaLabel": "Haru — Bumalik sa itaas",
     "brandName": "Haru",
-    "brandRole": "College Instructor at Game Developer",
+    "brandRole": "Game Developer · Systems, Tools & Technical Design",
     "links": {
       "about": "Tungkol",
-      "experience": "Karanasan",
-      "education": "Edukasyon",
       "projects": "Mga Proyekto",
+      "experience": "Karanasan",
       "skills": "Mga Kasanayan",
+      "education": "Edukasyon",
       "contact": "Makipag-ugnayan"
     }
   },
@@ -21,19 +21,19 @@
     "logoAlt": "Logo ng Haru",
     "greeting": "Ako si",
     "name": "Haru,",
-    "titleHtml": "isang <strong>college instructor at game developer</strong> na nagtuturo ng <strong>game development</strong> at malalim na nag-aaral ng <strong>game design theory</strong>.",
+    "titleHtml": "isang <strong>game developer</strong> na nakatuon sa <strong>gameplay systems, Unity tooling, at technical game design</strong>—habang nagtuturo ng game development sa UCC.",
     "ctaContact": "Makipag-ugnayan",
     "ctaProjects": "Tingnan ang Aking mga Gawa"
   },
   "about": {
     "title": "Tungkol",
-    "p1Html": "Ako si <strong>Aron Jake Radam</strong> (kilala rin online bilang <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">Haru</button>), isang <strong>College Instructor</strong> at <strong>Game Developer</strong> na nagtuturo sa ilalim ng programang <strong>BS EMC (Game Development)</strong> sa <strong>University of Caloocan City</strong>. Nagtuturo ako sa mga sophomore hanggang senior na estudyante ng game design theory, prototyping, OOP, math in games, AI, networking, at production pipelines habang ginagabayan ang kanilang mga proyekto mula sa unang mechanics hanggang sa full production.",
+    "p1Html": "Ako si <strong>Aron Jake Radam</strong> (kilala rin online bilang <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">Haru</button>), isang <strong>Game Developer</strong> na nakatuon sa <strong>gameplay systems, Unity tooling, at technical game design</strong>. Nagtuturo rin ako bilang <strong>College Instructor</strong> sa ilalim ng programang <strong>BS EMC (Game Development)</strong> sa <strong>University of Caloocan City</strong>, kung saan ginagabayan ko ang mga sophomore hanggang senior na estudyante sa game design theory, prototyping, OOP, game math, AI, networking, at production pipelines.",
     "haruOriginTitle": "Bakit @haruchanz64?",
     "haruOriginClose": "Isara",
     "haruOriginHtml": "Ang <strong>Haru</strong> ay nangangahulugang \"tagsibol\" sa Hapon, ang <strong>-chan</strong> ay isang kaswal na suffix sa wikang Hapon, at ang <strong>Z64</strong> ay hango sa mga laro sa Nintendo 64 na <em>The Legend of Zelda: Majora's Mask</em> (ang pinakauna kong larong <em>Zelda</em>) at <em>The Legend of Zelda: Ocarina of Time</em>. Nagsimula ito bilang gaming username, at ito na rin ang gamit ko sa GitHub at sa mga socials ko.",
-    "p2Html": "Bago ako nagtuon ng full-time sa pagtuturo, nagtrabaho ako bilang nag-iisang full-stack engineer sa <strong>PicStar Software OPC</strong>, isang startup sa <strong>Las Piñas, Philippines</strong>, kung saan binuo ko ang <strong>PicStar</strong> mula architecture hanggang production gamit ang <strong>Flutter</strong> at <strong>Supabase</strong> at inilabas ito sa Google Play Store.",
-    "p3Html": "Sa simula ng aking karera, nagsimula ako sa game playtesting at QA sa <strong>GridLock-Games Studio</strong>, kung saan sumusuri ako ng mga build, nag-uulat ng mga bug, at nakikipagtulungan sa mga developer at designer bago ang release.",
-    "p4Html": "Bukod sa pagtuturo at game development, pinag-aaralan ko ang <strong>game design theory</strong> at nakatuon ako sa self-study ng <strong>backend</strong> at <strong>DevOps</strong> sa pamamagitan ng mga personal na proyekto gamit ang <strong>Java (Spring Boot)</strong> at <strong>Docker</strong>. Gumagamit din ako ng mga AI coding tool sa aking pang-araw-araw na workflow upang mas mabilis na makapag-prototype at mag-debug, at bukas ako sa freelance work o mga bagong oportunidad."
+    "p2Html": "Bago ako nagtuon ng full-time sa pagtuturo, nagtrabaho ako bilang nag-iisang full-stack engineer sa <strong>PicStar Software OPC</strong> sa <strong>Las Piñas, Philippines</strong>, kung saan dinisenyo at binuo ko ang <strong>PicStar</strong> gamit ang <strong>Flutter</strong> at <strong>Supabase</strong> at inilabas ito sa Google Play Store—karanasang nagpahusay sa aking disiplina sa live backends, performance, at end-to-end production shipping.",
+    "p3Html": "Sa simula ng aking karera, nagsimula ako sa game playtesting at QA sa <strong>GridLock-Games Studio</strong>, kung saan sumusuri ako ng mga build, nag-uulat ng mga bug, at nakikipagtulungan sa mga developer at designer tungkol sa gameplay feel, balanse, at kahandaan bago ang release.",
+    "p4Html": "Ngayon, gumagawa ako ng mga open-source na <strong>Unity editor tools at runtime systems</strong> upang mapabilis ang workflow ng mga designer at QA habang patuloy na pinag-aaralan ang <strong>game design theory</strong>. Gumagamit din ako ng mga AI coding tool sa aking pang-araw-araw na workflow upang mas mabilis na makapag-prototype at mag-debug, at bukas ako sa mga posisyon sa game studio, freelance projects, at kolaborasyon."
   },
   "experience": {
     "title": "Karanasan",
@@ -43,10 +43,10 @@
         "date": "Hulyo 2026 – Kasalukuyan",
         "company": "University of Caloocan City · Full-time",
         "location": "Caloocan City, Metro Manila",
-        "b0": "Nagtuturo ng game design theory, prototyping, at production pipelines sa mga sophomore hanggang senior na estudyante, habang ginagabayan ang mga proyekto mula sa unang mechanics hanggang sa full production.",
-        "b1": "Nangunguna sa mga lecture at lab session tungkol sa game programming, networking, at production upang matulungan ang mga estudyante na gawing gumaganang build ang kanilang mga ideya sa laro.",
-        "b2": "Sumasaklaw sa mahahalagang scripting at engine fundamentals kabilang ang OOP, math in games, physics, collision detection, AI, networking, at code optimization.",
-        "b3": "Namamahala ng mga lab session, gumagabay sa pag-usad ng proyekto ng mga estudyante at tumutulong sa kanilang mga tanong, at tinitiyak na nakabatay ang coursework sa kasalukuyang gawain sa industriya."
+        "b0": "Nagtuturo ng game design theory, rapid prototyping, at production pipelines sa mga sophomore hanggang senior na estudyante, habang ginagabayan ang mga proyektong laro mula sa unang mechanics hanggang sa playable builds.",
+        "b1": "Nangunguna sa mga lecture at lab session tungkol sa game programming, systems architecture, networking, at production workflows upang matulungan ang mga estudyante na gawing gumaganang prototype ang kanilang design docs.",
+        "b2": "Sumasaklaw sa mahahalagang scripting at engine fundamentals kabilang ang OOP, math in games, physics, collision detection, game AI, networking, at code optimization.",
+        "b3": "Gumagabay sa mga student team sa pamamagitan ng lab reviews, debugging sessions, at playtest critiques na nakabatay sa kasalukuyang gawain sa mga game studio."
       },
       "1": {
         "role": "Lead Full-Stack Software Engineer",
@@ -64,18 +64,18 @@
         "date": "Mayo 2024 – Abril 2025",
         "company": "GridLock-Games Studio · Internship",
         "location": "Taguig, Metro Manila",
-        "b0": "Nakipagtulungan sa mga developer at designer upang subukan ang mga build at mahuli ang mga isyu bago ang release.",
-        "b1": "Nag-log, nag-reproduce, at sumubaybay ng mga bug sa Trello upang mapanatiling maayos ang daloy ng pag-aayos.",
-        "b2": "Sumuporta sa buong release cycle sa pamamagitan ng regression testing at build verification."
+        "b0": "Nakipagtulungan sa mga game developer at designer upang subukan ang mga gameplay build, mahuli ang mga edge-case regression, at matukoy ang mga isyu sa usability bago ang release.",
+        "b1": "Nag-log, nag-reproduce, at sumubaybay ng mga bug sa Trello na may malinaw na reproduction steps upang mapanatiling maayos ang pag-aayos ng engineering at design.",
+        "b2": "Sumuporta sa buong release cycle ng laro sa pamamagitan ng nakabalangkas na regression testing at build verification."
       },
       "3": {
         "role": "Video Game Playtester",
         "date": "Disyembre 2022 – Mayo 2024",
         "company": "GridLock-Games Studio · External",
         "location": "Taguig, Metro Manila",
-        "b0": "Nag-playtest ng iba't ibang game build upang makahanap ng mga bug, glitch, at exploit.",
-        "b1": "Nagbigay ng nakasulat at berbal na feedback tungkol sa gameplay mechanics, balanse, at kabuuang pakiramdam ng laro.",
-        "b2": "Nakipagtulungan sa mga developer upang malinaw na maiulat ang mga isyu at ma-verify ang mga pag-aayos."
+        "b0": "Nag-playtest ng mga in-development na game build upang makahanap ng mga gameplay bug, physics glitch, at mechanics exploit.",
+        "b1": "Nagbigay ng nakabalangkas na nakasulat at berbal na feedback tungkol sa core gameplay loops, pacing, balanse, at game feel.",
+        "b2": "Direktang nakipagtulungan sa mga developer upang malinaw na maidokumento ang reproduction steps at ma-verify ang mga pag-aayos sa bawat patch."
       }
     }
   },
@@ -98,30 +98,50 @@
   },
   "projects": {
     "title": "Mga Proyekto",
-    "systemsTools": "Mga Sistema at Tool",
     "gameProjects": "Mga Proyektong Laro",
+    "systemsTools": "Unity Tools at Designer Workflows",
+    "viewBreakdown": "Detalye →",
     "loading": "Nilo-load ang mga proyekto...",
     "noneFound": "Walang nahanap na katugmang proyekto.",
     "noneGamesFound": "Walang nahanap na proyektong laro.",
     "noDescription": "Walang paglalarawan",
     "failedToLoad": "Nabigong i-load ang mga proyekto.",
     "untitled": "Walang Pamagat",
-    "gameAlt": "Proyektong laro"
+    "gameAlt": "Proyektong laro",
+    "modal": {
+      "close": "Isara ang detalye ng proyekto",
+      "role": "Tungkulin",
+      "engine": "Engine / Tech",
+      "scope": "Saklaw",
+      "designBreakdown": "Breakdown ng Disenyo at Sistema",
+      "technicalHighlights": "Mga Tampok sa Teknikal at Workflow",
+      "techStack": "Tech at mga Sistema",
+      "playOnItch": "Laruin sa itch.io",
+      "viewOnGithub": "Tingnan sa GitHub"
+    }
   },
   "skills": {
     "title": "Mga Kasanayan",
     "ariaLabel": "Mga kategorya ng kasanayan",
     "tabs": {
-      "languages": "Mga Programming Language",
-      "frameworks": "Mga Framework",
+      "gameDesign": "Game Dev at Technical Design",
       "gameEngines": "Mga Game Engine",
-      "databases": "Mga Database",
-      "tools": "Mga Tool at Software"
+      "languages": "Mga Wika",
+      "tools": "Mga Tool at Software",
+      "backendFrameworks": "Backend at mga Framework"
+    },
+    "items": {
+      "gameplaySystems": "Gameplay Systems",
+      "unityEditorTooling": "Unity Editor Tooling",
+      "dataDrivenPipelines": "Data-Driven Pipelines",
+      "rapidPrototyping": "Rapid Prototyping",
+      "gameDesignBalancing": "Game Design at Balancing",
+      "playtestingQa": "Playtesting at QA"
     }
   },
   "contact": {
     "title": "Makipag-ugnayan",
-    "description": "Bukas para sa freelance work, mga tungkulin sa software engineering, at kolaborasyon sa game development o pagtuturo. May naiisip ka ba? Mag-usap tayo.",
+    "description": "Bukas para sa mga posisyon sa gameplay/tools programming, technical game design, freelance projects, at kolaborasyon sa game dev o pagtuturo. May naiisip ka ba? Mag-usap tayo.",
     "form": {
       "nameLabel": "Pangalan",
       "namePlaceholder": "Ang iyong pangalan",
@@ -129,7 +149,7 @@
       "emailPlaceholder": "you@example.com",
       "optional": "(Opsyonal)",
       "companyLabel": "Kumpanya / Organisasyon",
-      "companyPlaceholder": "Kumpanya, studio, o paaralan",
+      "companyPlaceholder": "Studio, kumpanya, o paaralan",
       "referenceUrlLabel": "Website / Reference Link",
       "referenceUrlPlaceholder": "https://example.com",
       "subjectLabel": "Paksa",
@@ -167,7 +187,7 @@
       "customTimelinePlaceholder": "Ilagay ang iyong pasadyang timeline…",
       "customTimelineAriaLabel": "Pasadyang timeline",
       "roleLabel": "Posisyon / Tungkulin",
-      "rolePlaceholder": "hal. Software Engineer, Game Programmer",
+      "rolePlaceholder": "hal. Gameplay Programmer, Tools Programmer, Technical Game Designer",
       "messageLabel": "Mensahe",
       "messagePlaceholder": "Isulat ang iyong mensahe dito…",
       "submit": "Ipadala ang Mensahe",

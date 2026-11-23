@@ -1,6 +1,6 @@
 import { readStorageItem, writeStorageItem } from "../core/cache.js";
 
-const SKILL_TAB_STORAGE_KEY = "haru_active_skill_tab";
+const SKILL_TAB_STORAGE_KEY = "haru_active_skill_tab_v2";
 
 const skillTabs = [...document.querySelectorAll("#skills .skill-tab")];
 const skillContents = document.querySelectorAll("#skills .tab-content");
