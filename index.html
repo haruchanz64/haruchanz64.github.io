@@ -54,61 +54,61 @@
     <script type="module" src="/src/js/main.js"></script>
   </head>
   <body>
-    <div id="maintenance-view" class="maintenance">
-      <header class="maintenance-topbar">
+    <div id="maintenance-view" class="min-h-dvh flex flex-col">
+      <header class="w-full max-w-[1200px] mx-auto px-4 py-3 desktop:px-[clamp(1rem,2.5vw,2rem)] flex justify-end items-center">
         <button
           type="button"
-          class="theme-toggle"
+          class="relative overflow-hidden inline-flex items-center justify-center size-9 p-0 bg-transparent border border-transparent rounded-lg cursor-pointer transition-colors duration-300 ease-in-out text-text-secondary hover:text-text-primary hover:border-text-primary/20 hover:bg-text-primary/8"
           data-theme-toggle
           aria-label="Toggle color theme"
           title="Toggle color theme"
         >
-          <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="absolute transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity] opacity-100 rotate-0 scale-100 light:opacity-0 light:rotate-90 light:scale-50" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"/>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
           </svg>
-          <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="absolute transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity] opacity-0 -rotate-90 scale-50 light:opacity-100 light:rotate-0 light:scale-100" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
         </button>
       </header>
 
       <main
-        class="maintenance-main"
+        class="flex-1 flex items-center justify-center px-4 pt-[clamp(1rem,3dvh,1.5rem)] pb-[clamp(1.5rem,4dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:pt-[clamp(1rem,3dvh,2rem)] desktop:pb-[clamp(1.5rem,4dvh,3.5rem)] text-center"
         aria-label="Site maintenance"
         data-i18n-aria-label="maintenance.ariaLabel"
       >
-        <div class="maintenance-content">
+        <div class="w-full max-w-[680px] flex flex-col items-center animate-[fadeInUp_0.6s_ease_forwards] motion-reduce:animate-none">
           <img
             src="/res/profile_photo.webp"
             alt="Haru Logo"
             data-i18n-alt="hero.logoAlt"
-            class="maintenance-avatar"
+            class="size-[clamp(104px,min(24vw,22dvh),168px)] aspect-square rounded-full object-cover mx-auto mb-[clamp(0.75rem,2.2dvh,1.5rem)] block"
             width="168"
             height="168"
             fetchpriority="high"
           />
-          <p class="maintenance-eyebrow" data-i18n="maintenance.eyebrow">
+          <p class="font-mono text-[0.8rem] font-medium tracking-[0.14em] uppercase text-text-muted mb-[0.65rem]" data-i18n="maintenance.eyebrow">
             Scheduled Maintenance
           </p>
-          <h1 class="maintenance-title" data-i18n="maintenance.title">
+          <h1 class="font-display text-[clamp(2rem,min(9vw,8.5dvh),4.75rem)] font-bold leading-[1.08] tracking-[-0.02em] text-accent mb-[clamp(0.65rem,2dvh,1.25rem)]" data-i18n="maintenance.title">
             Back Soon.
           </h1>
-          <p class="maintenance-description" data-i18n="maintenance.description">
+          <p class="text-[clamp(0.95rem,min(2.2vw,2.2dvh),1.15rem)] font-light leading-[1.65] text-text-secondary max-w-[540px] mb-[clamp(1.25rem,3.5dvh,2.25rem)]" data-i18n="maintenance.description">
             My portfolio is currently undergoing updates and maintenance. Thanks
             for stopping by—in the meantime, feel free to connect with me
             through the links below.
           </p>
 
-          <div class="maintenance-social">
-            <p class="social-links-title" data-i18n="contact.socialTitle">Find me online</p>
-            <div class="social-links">
+          <div class="w-full max-w-[560px]">
+            <p class="mx-auto mb-[0.65rem] font-mono text-[0.8rem] font-medium tracking-[0.08em] uppercase text-text-muted" data-i18n="contact.socialTitle">Find me online</p>
+            <div class="social-links flex flex-wrap justify-center gap-7 desktop:gap-x-9 desktop:gap-y-7 mx-auto max-w-full pt-1 pb-5">
               <a
                 href="https://bsky.app/profile/haruchanz64.bsky.social"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Bluesky"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg
               ></a>
               <a
@@ -116,7 +116,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Codeberg"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M11.999.747A11.974 11.974 0 0 0 0 12.75c0 2.254.635 4.465 1.833 6.376L11.837 6.19c.072-.092.251-.092.323 0l4.178 5.402h-2.992l.065.239h3.113l.882 1.138h-3.674l.103.374h3.86l.777 1.003h-4.358l.135.483h4.593l.695.894h-5.038l.165.589h5.326l.609.785h-5.717l.182.65h6.038l.562.727h-6.397l.183.65h6.717A12.003 12.003 0 0 0 24 12.75 11.977 11.977 0 0 0 11.999.747zm3.654 19.104.182.65h5.326c.173-.204.353-.433.513-.65zm.385 1.377.18.65h3.563c.233-.198.485-.428.712-.65zm.383 1.377.182.648h1.203c.356-.204.685-.412 1.042-.648zz"/></svg
               ></a>
               <a
@@ -124,7 +124,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="DEV"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"/></svg
               ></a>
               <a
@@ -132,7 +132,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Discord"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg
               ></a>
               <a
@@ -140,7 +140,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg
               ></a>
               <a
@@ -148,7 +148,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg
               ></a>
               <a
@@ -156,7 +156,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="itch.io"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z"/></svg
               ></a>
               <a
@@ -164,7 +164,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LeetCode"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg
               ></a>
               <a
@@ -172,7 +172,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg
               ></a>
               <a
@@ -180,7 +180,7 @@
                 target="_blank"
                 rel="noopener noreferrer me"
                 aria-label="Mastodon"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg
               ></a>
               <a
@@ -188,7 +188,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="StackOverflow"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M15.725 0l-1.72 1.277 6.39 8.588 1.716-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154Z"/></svg
               ></a>
               <a
@@ -196,7 +196,7 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="X"
-                class="social-link"
+                class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
                 ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg
               ></a>
             </div>
@@ -204,49 +204,49 @@
         </div>
       </main>
 
-      <footer class="footer">
+      <footer class="p-8 text-center border-t border-border text-text-muted font-mono text-[0.8rem]">
         <p data-i18n="footer.copyright">&copy; 2026 Aron Jake Radam (Haru). All rights reserved.</p>
       </footer>
     </div>
 
-    <nav class="nav nav--hidden" aria-label="Primary" data-i18n-aria-label="nav.ariaLabel" inert>
-      <div class="nav-container">
+    <nav class="nav nav--hidden fixed top-0 left-0 w-full px-4 py-[0.6rem] desktop:px-[clamp(1rem,2.5vw,2rem)] xshort-h:py-[0.45rem] bg-nav-bg backdrop-blur-[12px] border-b border-border z-[1000] transition-[opacity,transform,background-color,border-color] duration-300 ease-in-out [&.nav--hidden]:opacity-0 [&.nav--hidden]:-translate-y-full [&.nav--hidden]:pointer-events-none" aria-label="Primary" data-i18n-aria-label="nav.ariaLabel" inert>
+      <div class="max-w-[1200px] mx-auto flex justify-between items-center gap-3">
         <a
           href="#hero"
-          class="nav-logo"
+          class="inline-flex flex-row items-center gap-[0.6rem] font-display text-accent no-underline flex-1 min-w-0"
           aria-label="Haru — Back to top"
           data-i18n-aria-label="nav.logoAriaLabel"
         >
           <!--Profile Credit: https://ph.pinterest.com/pin/1116822407630876601/-->
-          <img src="/res/profile_photo.webp" alt="" class="nav-avatar" width="36" height="36" />
-          <span class="nav-brand-text">
-            <span class="nav-brand-name" data-i18n="nav.brandName">Haru</span>
-            <span class="nav-brand-role" data-i18n="nav.brandRole">College Instructor &amp; Game Developer</span>
+          <img src="/res/profile_photo.webp" alt="" class="size-9 desktop:size-11 xshort-h:size-9 aspect-square rounded-full object-cover shrink-0" width="36" height="36" />
+          <span class="flex flex-col justify-center gap-[0.08rem] min-w-0">
+            <span class="text-[1.15rem] desktop:text-[1.25rem] font-bold leading-[1.1] tracking-[-0.02em] text-accent" data-i18n="nav.brandName">Haru</span>
+            <span class="nav-brand-role font-main text-[0.68rem] desktop:text-[0.75rem] desktop:whitespace-nowrap font-normal leading-[1.2] text-text-secondary max-[1160px]:hidden" data-i18n="nav.brandRole">College Instructor &amp; Game Developer</span>
           </span>
         </a>
-        <span class="nav-current-section" aria-hidden="true"></span>
-        <ul id="primary-nav" class="nav-links">
-          <li><a href="#about" class="nav-link" data-i18n="nav.links.about">About</a></li>
-          <li><a href="#experience" class="nav-link" data-i18n="nav.links.experience">Experience</a></li>
-          <li><a href="#education" class="nav-link" data-i18n="nav.links.education">Education</a></li>
-          <li><a href="#projects" class="nav-link" data-i18n="nav.links.projects">Projects</a></li>
-          <li><a href="#skills" class="nav-link" data-i18n="nav.links.skills">Skills</a></li>
-          <li><a href="#contact" class="nav-link" data-i18n="nav.links.contact">Contact</a></li>
+        <span class="nav-current-section font-mono text-[0.85rem] font-semibold text-text-primary text-right whitespace-nowrap shrink-0 opacity-0 transition-opacity duration-200 ease-in-out pointer-events-none [&.visible]:opacity-100 desktop:hidden" aria-hidden="true"></span>
+        <ul id="primary-nav" class="hidden desktop:flex desktop:flex-row desktop:items-center gap-[clamp(0.55rem,1.3vw,1.35rem)] list-none">
+          <li><a href="#about" class="nav-link font-mono text-[clamp(0.75rem,1vw,0.875rem)] whitespace-nowrap text-text-secondary no-underline font-medium transition-colors duration-300 ease-in-out relative hover:text-text-primary [&.active]:text-text-primary after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-[width] after:duration-300 after:ease-in-out hover:after:w-full [&.active]:after:w-full" data-i18n="nav.links.about">About</a></li>
+          <li><a href="#experience" class="nav-link font-mono text-[clamp(0.75rem,1vw,0.875rem)] whitespace-nowrap text-text-secondary no-underline font-medium transition-colors duration-300 ease-in-out relative hover:text-text-primary [&.active]:text-text-primary after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-[width] after:duration-300 after:ease-in-out hover:after:w-full [&.active]:after:w-full" data-i18n="nav.links.experience">Experience</a></li>
+          <li><a href="#education" class="nav-link font-mono text-[clamp(0.75rem,1vw,0.875rem)] whitespace-nowrap text-text-secondary no-underline font-medium transition-colors duration-300 ease-in-out relative hover:text-text-primary [&.active]:text-text-primary after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-[width] after:duration-300 after:ease-in-out hover:after:w-full [&.active]:after:w-full" data-i18n="nav.links.education">Education</a></li>
+          <li><a href="#projects" class="nav-link font-mono text-[clamp(0.75rem,1vw,0.875rem)] whitespace-nowrap text-text-secondary no-underline font-medium transition-colors duration-300 ease-in-out relative hover:text-text-primary [&.active]:text-text-primary after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-[width] after:duration-300 after:ease-in-out hover:after:w-full [&.active]:after:w-full" data-i18n="nav.links.projects">Projects</a></li>
+          <li><a href="#skills" class="nav-link font-mono text-[clamp(0.75rem,1vw,0.875rem)] whitespace-nowrap text-text-secondary no-underline font-medium transition-colors duration-300 ease-in-out relative hover:text-text-primary [&.active]:text-text-primary after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-[width] after:duration-300 after:ease-in-out hover:after:w-full [&.active]:after:w-full" data-i18n="nav.links.skills">Skills</a></li>
+          <li><a href="#contact" class="nav-link font-mono text-[clamp(0.75rem,1vw,0.875rem)] whitespace-nowrap text-text-secondary no-underline font-medium transition-colors duration-300 ease-in-out relative hover:text-text-primary [&.active]:text-text-primary after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-accent after:transition-[width] after:duration-300 after:ease-in-out hover:after:w-full [&.active]:after:w-full" data-i18n="nav.links.contact">Contact</a></li>
         </ul>
-        <div class="nav-actions">
+        <div class="flex items-center gap-2 pl-3 border-l border-border/65 desktop:ml-1">
           <button
             type="button"
             id="theme-toggle"
-            class="theme-toggle"
+            class="relative overflow-hidden inline-flex items-center justify-center size-9 p-0 bg-transparent border border-transparent rounded-lg cursor-pointer transition-colors duration-300 ease-in-out text-text-secondary hover:text-text-primary hover:border-text-primary/20 hover:bg-text-primary/8"
             data-theme-toggle
             aria-label="Toggle color theme"
             title="Toggle color theme"
           >
-            <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="absolute transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity] opacity-100 rotate-0 scale-100 light:opacity-0 light:rotate-90 light:scale-50" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="4"/>
               <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
             </svg>
-            <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <svg class="absolute transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,opacity] opacity-0 -rotate-90 scale-50 light:opacity-100 light:rotate-0 light:scale-100" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           </button>
@@ -254,49 +254,49 @@
       </div>
     </nav>
 
-    <div class="hero-stage">
+    <div class="grid min-h-svh">
       <section
         id="hero-loading"
-        class="hero hero-loading"
+        class="hero-loading col-start-1 row-start-1 z-[2] opacity-100 min-h-svh flex items-center justify-center text-center relative px-4 py-[clamp(0.75rem,3dvh,2rem)] box-border transition-opacity duration-[400ms] ease-in-out motion-reduce:duration-[0.01ms] [&.is-leaving]:pointer-events-none [&.is-leaving_.hero-loading-progress]:opacity-0 [&.is-leaving_.hero-loading-progress]:translate-y-1"
         aria-label="Loading portfolio"
       >
-        <div class="hero-content hero-loading-content">
+        <div class="max-w-[800px] w-full px-4 py-[clamp(0.5rem,2dvh,1.5rem)] desktop:px-8 desktop:py-[clamp(0.5rem,2.5dvh,1.75rem)] flex flex-col items-center">
           <img
             src="/res/profile_photo.webp"
             alt="Haru Logo"
             data-i18n-alt="hero.logoAlt"
-            class="hero-avatar hero-avatar--loading"
+            class="hero-avatar--loading mx-auto block size-[clamp(160px,min(65vw,42dvh),400px)] aspect-square rounded-full object-cover will-change-transform [&.is-morphing]:transition-transform [&.is-morphing]:duration-[650ms] [&.is-morphing]:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-[0.01ms]"
             width="400"
             height="400"
             fetchpriority="high"
           />
-          <div class="hero-loading-progress" aria-hidden="true">0%</div>
+          <div class="hero-loading-progress mt-[clamp(0.75rem,2.5dvh,1.5rem)] font-mono text-[0.85rem] font-medium tracking-[0.1em] tabular-nums text-text-secondary opacity-75 transition-[opacity,transform] duration-300 ease-in-out" aria-hidden="true">0%</div>
         </div>
       </section>
 
-      <section id="hero" class="hero hero--pending" aria-hidden="true" inert>
-        <div class="hero-content">
+      <section id="hero" class="hero--pending col-start-1 row-start-1 min-h-svh flex items-center justify-center text-center relative px-4 py-[clamp(0.75rem,3dvh,2rem)] box-border transition-opacity duration-[600ms] ease-in-out motion-reduce:duration-[0.01ms] [&.hero--morphing_.hero-avatar]:opacity-0" aria-hidden="true" inert>
+        <div class="hero-content max-w-[800px] w-full px-4 py-[clamp(0.5rem,2dvh,1.5rem)] desktop:px-8 desktop:py-[clamp(0.5rem,2.5dvh,1.75rem)] flex flex-col items-center">
           <img
             src="/res/profile_photo.webp"
             alt="Haru Logo"
             data-i18n-alt="hero.logoAlt"
-            class="hero-avatar"
+            class="hero-avatar mx-auto mb-[clamp(0.5rem,1.8dvh,1rem)] block size-[clamp(112px,min(58vw,27dvh),256px)] aspect-square rounded-full object-cover"
             width="248"
             height="248"
             fetchpriority="high"
           />
-          <div class="hero-greeting" data-i18n="hero.greeting">I'm</div>
-          <h1 class="hero-name" data-i18n="hero.name">Haru,</h1>
-          <p class="hero-title" data-i18n-html="hero.titleHtml">
+          <div class="hero-greeting font-mono text-[clamp(0.85rem,1.8dvh,1rem)] text-text-secondary mb-[0.2rem] opacity-0 animate-[fadeInUp_1s_ease_0.2s_forwards]" data-i18n="hero.greeting">I'm</div>
+          <h1 class="hero-name text-[clamp(2.5rem,min(12vw,11.5dvh),7rem)] font-display font-bold mb-[clamp(0.5rem,2.2dvh,1.5rem)] leading-[1.05] text-accent opacity-0 animate-[fadeInUp_1s_ease_0.4s_forwards] tracking-[-0.02em]" data-i18n="hero.name">Haru,</h1>
+          <p class="hero-title text-[clamp(0.95rem,min(2.5vw,2.4dvh),1.45rem)] font-light text-text-secondary mb-[clamp(0.85rem,3dvh,2rem)] opacity-0 animate-[fadeInUp_1s_ease_0.6s_forwards] max-w-[660px] leading-[1.45] [&_strong]:font-medium [&_strong]:text-text-primary" data-i18n-html="hero.titleHtml">
             a <strong>college instructor &amp; game developer</strong> teaching
             <strong>game development</strong> and diving deep into
             <strong>game design theory</strong>.
           </p>
-          <div class="hero-actions">
-            <a href="#contact" class="cta-button" data-i18n="hero.ctaContact">
+          <div class="flex flex-col items-center gap-[0.85rem] short-h:gap-[0.65rem] short-h-wide:flex-row short-h-wide:flex-wrap short-h-wide:justify-center">
+            <a href="#contact" class="cta-button inline-flex items-center justify-center gap-2 min-w-[min(260px,100%)] px-[2.75rem] py-[1.2rem] bg-accent text-bg-primary no-underline font-display font-semibold text-[1.125rem] border-none cursor-pointer rounded-brand opacity-0 animate-[fadeInUp_1s_ease_0.8s_forwards] transition-all duration-300 ease-in-out hover:bg-accent-secondary hover:text-bg-primary short-h:min-w-[min(210px,100%)] short-h:px-[1.85rem] short-h:py-[0.85rem] short-h:text-base short-h-wide:min-w-0 short-h-wide:px-[1.6rem] short-h-wide:py-[0.8rem] short-h-wide:text-[0.95rem] xshort-h:px-[1.35rem] xshort-h:py-[0.65rem] xshort-h:text-[0.9rem]" data-i18n="hero.ctaContact">
               Get in Touch
             </a>
-            <a href="#projects" class="cta-button cta-secondary" data-i18n="hero.ctaProjects">
+            <a href="#projects" class="cta-button inline-flex items-center justify-center gap-2 min-w-[min(200px,100%)] px-7 py-3 bg-transparent text-accent border border-accent no-underline font-display font-semibold text-[0.9rem] cursor-pointer rounded-brand opacity-0 animate-[fadeInUp_1s_ease_0.8s_forwards] transition-all duration-300 ease-in-out hover:bg-accent hover:text-bg-primary short-h:min-w-[min(190px,100%)] short-h:px-6 short-h:py-3 short-h:text-[0.9rem] short-h-wide:min-w-0 short-h-wide:px-[1.6rem] short-h-wide:py-[0.8rem] short-h-wide:text-[0.95rem] xshort-h:px-[1.35rem] xshort-h:py-[0.65rem] xshort-h:text-[0.9rem]" data-i18n="hero.ctaProjects">
               Explore My Work
             </a>
           </div>
@@ -304,9 +304,9 @@
       </section>
     </div>
 
-    <section id="about" class="section">
-      <h2 class="section-title" data-i18n="about.title">About</h2>
-      <div class="background-text">
+    <section id="about" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
+      <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="about.title">About</h2>
+      <div class="background-text text-[1.1rem] leading-[1.8] text-text-secondary max-w-[72ch] mx-auto text-left [&_p]:mb-6">
         <p data-i18n-html="about.p1Html">
           I'm <strong>Aron Jake Radam</strong> (also known online as
           <button type="button" class="haru-trigger" aria-expanded="false" aria-controls="haru-origin-modal">Haru</button>), a <strong>College Instructor</strong> and
@@ -345,31 +345,31 @@
 
     <div
       id="haru-origin-modal"
-      class="haru-modal-overlay"
+      class="fixed inset-0 z-[2000] bg-black/72 backdrop-blur-[4px] flex items-center justify-center p-4 [&[hidden]]:hidden"
       role="dialog"
       aria-modal="true"
       aria-labelledby="haru-modal-title"
       hidden
     >
-      <div class="haru-modal">
-        <div class="haru-modal-header">
+      <div class="bg-card-bg text-text-primary border border-border rounded-brand w-[min(520px,100%)] max-h-[calc(100dvh-2rem)] flex flex-col shadow-[0_20px_60px_rgba(0,0,0,0.45)] overflow-hidden">
+        <div class="flex items-center justify-between gap-4 px-5 py-[0.9rem] border-b border-border shrink-0">
           <h3
             id="haru-modal-title"
-            class="haru-modal-title"
+            class="m-0 text-[1.05rem] font-display font-bold"
             data-i18n="about.haruOriginTitle"
           >
             Why @haruchanz64?
           </h3>
           <button
             type="button"
-            class="haru-modal-close"
+            class="haru-modal-close bg-transparent border-none text-text-secondary text-[1.5rem] leading-none cursor-pointer px-2 py-1 rounded-[6px] transition-[color,background-color] duration-300 ease-in-out hover:text-text-primary hover:bg-text-primary/10 focus-visible:text-text-primary focus-visible:bg-text-primary/10"
             data-i18n-aria-label="about.haruOriginClose"
             aria-label="Close"
           >
             &times;
           </button>
         </div>
-        <div class="haru-modal-body">
+        <div class="px-5 py-[1.15rem] text-base leading-[1.75] text-text-secondary overflow-y-auto overscroll-contain [&_p]:m-0">
           <p data-i18n-html="about.haruOriginHtml">
             <strong>Haru</strong> means "spring" in Japanese,
             <strong>-chan</strong> is a casual Japanese suffix, and
@@ -383,19 +383,19 @@
       </div>
     </div>
 
-    <section id="experience" class="section">
-      <h2 class="section-title" data-i18n="experience.title">Experience</h2>
-      <div class="experience-timeline">
-        <article class="experience-item">
-          <div class="experience-header">
-            <h3 class="experience-role" data-i18n="experience.items.0.role">College Instructor</h3>
-            <span class="experience-date" data-date-range="July 2026 – Present" data-i18n="experience.items.0.date">July 2026 – Present</span>
+    <section id="experience" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
+      <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="experience.title">Experience</h2>
+      <div class="relative max-w-[800px] mx-auto pl-7 max-[600px]:pl-5 border-l-2 border-border flex flex-col gap-7">
+        <article class="experience-item relative bg-card-bg border border-border rounded-brand p-6 max-[600px]:p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5 before:content-[''] before:absolute before:-left-[2.2rem] max-[600px]:before:-left-[1.7rem] before:top-7 before:size-3 before:rounded-full before:bg-accent before:border-2 before:border-bg-primary before:shadow-[0_0_0_2px_var(--accent-primary)]">
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-2 mb-[0.35rem]">
+            <h3 class="experience-role font-display text-[1.2rem] font-semibold text-text-primary flex-[1_1_260px] min-w-0" data-i18n="experience.items.0.role">College Instructor</h3>
+            <span class="experience-date font-mono text-[0.8rem] text-accent whitespace-nowrap shrink-0" data-date-range="July 2026 – Present" data-i18n="experience.items.0.date">July 2026 – Present</span>
           </div>
-          <div class="experience-meta">
-            <span class="experience-company" data-i18n="experience.items.0.company">University of Caloocan City · Full-time</span>
-            <span class="experience-location" data-i18n="experience.items.0.location">Caloocan City, Metro Manila</span>
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-1 mb-4 text-[0.95rem] text-text-secondary">
+            <span class="experience-company font-medium text-text-primary" data-i18n="experience.items.0.company">University of Caloocan City · Full-time</span>
+            <span class="experience-location text-[0.85rem] text-text-secondary" data-i18n="experience.items.0.location">Caloocan City, Metro Manila</span>
           </div>
-          <ul class="experience-list">
+          <ul class="experience-list list-disc pl-[1.2rem] flex flex-col gap-2 text-text-secondary text-[0.95rem] leading-[1.65] [&_li::marker]:text-accent">
             <li data-i18n="experience.items.0.b0">
               Teach game design theory, prototyping, and production pipelines to
               sophomore through senior students, guiding projects from initial
@@ -418,16 +418,16 @@
           </ul>
         </article>
 
-        <article class="experience-item">
-          <div class="experience-header">
-            <h3 class="experience-role" data-i18n="experience.items.1.role">Lead Full-Stack Software Engineer</h3>
-            <span class="experience-date" data-date-range="August 2025 – October 2026" data-i18n="experience.items.1.date">August 2025 – October 2026</span>
+        <article class="experience-item relative bg-card-bg border border-border rounded-brand p-6 max-[600px]:p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5 before:content-[''] before:absolute before:-left-[2.2rem] max-[600px]:before:-left-[1.7rem] before:top-7 before:size-3 before:rounded-full before:bg-accent before:border-2 before:border-bg-primary before:shadow-[0_0_0_2px_var(--accent-primary)]">
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-2 mb-[0.35rem]">
+            <h3 class="experience-role font-display text-[1.2rem] font-semibold text-text-primary flex-[1_1_260px] min-w-0" data-i18n="experience.items.1.role">Lead Full-Stack Software Engineer</h3>
+            <span class="experience-date font-mono text-[0.8rem] text-accent whitespace-nowrap shrink-0" data-date-range="August 2025 – October 2026" data-i18n="experience.items.1.date">August 2025 – October 2026</span>
           </div>
-          <div class="experience-meta">
-            <span class="experience-company" data-i18n="experience.items.1.company">PicStar Software OPC · Contractual</span>
-            <span class="experience-location" data-i18n="experience.items.1.location">Las Piñas, Metro Manila</span>
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-1 mb-4 text-[0.95rem] text-text-secondary">
+            <span class="experience-company font-medium text-text-primary" data-i18n="experience.items.1.company">PicStar Software OPC · Contractual</span>
+            <span class="experience-location text-[0.85rem] text-text-secondary" data-i18n="experience.items.1.location">Las Piñas, Metro Manila</span>
           </div>
-          <ul class="experience-list">
+          <ul class="experience-list list-disc pl-[1.2rem] flex flex-col gap-2 text-text-secondary text-[0.95rem] leading-[1.65] [&_li::marker]:text-accent">
             <li data-i18n="experience.items.1.b0">
               Owned the technical direction and day-to-day engineering of a
               social media mobile application as the sole engineer, from architecture
@@ -454,16 +454,16 @@
           </ul>
         </article>
 
-        <article class="experience-item">
-          <div class="experience-header">
-            <h3 class="experience-role" data-i18n="experience.items.2.role">Quality Assurance Analyst</h3>
-            <span class="experience-date" data-date-range="May 2024 – April 2025" data-i18n="experience.items.2.date">May 2024 – April 2025</span>
+        <article class="experience-item relative bg-card-bg border border-border rounded-brand p-6 max-[600px]:p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5 before:content-[''] before:absolute before:-left-[2.2rem] max-[600px]:before:-left-[1.7rem] before:top-7 before:size-3 before:rounded-full before:bg-accent before:border-2 before:border-bg-primary before:shadow-[0_0_0_2px_var(--accent-primary)]">
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-2 mb-[0.35rem]">
+            <h3 class="experience-role font-display text-[1.2rem] font-semibold text-text-primary flex-[1_1_260px] min-w-0" data-i18n="experience.items.2.role">Quality Assurance Analyst</h3>
+            <span class="experience-date font-mono text-[0.8rem] text-accent whitespace-nowrap shrink-0" data-date-range="May 2024 – April 2025" data-i18n="experience.items.2.date">May 2024 – April 2025</span>
           </div>
-          <div class="experience-meta">
-            <span class="experience-company" data-i18n="experience.items.2.company">GridLock-Games Studio · Internship</span>
-            <span class="experience-location" data-i18n="experience.items.2.location">Taguig, Metro Manila</span>
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-1 mb-4 text-[0.95rem] text-text-secondary">
+            <span class="experience-company font-medium text-text-primary" data-i18n="experience.items.2.company">GridLock-Games Studio · Internship</span>
+            <span class="experience-location text-[0.85rem] text-text-secondary" data-i18n="experience.items.2.location">Taguig, Metro Manila</span>
           </div>
-          <ul class="experience-list">
+          <ul class="experience-list list-disc pl-[1.2rem] flex flex-col gap-2 text-text-secondary text-[0.95rem] leading-[1.65] [&_li::marker]:text-accent">
             <li data-i18n="experience.items.2.b0">
               Worked with developers and designers to test builds and catch
               issues before release.
@@ -479,16 +479,16 @@
           </ul>
         </article>
 
-        <article class="experience-item">
-          <div class="experience-header">
-            <h3 class="experience-role" data-i18n="experience.items.3.role">Video Game Playtester</h3>
-            <span class="experience-date" data-date-range="December 2022 – May 2024" data-i18n="experience.items.3.date">December 2022 – May 2024</span>
+        <article class="experience-item relative bg-card-bg border border-border rounded-brand p-6 max-[600px]:p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5 before:content-[''] before:absolute before:-left-[2.2rem] max-[600px]:before:-left-[1.7rem] before:top-7 before:size-3 before:rounded-full before:bg-accent before:border-2 before:border-bg-primary before:shadow-[0_0_0_2px_var(--accent-primary)]">
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-2 mb-[0.35rem]">
+            <h3 class="experience-role font-display text-[1.2rem] font-semibold text-text-primary flex-[1_1_260px] min-w-0" data-i18n="experience.items.3.role">Video Game Playtester</h3>
+            <span class="experience-date font-mono text-[0.8rem] text-accent whitespace-nowrap shrink-0" data-date-range="December 2022 – May 2024" data-i18n="experience.items.3.date">December 2022 – May 2024</span>
           </div>
-          <div class="experience-meta">
-            <span class="experience-company" data-i18n="experience.items.3.company">GridLock-Games Studio · External</span>
-            <span class="experience-location" data-i18n="experience.items.3.location">Taguig, Metro Manila</span>
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-1 mb-4 text-[0.95rem] text-text-secondary">
+            <span class="experience-company font-medium text-text-primary" data-i18n="experience.items.3.company">GridLock-Games Studio · External</span>
+            <span class="experience-location text-[0.85rem] text-text-secondary" data-i18n="experience.items.3.location">Taguig, Metro Manila</span>
           </div>
-          <ul class="experience-list">
+          <ul class="experience-list list-disc pl-[1.2rem] flex flex-col gap-2 text-text-secondary text-[0.95rem] leading-[1.65] [&_li::marker]:text-accent">
             <li data-i18n="experience.items.3.b0">
               Playtested different game builds to find bugs, glitches, and
               exploits.
@@ -505,20 +505,20 @@
       </div>
     </section>
 
-    <section id="education" class="section">
-      <h2 class="section-title" data-i18n="education.title">Education</h2>
-      <div class="experience-timeline">
-        <article class="experience-item">
-          <div class="experience-header">
-            <h3 class="experience-role" data-i18n="education.items.0.degree">BS in Entertainment and Multimedia Computing</h3>
-            <span class="experience-date" data-i18n="education.items.0.date">August 2021 – April 2025</span>
+    <section id="education" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
+      <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="education.title">Education</h2>
+      <div class="relative max-w-[800px] mx-auto pl-7 max-[600px]:pl-5 border-l-2 border-border flex flex-col gap-7">
+        <article class="experience-item relative bg-card-bg border border-border rounded-brand p-6 max-[600px]:p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5 before:content-[''] before:absolute before:-left-[2.2rem] max-[600px]:before:-left-[1.7rem] before:top-7 before:size-3 before:rounded-full before:bg-accent before:border-2 before:border-bg-primary before:shadow-[0_0_0_2px_var(--accent-primary)]">
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-2 mb-[0.35rem]">
+            <h3 class="experience-role font-display text-[1.2rem] font-semibold text-text-primary flex-[1_1_260px] min-w-0" data-i18n="education.items.0.degree">BS in Entertainment and Multimedia Computing</h3>
+            <span class="experience-date font-mono text-[0.8rem] text-accent whitespace-nowrap shrink-0" data-i18n="education.items.0.date">August 2021 – April 2025</span>
           </div>
-          <p class="experience-major" data-i18n="education.items.0.major">Major in Game Development</p>
-          <div class="experience-meta">
-            <span class="experience-company" data-i18n="education.items.0.school">University of Caloocan City</span>
-            <span class="experience-location" data-i18n="education.items.0.location">Caloocan City, Metro Manila</span>
+          <p class="experience-major mt-[0.15rem] mb-[0.35rem] text-[0.95rem] text-text-secondary" data-i18n="education.items.0.major">Major in Game Development</p>
+          <div class="flex justify-between items-baseline flex-wrap gap-x-4 gap-y-1 mb-4 text-[0.95rem] text-text-secondary">
+            <span class="experience-company font-medium text-text-primary" data-i18n="education.items.0.school">University of Caloocan City</span>
+            <span class="experience-location text-[0.85rem] text-text-secondary" data-i18n="education.items.0.location">Caloocan City, Metro Manila</span>
           </div>
-          <ul class="experience-list">
+          <ul class="experience-list list-disc pl-[1.2rem] flex flex-col gap-2 text-text-secondary text-[0.95rem] leading-[1.65] [&_li::marker]:text-accent">
             <li data-i18n="education.items.0.b0">
               Developed Trash Frenzy for our capstone project, an educational
               game for Grade 5 students and above that raises water pollution
@@ -538,10 +538,10 @@
               Games, Game Networking, and Game Production.
             </li>
           </ul>
-          <div class="education-actions">
+          <div class="mt-4 flex flex-wrap gap-3">
             <button
               type="button"
-              class="cta-button cta-secondary education-link"
+              class="inline-flex items-center gap-2 rounded-brand bg-transparent text-accent border border-accent px-[1.05rem] py-[0.55rem] font-display font-semibold text-[0.85rem] cursor-pointer transition-all duration-300 ease-in-out hover:bg-accent hover:text-bg-primary"
               data-preview-case-study
               data-case-study-url="/docs/trash-frenzy-case-study.pdf"
               data-i18n="education.items.0.caseStudy"
@@ -553,269 +553,291 @@
       </div>
     </section>
 
-    <section id="projects" class="section">
-      <h2 class="section-title" data-i18n="projects.title">Projects</h2>
-      <div class="project-category">
-        <div class="category-header">
-          <span class="category-label">
+    <section id="projects" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
+      <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="projects.title">Projects</h2>
+      <div class="mb-16 last:mb-0">
+        <div class="flex items-center gap-4 mb-8">
+          <span class="inline-flex items-center gap-2 text-[0.8rem] font-bold font-mono tracking-[0.12em] uppercase text-accent whitespace-nowrap px-3 py-[0.3rem] border border-accent rounded-[4px] [&_svg]:text-[0.75rem]">
             <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> <span data-i18n="projects.systemsTools">Systems &amp; Tools</span>
           </span>
-          <div class="category-divider"></div>
+          <div class="flex-1 h-px bg-border"></div>
         </div>
-        <div class="projects-grid" id="tools-grid">
-          <p class="loading-text" data-i18n="projects.loading">Loading projects...</p>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] desktop:grid-cols-[repeat(auto-fill,minmax(min(300px,100%),1fr))] gap-6" id="tools-grid">
+          <p class="text-text-secondary" data-i18n="projects.loading">Loading projects...</p>
         </div>
       </div>
 
-      <div class="project-category">
-        <div class="category-header">
-          <span class="category-label">
+      <div class="mb-16 last:mb-0">
+        <div class="flex items-center gap-4 mb-8">
+          <span class="inline-flex items-center gap-2 text-[0.8rem] font-bold font-mono tracking-[0.12em] uppercase text-accent whitespace-nowrap px-3 py-[0.3rem] border border-accent rounded-[4px] [&_svg]:text-[0.75rem]">
             <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="4"/></svg> <span data-i18n="projects.gameProjects">Game Projects</span>
           </span>
-          <div class="category-divider"></div>
+          <div class="flex-1 h-px bg-border"></div>
         </div>
-        <div class="projects-grid" id="games-grid">
-          <p class="loading-text" data-i18n="projects.loading">Loading projects...</p>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(min(280px,100%),1fr))] desktop:grid-cols-[repeat(auto-fill,minmax(min(300px,100%),1fr))] gap-6" id="games-grid">
+          <p class="text-text-secondary" data-i18n="projects.loading">Loading projects...</p>
         </div>
       </div>
     </section>
 
-    <section id="skills" class="section">
-      <h2 class="section-title" data-i18n="skills.title">Skills</h2>
-      <div class="skills-tabs" role="tablist" aria-label="Skill categories" data-i18n-aria-label="skills.ariaLabel">
-        <button class="skill-tab active" data-skill="languages" role="tab" aria-selected="true" aria-controls="languages" data-i18n="skills.tabs.languages">
+    <section id="skills" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
+      <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="skills.title">Skills</h2>
+      <div class="flex justify-center flex-wrap gap-4 mb-12 short-h:mb-7" role="tablist" aria-label="Skill categories" data-i18n-aria-label="skills.ariaLabel">
+        <button class="skill-tab active font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="languages" role="tab" aria-selected="true" aria-controls="languages" data-i18n="skills.tabs.languages">
           Programming Languages
         </button>
-        <button class="skill-tab" data-skill="frameworks" role="tab" aria-selected="false" aria-controls="frameworks" data-i18n="skills.tabs.frameworks">Frameworks</button>
-        <button class="skill-tab" data-skill="game-engines" role="tab" aria-selected="false" aria-controls="game-engines" data-i18n="skills.tabs.gameEngines">Game Engines</button>
-        <button class="skill-tab" data-skill="databases" role="tab" aria-selected="false" aria-controls="databases" data-i18n="skills.tabs.databases">Databases</button>
-        <button class="skill-tab" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools" data-i18n="skills.tabs.tools">Tools &amp; Software</button>
+        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="frameworks" role="tab" aria-selected="false" aria-controls="frameworks" data-i18n="skills.tabs.frameworks">Frameworks</button>
+        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="game-engines" role="tab" aria-selected="false" aria-controls="game-engines" data-i18n="skills.tabs.gameEngines">Game Engines</button>
+        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="databases" role="tab" aria-selected="false" aria-controls="databases" data-i18n="skills.tabs.databases">Databases</button>
+        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools" data-i18n="skills.tabs.tools">Tools &amp; Software</button>
       </div>
 
-      <div id="languages" class="tab-content active" role="tabpanel">
-        <div class="skills-grid">
-          <div class="skill-item">
+      <div id="languages" class="tab-content active hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg"
               alt="C#"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">C#</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">C#</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg"
               alt="Dart"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Dart</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Dart</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg"
               alt="Java"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Java</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Java</span>
           </div>
         </div>
       </div>
 
-      <div id="frameworks" class="tab-content" role="tabpanel">
-        <div class="skills-grid">
-          <div class="skill-item">
+      <div id="frameworks" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"
               alt="Flutter"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Flutter</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Flutter</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
               alt="Spring Boot"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Spring Boot</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Spring Boot</span>
           </div>
         </div>
       </div>
 
-      <div id="game-engines" class="tab-content" role="tabpanel">
-        <div class="skills-grid">
-          <div class="skill-item">
+      <div id="game-engines" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg"
               alt="Godot"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Godot</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Godot</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/unity/unity-original.svg"
               alt="Unity"
-              class="invert-on-dark"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 invert light:invert-0"
               loading="lazy"
             />
-            <span class="skill-name">Unity</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Unity</span>
           </div>
         </div>
       </div>
 
-      <div id="databases" class="tab-content" role="tabpanel">
-        <div class="skills-grid">
-          <div class="skill-item">
+      <div id="databases" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
               alt="MySQL"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">MySQL</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">MySQL</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg"
               alt="PostgreSQL"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">PostgreSQL</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">PostgreSQL</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg"
               alt="Supabase"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Supabase</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Supabase</span>
           </div>
         </div>
       </div>
 
-      <div id="tools" class="tab-content" role="tabpanel">
-        <div class="skills-grid">
-          <div class="skill-item">
+      <div id="tools" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+        <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/androidstudio/androidstudio-original.svg"
               alt="Android Studio"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Android Studio</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Android Studio</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/antigravity/antigravity-original.svg"
               alt="Antigravity"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Antigravity</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Antigravity</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/claudecode/claudecode-original.svg"
               alt="Claude Code"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Claude Code</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Claude Code</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg"
               alt="Docker"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Docker</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Docker</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg"
               alt="Figma"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Figma</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Figma</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg"
               alt="Git"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Git</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Git</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
               alt="GitHub"
-              class="invert-on-dark"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 invert light:invert-0"
               loading="lazy"
             />
-            <span class="skill-name">GitHub</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">GitHub</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg"
               alt="IntelliJ IDEA"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">IntelliJ IDEA</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">IntelliJ IDEA</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/rider/rider-original.svg"
               alt="JetBrains Rider"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">JetBrains Rider</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">JetBrains Rider</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg"
               alt="Notion"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Notion</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Notion</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postman/postman-original.svg"
               alt="Postman"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Postman</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Postman</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/trello/trello-original.svg"
               alt="Trello"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Trello</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Trello</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visualstudio/visualstudio-original.svg"
               alt="Visual Studio"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Visual Studio</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Visual Studio</span>
           </div>
-          <div class="skill-item">
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
               src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
               alt="Visual Studio Code"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name">Visual Studio Code</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Visual Studio Code</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="contact" class="contact">
-      <div class="contact-content">
-        <h2 class="section-title" data-i18n="contact.title">Contact</h2>
-        <p class="contact-description" data-i18n="contact.description">
+    <section id="contact" class="text-center px-4 pt-11 pb-8 desktop:px-[clamp(1rem,3vw,2rem)] desktop:pt-[clamp(2rem,4.5dvh,3rem)] desktop:pb-8">
+      <div class="max-w-[1200px] mx-auto">
+        <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="contact.title">Contact</h2>
+        <p class="text-[1.05rem] text-text-secondary max-w-[600px] mx-auto mb-5" data-i18n="contact.description">
           Open to freelance work, software engineering roles, and game
           development or teaching collaborations. Got something in mind? Let's
           talk.
@@ -825,16 +847,16 @@
           name="contact"
           method="POST"
           action="https://haruchanz64-portfolio.haruchanz64.workers.dev/api/contact"
-          class="contact-form"
+          class="w-full max-w-[560px] mx-auto mb-[1.1rem] flex flex-col gap-[0.9rem] short-h:gap-3 text-left"
           novalidate
           onsubmit="sendEmail(event)"
         >
   <p style="display: none" aria-hidden="true">
     <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
   </p>
-  <div class="form-row">
-    <div class="form-field">
-      <label for="name" data-i18n="contact.form.nameLabel">Name</label>
+  <div class="grid grid-cols-2 max-[500px]:grid-cols-1 gap-[0.9rem]">
+    <div class="form-field flex flex-col gap-[0.4rem]">
+      <label for="name" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted" data-i18n="contact.form.nameLabel">Name</label>
       <input
         type="text"
         id="name"
@@ -845,11 +867,12 @@
         aria-describedby="name-error"
         maxlength="100"
         required
+        class="bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
       />
-      <span class="form-error" id="name-error" aria-live="polite"></span>
+      <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="name-error" aria-live="polite"></span>
     </div>
-    <div class="form-field">
-      <label for="email" data-i18n="contact.form.emailLabel">Email</label>
+    <div class="form-field flex flex-col gap-[0.4rem]">
+      <label for="email" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted" data-i18n="contact.form.emailLabel">Email</label>
       <input
         type="email"
         id="email"
@@ -860,15 +883,16 @@
         aria-describedby="email-error"
         maxlength="160"
         required
+        class="bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
       />
-      <span class="form-error" id="email-error" aria-live="polite"></span>
+      <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="email-error" aria-live="polite"></span>
     </div>
   </div>
-  <div class="form-row">
-    <div class="form-field">
-      <label for="company">
+  <div class="grid grid-cols-2 max-[500px]:grid-cols-1 gap-[0.9rem]">
+    <div class="form-field flex flex-col gap-[0.4rem]">
+      <label for="company" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted">
         <span data-i18n="contact.form.companyLabel">Company / Organization</span>
-        <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
+        <span class="text-[0.65rem] tracking-[0.04em] normal-case opacity-70 ml-1" data-i18n="contact.form.optional">(Optional)</span>
       </label>
       <input
         type="text"
@@ -879,13 +903,14 @@
         data-i18n-placeholder="contact.form.companyPlaceholder"
         aria-describedby="company-error"
         maxlength="120"
+        class="bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
       />
-      <span class="form-error" id="company-error" aria-live="polite"></span>
+      <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="company-error" aria-live="polite"></span>
     </div>
-    <div class="form-field">
-      <label for="reference-url">
+    <div class="form-field flex flex-col gap-[0.4rem]">
+      <label for="reference-url" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted">
         <span data-i18n="contact.form.referenceUrlLabel">Website / Reference Link</span>
-        <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
+        <span class="text-[0.65rem] tracking-[0.04em] normal-case opacity-70 ml-1" data-i18n="contact.form.optional">(Optional)</span>
       </label>
       <input
         type="url"
@@ -896,14 +921,15 @@
         data-i18n-placeholder="contact.form.referenceUrlPlaceholder"
         aria-describedby="reference-url-error"
         maxlength="300"
+        class="bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
       />
-      <span class="form-error" id="reference-url-error" aria-live="polite"></span>
+      <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="reference-url-error" aria-live="polite"></span>
     </div>
   </div>
-  <div class="form-field">
-    <label for="subject-select" data-i18n="contact.form.subjectLabel">Subject</label>
-    <div class="select-wrapper">
-      <select id="subject-select" aria-describedby="subject-error" required>
+  <div class="form-field flex flex-col gap-[0.4rem]">
+    <label for="subject-select" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted" data-i18n="contact.form.subjectLabel">Subject</label>
+    <div class="group relative flex items-center">
+      <select id="subject-select" aria-describedby="subject-error" required class="w-full appearance-none bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] py-3 pl-4 pr-10 outline-none cursor-pointer transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)] [&_option[value='']]:text-text-muted">
         <option value="" disabled selected data-i18n="contact.form.subjectPlaceholder">Select a subject…</option>
         <option value="Freelance / Project Inquiry" data-i18n="contact.form.subjects.freelance">Freelance / Project Inquiry</option>
         <option value="Job Opportunity / Interview" data-i18n="contact.form.subjects.job">Job Opportunity / Interview</option>
@@ -911,7 +937,7 @@
         <option value="General Question" data-i18n="contact.form.subjects.general">General Question</option>
         <option value="__custom__" data-i18n="contact.form.subjects.custom">Other (Custom Subject)</option>
       </select>
-      <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+      <svg class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[0.78rem] text-text-muted transition-colors duration-300 ease-in-out group-focus-within:text-accent group-has-[select[aria-invalid='true']]:text-accent" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
     <input
       type="text"
@@ -924,19 +950,20 @@
       aria-label="Custom subject"
       data-i18n-aria-label="contact.form.customSubjectAriaLabel"
       aria-describedby="subject-error"
+      class="mt-[0.45rem] bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
     />
-    <span class="form-error" id="subject-error" aria-live="polite"></span>
+    <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="subject-error" aria-live="polite"></span>
     <input type="hidden" id="subject" name="subject" />
   </div>
-  <div id="freelance-fields" class="form-conditional-group" hidden>
-    <div class="form-row">
-      <div class="form-field">
-        <label for="budget">
+  <div id="freelance-fields" class="[&[hidden]]:hidden [&:not([hidden])]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not([hidden])]:animate-none" hidden>
+    <div class="grid grid-cols-2 max-[500px]:grid-cols-1 gap-[0.9rem]">
+      <div class="form-field flex flex-col gap-[0.4rem]">
+        <label for="budget" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted">
           <span data-i18n="contact.form.budgetLabel">Estimated Budget</span>
-          <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
+          <span class="text-[0.65rem] tracking-[0.04em] normal-case opacity-70 ml-1" data-i18n="contact.form.optional">(Optional)</span>
         </label>
-        <div class="select-wrapper">
-          <select id="budget" name="budget" aria-describedby="budget-error">
+        <div class="group relative flex items-center">
+          <select id="budget" name="budget" aria-describedby="budget-error" class="w-full appearance-none bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] py-3 pl-4 pr-10 outline-none cursor-pointer transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)] [&_option[value='']]:text-text-muted">
             <option value="" disabled selected data-i18n="contact.form.budgetPlaceholder">Select a range…</option>
             <option value="Under $500" data-i18n="contact.form.budgets.under500">Under $500</option>
             <option value="$500 – $2,000" data-i18n="contact.form.budgets.500to2000">$500 – $2,000</option>
@@ -945,7 +972,7 @@
             <option value="Not sure yet" data-i18n="contact.form.budgets.unsure">Not sure yet</option>
             <option value="__custom__" data-i18n="contact.form.budgets.custom">Other (Custom Budget)</option>
           </select>
-          <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[0.78rem] text-text-muted transition-colors duration-300 ease-in-out group-focus-within:text-accent group-has-[select[aria-invalid='true']]:text-accent" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
         <input
           type="text"
@@ -958,16 +985,17 @@
           aria-label="Custom budget"
           data-i18n-aria-label="contact.form.customBudgetAriaLabel"
           aria-describedby="budget-error"
+          class="mt-[0.45rem] bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
         />
-        <span class="form-error" id="budget-error" aria-live="polite"></span>
+        <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="budget-error" aria-live="polite"></span>
       </div>
-      <div class="form-field">
-        <label for="timeline">
+      <div class="form-field flex flex-col gap-[0.4rem]">
+        <label for="timeline" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted">
           <span data-i18n="contact.form.timelineLabel">Timeline</span>
-          <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
+          <span class="text-[0.65rem] tracking-[0.04em] normal-case opacity-70 ml-1" data-i18n="contact.form.optional">(Optional)</span>
         </label>
-        <div class="select-wrapper">
-          <select id="timeline" name="timeline" aria-describedby="timeline-error">
+        <div class="group relative flex items-center">
+          <select id="timeline" name="timeline" aria-describedby="timeline-error" class="w-full appearance-none bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] py-3 pl-4 pr-10 outline-none cursor-pointer transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)] [&_option[value='']]:text-text-muted">
             <option value="" disabled selected data-i18n="contact.form.timelinePlaceholder">Select a timeline…</option>
             <option value="ASAP" data-i18n="contact.form.timelines.asap">ASAP</option>
             <option value="1–3 months" data-i18n="contact.form.timelines.oneToThree">1–3 months</option>
@@ -975,7 +1003,7 @@
             <option value="Flexible" data-i18n="contact.form.timelines.flexible">Flexible</option>
             <option value="__custom__" data-i18n="contact.form.timelines.custom">Other (Custom Timeline)</option>
           </select>
-          <svg class="select-icon" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          <svg class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[0.78rem] text-text-muted transition-colors duration-300 ease-in-out group-focus-within:text-accent group-has-[select[aria-invalid='true']]:text-accent" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
         <input
           type="text"
@@ -988,16 +1016,17 @@
           aria-label="Custom timeline"
           data-i18n-aria-label="contact.form.customTimelineAriaLabel"
           aria-describedby="timeline-error"
+          class="mt-[0.45rem] bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
         />
-        <span class="form-error" id="timeline-error" aria-live="polite"></span>
+        <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="timeline-error" aria-live="polite"></span>
       </div>
     </div>
   </div>
-  <div id="job-fields" class="form-conditional-group" hidden>
-    <div class="form-field">
-      <label for="role">
+  <div id="job-fields" class="[&[hidden]]:hidden [&:not([hidden])]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not([hidden])]:animate-none" hidden>
+    <div class="form-field flex flex-col gap-[0.4rem]">
+      <label for="role" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted">
         <span data-i18n="contact.form.roleLabel">Role / Position</span>
-        <span class="label-optional" data-i18n="contact.form.optional">(Optional)</span>
+        <span class="text-[0.65rem] tracking-[0.04em] normal-case opacity-70 ml-1" data-i18n="contact.form.optional">(Optional)</span>
       </label>
       <input
         type="text"
@@ -1008,14 +1037,15 @@
         data-i18n-placeholder="contact.form.rolePlaceholder"
         aria-describedby="role-error"
         maxlength="120"
+        class="bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
       />
-      <span class="form-error" id="role-error" aria-live="polite"></span>
+      <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="role-error" aria-live="polite"></span>
     </div>
   </div>
-  <div class="form-field">
-    <div class="form-label-row">
-      <label for="message" data-i18n="contact.form.messageLabel">Message</label>
-      <span class="char-count" id="message-char-count" aria-live="off">0 / 1000</span>
+  <div class="form-field flex flex-col gap-[0.4rem]">
+    <div class="flex justify-between items-baseline gap-2">
+      <label for="message" class="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-text-muted" data-i18n="contact.form.messageLabel">Message</label>
+      <span class="font-mono text-[0.7rem] text-text-muted" id="message-char-count" aria-live="off">0 / 1000</span>
     </div>
     <textarea
       id="message"
@@ -1026,31 +1056,32 @@
       aria-describedby="message-error"
       maxlength="1000"
       required
+      class="bg-bg-tertiary border border-border rounded-brand text-text-primary font-main text-[0.95rem] px-4 py-3 outline-none resize-none transition-[border-color,box-shadow] duration-300 ease-in-out focus:border-accent focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_20%,transparent)] aria-[invalid=true]:border-accent aria-[invalid=true]:shadow-[0_0_0_2px_color-mix(in_srgb,var(--third-color)_16%,transparent)] aria-[invalid=true]:focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--third-color)_26%,transparent)]"
     ></textarea>
-    <span class="form-error" id="message-error" aria-live="polite"></span>
+    <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="message-error" aria-live="polite"></span>
   </div>
-  <div class="form-field turnstile-wrapper" id="turnstile-wrapper" hidden>
+  <div class="form-field flex flex-col items-center gap-0 [&[hidden]]:hidden [&.is-interactive]:gap-[0.4rem] has-[.form-error:not(:empty)]:gap-[0.4rem] [&:not(.is-interactive):not(:has(.form-error:not(:empty)))]:-mt-[0.9rem]" id="turnstile-wrapper" hidden>
     <div id="turnstile-widget" data-sitekey="0x4AAAAAAGAwbWneFQYFo-Nq"></div>
-    <span class="form-error" id="turnstile-error" aria-live="polite"></span>
+    <span class="form-error hidden [&:not(:empty)]:flex [&:not(:empty)]:animate-[formErrorIn_0.2s_ease_forwards] motion-reduce:[&:not(:empty)]:animate-none items-center gap-[0.4rem] font-mono text-[0.72rem] leading-[1.4] text-accent mt-[0.05rem] before:content-['!'] before:inline-flex before:items-center before:justify-center before:shrink-0 before:size-[14px] before:rounded-full before:bg-accent before:text-bg-primary before:text-[0.65rem] before:font-bold before:leading-none" id="turnstile-error" aria-live="polite"></span>
   </div>
-  <button type="submit" class="form-submit" id="submit-btn">
+  <button type="submit" class="block w-auto min-w-[min(260px,100%)] mx-auto bg-accent text-bg-primary border-none rounded-brand px-[2.75rem] py-[1.2rem] short-h:px-9 short-h:py-[0.95rem] font-display text-[1.125rem] short-h:text-[1.02rem] font-semibold cursor-pointer transition-[background-color,transform] duration-300 ease-in-out enabled:hover:bg-accent-secondary disabled:opacity-60 disabled:cursor-not-allowed" id="submit-btn">
     <span class="btn-text" data-i18n="contact.form.submit">Send Message</span>
-    <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span data-i18n="contact.form.sending">Sending…</span></span>
+    <span class="btn-spinner" style="display:none"><svg class="inline-block align-[-0.125em] animate-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span data-i18n="contact.form.sending">Sending…</span></span>
   </button>
-  <button type="button" class="form-secondary-cta" data-request-resume>
+  <button type="button" class="block w-auto min-w-[min(200px,100%)] mx-auto mt-3 px-7 py-3 bg-transparent text-accent border border-accent rounded-brand font-display text-[0.9rem] font-semibold cursor-pointer transition-[background-color,color] duration-300 ease-in-out enabled:hover:bg-accent enabled:hover:text-bg-primary disabled:opacity-60 disabled:cursor-not-allowed" data-request-resume>
     <span class="btn-text" data-i18n="contact.form.resume">Preview Resume</span>
-    <span class="btn-spinner" style="display:none"><svg class="hgi-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:-0.125em" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span data-i18n="contact.form.generatingResume">Generating…</span></span>
+    <span class="btn-spinner" style="display:none"><svg class="inline-block align-[-0.125em] animate-spin" viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span data-i18n="contact.form.generatingResume">Generating…</span></span>
   </button>
-  <p class="form-toast" id="form-toast" role="status" aria-live="polite"></p>
+  <p class="font-mono text-[0.85rem] text-center min-h-[1.2em] rounded-brand transition-[opacity,background-color,border-color] duration-300 ease-in-out [&.success]:px-4 [&.success]:py-[0.65rem] [&.success]:bg-bg-tertiary [&.success]:border [&.success]:border-accent [&.success]:text-accent [&.error]:px-4 [&.error]:py-[0.65rem] [&.error]:bg-bg-tertiary [&.error]:border [&.error]:border-accent-secondary [&.error]:text-accent-secondary" id="form-toast" role="status" aria-live="polite"></p>
 </form>
-        <p class="social-links-title" data-i18n="contact.socialTitle">Find me online</p>
-        <div class="social-links">
+        <p class="mx-auto mb-[0.65rem] font-mono text-[0.8rem] font-medium tracking-[0.08em] uppercase text-text-muted" data-i18n="contact.socialTitle">Find me online</p>
+        <div class="social-links flex flex-wrap justify-center gap-7 desktop:gap-x-9 desktop:gap-y-7 mx-auto max-w-full pt-1 pb-5">
           <a
             href="https://bsky.app/profile/haruchanz64.bsky.social"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Bluesky"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479.815 2.736 3.713 3.66 6.383 3.364.136-.02.275-.039.415-.056-.138.022-.276.04-.415.056-3.912.58-7.387 2.005-2.83 7.078 5.013 5.19 6.87-1.113 7.823-4.308.953 3.195 2.05 9.271 7.733 4.308 4.267-4.308 1.172-6.498-2.74-7.078a8.741 8.741 0 0 1-.415-.056c.14.017.279.036.415.056 2.67.297 5.568-.628 6.383-3.364.246-.828.624-5.79.624-6.478 0-.69-.139-1.861-.902-2.206-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8z"/></svg
           ></a>
           <a
@@ -1058,7 +1089,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Codeberg"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M11.999.747A11.974 11.974 0 0 0 0 12.75c0 2.254.635 4.465 1.833 6.376L11.837 6.19c.072-.092.251-.092.323 0l4.178 5.402h-2.992l.065.239h3.113l.882 1.138h-3.674l.103.374h3.86l.777 1.003h-4.358l.135.483h4.593l.695.894h-5.038l.165.589h5.326l.609.785h-5.717l.182.65h6.038l.562.727h-6.397l.183.65h6.717A12.003 12.003 0 0 0 24 12.75 11.977 11.977 0 0 0 11.999.747zm3.654 19.104.182.65h5.326c.173-.204.353-.433.513-.65zm.385 1.377.18.65h3.563c.233-.198.485-.428.712-.65zm.383 1.377.182.648h1.203c.356-.204.685-.412 1.042-.648zz"/></svg
           ></a>
           <a
@@ -1066,7 +1097,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="DEV"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z"/></svg
           ></a>
           <a
@@ -1074,7 +1105,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Discord"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg
           ></a>
           <a
@@ -1082,7 +1113,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg
           ></a>
           <a
@@ -1090,7 +1121,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg
           ></a>
           <a
@@ -1098,7 +1129,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="itch.io"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M3.13 1.338C2.08 1.96.02 4.328 0 4.95v1.03c0 1.303 1.22 2.45 2.325 2.45 1.33 0 2.436-1.102 2.436-2.41 0 1.308 1.07 2.41 2.4 2.41 1.328 0 2.362-1.102 2.362-2.41 0 1.308 1.137 2.41 2.466 2.41h.024c1.33 0 2.466-1.102 2.466-2.41 0 1.308 1.034 2.41 2.363 2.41 1.33 0 2.4-1.102 2.4-2.41 0 1.308 1.106 2.41 2.435 2.41C22.78 8.43 24 7.282 24 5.98V4.95c-.02-.62-2.082-2.99-3.13-3.612-3.253-.114-5.508-.134-8.87-.133-3.362 0-7.945.053-8.87.133zm6.376 6.477a2.74 2.74 0 0 1-.468.602c-.5.49-1.19.795-1.947.795a2.786 2.786 0 0 1-1.95-.795c-.182-.178-.32-.37-.446-.59-.127.222-.303.412-.486.59a2.788 2.788 0 0 1-1.95.795c-.092 0-.187-.025-.264-.052-.107 1.113-.152 2.176-.168 2.95v.005l-.006 1.167c.02 2.334-.23 7.564 1.03 8.85 1.952.454 5.545.662 9.15.663 3.605 0 7.198-.21 9.15-.664 1.26-1.284 1.01-6.514 1.03-8.848l-.006-1.167v-.004c-.016-.775-.06-1.838-.168-2.95-.077.026-.172.052-.263.052a2.788 2.788 0 0 1-1.95-.795c-.184-.178-.36-.368-.486-.59-.127.22-.265.412-.447.59a2.786 2.786 0 0 1-1.95.794c-.76 0-1.446-.303-1.948-.793a2.74 2.74 0 0 1-.468-.602 2.738 2.738 0 0 1-.463.602 2.787 2.787 0 0 1-1.95.794h-.16a2.787 2.787 0 0 1-1.95-.793 2.738 2.738 0 0 1-.464-.602zm-2.004 2.59v.002c.795.002 1.5 0 2.373.953.687-.072 1.406-.108 2.125-.107.72 0 1.438.035 2.125.107.873-.953 1.578-.95 2.372-.953.376 0 1.876 0 2.92 2.934l1.123 4.028c.832 2.995-.266 3.068-1.636 3.07-2.03-.075-3.156-1.55-3.156-3.025-1.124.184-2.436.276-3.748.277-1.312 0-2.624-.093-3.748-.277 0 1.475-1.125 2.95-3.156 3.026-1.37-.004-2.468-.077-1.636-3.072l1.122-4.027c1.045-2.934 2.545-2.934 2.92-2.934zM12 12.714c-.002.002-2.14 1.964-2.523 2.662l1.4-.056v1.22c0 .056.56.033 1.123.007.562.026 1.124.05 1.124-.008v-1.22l1.4.055C14.138 14.677 12 12.713 12 12.713z"/></svg
           ></a>
           <a
@@ -1106,7 +1137,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LeetCode"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z"/></svg
           ></a>
           <a
@@ -1114,7 +1145,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg
           ></a>
           <a
@@ -1122,7 +1153,7 @@
             target="_blank"
             rel="noopener noreferrer me"
             aria-label="Mastodon"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611.118 1.24.325 2.47.62 3.68.55 2.237 2.777 4.098 4.96 4.857 2.336.792 4.849.923 7.256.38.265-.061.527-.132.786-.213.585-.184 1.27-.39 1.774-.753a.057.057 0 0 0 .023-.043v-1.809a.052.052 0 0 0-.02-.041.053.053 0 0 0-.046-.01 20.282 20.282 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.593 5.593 0 0 1-.319-1.433.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546.376 0 .75 0 1.125-.01 1.57-.044 3.224-.124 4.768-.422.038-.008.077-.015.11-.024 2.435-.464 4.753-1.92 4.989-5.604.008-.145.03-1.52.03-1.67.002-.512.167-3.63-.024-5.545zm-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102c0-1.31.337-2.35 1.011-3.12.696-.77 1.608-1.164 2.74-1.164 1.311 0 2.302.5 2.962 1.498l.638 1.06.638-1.06c.66-.999 1.65-1.498 2.96-1.498 1.13 0 2.043.395 2.74 1.164.675.77 1.012 1.81 1.012 3.12z"/></svg
           ></a>
           <a
@@ -1130,7 +1161,7 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="StackOverflow"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M15.725 0l-1.72 1.277 6.39 8.588 1.716-1.277L15.725 0zm-3.94 3.418l-1.369 1.644 8.225 6.85 1.369-1.644-8.225-6.85zm-3.15 4.465l-.905 1.94 9.702 4.517.904-1.94-9.701-4.517zm-1.85 4.86l-.44 2.093 10.473 2.201.44-2.092-10.473-2.203zM1.89 15.47V24h19.19v-8.53h-2.133v6.397H4.021v-6.396H1.89zm4.265 2.133v2.13h10.66v-2.13H6.154Z"/></svg
           ></a>
           <a
@@ -1138,14 +1169,14 @@
             target="_blank"
             rel="noopener noreferrer"
             aria-label="X"
-            class="social-link"
+            class="relative flex items-center justify-center shrink-0 size-[50px] bg-bg-tertiary text-text-secondary no-underline transition-all duration-300 ease-in-out border border-border rounded-brand hover:bg-accent hover:text-bg-primary hover:border-accent hover:-translate-y-0.5 focus-visible:bg-accent focus-visible:text-bg-primary focus-visible:border-accent focus-visible:-translate-y-0.5 after:content-[attr(aria-label)] after:absolute after:left-1/2 after:top-[calc(100%+6px)] after:font-mono after:text-[0.65rem] after:font-medium after:leading-none after:text-text-secondary after:whitespace-nowrap after:pointer-events-none after:opacity-85 after:-translate-x-1/2 after:transition-[color,opacity] after:duration-300 after:ease-in-out hover:after:text-text-primary hover:after:opacity-100 focus-visible:after:text-text-primary focus-visible:after:opacity-100"
             ><svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg
           ></a>
         </div>
       </div>
     </section>
 
-    <footer class="footer">
+    <footer class="p-8 text-center border-t border-border text-text-muted font-mono text-[0.8rem]">
       <p data-i18n="footer.copyright">&copy; 2026 Aron Jake Radam (Haru). All rights reserved.</p>
     </footer>
   </body>

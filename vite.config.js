@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 
 function minifyHtmlPlugin() {
@@ -16,7 +17,7 @@ function minifyHtmlPlugin() {
 
 export default defineConfig({
   base: "/",
-  plugins: [minifyHtmlPlugin()],
+  plugins: [tailwindcss(), minifyHtmlPlugin()],
   build: {
     rollupOptions: {
       input: {

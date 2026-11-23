@@ -25,7 +25,7 @@ async function initItchProjects() {
   });
 
   if (!projects) {
-    grid.innerHTML = `<p class="loading-text">${t("projects.failedToLoad")}</p>`;
+    grid.innerHTML = `<p class="text-text-secondary">${t("projects.failedToLoad")}</p>`;
     return;
   }
 

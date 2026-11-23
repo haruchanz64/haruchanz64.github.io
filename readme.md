@@ -5,13 +5,13 @@
 ![Node.js](https://img.shields.io/badge/node-%3E%3D18-339933?logo=node.js&logoColor=white)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](license)
 
-My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engineer & College Instructor. Built with vanilla HTML, CSS, and JavaScript (ES modules) and bundled with [Vite](https://vite.dev/).
+My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engineer & College Instructor. Built with vanilla HTML, JavaScript (ES modules), and [Tailwind CSS v4](https://tailwindcss.com/) compiled at build time with [Vite](https://vite.dev/).
 
 **Live Demo:** [https://haruchanz64.github.io](https://haruchanz64.github.io)
 
 ## Engineering Highlights
 
-- **Zero-Runtime-Dependency Architecture**: Built with native ES modules, CSS custom properties, and browser APIs instead of a frontend framework, keeping the bundle minimal and dependency-free.
+- **Zero-Runtime-Dependency Architecture**: Built with native ES modules, browser APIs, and build-time Tailwind CSS v4 (`@tailwindcss/vite`) backed by CSS custom properties—no frontend JS framework or runtime dependencies.
 - **Client-Side ATS PDF Engine**: Generates a valid, paginated PDF 1.4 resume directly in the browser (`src/js/resume/pdf-builder.js`) with WinAnsi character encoding, Helvetica width tables, and multi-line bullet justification—no third-party PDF library required.
 - **Layered Spam & Bot Protection**: Combines honeypot fields, interaction-timing checks, cooldown rate limiting, and content-scoring heuristics (`src/js/contact/spam-detector.js`) before hitting the Cloudflare Worker.
 - **Tested Multi-Language Support (i18n)**: Supports `en_us`, `fil_ph`, and `ja_jp` with lazy-loaded locale dictionaries, `localStorage` caching, and automated key-parity tests (`tests/i18n.test.mjs`).
@@ -31,7 +31,8 @@ My personal portfolio website — I'm **Haru**, a Lead Full-Stack Software Engin
 ## Tech Stack
 
 - **Build Tool**: Vite (`^7.3.1`)
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript (ES Modules)
+- **Frontend**: HTML5, Tailwind CSS v4 (`@tailwindcss/vite`), Vanilla JavaScript (ES Modules)
+- **Linting & Formatting**: Biome (JavaScript, JSON, and Tailwind v4 CSS)
 - **Hosting & Backend**: GitHub Pages (`.github/workflows/deploy.yml`) + Cloudflare Worker (`worker/contact.js`) with Resend
 - **Icons & Fonts**: Devicon, Google Fonts (`Inter`, `Space Grotesk`, `JetBrains Mono`)
 - **Testing**: Node.js built-in test runner (`node:test`)
@@ -145,7 +146,7 @@ npx wrangler dev
 │   ├── sync-github.mjs               # Script to sync GitHub pinned repositories
 │   └── sync-itch.mjs                 # Script to sync itch.io project metadata
 ├── src/
-│   ├── style.css                     # Main stylesheet
+│   ├── style.css                     # Tailwind CSS v4 entry point, theme tokens & base overrides
 │   ├── locales/                      # i18n translation files (en_us, fil_ph, ja_jp)
 │   └── js/
 │       ├── main.js                   # Application entry point

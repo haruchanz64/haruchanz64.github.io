@@ -3,6 +3,7 @@ import { DEFAULT_LOCALE, getTranslation, t } from "../core/i18n.js";
 import {
   createPdfIframeMarkup,
   isMobilePdfFallbackNeeded,
+  PDF_MODAL_CLASSES,
   renderPdfPagesToContainer,
 } from "../ui/pdf-preview.js";
 import { buildAtsResumePdfBytes } from "./pdf-builder.js";
@@ -489,23 +490,23 @@ export async function requestResume(triggerEl = null) {
 
     const overlay = document.createElement("div");
     overlay.id = "resume-modal";
-    overlay.className = "resume-modal-overlay";
+    overlay.className = PDF_MODAL_CLASSES.overlay;
     overlay.setAttribute("role", "dialog");
     overlay.setAttribute("aria-modal", "true");
     overlay.setAttribute("aria-labelledby", "resume-modal-title");
 
     overlay.innerHTML = `
-      <div class="resume-modal">
-        <div class="resume-modal-header">
+      <div class="${PDF_MODAL_CLASSES.dialog}">
+        <div class="${PDF_MODAL_CLASSES.header}">
           <div>
-            <h2 id="resume-modal-title" class="resume-modal-title">${safeTitle}</h2>
+            <h2 id="resume-modal-title" class="${PDF_MODAL_CLASSES.title}">${safeTitle}</h2>
           </div>
-          <div class="resume-modal-controls">
-            <a class="cta-button resume-download-btn" href="${safeUrl}" download="${safeFilename}">${safeDownloadLabel}</a>
-            <button type="button" class="resume-modal-close" aria-label="${safeCloseLabel}">&times;</button>
+          <div class="${PDF_MODAL_CLASSES.controls}">
+            <a class="${PDF_MODAL_CLASSES.downloadBtn}" href="${safeUrl}" download="${safeFilename}">${safeDownloadLabel}</a>
+            <button type="button" class="${PDF_MODAL_CLASSES.closeBtn}" aria-label="${safeCloseLabel}">&times;</button>
           </div>
         </div>
-        <div class="resume-preview-frame-wrap">
+        <div class="${PDF_MODAL_CLASSES.frameWrap}">
           ${useCanvasViewer ? "" : createPdfIframeMarkup(pdfUrl, modalTitle)}
         </div>
       </div>

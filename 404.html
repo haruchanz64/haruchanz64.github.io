@@ -30,15 +30,24 @@
     <script type="module" src="/src/js/ui/theme.js"></script>
   </head>
   <body>
-    <main class="hero">
-      <div class="hero-content">
-        <div class="hero-greeting">Page Not Found</div>
-        <h1 class="hero-name">404</h1>
-        <p class="hero-title">
+    <main class="relative flex min-h-svh box-border items-center justify-center px-4 py-[clamp(0.75rem,3dvh,2rem)] text-center transition-opacity duration-[600ms] ease-in-out motion-reduce:duration-[0.01ms]">
+      <div class="flex w-full max-w-[800px] flex-col items-center px-4 py-[clamp(0.5rem,2dvh,1.5rem)] desktop:px-8 desktop:py-[clamp(0.5rem,2.5dvh,1.75rem)]">
+        <div class="mb-[0.2rem] font-mono text-[clamp(0.85rem,1.8dvh,1rem)] text-text-secondary opacity-0 animate-[fadeInUp_1s_ease_0.2s_forwards]">
+          Page Not Found
+        </div>
+        <h1 class="mb-[clamp(0.5rem,2.2dvh,1.5rem)] font-display text-[clamp(2.5rem,min(12vw,11.5dvh),7rem)] font-bold leading-[1.05] tracking-[-0.02em] text-accent opacity-0 animate-[fadeInUp_1s_ease_0.4s_forwards]">
+          404
+        </h1>
+        <p class="mb-[clamp(0.85rem,3dvh,2rem)] max-w-[660px] text-[clamp(0.95rem,min(2.5vw,2.4dvh),1.45rem)] font-light leading-[1.45] text-text-secondary opacity-0 animate-[fadeInUp_1s_ease_0.6s_forwards]">
           The page you're looking for doesn't exist or has been moved.
         </p>
-        <div class="hero-actions">
-          <a href="/" class="cta-button">Back to Home</a>
+        <div class="flex flex-col items-center gap-[0.85rem] short-h:gap-[0.65rem] short-h-wide:flex-row short-h-wide:flex-wrap short-h-wide:justify-center">
+          <a
+            href="/"
+            class="inline-flex min-w-[min(260px,100%)] items-center justify-center gap-2 rounded-brand border-none bg-accent px-[2.75rem] py-[1.2rem] font-display text-[1.125rem] font-semibold text-bg-primary no-underline opacity-0 cursor-pointer animate-[fadeInUp_1s_ease_0.8s_forwards] transition-all duration-300 ease-in-out hover:bg-accent-secondary hover:text-bg-primary short-h:min-w-[min(210px,100%)] short-h:px-[1.85rem] short-h:py-[0.85rem] short-h:text-base short-h-wide:min-w-0 short-h-wide:px-[1.6rem] short-h-wide:py-[0.8rem] short-h-wide:text-[0.95rem] xshort-h:px-[1.35rem] xshort-h:py-[0.65rem] xshort-h:text-[0.9rem]"
+          >
+            Back to Home
+          </a>
         </div>
       </div>
     </main>

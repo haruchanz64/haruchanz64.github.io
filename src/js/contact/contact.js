@@ -32,12 +32,15 @@ function showToast(toast, message, type) {
   }
 
   toast.textContent = message;
-  toast.className = type ? `form-toast ${type}` : "form-toast";
+  toast.classList.remove("success", "error");
+  if (type) {
+    toast.classList.add(type);
+  }
 
   if (type === "success") {
     toastTimer = setTimeout(() => {
       toast.textContent = "";
-      toast.className = "form-toast";
+      toast.classList.remove("success", "error");
       toastTimer = null;
     }, TOAST_AUTO_HIDE_MS);
   }

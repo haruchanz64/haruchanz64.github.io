@@ -32,7 +32,14 @@ npm test
 npm run build
 ```
 
-Pull requests targeting `main` automatically run `npm run lint`, `npm test`, and `npm run build` via `.github/workflows/ci.yml`.
+Pull requests targeting `main` automatically run `npm run lint`, `npm test`, and `npm run build` via `.github/workflows/ci.yml`. Biome checks and formats JavaScript, JSON, and `src/style.css` (with Tailwind v4 directives enabled).
+
+## Styling with Tailwind CSS v4
+
+- Styles are built with **Tailwind CSS v4** (`@tailwindcss/vite`) using utility-first classes in `index.html`, `404.html`, and DOM-rendering modules under `src/js/`.
+- Theme tokens (`--bg-primary`, `--accent-primary`, etc.) live in `src/style.css` and are mapped via `@theme inline` so `.light-theme` overrides work dynamically.
+- **Preserve JS/test hook classes** (such as `nav-link`, `experience-item`, `experience-date`, `skill-tab`, `skill-name`, `social-links`, `form-field`, `form-error`, `resume-modal-close`, `light-theme`) when editing markup so interactive modules and unit tests keep working.
+- Write complete utility class names as static string literals in JS modules rather than concatenating partial class names dynamically, so Tailwind's scanner includes them in the compiled CSS.
 
 ## Adding or Updating Locales
 

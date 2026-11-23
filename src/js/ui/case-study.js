@@ -4,6 +4,7 @@ import { escapeHtml } from "../core/text.js";
 import {
   createPdfIframeMarkup,
   isMobilePdfFallbackNeeded,
+  PDF_MODAL_CLASSES,
   renderPdfPagesToContainer,
 } from "./pdf-preview.js";
 
@@ -43,22 +44,22 @@ export function openCaseStudyModal(pdfUrl, triggerEl = null) {
 
   const overlay = document.createElement("div");
   overlay.id = "case-study-modal";
-  overlay.className = "resume-modal-overlay";
+  overlay.className = PDF_MODAL_CLASSES.overlay;
   overlay.setAttribute("role", "dialog");
   overlay.setAttribute("aria-modal", "true");
   overlay.setAttribute("aria-labelledby", "case-study-modal-title");
 
   overlay.innerHTML = `
-    <div class="resume-modal">
-      <div class="resume-modal-header">
+    <div class="${PDF_MODAL_CLASSES.dialog}">
+      <div class="${PDF_MODAL_CLASSES.header}">
         <div>
-          <h2 id="case-study-modal-title" class="resume-modal-title">${safeTitle}</h2>
+          <h2 id="case-study-modal-title" class="${PDF_MODAL_CLASSES.title}">${safeTitle}</h2>
         </div>
-        <div class="resume-modal-controls">
-          <button type="button" class="resume-modal-close" aria-label="${safeCloseLabel}">&times;</button>
+        <div class="${PDF_MODAL_CLASSES.controls}">
+          <button type="button" class="${PDF_MODAL_CLASSES.closeBtn}" aria-label="${safeCloseLabel}">&times;</button>
         </div>
       </div>
-      <div class="resume-preview-frame-wrap">
+      <div class="${PDF_MODAL_CLASSES.frameWrap}">
         ${useCanvasViewer ? "" : createPdfIframeMarkup(pdfUrl, title)}
       </div>
     </div>

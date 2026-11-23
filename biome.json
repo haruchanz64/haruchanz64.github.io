@@ -8,6 +8,7 @@
   "files": {
     "includes": [
       "src/js/**",
+      "src/style.css",
       "tests/**",
       "scripts/**",
       "worker/**",
@@ -32,6 +33,18 @@
     "formatter": {
       "quoteStyle": "double",
       "semicolons": "always"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    },
+    "formatter": {
+      "enabled": true,
+      "quoteStyle": "double"
+    },
+    "linter": {
+      "enabled": true
     }
   }
 }
