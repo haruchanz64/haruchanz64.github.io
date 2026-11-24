@@ -6,10 +6,20 @@ const PROJECT_THUMB_CLASS =
   "w-full aspect-video object-cover rounded-[6px] mb-4 shadow-[0_1px_4px_color-mix(in_srgb,var(--first-color)_15%,transparent)]";
 const PROJECT_INFO_CLASS = "w-full min-w-0 flex-1 flex flex-col text-left";
 const PROJECT_TITLE_CLASS =
-  "font-display text-[1.15rem] font-semibold mb-2 text-accent wrap-break-word";
+  "font-display text-[1.05rem] leading-[1.3] tracking-[-0.01em] font-semibold mb-2 text-accent wrap-break-word";
 const PROJECT_DESC_CLASS = "text-[0.94rem] leading-[1.55] text-text-secondary mb-4 flex-1";
 const PROJECT_CUE_CLASS =
   "font-mono text-[0.78rem] font-medium text-text-secondary whitespace-nowrap self-start transition-colors duration-300 ease-in-out group-hover:text-accent";
+
+function appendBreakableTitle(element, title) {
+  const parts = String(title ?? "").split(/(?<=[a-z0-9])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/);
+  parts.forEach((part, index) => {
+    if (index > 0) {
+      element.appendChild(document.createElement("wbr"));
+    }
+    element.appendChild(document.createTextNode(part));
+  });
+}
 
 /**
  * Render a list of project items into `grid` using a shared `.project-card` DOM structure.
@@ -76,7 +86,7 @@ export function renderProjectGrid({ grid, items, emptyMessage, append = false, m
 
     const titleEl = document.createElement("h3");
     titleEl.className = PROJECT_TITLE_CLASS;
-    titleEl.textContent = title;
+    appendBreakableTitle(titleEl, title);
     info.appendChild(titleEl);
 
     const descEl = document.createElement("p");
