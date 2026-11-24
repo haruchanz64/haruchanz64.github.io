@@ -67,11 +67,11 @@ describe("project breakdown metadata", () => {
     }
   });
 
-  it("formats release dates cleanly across English, Filipino, and Japanese locales", () => {
-    assert.equal(formatReleaseDate("2026-11-22", "en_us"), "Nov 2026");
-    assert.equal(formatReleaseDate("2025-05-21", "fil_ph"), "May 2025");
-    assert.equal(formatReleaseDate("2026-10-09", "ja_jp"), "2026年10月");
-    assert.equal(formatReleaseDate("", "en_us"), "");
+  it("formats release dates cleanly for project cards and modals", () => {
+    assert.equal(formatReleaseDate("2026-11-22"), "Nov 2026");
+    assert.equal(formatReleaseDate("2025-05-21"), "May 2025");
+    assert.equal(formatReleaseDate("2026-10-09"), "Oct 2026");
+    assert.equal(formatReleaseDate(""), "");
     assert.equal(Object.keys(REPO_RELEASE_DATES).length, 16);
   });
 

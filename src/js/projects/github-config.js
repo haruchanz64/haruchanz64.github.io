@@ -69,10 +69,9 @@ export function resolveRepoReleaseDate(repo) {
 /**
  * Format a YYYY-MM-DD (or ISO) date string into a concise Month Year label for cards and modals.
  * @param {string | null | undefined} isoDate
- * @param {"en_us" | "fil_ph" | "ja_jp"} [locale="en_us"]
  * @returns {string}
  */
-export function formatReleaseDate(isoDate, locale = "en_us") {
+export function formatReleaseDate(isoDate) {
   if (!isoDate || typeof isoDate !== "string") return "";
   const match = /^(\d{4})-(\d{2})/.exec(isoDate.trim());
   if (!match) return "";
@@ -81,9 +80,6 @@ export function formatReleaseDate(isoDate, locale = "en_us") {
   const monthIndex = Number(match[2]) - 1;
   if (!Number.isInteger(year) || monthIndex < 0 || monthIndex > 11) return "";
 
-  if (locale === "ja_jp") {
-    return `${year}年${monthIndex + 1}月`;
-  }
   return `${SHORT_MONTHS_EN[monthIndex]} ${year}`;
 }
 

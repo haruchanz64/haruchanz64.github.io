@@ -43,7 +43,7 @@ Pull requests targeting `main` automatically run `npm run lint`, `npm test`, and
 
 ## Adding or Updating Locales
 
-Translation files are stored in `src/locales/` (`en_us.json`, `fil_ph.json`, `ja_jp.json`).
+Translation files are stored in `src/locales/` (`en_us.json`, `fil_ph.json`).
 
 - Keep all translation keys in sync across every locale file.
 - Run `npm test` to verify key parity (`tests/i18n.test.mjs`).

@@ -1,5 +1,5 @@
 import { bindModalDismiss } from "../core/dom.js";
-import { getCurrentLocale, t } from "../core/i18n.js";
+import { t } from "../core/i18n.js";
 import { escapeHtml } from "../core/text.js";
 import { openCaseStudyModal } from "../ui/case-study.js";
 import { formatReleaseDate } from "./github-config.js";
@@ -56,9 +56,7 @@ export function openProjectModal(details, triggerEl = null) {
     : t("projects.modal.viewOnGithub");
   const closeLabel = t("projects.modal.close");
 
-  const formattedRelease = details.releasedAt
-    ? formatReleaseDate(details.releasedAt, getCurrentLocale())
-    : "";
+  const formattedRelease = details.releasedAt ? formatReleaseDate(details.releasedAt) : "";
 
   const metaRows = [
     details.role ? { label: t("projects.modal.role"), value: details.role } : null,

@@ -550,7 +550,7 @@ describe("buildAtsResumePdfBytes", () => {
 describe("extractResumeData i18n fallback", () => {
   it("always pulls English text from en.json when data-i18n attributes are present", () => {
     const headlineEl = createElement({
-      textContent: "ソフトウェアエンジニア & 大学講師",
+      textContent: "Game Developer · Mga Sistema at Tool",
       attributes: { "data-i18n": "nav.brandRole" },
     });
     const experienceSection = createElement({
@@ -560,19 +560,19 @@ describe("extractResumeData i18n fallback", () => {
             childrenBySelector: {
               ".experience-role": [
                 createElement({
-                  textContent: "大学講師",
+                  textContent: "Tagapagturo sa Kolehiyo",
                   attributes: { "data-i18n": "experience.items.0.role" },
                 }),
               ],
               ".experience-date": [
                 createElement({
-                  textContent: "2026年7月 – 現在",
+                  textContent: "Hulyo 2026 – Kasalukuyan",
                   dataset: { dateRange: "July 2026 – Present" },
                 }),
               ],
               ".experience-company": [
                 createElement({
-                  textContent: "University of Caloocan City · フルタイム",
+                  textContent: "University of Caloocan City · Full-time",
                   attributes: { "data-i18n": "experience.items.0.company" },
                 }),
               ],
@@ -581,7 +581,7 @@ describe("extractResumeData i18n fallback", () => {
               ],
               ".experience-list li": [
                 createElement({
-                  textContent: "日本語の箇条書き",
+                  textContent: "Nagtuturo ng game design theory sa Filipino",
                   attributes: { "data-i18n": "experience.items.0.b0" },
                 }),
               ],
@@ -600,13 +600,13 @@ describe("extractResumeData i18n fallback", () => {
               ],
               ".experience-major": [
                 createElement({
-                  textContent: "ゲーム開発専攻",
+                  textContent: "Major sa Game Development",
                   attributes: { "data-i18n": "education.items.0.major" },
                 }),
               ],
               ".experience-date": [
                 createElement({
-                  textContent: "2021年8月 – 2025年4月",
+                  textContent: "Agosto 2021 – Abril 2025",
                   attributes: { "data-i18n": "education.items.0.date" },
                 }),
               ],
@@ -618,7 +618,7 @@ describe("extractResumeData i18n fallback", () => {
               ],
               ".experience-list li": [
                 createElement({
-                  textContent: "卒業制作",
+                  textContent: "Mga Kaugnay na Kurso",
                   attributes: { "data-i18n": "education.items.0.b0" },
                 }),
               ],
@@ -631,7 +631,7 @@ describe("extractResumeData i18n fallback", () => {
       childrenBySelector: {
         ".skill-tab": [
           createElement({
-            textContent: "プログラミング言語",
+            textContent: "Mga Wika",
             attributes: { "data-i18n": "skills.tabs.languages", "data-skill": "languages" },
           }),
         ],

@@ -14,13 +14,13 @@ Personal portfolio website for Haru, a Game Developer specializing in gameplay s
 - **Zero-Runtime-Dependency Architecture**: Built with native ES modules, browser APIs, and build-time Tailwind CSS v4 (`@tailwindcss/vite`) backed by CSS custom properties, without a frontend JS framework or runtime dependencies.
 - **Client-Side ATS PDF Engine**: Generates a valid, paginated PDF 1.4 resume directly in the browser (`src/js/resume/pdf-builder.js`) with WinAnsi character encoding, Helvetica width tables, Selected Projects, and multi-line bullet justification, without a third-party PDF library.
 - **Layered Spam & Bot Protection**: Combines honeypot fields, interaction-timing checks, cooldown rate limiting, and content-scoring heuristics (`src/js/contact/spam-detector.js`) before requests reach the Cloudflare Worker.
-- **Tested Multi-Language Support (i18n)**: Supports `en_us`, `fil_ph`, and `ja_jp` with lazy-loaded locale dictionaries, `localStorage` caching, and automated key-parity tests (`tests/i18n.test.mjs`).
+- **Tested Multi-Language Support (i18n)**: Supports `en_us` and `fil_ph` with lazy-loaded locale dictionaries, `localStorage` caching, and automated key-parity tests (`tests/i18n.test.mjs`).
 - **Offline Asset Caching**: Uses a Service Worker (`public/sw.js`) alongside `localStorage` data-URL hydration (`src/js/core/cache.js`) for fast repeat loads.
 
 ## Features
 
 - **Portfolio Sections**: Hero, About, Projects (with in-page breakdown modals), Experience timeline (with automatic duration calculation), tabbed Skills section, Education, and Contact.
-- **Multi-Language Support (i18n)**: Supports English (`en_us`), Filipino (`fil_ph`), and Japanese (`ja_jp`) via `src/js/core/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
+- **Multi-Language Support (i18n)**: Supports English (`en_us`) and Filipino (`fil_ph`) via `src/js/core/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
 - **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume/resume.js`, `src/js/resume/pdf-builder.js`, `src/js/resume/resume-guard.js`) including Experience, Selected Projects, Technical Skills, and Education.
 - **Dynamic Project Feeds & Breakdown Modals**:
   - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/projects/itch.js`, synced via `scripts/sync-itch.mjs`) supplemented with sync-safe role, engine, and design/systems breakdowns (`src/js/projects/project-details.js`, `src/js/projects/project-modal.js`).
@@ -147,7 +147,7 @@ npx wrangler dev
 │   └── sync-itch.mjs                 # Script to sync itch.io project metadata
 ├── src/
 │   ├── style.css                     # Tailwind CSS v4 entry point, theme tokens & base overrides
-│   ├── locales/                      # i18n translation files (en_us, fil_ph, ja_jp)
+│   ├── locales/                      # i18n translation files (en_us, fil_ph)
 │   └── js/
 │       ├── main.js                   # Application entry point
 │       ├── core/                     # Shared utilities (cache, dom, i18n, text)

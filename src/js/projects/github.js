@@ -1,6 +1,6 @@
 import { writeCache } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
-import { getCurrentLocale, i18nReady, t } from "../core/i18n.js";
+import { i18nReady, t } from "../core/i18n.js";
 import { formatReleaseDate, GITHUB_USERNAME, selectLatestGithubRepos } from "./github-config.js";
 import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
@@ -22,7 +22,7 @@ function mapRepoItem(repo) {
     title: repo.name,
     category: details.category,
     dateTime: details.releasedAt,
-    dateLabel: formatReleaseDate(details.releasedAt, getCurrentLocale()),
+    dateLabel: formatReleaseDate(details.releasedAt),
     description:
       details.cardDescription || repo.description || details.summary || t("projects.noDescription"),
     tags: details.cardTags,

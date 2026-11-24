@@ -29,9 +29,9 @@
   --dot-color: var(--text-primary);
   --dot-size: 1px;
   --dot-space: 22px;
-  --font-main: "Inter", "Noto Sans JP", sans-serif;
-  --font-display: "Space Grotesk", "Inter", "Noto Sans JP", sans-serif;
-  --font-mono: "JetBrains Mono", "Inter", "Noto Sans JP", monospace;
+  --font-main: "Inter", sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", "Inter", monospace;
   --transition: 0.3s ease;
   --radius: 10px;
 }
@@ -72,9 +72,9 @@
   --radius-brand: 10px;
   --breakpoint-desktop: 769px;
 
-  --font-main: "Inter", "Noto Sans JP", sans-serif;
-  --font-display: "Space Grotesk", "Inter", "Noto Sans JP", sans-serif;
-  --font-mono: "JetBrains Mono", "Inter", "Noto Sans JP", monospace;
+  --font-main: "Inter", sans-serif;
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", "Inter", monospace;
 }
 
 @keyframes fadeInUp {

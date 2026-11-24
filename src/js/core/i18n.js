@@ -3,9 +3,9 @@ import { readCache, writeCache, writeStorageItem } from "./cache.js";
 import { isMaintenanceMode, onDomReady } from "./dom.js";
 
 export const LOCALES = { en_us };
-export const SUPPORTED_LOCALES = ["en_us", "fil_ph", "ja_jp"];
+export const SUPPORTED_LOCALES = ["en_us", "fil_ph"];
 export const DEFAULT_LOCALE = "en_us";
-const LOCALE_CACHE_PREFIX = "haru_locale_dict_v7:";
+const LOCALE_CACHE_PREFIX = "haru_locale_dict_v8:";
 const LOCALE_STORAGE_KEY = "haru_locale";
 
 const isVite = typeof import.meta !== "undefined" && Boolean(import.meta.env);
@@ -15,17 +15,13 @@ const LOCALE_LOADERS = {
     isVite
       ? import("../../locales/fil_ph.json")
       : import(/* @vite-ignore */ "../../locales/fil_ph.json", { with: { type: "json" } }),
-  ja_jp: () =>
-    isVite
-      ? import("../../locales/ja_jp.json")
-      : import(/* @vite-ignore */ "../../locales/ja_jp.json", { with: { type: "json" } }),
 };
 
 const pendingLocaleLoads = new Map();
 
 /**
  * Lazy-load a locale dictionary into `LOCALES` if not already loaded.
- * @param {"en_us" | "fil_ph" | "ja_jp"} locale
+ * @param {"en_us" | "fil_ph"} locale
  * @returns {Promise<Record<string, unknown>>}
  */
 export async function loadLocale(locale) {
@@ -57,18 +53,16 @@ export async function loadLocale(locale) {
 const HTML_LANG_MAP = {
   en_us: "en",
   fil_ph: "fil",
-  ja_jp: "ja",
 };
 
 /**
- * Normalize a Unicode or BCP-47 language tag (e.g. "en_us", "ja-JP", "fil-PH", "tl") to a supported locale key.
+ * Normalize a Unicode or BCP-47 language tag (e.g. "en_us", "fil-PH", "tl") to a supported locale key.
  * @param {string | null | undefined} tag
- * @returns {"en_us" | "fil_ph" | "ja_jp" | null}
+ * @returns {"en_us" | "fil_ph" | null}
  */
 export function normalizeLocaleTag(tag) {
   if (!tag || typeof tag !== "string") return null;
   const base = tag.trim().toLowerCase().split(/[-_]/)[0];
-  if (base === "ja" || base === "jp") return "ja_jp";
   if (base === "fil" || base === "tl") return "fil_ph";
   if (base === "en") return "en_us";
   return null;
@@ -77,7 +71,7 @@ export function normalizeLocaleTag(tag) {
 /**
  * Detect the best matching supported locale from the browser's navigator language preferences.
  * @param {{ languages?: readonly string[], language?: string, userLanguage?: string } | null} nav
- * @returns {"en_us" | "fil_ph" | "ja_jp"}
+ * @returns {"en_us" | "fil_ph"}
  */
 export function detectBrowserLocale(nav = typeof navigator !== "undefined" ? navigator : null) {
   if (!nav) return DEFAULT_LOCALE;
@@ -100,7 +94,7 @@ export function detectBrowserLocale(nav = typeof navigator !== "undefined" ? nav
 /**
  * Resolve the active locale from an optional `?locale=` or `?lang=` query parameter or browser preferences.
  * @param {{ search?: string, nav?: { languages?: readonly string[], language?: string, userLanguage?: string } | null }} [options]
- * @returns {"en_us" | "fil_ph" | "ja_jp"}
+ * @returns {"en_us" | "fil_ph"}
  */
 export function resolveLocale({
   search = typeof window !== "undefined" ? window.location.search : "",
@@ -126,7 +120,7 @@ function lookupKey(dict, key) {
 
 /**
  * Look up a translation key in the specified locale, falling back to English.
- * @param {"en_us" | "fil_ph" | "ja_jp"} locale
+ * @param {"en_us" | "fil_ph"} locale
  * @param {string} key
  * @param {Record<string, string | number>} [params]
  * @returns {string}
@@ -151,7 +145,7 @@ let currentLocale = resolveLocale();
 
 /**
  * Return the currently active locale key.
- * @returns {"en_us" | "fil_ph" | "ja_jp"}
+ * @returns {"en_us" | "fil_ph"}
  */
 export function getCurrentLocale() {
   return currentLocale;
@@ -159,7 +153,7 @@ export function getCurrentLocale() {
 
 /**
  * Set the active locale key.
- * @param {"en_us" | "fil_ph" | "ja_jp"} locale
+ * @param {"en_us" | "fil_ph"} locale
  */
 export function setCurrentLocale(locale) {
   currentLocale = SUPPORTED_LOCALES.includes(locale) ? locale : DEFAULT_LOCALE;
@@ -179,7 +173,7 @@ export function t(key, params) {
 /**
  * Apply translations for `locale` to all annotated elements in `doc`.
  * @param {Document} [doc]
- * @param {"en_us" | "fil_ph" | "ja_jp"} [locale]
+ * @param {"en_us" | "fil_ph"} [locale]
  */
 export function applyI18n(doc = document, locale = currentLocale) {
   setCurrentLocale(locale);

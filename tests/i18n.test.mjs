@@ -32,7 +32,7 @@ function collectKeys(obj, prefix = "") {
 }
 
 describe("locale JSON parity", () => {
-  it("has identical keys across EN, FIL, and JP", () => {
+  it("has identical keys across EN and FIL", () => {
     const enKeys = collectKeys(LOCALES.en_us);
     for (const locale of SUPPORTED_LOCALES) {
       assert.deepEqual(collectKeys(LOCALES[locale]), enKeys, `Key mismatch for locale "${locale}"`);
@@ -41,7 +41,7 @@ describe("locale JSON parity", () => {
 });
 
 describe("normalizeLocaleTag", () => {
-  it("maps EN, FIL/TL, and JA/JP tags", () => {
+  it("maps EN and FIL/TL tags", () => {
     assert.equal(normalizeLocaleTag("en"), "en_us");
     assert.equal(normalizeLocaleTag("en-US"), "en_us");
     assert.equal(normalizeLocaleTag("en_us"), "en_us");
@@ -50,10 +50,7 @@ describe("normalizeLocaleTag", () => {
     assert.equal(normalizeLocaleTag("fil_ph"), "fil_ph");
     assert.equal(normalizeLocaleTag("tl"), "fil_ph");
     assert.equal(normalizeLocaleTag("tl-PH"), "fil_ph");
-    assert.equal(normalizeLocaleTag("ja"), "ja_jp");
-    assert.equal(normalizeLocaleTag("ja-JP"), "ja_jp");
-    assert.equal(normalizeLocaleTag("ja_jp"), "ja_jp");
-    assert.equal(normalizeLocaleTag("jp"), "ja_jp");
+    assert.equal(normalizeLocaleTag("ja-JP"), null);
     assert.equal(normalizeLocaleTag("fr-FR"), null);
     assert.equal(normalizeLocaleTag(""), null);
   });
@@ -61,14 +58,13 @@ describe("normalizeLocaleTag", () => {
 
 describe("detectBrowserLocale", () => {
   it("picks the first supported language from navigator.languages", () => {
-    assert.equal(detectBrowserLocale({ languages: ["ja-JP", "en-US"] }), "ja_jp");
     assert.equal(detectBrowserLocale({ languages: ["fil-PH", "en-US"] }), "fil_ph");
     assert.equal(detectBrowserLocale({ languages: ["tl-PH", "en"] }), "fil_ph");
-    assert.equal(detectBrowserLocale({ languages: ["es-ES", "ja"] }), "ja_jp");
+    assert.equal(detectBrowserLocale({ languages: ["es-ES", "fil"] }), "fil_ph");
+    assert.equal(detectBrowserLocale({ languages: ["ja-JP", "en-US"] }), "en_us");
   });
 
   it("falls back to navigator.language and defaults to en_us", () => {
-    assert.equal(detectBrowserLocale({ language: "ja" }), "ja_jp");
     assert.equal(detectBrowserLocale({ language: "tl" }), "fil_ph");
     assert.equal(detectBrowserLocale({ language: "de-DE" }), "en_us");
     assert.equal(detectBrowserLocale(null), "en_us");
@@ -77,10 +73,13 @@ describe("detectBrowserLocale", () => {
 
 describe("resolveLocale", () => {
   it("prefers ?locale= or ?lang= query param over browser language", () => {
-    assert.equal(resolveLocale({ search: "?locale=ja_jp", nav: { language: "en-US" } }), "ja_jp");
-    assert.equal(resolveLocale({ search: "?locale=fil_ph", nav: { language: "ja-JP" } }), "fil_ph");
-    assert.equal(resolveLocale({ search: "?lang=jp", nav: { language: "en-US" } }), "ja_jp");
-    assert.equal(resolveLocale({ search: "?locale=unknown", nav: { language: "ja-JP" } }), "ja_jp");
+    assert.equal(resolveLocale({ search: "?locale=fil_ph", nav: { language: "en-US" } }), "fil_ph");
+    assert.equal(resolveLocale({ search: "?lang=tl", nav: { language: "en-US" } }), "fil_ph");
+    assert.equal(resolveLocale({ search: "?locale=en_us", nav: { language: "fil-PH" } }), "en_us");
+    assert.equal(
+      resolveLocale({ search: "?locale=unknown", nav: { language: "fil-PH" } }),
+      "fil_ph",
+    );
   });
 });
 
@@ -91,10 +90,10 @@ describe("getTranslation", () => {
       "Server error (HTTP 503). Please try again later or reach out via the social links below.",
     );
     assert.equal(
-      getTranslation("ja_jp", "contact.toast.endpointUnavailable", { status: 404 }),
-      "フォームの送信先が利用できません（HTTP 404）。下のSNSリンクからご連絡ください。",
+      getTranslation("fil_ph", "contact.toast.endpointUnavailable", { status: 404 }),
+      "Hindi magamit ang form endpoint (HTTP 404). Makipag-ugnayan sa pamamagitan ng mga social link sa ibaba.",
     );
-    assert.equal(getTranslation("ja_jp", "nonexistent.key"), "nonexistent.key");
+    assert.equal(getTranslation("fil_ph", "nonexistent.key"), "nonexistent.key");
   });
 });
 
@@ -129,15 +128,15 @@ describe("applyI18n and experience duration integration", () => {
       },
     };
 
-    applyI18n(doc, "ja_jp");
-    assert.equal(doc.documentElement.lang, "ja");
-    assert.equal(doc.title, LOCALES.ja_jp.meta.title);
-    assert.equal(elements.titleEl.textContent, "自己紹介");
-    assert.equal(elements.inputEl.attrs.placeholder, "お名前を入力");
-    assert.equal(elements.dateEl.textContent, "2026年7月 – 現在");
+    applyI18n(doc, "fil_ph");
+    assert.equal(doc.documentElement.lang, "fil");
+    assert.equal(doc.title, LOCALES.fil_ph.meta.title);
+    assert.equal(elements.titleEl.textContent, "Tungkol");
+    assert.equal(elements.inputEl.attrs.placeholder, "Ang iyong pangalan");
+    assert.equal(elements.dateEl.textContent, "Hulyo 2026 – Kasalukuyan");
 
     applyExperienceDurations(doc, new Date(2026, 10, 15));
-    assert.equal(elements.dateEl.textContent, "2026年7月 – 現在 · 5 mos");
+    assert.equal(elements.dateEl.textContent, "Hulyo 2026 – Kasalukuyan · 5 mos");
   });
 
   it("uses maintenance.metaTitle when data-maintenance is true", () => {
@@ -153,8 +152,8 @@ describe("applyI18n and experience duration integration", () => {
     applyI18n(doc, "en_us");
     assert.equal(doc.title, LOCALES.en_us.maintenance.metaTitle);
 
-    applyI18n(doc, "ja_jp");
-    assert.equal(doc.title, LOCALES.ja_jp.maintenance.metaTitle);
+    applyI18n(doc, "fil_ph");
+    assert.equal(doc.title, LOCALES.fil_ph.maintenance.metaTitle);
 
     doc.documentElement.dataset.maintenance = "false";
     assert.equal(isMaintenanceMode(doc), false);
