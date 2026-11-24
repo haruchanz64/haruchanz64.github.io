@@ -1,15 +1,15 @@
 # Contributing
 
-Thanks for checking out **Haru Portfolio**! Contributions, bug reports, and localization improvements are welcome.
+Thank you for your interest in Haru Portfolio. Contributions, bug reports, and localization improvements are welcome.
 
 ## Development Setup
 
-1. **Prerequisites**: [Node.js](https://nodejs.org/) v18+ and npm.
-2. **Install dependencies**:
+1. Prerequisites: [Node.js](https://nodejs.org/) v18+ and npm.
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. **Start the dev server**:
+3. Start the dev server:
    ```bash
    npm run dev
    ```
@@ -36,23 +36,23 @@ Pull requests targeting `main` automatically run `npm run lint`, `npm test`, and
 
 ## Styling with Tailwind CSS v4
 
-- Styles are built with **Tailwind CSS v4** (`@tailwindcss/vite`) using utility-first classes in `index.html`, `404.html`, and DOM-rendering modules under `src/js/`.
-- Theme tokens (`--bg-primary`, `--accent-primary`, etc.) live in `src/style.css` and are mapped via `@theme inline` so `.light-theme` overrides work dynamically.
+- Styles are built with Tailwind CSS v4 (`@tailwindcss/vite`) using utility-first classes in `index.html`, `404.html`, and DOM-rendering modules under `src/js/`.
+- Theme tokens (`--bg-primary`, `--accent-primary`, etc.) are defined in `src/style.css` and mapped via `@theme inline` so `.light-theme` overrides work dynamically.
 - **Preserve JS/test hook classes** (such as `nav-link`, `experience-item`, `experience-date`, `skill-tab`, `skill-name`, `social-links`, `form-field`, `form-error`, `resume-modal-close`, `light-theme`) when editing markup so interactive modules and unit tests keep working.
 - Write complete utility class names as static string literals in JS modules rather than concatenating partial class names dynamically, so Tailwind's scanner includes them in the compiled CSS.
 
 ## Adding or Updating Locales
 
-Translation files live in `src/locales/` (`en_us.json`, `fil_ph.json`, `ja_jp.json`).
+Translation files are stored in `src/locales/` (`en_us.json`, `fil_ph.json`, `ja_jp.json`).
 
 - Keep all translation keys in sync across every locale file.
 - Run `npm test` to verify key parity (`tests/i18n.test.mjs`).
 
 ## Testing the Contact Worker Locally
 
-The contact form endpoint lives in `worker/contact.js` and runs on Cloudflare Workers:
+The contact form endpoint is in `worker/contact.js` and runs on Cloudflare Workers:
 
-1. Copy `.dev.vars.example` to `.dev.vars` and fill in `RESEND_API_KEY` and `CONTACT_TO_EMAIL`.
+1. Copy `.dev.vars.example` to `.dev.vars` and set `RESEND_API_KEY` and `CONTACT_TO_EMAIL`.
 2. Start the local worker:
    ```bash
    npx wrangler dev
