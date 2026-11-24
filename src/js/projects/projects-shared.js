@@ -5,8 +5,6 @@ const PROJECT_CARD_CLASS =
 const PROJECT_THUMB_CLASS =
   "w-full aspect-video object-cover rounded-[6px] mb-4 shadow-[0_1px_4px_color-mix(in_srgb,var(--first-color)_15%,transparent)]";
 const PROJECT_INFO_CLASS = "w-full flex-1 flex flex-col text-left";
-const PROJECT_EYEBROW_CLASS =
-  "font-mono text-[0.72rem] uppercase tracking-[0.08em] text-text-muted mb-1.5";
 const PROJECT_TITLE_CLASS = "font-display text-[1.15rem] font-semibold mb-2 text-accent";
 const PROJECT_DESC_CLASS = "text-[0.94rem] leading-[1.55] text-text-secondary mb-4 flex-1";
 const PROJECT_CUE_CLASS =
@@ -23,7 +21,6 @@ const PROJECT_CUE_CLASS =
  *   mapItem: (item: T) => {
  *     url: string,
  *     title: string,
- *     eyebrow?: string,
  *     description: string,
  *     image?: string,
  *     imageAlt?: string,
@@ -49,8 +46,7 @@ export function renderProjectGrid({ grid, items, emptyMessage, append = false, m
   const cards = [];
 
   items.forEach((item) => {
-    const { url, title, eyebrow, description, image, imageAlt, cueLabel, onImage, onSelect } =
-      mapItem(item);
+    const { url, title, description, image, imageAlt, cueLabel, onImage, onSelect } = mapItem(item);
 
     const card = onSelect ? document.createElement("button") : document.createElement("a");
     if (onSelect) {
@@ -76,13 +72,6 @@ export function renderProjectGrid({ grid, items, emptyMessage, append = false, m
 
     const info = document.createElement("div");
     info.className = PROJECT_INFO_CLASS;
-
-    if (eyebrow) {
-      const eyebrowEl = document.createElement("p");
-      eyebrowEl.className = PROJECT_EYEBROW_CLASS;
-      eyebrowEl.textContent = eyebrow;
-      info.appendChild(eyebrowEl);
-    }
 
     const titleEl = document.createElement("h3");
     titleEl.className = PROJECT_TITLE_CLASS;

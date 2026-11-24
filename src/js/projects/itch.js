@@ -40,7 +40,6 @@ async function initItchProjects() {
       return {
         url: project.url,
         title: project.title || t("projects.untitled"),
-        eyebrow: details.focus,
         description: project.description || details.summary || t("projects.noDescription"),
         image: project.image,
         imageAlt: project.title || t("projects.gameAlt"),

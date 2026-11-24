@@ -20,7 +20,6 @@ function mapRepoItem(repo) {
   return {
     url: repo.html_url,
     title: repo.name,
-    eyebrow: details.focus,
     description: repo.description || details.summary || t("projects.noDescription"),
     cueLabel: t("projects.viewBreakdown"),
     onSelect: (triggerEl) => openProjectModal(details, triggerEl),
