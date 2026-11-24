@@ -2,25 +2,25 @@
   {
     "name": "GameBalancer",
     "html_url": "https://github.com/haruchanz64/GameBalancer",
-    "description": "A zero-dependency Unity 6 UI Toolkit workbench for progression curves, loot/pity Monte Carlo odds, combat TTK matrices, and economy flow simulation.",
+    "description": "A Unity 6 UI Toolkit workbench for tuning progression curves, loot/pity Monte Carlo odds, combat TTK matrices, and economy flow simulations.",
     "language": "C#"
   },
   {
     "name": "NetAuditToolkit",
     "html_url": "https://github.com/haruchanz64/NetAuditToolkit",
-    "description": "A zero-dependency Unity 6 Editor auditor and hierarchy badge overlay that catches NGO, Mirror, and FishNet scene, prefab, RPC, and bandwidth issues.",
+    "description": "A Unity 6 Editor auditor and hierarchy badge overlay for catching NGO, Mirror, and FishNet scene, prefab, RPC, and bandwidth issues.",
     "language": "C#"
   },
   {
     "name": "NetSimToolkit",
     "html_url": "https://github.com/haruchanz64/NetSimToolkit",
-    "description": "A zero-dependency Unity 6 localhost UDP/TCP network impairment proxy, bandwidth profiler, chaos timeline runner, and QA repro exporter.",
+    "description": "A localhost UDP/TCP network impairment proxy for Unity 6 with a bandwidth profiler, chaos timeline runner, and QA repro exporter.",
     "language": "C#"
   },
   {
     "name": "BugReportToolkit",
     "html_url": "https://github.com/haruchanz64/BugReportToolkit",
-    "description": "A zero-dependency Unity in-game bug reporter that captures screenshots, logs, and diagnostics into ZIP bundles or sends directly to webhooks.",
+    "description": "An in-game Unity bug reporter that captures screenshots, logs, and diagnostics into ZIP bundles or sends them directly to webhooks.",
     "language": "C#"
   },
   {
