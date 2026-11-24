@@ -151,8 +151,8 @@
     "released_at": "2026-01-24"
   },
   {
-    "name": "CustomAnimHandler",
-    "html_url": "https://github.com/haruchanz64/CustomAnimHandler",
+    "name": "PlayablesAnimatorController",
+    "html_url": "https://github.com/haruchanz64/PlayablesAnimatorController",
     "description": "Code-driven 2D and 3D animation controller for Unity 6 built on the Playables API, skipping AnimatorController state graphs entirely.",
     "language": "C#",
     "topics": [
@@ -220,8 +220,8 @@
     "released_at": "2025-08-14"
   },
   {
-    "name": "UnityEventToolkit",
-    "html_url": "https://github.com/haruchanz64/UnityEventToolkit",
+    "name": "UnityEventAuditor",
+    "html_url": "https://github.com/haruchanz64/UnityEventAuditor",
     "description": "Unity Editor inspector and scanner for locating, filtering, auditing, and cleaning up broken or unused UnityEvent listeners across scenes and prefabs.",
     "language": "C#",
     "topics": [

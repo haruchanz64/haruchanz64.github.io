@@ -6,8 +6,8 @@ import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v15";
-const LATEST_CACHE_KEY = "haru_github_latest_v8";
+const CACHE_KEY = "haru_github_projects_v16";
+const LATEST_CACHE_KEY = "haru_github_latest_v9";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 const INITIAL_VISIBLE_TOOLS = 8;
 

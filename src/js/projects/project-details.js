@@ -212,7 +212,7 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "C#", "UPM", "UI Toolkit", "3D & 2D Physics", "Input System"],
   },
-  CustomAnimHandler: {
+  PlayablesAnimatorController: {
     category: "Animation",
     cardDescription:
       "Code-driven 2D and 3D animation controller on the Playables API with priority locks, masked layers, and no AnimatorController graphs.",
@@ -284,7 +284,7 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity Editor", "C#", "UPM", "ScriptableObjects", "OpenXML", "CSV/XLSX"],
   },
-  UnityEventToolkit: {
+  UnityEventAuditor: {
     category: "Editor Audit",
     cardDescription:
       "Unity Editor scanner and hierarchy inspector for finding, filtering, and cleaning up broken UnityEvent listeners across scenes.",
@@ -379,7 +379,7 @@ const RESUME_TOOL_HIGHLIGHTS = {
     "Engineered a rule-driven Unity 6 Editor AssetPostprocessor pipeline enforcing non-destructive import policies across Texture, Sprite, User Interface, 3D Model, and Audio assets with per-platform overrides.",
     "Built a UI Toolkit Import Policy Workbench with dry-run compliance diffs, batch re-import fixes, Markdown and JSON continuous integration (CI) reports, and an optional pre-build compliance guard.",
   ],
-  CustomAnimHandler: [
+  PlayablesAnimatorController: [
     "Engineered a code-driven 2D and 3D Unity 6 animation controller on the Playables API that eliminates AnimatorController state graphs while supporting masked AvatarMask layers, priority locks, and normalized clip events.",
     "Built a code-driven animation state machine and UI Toolkit debugging window displaying live per-layer progress bars, blend weights, clip history, and manual test playback.",
   ],
@@ -407,7 +407,7 @@ const RESUME_TOOL_HIGHLIGHTS = {
     "Built a Unity Editor package parsing RFC 4180 CSV, TSV, and OpenXML (.xlsx) multi-sheet workbooks directly into ScriptableObject assets using pure C# with zero external DLL dependencies.",
     "Supported GUID-safe non-destructive re-imports, attribute-mapped asset updates, automatic C# ScriptableObject class generation, and reusable import profiles.",
   ],
-  UnityEventToolkit: [
+  UnityEventAuditor: [
     "Built a Unity 6 Editor auditing tool that scans scenes and prefabs for serialized UnityEvent listeners and displays them in a searchable, icon-backed hierarchy tree.",
     "Added filtering for valid and broken bindings, multi-select inspection, and cleanup controls to remove missing references before quality assurance or production builds.",
   ],
