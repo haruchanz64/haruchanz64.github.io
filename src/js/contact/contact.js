@@ -22,8 +22,10 @@ let firstInteractionAt = null;
 let hasInteracted = false;
 let toastTimer = null;
 let turnstileActive = false;
+let turnstileLoadStarted = false;
 let turnstileWidgetId = null;
 let turnstileToken = "";
+let triggerTurnstileLoad = null;
 
 function showToast(toast, message, type) {
   if (toastTimer) {
@@ -228,7 +230,10 @@ function initTurnstile() {
   if (!siteKey) return;
 
   turnstileActive = true;
-  wrapper.hidden = false;
+
+  const form = document.getElementById("contact-form");
+  const observeTarget = document.getElementById("contact") || form || wrapper;
+  let observer = null;
 
   const renderWidget = () => {
     if (!window.turnstile?.render || turnstileWidgetId !== null) return;
@@ -257,20 +262,63 @@ function initTurnstile() {
     });
   };
 
-  if (window.turnstile?.render) {
-    renderWidget();
+  const attachInteractionTriggers = () => {
+    form?.addEventListener("focusin", loadTurnstile);
+    form?.addEventListener("pointerdown", loadTurnstile);
+  };
+
+  const cleanupTriggers = () => {
+    observer?.disconnect();
+    observer = null;
+    form?.removeEventListener("focusin", loadTurnstile);
+    form?.removeEventListener("pointerdown", loadTurnstile);
+  };
+
+  function loadTurnstile() {
+    if (turnstileLoadStarted) return;
+    turnstileLoadStarted = true;
+    cleanupTriggers();
+    wrapper.hidden = false;
+
+    if (window.turnstile?.render) {
+      renderWidget();
+      return;
+    }
+
+    window[TURNSTILE_ONLOAD_CALLBACK] = renderWidget;
+
+    if (!document.querySelector(`script[src="${TURNSTILE_SCRIPT_URL}"]`)) {
+      const script = document.createElement("script");
+      script.src = TURNSTILE_SCRIPT_URL;
+      script.async = true;
+      script.defer = true;
+      script.addEventListener("error", () => {
+        script.remove();
+        turnstileLoadStarted = false;
+        attachInteractionTriggers();
+      });
+      document.head.appendChild(script);
+    }
+  }
+
+  triggerTurnstileLoad = loadTurnstile;
+
+  if (typeof IntersectionObserver !== "function") {
+    loadTurnstile();
     return;
   }
 
-  window[TURNSTILE_ONLOAD_CALLBACK] = renderWidget;
+  attachInteractionTriggers();
 
-  if (!document.querySelector(`script[src="${TURNSTILE_SCRIPT_URL}"]`)) {
-    const script = document.createElement("script");
-    script.src = TURNSTILE_SCRIPT_URL;
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-  }
+  observer = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        loadTurnstile();
+      }
+    },
+    { rootMargin: "200px 0px", threshold: 0 },
+  );
+  observer.observe(observeTarget);
 }
 
 function syncCustomSelectField(selectEl, customEl, { focusOnShow = false } = {}) {
@@ -500,6 +548,7 @@ export async function sendEmail(e) {
   const resolvedTurnstileToken =
     turnstileToken || form.elements["cf-turnstile-response"]?.value?.trim() || "";
   if (turnstileActive && !resolvedTurnstileToken) {
+    triggerTurnstileLoad?.();
     showToast(toast, "", "");
     setTurnstileError(t("contact.toast.turnstileRequired"));
     return;
