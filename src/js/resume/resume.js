@@ -1,10 +1,9 @@
 import { bindModalDismiss, setButtonLoading } from "../core/dom.js";
 import { DEFAULT_LOCALE, getTranslation, t } from "../core/i18n.js";
 import {
-  createPdfIframeMarkup,
-  isMobilePdfFallbackNeeded,
+  createPdfToolbarMarkup,
+  mountPdfViewer,
   PDF_MODAL_CLASSES,
-  renderPdfPagesToContainer,
 } from "../ui/pdf-preview.js";
 import { buildAtsResumePdfBytes, formatCompanyForResume, formatDisplayUrl } from "./pdf-builder.js";
 
@@ -28,9 +27,6 @@ export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
 export const RESUME_DEFAULT_HEADLINE =
   "Game Developer | Gameplay Systems, Unity Tooling, and Technical Game Design";
-
-export const RESUME_PROFESSIONAL_SUMMARY =
-  "Game Developer specializing in Unity (C#) gameplay systems, editor tooling, and technical game design, with hands-on experience across game quality assurance, full-stack mobile production, and university-level game development instruction. Shipped a cross-platform Flutter and Supabase mobile application to the Google Play Store as sole engineer and authored open-source Unity 6 packages for multiplayer authentication, asset compliance pipelines, balancing workbenches, and quality assurance workflows.";
 
 const SHORT_NAV_HEADLINES = new Set(["Game Developer · Systems, Tools & Technical Design"]);
 
@@ -230,7 +226,6 @@ export function extractResumeData(doc = document, { githubRepos = null } = {}) {
     location,
     website: RESUME_WEBSITE,
     headline,
-    summary: RESUME_PROFESSIONAL_SUMMARY,
     links,
     experience,
     projects,
@@ -335,8 +330,6 @@ export function buildAtsResumeHtml(data) {
     )
     .join("");
 
-  const summaryHtml = data.summary ? `<p class="summary-text">${escapeHtml(data.summary)}</p>` : "";
-
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -403,9 +396,6 @@ export function buildAtsResumeHtml(data) {
       padding-bottom: 2pt;
       margin: 0 0 6pt 0;
     }
-    .summary-text {
-      margin: 0;
-    }
     .resume-item {
       margin-bottom: 8pt;
       break-inside: avoid;
@@ -449,7 +439,6 @@ export function buildAtsResumeHtml(data) {
     ${contactParts.length ? `<p class="contact-line">${contactParts.join(" | ")}</p>` : ""}
   </header>
   <main>
-    ${summaryHtml ? `<section aria-labelledby="sec-summary"><h2 id="sec-summary">Professional Summary</h2>${summaryHtml}</section>` : ""}
     ${experienceHtml ? `<section aria-labelledby="sec-exp"><h2 id="sec-exp">Work Experience</h2>${experienceHtml}</section>` : ""}
     ${projectsHtml ? `<section aria-labelledby="sec-projects"><h2 id="sec-projects">Selected Projects</h2>${projectsHtml}</section>` : ""}
     ${skillsHtml ? `<section aria-labelledby="sec-skills"><h2 id="sec-skills">Technical Skills</h2>${skillsHtml}</section>` : ""}
@@ -475,10 +464,6 @@ export function buildAtsResumeText(data) {
     contactParts.push(formatDisplayUrl(link.url));
   }
   if (contactParts.length) lines.push(contactParts.join(" | "));
-
-  if (data.summary) {
-    lines.push("", "PROFESSIONAL SUMMARY", "====================", data.summary);
-  }
 
   if (data.experience?.length) {
     lines.push("", "WORK EXPERIENCE", "===============");
@@ -545,11 +530,14 @@ export function buildAtsResumePdfBlob(data) {
 
 let activeModal = null;
 let activePdfUrl = null;
+let activeViewerCleanup = null;
 let lastTriggerEl = null;
 let escapeListenerAttached = false;
 
 function closeResumeModal() {
   if (!activeModal) return;
+  activeViewerCleanup?.();
+  activeViewerCleanup = null;
   activeModal.remove();
   activeModal = null;
   if (activePdfUrl) {
@@ -612,7 +600,6 @@ export async function requestResume(triggerEl = null, { githubRepos } = {}) {
     const safeUrl = escapeHtml(pdfUrl);
     const safeDownloadLabel = escapeHtml(t("contact.form.downloadResume"));
     const safeCloseLabel = escapeHtml(t("contact.form.closeResumePreview"));
-    const useCanvasViewer = isMobilePdfFallbackNeeded();
 
     const overlay = document.createElement("div");
     overlay.id = "resume-modal";
@@ -632,9 +619,8 @@ export async function requestResume(triggerEl = null, { githubRepos } = {}) {
             <button type="button" class="${PDF_MODAL_CLASSES.closeBtn}" aria-label="${safeCloseLabel}">&times;</button>
           </div>
         </div>
-        <div class="${PDF_MODAL_CLASSES.frameWrap}">
-          ${useCanvasViewer ? "" : createPdfIframeMarkup(pdfUrl, modalTitle)}
-        </div>
+        ${createPdfToolbarMarkup({ pdfUrl, allowPrint: true, allowOpenInTab: true })}
+        <div class="${PDF_MODAL_CLASSES.frameWrap}"></div>
       </div>
     `;
 
@@ -651,14 +637,17 @@ export async function requestResume(triggerEl = null, { githubRepos } = {}) {
     document.documentElement?.classList?.add("modal-open");
     activeModal = overlay;
 
-    if (useCanvasViewer) {
-      const wrap = overlay.querySelector(".resume-preview-frame-wrap");
-      if (wrap) {
-        void renderPdfPagesToContainer(wrap, pdfUrl, {
-          isOpen: () => Boolean(activeModal),
-          title: modalTitle,
-        });
-      }
+    const wrap = overlay.querySelector(".resume-preview-frame-wrap");
+    if (wrap) {
+      activeViewerCleanup = mountPdfViewer({
+        overlay,
+        dialog: overlay.querySelector(".pdf-modal-dialog"),
+        container: wrap,
+        toolbar: overlay.querySelector(".pdf-viewer-toolbar"),
+        pdfUrl,
+        title: modalTitle,
+        isOpen: () => Boolean(activeModal),
+      });
     }
 
     overlay.querySelector(".resume-download-btn")?.focus();

@@ -213,6 +213,21 @@
     "title": "Back Soon.",
     "description": "My portfolio is currently undergoing updates and maintenance. Thanks for stopping by. In the meantime, you can reach me through the links below."
   },
+  "pdfViewer": {
+    "toolbarLabel": "PDF viewer controls",
+    "prevPage": "Previous page",
+    "nextPage": "Next page",
+    "pageStatus": "Page {current} of {total}",
+    "zoomOut": "Zoom out",
+    "zoomIn": "Zoom in",
+    "resetZoom": "Reset zoom to fit width",
+    "fitWidth": "Fit",
+    "fullscreen": "Enter full screen",
+    "exitFullscreen": "Exit full screen",
+    "openNewTab": "Open in new tab",
+    "print": "Print",
+    "loading": "Loading preview…"
+  },
   "footer": {
     "copyright": "© 2026 Aron Jake Radam (Haru). All rights reserved."
   }

@@ -1,19 +1,17 @@
 import { bindModalDismiss } from "../core/dom.js";
 import { t } from "../core/i18n.js";
 import { escapeHtml } from "../core/text.js";
-import {
-  createPdfIframeMarkup,
-  isMobilePdfFallbackNeeded,
-  PDF_MODAL_CLASSES,
-  renderPdfPagesToContainer,
-} from "./pdf-preview.js";
+import { createPdfToolbarMarkup, mountPdfViewer, PDF_MODAL_CLASSES } from "./pdf-preview.js";
 
 let activeModal = null;
+let activeViewerCleanup = null;
 let lastTriggerEl = null;
 let escapeListenerAttached = false;
 
 function closeCaseStudyModal() {
   if (!activeModal) return;
+  activeViewerCleanup?.();
+  activeViewerCleanup = null;
   activeModal.remove();
   activeModal = null;
   document.documentElement?.classList?.remove("modal-open");
@@ -40,7 +38,6 @@ export function openCaseStudyModal(pdfUrl, triggerEl = null) {
   const title = t("education.items.0.caseStudyModalTitle");
   const safeTitle = escapeHtml(title);
   const safeCloseLabel = escapeHtml(t("contact.form.closeResumePreview"));
-  const useCanvasViewer = isMobilePdfFallbackNeeded();
 
   const overlay = document.createElement("div");
   overlay.id = "case-study-modal";
@@ -59,9 +56,8 @@ export function openCaseStudyModal(pdfUrl, triggerEl = null) {
           <button type="button" class="${PDF_MODAL_CLASSES.closeBtn}" aria-label="${safeCloseLabel}">&times;</button>
         </div>
       </div>
-      <div class="${PDF_MODAL_CLASSES.frameWrap}">
-        ${useCanvasViewer ? "" : createPdfIframeMarkup(pdfUrl, title)}
-      </div>
+      ${createPdfToolbarMarkup({ pdfUrl, allowPrint: false, allowOpenInTab: false })}
+      <div class="${PDF_MODAL_CLASSES.frameWrap}"></div>
     </div>
   `;
 
@@ -78,14 +74,17 @@ export function openCaseStudyModal(pdfUrl, triggerEl = null) {
   document.documentElement?.classList?.add("modal-open");
   activeModal = overlay;
 
-  if (useCanvasViewer) {
-    const wrap = overlay.querySelector(".resume-preview-frame-wrap");
-    if (wrap) {
-      void renderPdfPagesToContainer(wrap, pdfUrl, {
-        isOpen: () => Boolean(activeModal),
-        title,
-      });
-    }
+  const wrap = overlay.querySelector(".resume-preview-frame-wrap");
+  if (wrap) {
+    activeViewerCleanup = mountPdfViewer({
+      overlay,
+      dialog: overlay.querySelector(".pdf-modal-dialog"),
+      container: wrap,
+      toolbar: overlay.querySelector(".pdf-viewer-toolbar"),
+      pdfUrl,
+      title,
+      isOpen: () => Boolean(activeModal),
+    });
   }
 
   overlay.querySelector(".resume-modal-close")?.focus();

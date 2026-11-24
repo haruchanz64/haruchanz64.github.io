@@ -23,8 +23,8 @@ export function formatDisplayUrl(url) {
 }
 
 /**
- * Format a `"Company · Type"` string for ATS resumes:
- * drops redundant `Full-time` while preserving meaningful qualifiers (`Contract`, `Internship`, `External`).
+ * Format a `"Company · Type"` string for ATS resumes,
+ * preserving employment qualifiers (`Full-time`, `Contract`, `Internship`, `External`).
  * @param {string | null | undefined} company
  * @returns {string}
  */
@@ -35,7 +35,7 @@ export function formatCompanyForResume(company) {
     .filter(Boolean);
   if (parts.length === 0) return "";
   const [org, qualifier] = parts;
-  if (!qualifier || /^full[- ]?time$/i.test(qualifier)) {
+  if (!qualifier) {
     return org;
   }
   return `${org} (${qualifier})`;
@@ -674,7 +674,6 @@ function assemblePdfBytes(
  * @param {{
  *   fullName: string,
  *   headline?: string,
- *   summary?: string,
  *   location?: string,
  *   website?: string,
  *   links?: Array<{ label?: string, url: string }>,
@@ -700,23 +699,6 @@ export function buildAtsResumePdfBytes(data) {
   }
 
   doc.drawCenteredHeader(data.fullName, contactItems, data.headline || "");
-
-  // Professional Summary
-  if (data.summary) {
-    const summaryLines = wrapPdfText(data.summary, CONTENT_WIDTH, 9.7, false);
-    doc.drawSectionHeading("Professional Summary", {
-      minContentHeight: Math.min(80, summaryLines.length * 13),
-    });
-    doc.drawWrapped(data.summary, {
-      x: MARGIN_X,
-      width: CONTENT_WIDTH,
-      font: "F1",
-      size: 9.7,
-      lineHeight: 13,
-      justify: false,
-    });
-    doc.y -= 2;
-  }
 
   // Work Experience
   if (data.experience?.length) {

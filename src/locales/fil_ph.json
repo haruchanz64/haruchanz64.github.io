@@ -213,6 +213,21 @@
     "title": "Babalik Agad.",
     "description": "Kasalukuyang inaayos at ina-update ang aking portfolio. Salamat sa pagbisita. Pansamantala, maaari mo akong makaugnayan sa pamamagitan ng mga link sa ibaba."
   },
+  "pdfViewer": {
+    "toolbarLabel": "Mga kontrol ng PDF viewer",
+    "prevPage": "Nakaraang pahina",
+    "nextPage": "Susunod na pahina",
+    "pageStatus": "Pahina {current} ng {total}",
+    "zoomOut": "I-zoom out",
+    "zoomIn": "I-zoom in",
+    "resetZoom": "I-reset ang zoom sa lapad",
+    "fitWidth": "Sakto",
+    "fullscreen": "Buong screen",
+    "exitFullscreen": "Lumabas sa buong screen",
+    "openNewTab": "Buksan sa bagong tab",
+    "print": "I-print",
+    "loading": "Nilo-load ang preview…"
+  },
   "footer": {
     "copyright": "© 2026 Aron Jake Radam (Haru). Nakalaan ang lahat ng karapatan."
   }

@@ -20,10 +20,17 @@ import {
   RESUME_DEFAULT_HEADLINE,
   RESUME_DEFAULT_LOCATION,
   RESUME_FULL_NAME,
-  RESUME_PROFESSIONAL_SUMMARY,
   RESUME_WEBSITE,
   requestResume,
 } from "../src/js/resume/resume.js";
+import {
+  clampZoom,
+  createPdfIframeMarkup,
+  createPdfToolbarMarkup,
+  formatZoomPercent,
+  PDF_ZOOM_MAX,
+  PDF_ZOOM_MIN,
+} from "../src/js/ui/pdf-preview.js";
 
 function createElement({
   textContent = "",
@@ -217,7 +224,6 @@ describe("resume helpers", () => {
     assert.equal(RESUME_FULL_NAME, "Aron Jake S. Radam");
     assert.equal(RESUME_DEFAULT_LOCATION, "Caloocan City, Metro Manila, Philippines");
     assert.equal(RESUME_WEBSITE, "https://haruchanz64.github.io/");
-    assert.ok(RESUME_PROFESSIONAL_SUMMARY.includes("Unity (C#)"));
   });
 
   it("formats display URLs and company employment qualifiers cleanly", () => {
@@ -225,7 +231,7 @@ describe("resume helpers", () => {
     assert.equal(formatDisplayUrl("https://www.github.com/haruchanz64"), "github.com/haruchanz64");
     assert.equal(
       formatCompanyForResume("University of Caloocan City · Full-time"),
-      "University of Caloocan City",
+      "University of Caloocan City (Full-time)",
     );
     assert.equal(
       formatCompanyForResume("PicStar Software OPC · Contract"),
@@ -260,15 +266,15 @@ describe("resume helpers", () => {
 });
 
 describe("extractResumeData", () => {
-  it("extracts experience, selected projects, flat ATS skills, summary, and ordered profile links while excluding #about", () => {
+  it("extracts experience, selected projects, flat ATS skills, and ordered profile links while excluding #about", () => {
     const doc = createMockDocument();
     const data = extractResumeData(doc);
 
     assert.equal(data.fullName, "Aron Jake S. Radam");
     assert.equal(data.phone, undefined);
     assert.equal(data.email, undefined);
+    assert.equal(data.summary, undefined);
     assert.equal(data.headline, RESUME_DEFAULT_HEADLINE);
-    assert.equal(data.summary, RESUME_PROFESSIONAL_SUMMARY);
     assert.equal(data.location, "Caloocan City, Metro Manila, Philippines");
     assert.equal(data.experience.length, 1);
     assert.equal(data.experience[0].date, "July 2026 – Present");
@@ -307,12 +313,12 @@ describe("extractResumeData", () => {
 });
 
 describe("buildAtsResumeHtml and buildAtsResumeText", () => {
-  it("builds ATS-friendly HTML with Professional Summary, Work Experience, and Selected Projects without About content, images, or SVGs", () => {
+  it("builds ATS-friendly HTML with Work Experience and Selected Projects without Professional Summary, About content, images, or SVGs", () => {
     const data = extractResumeData(createMockDocument());
     const html = buildAtsResumeHtml(data);
 
     assert.ok(html.includes("<h1>Aron Jake S. Radam</h1>"));
-    assert.ok(html.includes(">Professional Summary<"));
+    assert.equal(html.includes("Professional Summary"), false);
     assert.ok(html.includes(">Work Experience<"));
     assert.ok(html.includes(">Selected Projects<"));
     assert.ok(html.includes("CommonEventsEngine"));
@@ -328,12 +334,12 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.equal(html.includes("<svg"), false);
   });
 
-  it("builds ATS-friendly plain text with Professional Summary and expanded terms without About content", () => {
+  it("builds ATS-friendly plain text with expanded terms without Professional Summary or About content", () => {
     const data = extractResumeData(createMockDocument());
     const text = buildAtsResumeText(data);
 
     assert.ok(text.startsWith("Aron Jake S. Radam\n"));
-    assert.ok(text.includes("PROFESSIONAL SUMMARY"));
+    assert.equal(text.includes("PROFESSIONAL SUMMARY"), false);
     assert.ok(text.includes("WORK EXPERIENCE"));
     assert.ok(text.includes("SELECTED PROJECTS"));
     assert.ok(text.includes("CommonEventsEngine"));
@@ -359,7 +365,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(wrapped.length > 1);
   });
 
-  it("generates a valid PDF 1.4 document with Standard 14 Helvetica fonts, Professional Summary, Selected Projects, clickable links, metadata, and without About content", () => {
+  it("generates a valid PDF 1.4 document with Standard 14 Helvetica fonts, Selected Projects, clickable links, metadata, and without Professional Summary or About content", () => {
     const data = extractResumeData(createMockDocument());
     const bytes = buildAtsResumePdfBytes(data);
     const pdfText = new TextDecoder().decode(bytes);
@@ -379,7 +385,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(haruchanz64.github.io) Tj"));
     assert.ok(pdfText.includes("/URI (https://haruchanz64.github.io/)"));
     assert.ok(pdfText.includes("/URI (https://haruchanz64.itch.io/)"));
-    assert.ok(pdfText.includes("(PROFESSIONAL SUMMARY) Tj"));
+    assert.equal(pdfText.includes("(PROFESSIONAL SUMMARY) Tj"), false);
     assert.ok(pdfText.includes("(WORK EXPERIENCE) Tj"));
     assert.ok(pdfText.includes("(SELECTED PROJECTS) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
@@ -390,9 +396,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("UnityAuthCore"));
     assert.ok(pdfText.includes("GachaEngine"));
     assert.ok(pdfText.includes("Trash Frenzy"));
-    assert.ok(
-      pdfText.indexOf("(PROFESSIONAL SUMMARY) Tj") < pdfText.indexOf("(WORK EXPERIENCE) Tj"),
-    );
+    assert.ok(pdfText.indexOf("(WORK EXPERIENCE) Tj") < pdfText.indexOf("(SELECTED PROJECTS) Tj"));
     assert.ok(pdfText.indexOf("CommonEventsEngine") < pdfText.indexOf("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
@@ -510,6 +514,7 @@ describe("buildAtsResumePdfBytes", () => {
       pageCount >= 1 && pageCount <= 2,
       `Expected full portfolio resume to fit cleanly in 1-2 A4 pages, got ${pageCount}`,
     );
+    assert.ok(pdfText.includes("University of Caloocan City \\(Full-time\\)"));
     assert.ok(pdfText.includes("PicStar Software OPC \\(Contract\\)"));
     assert.ok(pdfText.includes("GridLock-Games Studio \\(Internship\\)"));
     assert.ok(pdfText.includes("Caloocan City, Metro Manila, Philippines"));
@@ -737,6 +742,13 @@ describe("requestResume async loading", () => {
       const result = await pending;
       assert.equal(result.pdfUrl, "blob:mock-resume");
       assert.equal(appended.length, 1);
+      assert.ok(modalStub.innerHTML.includes('role="toolbar"'));
+      assert.ok(modalStub.innerHTML.includes('data-pdf-action="zoom-in"'));
+      assert.ok(modalStub.innerHTML.includes('data-pdf-action="zoom-out"'));
+      assert.ok(modalStub.innerHTML.includes('data-pdf-action="fit-width"'));
+      assert.ok(modalStub.innerHTML.includes('data-pdf-action="fullscreen"'));
+      assert.ok(modalStub.innerHTML.includes('data-pdf-action="print"'));
+      assert.ok(modalStub.innerHTML.includes('data-pdf-action="open-tab"'));
 
       // After resolution, loading state is restored.
       assert.equal(triggerEl.disabled, false);
@@ -748,5 +760,46 @@ describe("requestResume async loading", () => {
       URL.createObjectURL = prevCreateObjectURL;
       URL.revokeObjectURL = prevRevokeObjectURL;
     }
+  });
+});
+
+describe("pdf preview viewer controls", () => {
+  it("clamps zoom values and formats zoom percentages", () => {
+    assert.equal(clampZoom(0.1), PDF_ZOOM_MIN);
+    assert.equal(clampZoom(9), PDF_ZOOM_MAX);
+    assert.equal(clampZoom(1.25), 1.25);
+    assert.equal(clampZoom(Number.NaN), 1);
+    assert.equal(formatZoomPercent(1), "100%");
+    assert.equal(formatZoomPercent(1.75), "175%");
+  });
+
+  it("renders accessible toolbar controls and respects optional print/open-in-tab flags", () => {
+    const resumeBar = createPdfToolbarMarkup({
+      pdfUrl: "blob:resume",
+      allowPrint: true,
+      allowOpenInTab: true,
+    });
+    assert.ok(resumeBar.includes('role="toolbar"'));
+    assert.ok(resumeBar.includes('data-pdf-action="prev-page"'));
+    assert.ok(resumeBar.includes('data-pdf-action="next-page"'));
+    assert.ok(resumeBar.includes('data-pdf-action="zoom-out"'));
+    assert.ok(resumeBar.includes('data-pdf-action="zoom-in"'));
+    assert.ok(resumeBar.includes('data-pdf-action="fit-width"'));
+    assert.ok(resumeBar.includes('data-pdf-action="fullscreen"'));
+    assert.ok(resumeBar.includes('data-pdf-action="print"'));
+    assert.ok(resumeBar.includes('data-pdf-action="open-tab"'));
+
+    const caseStudyBar = createPdfToolbarMarkup({
+      pdfUrl: "/docs/trash-frenzy-case-study.pdf",
+      allowPrint: false,
+      allowOpenInTab: false,
+    });
+    assert.ok(caseStudyBar.includes('data-pdf-action="fullscreen"'));
+    assert.ok(caseStudyBar.includes('data-pdf-action="zoom-in"'));
+    assert.equal(caseStudyBar.includes('data-pdf-action="print"'), false);
+    assert.equal(caseStudyBar.includes('data-pdf-action="open-tab"'), false);
+
+    const iframeMarkup = createPdfIframeMarkup("/docs/test.pdf", "Test PDF");
+    assert.ok(iframeMarkup.includes("#toolbar=1"));
   });
 });

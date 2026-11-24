@@ -213,6 +213,21 @@
     "title": "まもなく再開します。",
     "description": "現在、ポートフォリオの更新およびメンテナンスを行っております。ご訪問ありがとうございます。再開までの間は、下記のリンクよりお気軽にご連絡ください。"
   },
+  "pdfViewer": {
+    "toolbarLabel": "PDF ビューアー操作",
+    "prevPage": "前のページ",
+    "nextPage": "次のページ",
+    "pageStatus": "{current} / {total} ページ",
+    "zoomOut": "縮小",
+    "zoomIn": "拡大",
+    "resetZoom": "幅に合わせてリセット",
+    "fitWidth": "幅に合わせる",
+    "fullscreen": "全画面表示",
+    "exitFullscreen": "全画面を終了",
+    "openNewTab": "新しいタブで開く",
+    "print": "印刷",
+    "loading": "プレビューを読み込み中…"
+  },
   "footer": {
     "copyright": "© 2026 Aron Jake Radam（ハル）. All rights reserved."
   }

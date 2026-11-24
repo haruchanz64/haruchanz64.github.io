@@ -241,3 +241,22 @@ html[data-maintenance="true"] > body > :not(#maintenance-view) {
 html:not([data-maintenance="true"]) #maintenance-view {
   display: none;
 }
+
+.pdf-modal-overlay.pdf-modal-fullscreen {
+  padding: 0;
+}
+
+.pdf-modal-dialog.pdf-modal-fullscreen,
+.pdf-modal-dialog:fullscreen {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border-radius: 0;
+  border: none;
+}
+
+.pdf-modal-dialog:fullscreen {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
