@@ -1,6 +1,7 @@
 export const GITHUB_USERNAME = "haruchanz64";
 
 export const PINNED_REPOS = [
+  "CharacterMotor",
   "GameBalancer",
   "NetAuditToolkit",
   "NetSimToolkit",

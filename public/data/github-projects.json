@@ -1,5 +1,11 @@
 [
   {
+    "name": "CharacterMotor",
+    "html_url": "https://github.com/haruchanz64/CharacterMotor",
+    "description": "A barebones Unity 6 modular character controller framework for 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D with pluggable movement modules and UI Toolkit debugging.",
+    "language": "C#"
+  },
+  {
     "name": "GameBalancer",
     "html_url": "https://github.com/haruchanz64/GameBalancer",
     "description": "A Unity 6 UI Toolkit workbench for tuning progression curves, loot/pity Monte Carlo odds, combat TTK matrices, and economy flow simulations.",

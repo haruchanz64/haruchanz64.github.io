@@ -66,6 +66,20 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  CharacterMotor: {
+    role: "Gameplay & Systems Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Modular Character Controller Framework",
+    summary:
+      "A barebones Unity 6 character controller framework providing minimal locomotion contracts and three swappable physics backends (3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D) with pluggable movement modules and UI Toolkit debugging.",
+    highlights: [
+      "Runs a minimal MotorPipeline with ordered IMotorModule hooks (BeforeVelocitySolve, ModifyVelocity, AfterMove) around acceleration, deceleration, grounded jump, gravity, and impulses so genre mechanics like dashing, coyote time, or crouching stay modular.",
+      "Ships three ICharacterMotor backends (CharacterControllerMotor3D, RigidbodyMotor3D using FixedUpdate and linearVelocity, and RigidbodyMotor2D in Platformer or TopDown mode) with camera-agnostic IMovementReferenceFrame projection and decoupled ICharacterInputSource bindings.",
+      "Includes a UI Toolkit custom inspector, a Play Mode MotorDebuggerWindow with live module toggles, GameObject rig creation menus, and optional New Input System integration via versionDefines.",
+    ],
+    stack: ["Unity 6", "C#", "UPM", "UI Toolkit", "3D & 2D Physics", "Input System"],
+  },
   GameBalancer: {
     role: "Tools Programmer & Technical Designer",
     engine: "Unity 6 · C# · UI Toolkit (UPM)",
