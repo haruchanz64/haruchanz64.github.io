@@ -396,37 +396,16 @@ class PdfDocCursor {
     }
   }
 
-  drawProjectHeaderRow(name, role, url, { size = 9.6, urlSize = 8.6, lineHeight = 11.6 } = {}) {
+  drawProjectHeaderRow(name, role, { size = 9.6, lineHeight = 11.6 } = {}) {
     const nameSafe = toPdfSafeText(name);
     const roleSafe = toPdfSafeText(role);
-    const displayUrl = url ? toPdfSafeText(formatDisplayUrl(url)) : "";
-    const urlWidth = displayUrl ? estimateTextWidth(displayUrl, urlSize, false) : 0;
-    const maxNameWidth = displayUrl ? CONTENT_WIDTH - urlWidth - 10 : CONTENT_WIDTH;
-    const nameLines = wrapPdfText(nameSafe, Math.max(120, maxNameWidth), size, true);
+    const nameLines = wrapPdfText(nameSafe, CONTENT_WIDTH, size, true);
 
     const headerRows = Math.max(1, nameLines.length) + (roleSafe ? 1 : 0);
     this.ensureSpace(headerRows * lineHeight + 12);
 
-    if (nameLines.length > 0) {
-      this.drawTextAt(nameLines[0], MARGIN_X, this.y, { font: "F2", size });
-    }
-    if (displayUrl) {
-      const urlX = RIGHT_EDGE - urlWidth;
-      this.drawTextAt(displayUrl, urlX, this.y, {
-        font: "F1",
-        size: urlSize,
-        color: "0.02 0.39 0.76",
-        underline: true,
-      });
-      this.currentPage.annotations.push({
-        rect: [urlX, this.y - 2, urlX + urlWidth, this.y + urlSize],
-        url,
-      });
-    }
-    this.y -= lineHeight;
-
-    for (let i = 1; i < nameLines.length; i += 1) {
-      this.drawTextAt(nameLines[i], MARGIN_X, this.y, { font: "F2", size });
+    for (const line of nameLines) {
+      this.drawTextAt(line, MARGIN_X, this.y, { font: "F2", size });
       this.y -= lineHeight;
     }
 
@@ -640,7 +619,7 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
  *   website?: string,
  *   links?: Array<{ label?: string, url: string }>,
  *   experience?: Array<{ role: string, date: string, company?: string, location?: string, bullets?: string[] }>,
- *   projects?: Array<{ name: string, role?: string, url?: string, bullets?: string[] }>,
+ *   projects?: Array<{ name: string, role?: string, bullets?: string[] }>,
  *   education?: Array<{ school: string, degree?: string, date?: string, location?: string }>,
  *   skills?: Array<{ category: string, items: string[] }>,
  * }} data
@@ -701,9 +680,8 @@ export function buildAtsResumePdfBytes(data) {
     doc.drawSectionHeading("Selected Projects");
     for (const item of data.projects) {
       doc.ensureSpace(36);
-      doc.drawProjectHeaderRow(item.name, item.role || "", item.url || "", {
+      doc.drawProjectHeaderRow(item.name, item.role || "", {
         size: 9.6,
-        urlSize: 8.6,
         lineHeight: 11.5,
       });
       for (const bullet of item.bullets || []) {

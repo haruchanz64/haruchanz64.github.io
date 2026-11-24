@@ -4,7 +4,7 @@
  * `scripts/sync-itch.mjs` or `scripts/sync-github.mjs` regenerates JSON feeds.
  */
 
-import { GITHUB_USERNAME, PINNED_REPOS } from "./github-config.js";
+import { PINNED_REPOS } from "./github-config.js";
 
 export const GAME_PROJECT_DETAILS = {
   trashfrenzy: {
@@ -292,7 +292,6 @@ const RESUME_TOOL_BULLETS = {
 const RESUME_FEATURED_GAME_PROJECT = {
   name: "Trash Frenzy (Unity 2D · C#)",
   role: "PM, Designer, Programmer & QA",
-  url: "https://haruchanz64.itch.io/trashfrenzy",
   bullets: [
     "Built an educational Android action side-scroller rated 4.70/5 by 75 evaluators (ISO/IEC 25010), featuring URP toxin-driven lighting, ScriptableObject-tuned boss AI, and a persistent cross-scene trash sorting pipeline.",
   ],
@@ -313,7 +312,7 @@ function formatResumeProjectName(repo, curated) {
  * Build the Selected Projects list for the ATS resume:
  * the latest 3 GitHub projects (live-fetched when provided, otherwise top 3 `PINNED_REPOS`)
  * followed by the featured shipped game project (`Trash Frenzy`).
- * @param {Array<{ name: string, html_url?: string, description?: string, language?: string }> | null} [githubRepos=null]
+ * @param {Array<{ name: string, description?: string, language?: string }> | null} [githubRepos=null]
  * @param {{ maxGithubProjects?: number }} [options]
  */
 export function buildResumeSelectedProjects(githubRepos = null, { maxGithubProjects = 3 } = {}) {
@@ -322,7 +321,6 @@ export function buildResumeSelectedProjects(githubRepos = null, { maxGithubProje
       ? githubRepos.slice(0, maxGithubProjects)
       : PINNED_REPOS.slice(0, maxGithubProjects).map((name) => ({
           name,
-          html_url: `https://github.com/${GITHUB_USERNAME}/${name}`,
           description: "",
           language: "C#",
         }));
@@ -333,7 +331,6 @@ export function buildResumeSelectedProjects(githubRepos = null, { maxGithubProje
     return {
       name: formatResumeProjectName(repo, curated),
       role: curated?.role || "Creator & Developer",
-      url: repo.html_url || `https://github.com/${GITHUB_USERNAME}/${repo.name}`,
       bullets: bullet ? [bullet] : [],
     };
   });

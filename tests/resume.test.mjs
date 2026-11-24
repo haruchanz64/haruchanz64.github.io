@@ -300,6 +300,8 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(html.includes("AssetImportRules"));
     assert.ok(html.includes(">Technical Skills<"));
     assert.equal(html.includes("GDriveDesktop"), false);
+    assert.equal(html.includes("github.com/haruchanz64/UnityAuthCore"), false);
+    assert.equal(html.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.equal(html.includes("SECRET_ABOUT_SECTION_TEXT"), false);
     assert.equal(html.includes("<img"), false);
     assert.equal(html.includes("<svg"), false);
@@ -319,6 +321,8 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(text.includes("Programming Languages: C#, Dart"));
     assert.ok(text.includes("Spoken Languages: English (Fluent), Filipino (Native)"));
     assert.ok(text.includes("- Capstone Project — Trash Frenzy:"));
+    assert.equal(text.includes("github.com/haruchanz64/UnityAuthCore"), false);
+    assert.equal(text.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.equal(text.includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
 });
@@ -359,6 +363,8 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("GDriveDesktop"), false);
+    assert.equal(pdfText.includes("github.com/haruchanz64/UnityAuthCore"), false);
+    assert.equal(pdfText.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.ok(
       pdfText.includes("/BaseFont /Helvetica\n") || pdfText.includes("/BaseFont /Helvetica "),
     );

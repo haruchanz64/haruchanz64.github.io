@@ -52,12 +52,12 @@ describe("project breakdown metadata", () => {
     }
   });
 
-  it("exposes concise Selected Projects entries for the ATS resume", () => {
+  it("exposes concise Selected Projects entries for the ATS resume without project URLs", () => {
     assert.equal(RESUME_SELECTED_PROJECTS.length, 4);
     for (const item of RESUME_SELECTED_PROJECTS) {
       assert.ok(item.name.length > 0);
       assert.ok(item.role.length > 0);
-      assert.ok(item.url.startsWith("https://"));
+      assert.equal(item.url, undefined);
       assert.ok(item.bullets.length >= 1);
     }
   });

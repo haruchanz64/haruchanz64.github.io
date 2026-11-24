@@ -262,14 +262,10 @@ export function buildAtsResumeHtml(data) {
       const bulletsHtml = item.bullets?.length
         ? `<ul>${item.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
         : "";
-      const linkHtml = item.url
-        ? `<span class="item-date"><a href="${escapeHtml(item.url)}">${escapeHtml(formatDisplayUrl(item.url))}</a></span>`
-        : "";
       return `
         <article class="resume-item">
           <div class="item-header">
             <h3 class="item-title">${escapeHtml(item.name)}</h3>
-            ${linkHtml}
           </div>
           ${item.role ? `<div class="item-subtitle">${escapeHtml(item.role)}</div>` : ""}
           ${bulletsHtml}
@@ -350,8 +346,7 @@ export function buildAtsResumeHtml(data) {
       color: #222222;
       margin: 0;
     }
-    .contact-line a,
-    .item-date a {
+    .contact-line a {
       color: #111111;
       text-decoration: none;
     }
@@ -465,7 +460,6 @@ export function buildAtsResumeText(data) {
     lines.push("SELECTED PROJECTS", "=================");
     for (const item of data.projects) {
       lines.push(`${item.name}${item.role ? ` — ${item.role}` : ""}`);
-      if (item.url) lines.push(formatDisplayUrl(item.url));
       for (const bullet of item.bullets || []) {
         lines.push(`- ${bullet}`);
       }
