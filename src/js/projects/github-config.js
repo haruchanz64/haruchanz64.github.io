@@ -1,6 +1,8 @@
 export const GITHUB_USERNAME = "haruchanz64";
 
 export const PINNED_REPOS = [
+  "NetAuditToolkit",
+  "NetSimToolkit",
   "BugReportToolkit",
   "SpreadsheetToScriptableObjects",
   "UnityEventToolkit",
