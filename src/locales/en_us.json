@@ -124,10 +124,10 @@
     "title": "Skills",
     "ariaLabel": "Skill categories",
     "tabs": {
-      "gameEngines": "Game Engines",
+      "enginesFrameworks": "Engines & Frameworks",
       "languages": "Languages",
       "tools": "Tools & Software",
-      "backendFrameworks": "Backend & Frameworks"
+      "databases": "Databases"
     }
   },
   "contact": {

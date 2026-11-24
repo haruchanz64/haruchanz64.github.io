@@ -124,10 +124,10 @@
     "title": "Mga Kasanayan",
     "ariaLabel": "Mga kategorya ng kasanayan",
     "tabs": {
-      "gameEngines": "Mga Game Engine",
+      "enginesFrameworks": "Mga Engine at Framework",
       "languages": "Mga Wika",
       "tools": "Mga Tool at Software",
-      "backendFrameworks": "Backend at mga Framework"
+      "databases": "Mga Database"
     }
   },
   "contact": {

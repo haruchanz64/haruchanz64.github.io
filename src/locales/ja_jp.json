@@ -124,10 +124,10 @@
     "title": "スキル",
     "ariaLabel": "スキルカテゴリー",
     "tabs": {
-      "gameEngines": "ゲームエンジン",
+      "enginesFrameworks": "エンジン & フレームワーク",
       "languages": "言語",
       "tools": "ツール & ソフトウェア",
-      "backendFrameworks": "バックエンド & フレームワーク"
+      "databases": "データベース"
     }
   },
   "contact": {

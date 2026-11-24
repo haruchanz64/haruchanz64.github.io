@@ -537,13 +537,13 @@
     <section id="skills" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
       <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="skills.title">Skills</h2>
       <div class="flex justify-center flex-wrap gap-4 mb-12 short-h:mb-7" role="tablist" aria-label="Skill categories" data-i18n-aria-label="skills.ariaLabel">
-        <button class="skill-tab active font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="game-engines" role="tab" aria-selected="true" aria-controls="game-engines" data-i18n="skills.tabs.gameEngines">Game Engines</button>
+        <button class="skill-tab active font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="engines-frameworks" role="tab" aria-selected="true" aria-controls="engines-frameworks" data-i18n="skills.tabs.enginesFrameworks">Engines &amp; Frameworks</button>
         <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="languages" role="tab" aria-selected="false" aria-controls="languages" data-i18n="skills.tabs.languages">Languages</button>
         <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools" data-i18n="skills.tabs.tools">Tools &amp; Software</button>
-        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="backend-frameworks" role="tab" aria-selected="false" aria-controls="backend-frameworks" data-i18n="skills.tabs.backendFrameworks">Backend &amp; Frameworks</button>
+        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="databases" role="tab" aria-selected="false" aria-controls="databases" data-i18n="skills.tabs.databases">Databases</button>
       </div>
 
-      <div id="game-engines" class="tab-content active hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+      <div id="engines-frameworks" class="tab-content active hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
         <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
           <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
@@ -556,12 +556,21 @@
           </div>
           <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/godot/godot-original.svg"
-              alt="Godot"
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"
+              alt="Flutter"
               class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
               loading="lazy"
             />
-            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Godot</span>
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Flutter</span>
+          </div>
+          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
+            <img
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
+              alt="Spring Boot"
+              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
+              loading="lazy"
+            />
+            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Spring Boot</span>
           </div>
         </div>
       </div>
@@ -729,7 +738,7 @@
         </div>
       </div>
 
-      <div id="backend-frameworks" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+      <div id="databases" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
         <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
           <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img
@@ -757,24 +766,6 @@
               loading="lazy"
             />
             <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">MySQL</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg"
-              alt="Flutter"
-              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
-              loading="lazy"
-            />
-            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Flutter</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
-            <img
-              src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"
-              alt="Spring Boot"
-              class="size-12 mb-4 [transition:transform_0.3s_ease,filter_0.5s_cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
-              loading="lazy"
-            />
-            <span class="skill-name font-mono text-[0.8rem] font-medium text-text-secondary text-center">Spring Boot</span>
           </div>
         </div>
       </div>
