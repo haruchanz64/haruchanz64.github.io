@@ -1,14 +1,20 @@
 [
   {
+    "name": "GameBalancer",
+    "html_url": "https://github.com/haruchanz64/GameBalancer",
+    "description": "A zero-dependency Unity 6 UI Toolkit workbench for progression curves, loot/pity Monte Carlo odds, combat TTK matrices, and economy flow simulation.",
+    "language": "C#"
+  },
+  {
     "name": "NetAuditToolkit",
     "html_url": "https://github.com/haruchanz64/NetAuditToolkit",
-    "description": "",
+    "description": "A zero-dependency Unity 6 Editor auditor and hierarchy badge overlay that catches NGO, Mirror, and FishNet scene, prefab, RPC, and bandwidth issues.",
     "language": "C#"
   },
   {
     "name": "NetSimToolkit",
     "html_url": "https://github.com/haruchanz64/NetSimToolkit",
-    "description": "",
+    "description": "A zero-dependency Unity 6 localhost UDP/TCP network impairment proxy, bandwidth profiler, chaos timeline runner, and QA repro exporter.",
     "language": "C#"
   },
   {
