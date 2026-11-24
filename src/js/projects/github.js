@@ -5,7 +5,7 @@ import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v5";
+const CACHE_KEY = "haru_github_projects_v6";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 
 async function fetchLiveGithubProjects() {

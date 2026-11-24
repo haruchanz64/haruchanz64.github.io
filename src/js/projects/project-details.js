@@ -66,6 +66,20 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  GameBalancer: {
+    role: "Tools Programmer & Technical Designer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Game Balancing & Simulation Workbench",
+    summary:
+      "A zero-dependency Unity 6 runtime and Editor workbench built with UI Toolkit and Painter2D vector charts for progression curve modeling, loot and pity Monte Carlo odds, combat TTK matchup matrices, and faucet/sink economy simulation.",
+    highlights: [
+      "Models multi-series progression curves (Linear, Polynomial, Exponential, Logarithmic, Sigmoid, Diminishing Returns, AnimationCurve, and custom math formulas) with A/B ratio plots and CSV/JSON exports compatible with SpreadsheetToScriptableObjects.",
+      "Simulates deterministic-seedable loot tables, soft/hard pity rules, draw-without-replacement batches, and Pseudo-Random Distribution procs, comparing exact theoretical odds against Monte Carlo runs (P50–P99 and worst-case pulls).",
+      "Runs round-robin combat TTK and win-rate matchup matrices, multi-day faucet/sink economy flow audits with inflation/starvation alerts, and TypeCache-discovered custom IGameBalancerModule UI Toolkit tabs.",
+    ],
+    stack: ["Unity 6", "UI Toolkit", "C#", "UPM", "Monte Carlo", "Painter2D"],
+  },
   NetAuditToolkit: {
     role: "Tools Programmer & Author",
     engine: "Unity 6 Editor · C# (UPM)",
