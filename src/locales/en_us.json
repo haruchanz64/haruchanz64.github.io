@@ -108,6 +108,7 @@
       "role": "Role",
       "engine": "Engine / Tech",
       "scope": "Scope",
+      "released": "Released",
       "designBreakdown": "Design & Systems Breakdown",
       "technicalHighlights": "Technical & Workflow Highlights",
       "techStack": "Tech & Systems",

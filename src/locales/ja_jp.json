@@ -108,6 +108,7 @@
       "role": "担当役割",
       "engine": "エンジン / 技術",
       "scope": "体制 / 形態",
+      "released": "公開時期",
       "designBreakdown": "デザイン & システム構成",
       "technicalHighlights": "技術 & ワークフローの特徴",
       "techStack": "技術・システム",

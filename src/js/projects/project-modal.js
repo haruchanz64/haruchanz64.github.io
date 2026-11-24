@@ -1,7 +1,8 @@
 import { bindModalDismiss } from "../core/dom.js";
-import { t } from "../core/i18n.js";
+import { getCurrentLocale, t } from "../core/i18n.js";
 import { escapeHtml } from "../core/text.js";
 import { openCaseStudyModal } from "../ui/case-study.js";
+import { formatReleaseDate } from "./github-config.js";
 
 let activeModal = null;
 let lastTriggerEl = null;
@@ -55,14 +56,20 @@ export function openProjectModal(details, triggerEl = null) {
     : t("projects.modal.viewOnGithub");
   const closeLabel = t("projects.modal.close");
 
+  const formattedRelease = details.releasedAt
+    ? formatReleaseDate(details.releasedAt, getCurrentLocale())
+    : "";
+
   const metaRows = [
     details.role ? { label: t("projects.modal.role"), value: details.role } : null,
     details.engine ? { label: t("projects.modal.engine"), value: details.engine } : null,
     details.team ? { label: t("projects.modal.scope"), value: details.team } : null,
+    formattedRelease ? { label: t("projects.modal.released"), value: formattedRelease } : null,
   ].filter(Boolean);
 
+  const metaColsClass = metaRows.length === 4 ? "sm:grid-cols-2" : "sm:grid-cols-3";
   const metaHtml = metaRows.length
-    ? `<dl class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-3.5 rounded-brand bg-bg-tertiary border border-border/70 mb-5">
+    ? `<dl class="grid grid-cols-1 ${metaColsClass} gap-3 p-3.5 rounded-brand bg-bg-tertiary border border-border/70 mb-5">
         ${metaRows
           .map(
             (row) => `<div>

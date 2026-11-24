@@ -5,9 +5,19 @@ const PROJECT_CARD_CLASS =
 const PROJECT_THUMB_CLASS =
   "w-full aspect-video object-cover rounded-[6px] mb-4 shadow-[0_1px_4px_color-mix(in_srgb,var(--first-color)_15%,transparent)]";
 const PROJECT_INFO_CLASS = "w-full min-w-0 flex-1 flex flex-col text-left";
+const PROJECT_META_ROW_CLASS = "flex items-center justify-between gap-2 mb-2.5 min-w-0";
+const PROJECT_CATEGORY_CLASS =
+  "font-mono text-[0.68rem] font-medium uppercase tracking-[0.08em] text-text-secondary/75 truncate";
+const PROJECT_DATE_CLASS =
+  "font-mono text-[0.7rem] tabular-nums text-text-secondary/70 whitespace-nowrap shrink-0";
 const PROJECT_TITLE_CLASS =
   "font-display text-[1.05rem] leading-[1.3] tracking-[-0.01em] font-semibold mb-2 text-accent wrap-break-word";
-const PROJECT_DESC_CLASS = "text-[0.94rem] leading-[1.55] text-text-secondary mb-4 flex-1";
+const PROJECT_DESC_CLASS = "text-[0.9rem] leading-[1.55] text-text-secondary/90 mb-4 flex-1";
+const PROJECT_TAGS_CLASS = "flex flex-wrap gap-1.5 mb-4";
+const PROJECT_TAG_CLASS =
+  "font-mono text-[0.7rem] leading-tight px-2 py-0.5 rounded-[5px] bg-bg-tertiary/80 border border-border/70 text-text-secondary/85 whitespace-nowrap";
+const PROJECT_FOOTER_CLASS =
+  "pt-2.5 border-t border-border/45 flex items-center justify-between gap-2";
 const PROJECT_CUE_CLASS =
   "font-mono text-[0.78rem] font-medium text-text-secondary whitespace-nowrap self-start transition-colors duration-300 ease-in-out group-hover:text-accent";
 
@@ -57,7 +67,20 @@ export function renderProjectGrid({ grid, items, emptyMessage, append = false, m
   const cards = [];
 
   items.forEach((item) => {
-    const { url, title, description, image, imageAlt, cueLabel, onImage, onSelect } = mapItem(item);
+    const {
+      url,
+      title,
+      description,
+      category,
+      dateLabel,
+      dateTime,
+      tags,
+      image,
+      imageAlt,
+      cueLabel,
+      onImage,
+      onSelect,
+    } = mapItem(item);
 
     const card = onSelect ? document.createElement("button") : document.createElement("a");
     if (onSelect) {
@@ -84,6 +107,28 @@ export function renderProjectGrid({ grid, items, emptyMessage, append = false, m
     const info = document.createElement("div");
     info.className = PROJECT_INFO_CLASS;
 
+    if (category || dateLabel) {
+      const metaRow = document.createElement("div");
+      metaRow.className = PROJECT_META_ROW_CLASS;
+
+      if (category) {
+        const categoryEl = document.createElement("span");
+        categoryEl.className = PROJECT_CATEGORY_CLASS;
+        categoryEl.textContent = category;
+        metaRow.appendChild(categoryEl);
+      }
+
+      if (dateLabel) {
+        const timeEl = document.createElement("time");
+        timeEl.className = PROJECT_DATE_CLASS;
+        if (dateTime) timeEl.setAttribute("datetime", dateTime);
+        timeEl.textContent = dateLabel;
+        metaRow.appendChild(timeEl);
+      }
+
+      info.appendChild(metaRow);
+    }
+
     const titleEl = document.createElement("h3");
     titleEl.className = PROJECT_TITLE_CLASS;
     appendBreakableTitle(titleEl, title);
@@ -94,12 +139,27 @@ export function renderProjectGrid({ grid, items, emptyMessage, append = false, m
     descEl.textContent = description;
     info.appendChild(descEl);
 
+    if (Array.isArray(tags) && tags.length > 0) {
+      const tagsEl = document.createElement("div");
+      tagsEl.className = PROJECT_TAGS_CLASS;
+      for (const tag of tags.slice(0, 3)) {
+        const tagEl = document.createElement("span");
+        tagEl.className = PROJECT_TAG_CLASS;
+        tagEl.textContent = tag;
+        tagsEl.appendChild(tagEl);
+      }
+      info.appendChild(tagsEl);
+    }
+
     if (cueLabel) {
+      const footer = document.createElement("div");
+      footer.className = PROJECT_FOOTER_CLASS;
       const cue = document.createElement("span");
       cue.className = PROJECT_CUE_CLASS;
       cue.textContent = cueLabel;
       cue.setAttribute("aria-hidden", "true");
-      info.appendChild(cue);
+      footer.appendChild(cue);
+      info.appendChild(footer);
     }
 
     card.appendChild(info);

@@ -1,13 +1,13 @@
 import { writeCache } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
-import { i18nReady, t } from "../core/i18n.js";
-import { GITHUB_USERNAME, selectLatestGithubRepos } from "./github-config.js";
+import { getCurrentLocale, i18nReady, t } from "../core/i18n.js";
+import { formatReleaseDate, GITHUB_USERNAME, selectLatestGithubRepos } from "./github-config.js";
 import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v14";
-const LATEST_CACHE_KEY = "haru_github_latest_v7";
+const CACHE_KEY = "haru_github_projects_v15";
+const LATEST_CACHE_KEY = "haru_github_latest_v8";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 const INITIAL_VISIBLE_TOOLS = 8;
 
@@ -20,7 +20,12 @@ function mapRepoItem(repo) {
   return {
     url: repo.html_url,
     title: repo.name,
-    description: repo.description || details.summary || t("projects.noDescription"),
+    category: details.category,
+    dateTime: details.releasedAt,
+    dateLabel: formatReleaseDate(details.releasedAt, getCurrentLocale()),
+    description:
+      details.cardDescription || repo.description || details.summary || t("projects.noDescription"),
+    tags: details.cardTags,
     cueLabel: t("projects.viewBreakdown"),
     onSelect: (triggerEl) => openProjectModal(details, triggerEl),
   };

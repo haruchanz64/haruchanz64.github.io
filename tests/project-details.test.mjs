@@ -1,7 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { describe, it } from "node:test";
-import { selectLatestGithubRepos } from "../src/js/projects/github-config.js";
+import {
+  formatReleaseDate,
+  REPO_RELEASE_DATES,
+  selectLatestGithubRepos,
+} from "../src/js/projects/github-config.js";
 import {
   buildResumeSelectedProjects,
   getItchSlug,
@@ -36,20 +40,39 @@ describe("project breakdown metadata", () => {
     assert.equal(trashFrenzy.caseStudyUrl, "/docs/trash-frenzy-case-study.pdf");
   });
 
-  it("provides curated breakdown details for every synced Unity GitHub tool", async () => {
+  it("provides curated breakdown details, release dates, categories, and card tags for every synced Unity GitHub tool", async () => {
     const tools = JSON.parse(
       await readFile(new URL("../public/data/github-projects.json", import.meta.url), "utf8"),
     );
+
+    assert.equal(tools[0].name, "MelodyRecognitionEngine");
+    assert.equal(tools[1].name, "GachaEngine");
+    assert.equal(tools[2].name, "CommonEventsEngine");
 
     for (const repo of tools) {
       const details = resolveToolDetails(repo);
       assert.equal(details.kind, "tool");
       assert.equal(details.title, repo.name);
+      assert.ok(details.category.length > 0, `Expected category for ${repo.name}`);
+      assert.ok(
+        /^\d{4}-\d{2}-\d{2}$/.test(details.releasedAt),
+        `Expected YYYY-MM-DD releasedAt for ${repo.name}`,
+      );
+      assert.ok(details.cardDescription.length > 0, `Expected cardDescription for ${repo.name}`);
+      assert.ok(details.cardTags.length >= 2, `Expected cardTags for ${repo.name}`);
       assert.ok(details.role.length > 0);
       assert.ok(details.focus.length > 0);
       assert.ok(details.highlights.length >= 3, `Expected highlights for ${repo.name}`);
       assert.ok(details.stack.length >= 3, `Expected stack tags for ${repo.name}`);
     }
+  });
+
+  it("formats release dates cleanly across English, Filipino, and Japanese locales", () => {
+    assert.equal(formatReleaseDate("2026-11-22", "en_us"), "Nov 2026");
+    assert.equal(formatReleaseDate("2025-05-21", "fil_ph"), "May 2025");
+    assert.equal(formatReleaseDate("2026-10-09", "ja_jp"), "2026年10月");
+    assert.equal(formatReleaseDate("", "en_us"), "");
+    assert.equal(Object.keys(REPO_RELEASE_DATES).length, 16);
   });
 
   it("exposes clear, non-abbreviated Selected Projects entries for the ATS resume without project URLs", () => {
@@ -117,15 +140,15 @@ describe("project breakdown metadata", () => {
 
     assert.deepEqual(
       selected.map((r) => r.name),
-      ["FreshUnityTool", "CharacterMotor", "GameBalancer"],
+      ["FreshUnityTool", "GameBalancer", "CharacterMotor"],
     );
 
     const resumeProjects = buildResumeSelectedProjects(selected);
     assert.equal(resumeProjects.length, 4);
     assert.equal(resumeProjects[0].name, "FreshUnityTool (C#)");
     assert.equal(resumeProjects[0].bullets[0], "Brand-new procedural dungeon editor tool.");
-    assert.ok(resumeProjects[1].name.includes("CharacterMotor"));
-    assert.ok(resumeProjects[2].name.includes("GameBalancer"));
+    assert.ok(resumeProjects[1].name.includes("GameBalancer"));
+    assert.ok(resumeProjects[2].name.includes("CharacterMotor"));
     assert.ok(resumeProjects[3].name.includes("Trash Frenzy"));
   });
 });

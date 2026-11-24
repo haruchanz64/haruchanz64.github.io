@@ -4,7 +4,7 @@
  * `scripts/sync-itch.mjs` or `scripts/sync-github.mjs` regenerates JSON feeds.
  */
 
-import { PINNED_REPOS } from "./github-config.js";
+import { PINNED_REPOS, resolveRepoReleaseDate } from "./github-config.js";
 
 export const GAME_PROJECT_DETAILS = {
   trashfrenzy: {
@@ -69,6 +69,10 @@ export const GAME_PROJECT_DETAILS = {
 
 export const TOOL_PROJECT_DETAILS = {
   MelodyRecognitionEngine: {
+    category: "Audio DSP",
+    cardDescription:
+      "Real-time Burst-compiled humming and instrument melody recognition for Unity 6 with YIN pitch tracking, Guided Mode, and a UI Toolkit Workbench.",
+    cardTags: ["Burst", "YIN Pitch", "UI Toolkit"],
     role: "Systems and Tools Programmer",
     engine: "Unity 6 · C# · Burst · UI Toolkit · uGUI (UPM)",
     team: "Open-Source Package",
@@ -82,7 +86,29 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "C#", "Burst", "Audio DSP", "UI Toolkit", "uGUI", "UPM"],
   },
+  GachaEngine: {
+    category: "Gacha Systems",
+    cardDescription:
+      "Configurable gacha banner, soft/hard pity, and Monte Carlo drop-rate simulator for Unity 6 with reveal hooks and JSON pull history.",
+    cardTags: ["Pity Math", "Monte Carlo", "UI Toolkit"],
+    role: "Systems & Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Gacha Banner, Pity & Simulation Framework",
+    summary:
+      "A configurable Unity 6 gacha banner, soft/hard pity, and drop-rate simulation framework separating pure C# probability math from Canvas/3D reveal hooks, 1-hour refreshed JSON/CSV pull history, and a UI Toolkit Banner Simulator.",
+    highlights: [
+      "Supports four banner archetypes (Standard, Limited Rate-Up with cross-banner pityGroupId carry-over, Fate Path guarantees, and Step-Up ladders) with customizable rarity tiers, soft/hard pity thresholds, and featured rate-up odds.",
+      "Ships a UI Toolkit Banner Simulator with live pity tuning, x1/x10 test pulls, itemized Banner Details, a 1-hour refreshed Pull History log with JSON/CSV export, and seeded Monte Carlo audits (1,000–100,000 pulls).",
+      "Decouples probability math from presentation and persistence via IGachaRng, IPityStore, IGachaCurrencyWallet, IDuplicateResolver, IGachaPoolModifier, and skippable Canvas/3D IGachaRevealSequence cutscene hooks.",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "UPM", "Monte Carlo", "Systems Design"],
+  },
   CommonEventsEngine: {
+    category: "Event Scripting",
+    cardDescription:
+      "RPG Maker-inspired Common Events, Switches/Variables, Inventory ledger, and tick-driven command scripting for Unity 6.",
+    cardTags: ["State Machine", "UI Toolkit", "uGUI"],
     role: "Systems and Tools Programmer",
     engine: "Unity 6 · C# · UI Toolkit · uGUI (UPM)",
     team: "Open-Source Package",
@@ -97,6 +123,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity 6", "C#", "UI Toolkit", "uGUI", "State Machine", "UPM"],
   },
   UnityAuthCore: {
+    category: "Auth & REST",
+    cardDescription:
+      "Backend-agnostic Unity 6 auth and typed REST framework with single-flight 401 refresh, encrypted tokens, and multiplayer handshakes.",
+    cardTags: ["REST / JWT", "Multiplayer", "Docker"],
     role: "Systems, Backend, and Tools Programmer",
     engine: "Unity 6 · C# · UI Toolkit · Docker (UPM)",
     team: "Open-Source Package",
@@ -110,77 +140,11 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "C#", "UI Toolkit", "REST / JWT", "NGO / Mirror / FishNet", "Docker"],
   },
-  GachaEngine: {
-    role: "Systems & Tools Programmer",
-    engine: "Unity 6 · C# · UI Toolkit (UPM)",
-    team: "Open-Source Package",
-    focus: "Gacha Banner, Pity & Simulation Framework",
-    summary:
-      "A configurable Unity 6 gacha banner, soft/hard pity, and drop-rate simulation framework separating pure C# probability math from Canvas/3D reveal hooks, 1-hour refreshed JSON/CSV pull history, and a UI Toolkit Banner Simulator.",
-    highlights: [
-      "Supports four banner archetypes (Standard, Limited Rate-Up with cross-banner pityGroupId carry-over, Fate Path guarantees, and Step-Up ladders) with customizable rarity tiers, soft/hard pity thresholds, and featured rate-up odds.",
-      "Ships a UI Toolkit Banner Simulator with live pity tuning, x1/x10 test pulls, itemized Banner Details, a 1-hour refreshed Pull History log with JSON/CSV export, and seeded Monte Carlo audits (1,000–100,000 pulls).",
-      "Decouples probability math from presentation and persistence via IGachaRng, IPityStore, IGachaCurrencyWallet, IDuplicateResolver, IGachaPoolModifier, and skippable Canvas/3D IGachaRevealSequence cutscene hooks.",
-    ],
-    stack: ["Unity 6", "C#", "UI Toolkit", "UPM", "Monte Carlo", "Systems Design"],
-  },
-  AssetImportRules: {
-    role: "Tools Programmer & Author",
-    engine: "Unity 6 Editor · C# · UI Toolkit (UPM)",
-    team: "Open-Source Package",
-    focus: "Asset Import Policy & Audit Pipeline",
-    summary:
-      "A rule-driven Unity 6 Editor pipeline and UI Toolkit compliance workbench for Sprites, UI textures, general textures, 3D Models, and Audio clips, enforcing rules via AssetPostprocessor and non-destructive dry-run diffs.",
-    highlights: [
-      "Enforces opted-in Texture/Sprite/UI, 3D Model, and Audio importer settings via non-destructive RuleOverride<T> fields and per-platform overrides (Android, iPhone, Standalone) without clobbering artist choices.",
-      "Matches assets using AssetPathMatcher (folder prefixes, glob patterns, extensions, global ignores, and ImportRulesIgnore asset labels) with TypeCache-discovered custom IAssetImportRule extensions.",
-      "Ships a UI Toolkit Import Policy Workbench with starter presets, dry-run Current -> Expected compliance diffs, batch re-import fixes, Markdown/JSON CI reports, and an optional ImportAuditBuildGuard.",
-    ],
-    stack: ["Unity 6", "Unity Editor", "UI Toolkit", "C#", "UPM", "AssetPostprocessor"],
-  },
-  CustomAnimHandler: {
-    role: "Gameplay & Systems Programmer",
-    engine: "Unity 6 · C# · Playables API (UPM)",
-    team: "Open-Source Package",
-    focus: "Code-Driven 2D & 3D Animation System",
-    summary:
-      "A code-driven 2D and 3D animation controller for Unity 6 built on the Playables API that drives Sprite AnimationClips and 3D skeletal rigs directly from C# without AnimatorController state graphs.",
-    highlights: [
-      "Drives PlayableGraph, AnimationLayerMixerPlayable, and per-layer AnimationMixerPlayable directly in C#, supporting instant 2D sprite switching, smooth 3D cross-fades, and masked/additive AvatarMask layers.",
-      "Supports priority locks to prevent lower-priority locomotion from interrupting attacks/hitstun, normalized [0..1] AnimClipEvent callbacks, and an optional code-driven AnimStateMachine with IAnimTransitionRule predicates.",
-      "Includes a UI Toolkit CustomAnimInspector and AnimDebuggerWindow displaying live per-layer progress bars, blend weights, clip history, and manual test playback.",
-    ],
-    stack: ["Unity 6", "C#", "Playables API", "UI Toolkit", "UPM", "2D & 3D Animation"],
-  },
-  CharacterMotor: {
-    role: "Gameplay & Systems Programmer",
-    engine: "Unity 6 · C# · UI Toolkit (UPM)",
-    team: "Open-Source Package",
-    focus: "Modular Character Controller Framework",
-    summary:
-      "A barebones Unity 6 character controller framework providing minimal locomotion contracts and three swappable physics backends (3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D) with pluggable movement modules and UI Toolkit debugging.",
-    highlights: [
-      "Runs a minimal MotorPipeline with ordered IMotorModule hooks (BeforeVelocitySolve, ModifyVelocity, AfterMove) around acceleration, deceleration, grounded jump, gravity, and impulses so genre mechanics like dashing, coyote time, or crouching stay modular.",
-      "Ships three ICharacterMotor backends (CharacterControllerMotor3D, RigidbodyMotor3D using FixedUpdate and linearVelocity, and RigidbodyMotor2D in Platformer or TopDown mode) with camera-agnostic IMovementReferenceFrame projection and decoupled ICharacterInputSource bindings.",
-      "Includes a UI Toolkit custom inspector, a Play Mode MotorDebuggerWindow with live module toggles, GameObject rig creation menus, and optional New Input System integration via versionDefines.",
-    ],
-    stack: ["Unity 6", "C#", "UPM", "UI Toolkit", "3D & 2D Physics", "Input System"],
-  },
-  GameBalancer: {
-    role: "Tools Programmer & Technical Designer",
-    engine: "Unity 6 · C# · UI Toolkit (UPM)",
-    team: "Open-Source Package",
-    focus: "Game Balancing & Simulation Workbench",
-    summary:
-      "A Unity 6 runtime and Editor workbench built with UI Toolkit and Painter2D vector charts for progression curve modeling, loot and pity Monte Carlo odds, combat TTK matchup matrices, and faucet/sink economy simulation.",
-    highlights: [
-      "Models multi-series progression curves (Linear, Polynomial, Exponential, Logarithmic, Sigmoid, Diminishing Returns, AnimationCurve, and custom math formulas) with A/B ratio plots and CSV/JSON exports compatible with SpreadsheetToScriptableObjects.",
-      "Simulates deterministic-seedable loot tables, soft/hard pity rules, draw-without-replacement batches, and Pseudo-Random Distribution procs, comparing exact theoretical odds against Monte Carlo runs (P50–P99 and worst-case pulls).",
-      "Runs round-robin combat TTK and win-rate matchup matrices, multi-day faucet/sink economy flow audits with inflation/starvation alerts, and TypeCache-discovered custom IGameBalancerModule UI Toolkit tabs.",
-    ],
-    stack: ["Unity 6", "UI Toolkit", "C#", "UPM", "Monte Carlo", "Painter2D"],
-  },
   NetAuditToolkit: {
+    category: "Netcode QA",
+    cardDescription:
+      "Unity 6 Editor static analyzer and hierarchy overlay flagging NGO, Mirror, and FishNet scene, prefab, RPC, and bandwidth issues.",
+    cardTags: ["Static Analysis", "NGO / Mirror", "FishNet"],
     role: "Tools Programmer & Author",
     engine: "Unity 6 Editor · C# (UPM)",
     team: "Open-Source Package",
@@ -195,6 +159,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity 6", "Unity Editor", "C#", "UPM", "Static Analysis", "NGO / Mirror / FishNet"],
   },
   NetSimToolkit: {
+    category: "Network Sim",
+    cardDescription:
+      "Localhost UDP/TCP impairment proxy, live bandwidth profiler, chaos timeline runner, and QA repro exporter for Unity 6.",
+    cardTags: ["UDP/TCP Proxy", "Bandwidth", "QA Tooling"],
     role: "Systems & Tools Programmer",
     engine: "Unity 6 · C# (UPM)",
     team: "Open-Source Package",
@@ -208,7 +176,83 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "C#", "UPM", "UDP/TCP Proxy", "Bandwidth Profiler", "QA Tooling"],
   },
+  GameBalancer: {
+    category: "Game Balance",
+    cardDescription:
+      "UI Toolkit and Painter2D workbench for progression curves, Monte Carlo loot odds, combat TTK matrices, and resource economies.",
+    cardTags: ["Monte Carlo", "Painter2D", "UI Toolkit"],
+    role: "Tools Programmer & Technical Designer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Game Balancing & Simulation Workbench",
+    summary:
+      "A Unity 6 runtime and Editor workbench built with UI Toolkit and Painter2D vector charts for progression curve modeling, loot and pity Monte Carlo odds, combat TTK matchup matrices, and faucet/sink economy simulation.",
+    highlights: [
+      "Models multi-series progression curves (Linear, Polynomial, Exponential, Logarithmic, Sigmoid, Diminishing Returns, AnimationCurve, and custom math formulas) with A/B ratio plots and CSV/JSON exports compatible with SpreadsheetToScriptableObjects.",
+      "Simulates deterministic-seedable loot tables, soft/hard pity rules, draw-without-replacement batches, and Pseudo-Random Distribution procs, comparing exact theoretical odds against Monte Carlo runs (P50–P99 and worst-case pulls).",
+      "Runs round-robin combat TTK and win-rate matchup matrices, multi-day faucet/sink economy flow audits with inflation/starvation alerts, and TypeCache-discovered custom IGameBalancerModule UI Toolkit tabs.",
+    ],
+    stack: ["Unity 6", "UI Toolkit", "C#", "UPM", "Monte Carlo", "Painter2D"],
+  },
+  CharacterMotor: {
+    category: "Locomotion",
+    cardDescription:
+      "Modular Unity 6 character controller supporting CharacterController, Rigidbody, and Rigidbody2D via swappable movement modules.",
+    cardTags: ["2D & 3D Physics", "Input System", "UI Toolkit"],
+    role: "Gameplay & Systems Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Modular Character Controller Framework",
+    summary:
+      "A barebones Unity 6 character controller framework providing minimal locomotion contracts and three swappable physics backends (3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D) with pluggable movement modules and UI Toolkit debugging.",
+    highlights: [
+      "Runs a minimal MotorPipeline with ordered IMotorModule hooks (BeforeVelocitySolve, ModifyVelocity, AfterMove) around acceleration, deceleration, grounded jump, gravity, and impulses so genre mechanics like dashing, coyote time, or crouching stay modular.",
+      "Ships three ICharacterMotor backends (CharacterControllerMotor3D, RigidbodyMotor3D using FixedUpdate and linearVelocity, and RigidbodyMotor2D in Platformer or TopDown mode) with camera-agnostic IMovementReferenceFrame projection and decoupled ICharacterInputSource bindings.",
+      "Includes a UI Toolkit custom inspector, a Play Mode MotorDebuggerWindow with live module toggles, GameObject rig creation menus, and optional New Input System integration via versionDefines.",
+    ],
+    stack: ["Unity 6", "C#", "UPM", "UI Toolkit", "3D & 2D Physics", "Input System"],
+  },
+  CustomAnimHandler: {
+    category: "Animation",
+    cardDescription:
+      "Code-driven 2D and 3D animation controller on the Playables API with priority locks, masked layers, and no AnimatorController graphs.",
+    cardTags: ["Playables API", "2D & 3D", "UI Toolkit"],
+    role: "Gameplay & Systems Programmer",
+    engine: "Unity 6 · C# · Playables API (UPM)",
+    team: "Open-Source Package",
+    focus: "Code-Driven 2D & 3D Animation System",
+    summary:
+      "A code-driven 2D and 3D animation controller for Unity 6 built on the Playables API that drives Sprite AnimationClips and 3D skeletal rigs directly from C# without AnimatorController state graphs.",
+    highlights: [
+      "Drives PlayableGraph, AnimationLayerMixerPlayable, and per-layer AnimationMixerPlayable directly in C#, supporting instant 2D sprite switching, smooth 3D cross-fades, and masked/additive AvatarMask layers.",
+      "Supports priority locks to prevent lower-priority locomotion from interrupting attacks/hitstun, normalized [0..1] AnimClipEvent callbacks, and an optional code-driven AnimStateMachine with IAnimTransitionRule predicates.",
+      "Includes a UI Toolkit CustomAnimInspector and AnimDebuggerWindow displaying live per-layer progress bars, blend weights, clip history, and manual test playback.",
+    ],
+    stack: ["Unity 6", "C#", "Playables API", "UI Toolkit", "UPM", "2D & 3D Animation"],
+  },
+  AssetImportRules: {
+    category: "Asset Pipeline",
+    cardDescription:
+      "Rule-driven Unity 6 Editor pipeline and UI Toolkit compliance workbench for auditing Sprite, Texture, 3D Model, and Audio imports.",
+    cardTags: ["AssetPostprocessor", "UI Toolkit", "CI Audit"],
+    role: "Tools Programmer & Author",
+    engine: "Unity 6 Editor · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Asset Import Policy & Audit Pipeline",
+    summary:
+      "A rule-driven Unity 6 Editor pipeline and UI Toolkit compliance workbench for Sprites, UI textures, general textures, 3D Models, and Audio clips, enforcing rules via AssetPostprocessor and non-destructive dry-run diffs.",
+    highlights: [
+      "Enforces opted-in Texture/Sprite/UI, 3D Model, and Audio importer settings via non-destructive RuleOverride<T> fields and per-platform overrides (Android, iPhone, Standalone) without clobbering artist choices.",
+      "Matches assets using AssetPathMatcher (folder prefixes, glob patterns, extensions, global ignores, and ImportRulesIgnore asset labels) with TypeCache-discovered custom IAssetImportRule extensions.",
+      "Ships a UI Toolkit Import Policy Workbench with starter presets, dry-run Current -> Expected compliance diffs, batch re-import fixes, Markdown/JSON CI reports, and an optional ImportAuditBuildGuard.",
+    ],
+    stack: ["Unity 6", "Unity Editor", "UI Toolkit", "C#", "UPM", "AssetPostprocessor"],
+  },
   BugReportToolkit: {
+    category: "QA Capture",
+    cardDescription:
+      "In-game Unity bug reporter bundling screenshots, console logs, input breadcrumbs, and diagnostics into ZIPs or webhooks.",
+    cardTags: ["Ring Buffers", "Webhooks", "Unity.Profiling"],
     role: "Tools Programmer & Author",
     engine: "Unity · C# (UPM)",
     team: "Open-Source Package",
@@ -223,6 +267,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity", "C#", "UPM", "Unity.Profiling", "Input System", "REST Webhooks"],
   },
   SpreadsheetToScriptableObjects: {
+    category: "Data Pipeline",
+    cardDescription:
+      "Zero-dependency Unity Editor importer converting .csv, .tsv, and .xlsx workbooks into GUID-safe ScriptableObject assets.",
+    cardTags: ["OpenXML", "CSV/XLSX", "ScriptableObjects"],
     role: "Tools Programmer & Author",
     engine: "Unity Editor · C# (UPM)",
     team: "Open-Source Package",
@@ -237,6 +285,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity Editor", "C#", "UPM", "ScriptableObjects", "OpenXML", "CSV/XLSX"],
   },
   UnityEventToolkit: {
+    category: "Editor Audit",
+    cardDescription:
+      "Unity Editor scanner and hierarchy inspector for finding, filtering, and cleaning up broken UnityEvent listeners across scenes.",
+    cardTags: ["SerializedProperty", "Scene Audit", "Unity Editor"],
     role: "Tools Programmer & Author",
     engine: "Unity 6 Editor · C#",
     team: "Open-Source Package",
@@ -251,6 +303,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity 6", "Unity Editor", "C#", "UPM", "SerializedProperty"],
   },
   SaveEncryptionToolkit: {
+    category: "Save Security",
+    cardDescription:
+      "Modular Unity save encryption and serialization toolkit with AES protection, obfuscated keys, and pluggable JSON/Binary handlers.",
+    cardTags: ["AES Encryption", "Serialization", "Custom Inspector"],
     role: "Systems & Tools Programmer",
     engine: "Unity · C# (UPM)",
     team: "Open-Source Package",
@@ -265,6 +321,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity", "C#", "UPM", "AES Encryption", "Serialization", "Custom Inspector"],
   },
   ScriptableBatchTool: {
+    category: "Batch Authoring",
+    cardDescription:
+      "Unity Editor window for batch-creating, renaming, and bulk-editing ScriptableObject instances in one scrollable workspace.",
+    cardTags: ["EditorWindow", "ScriptableObjects", "Workflow"],
     role: "Tools Programmer & Author",
     engine: "Unity Editor · C# (UPM)",
     team: "Open-Source Package",
@@ -279,6 +339,10 @@ export const TOOL_PROJECT_DETAILS = {
     stack: ["Unity Editor", "C#", "UPM", "ScriptableObjects", "EditorWindow"],
   },
   DebugCommandSystem: {
+    category: "Runtime Console",
+    cardDescription:
+      "Extendable in-game Unity debug console on the New Input System with typed variadic commands, autocomplete, and live suggestions.",
+    cardTags: ["Input System", "Debug Console", "Runtime"],
     role: "Systems & Tools Programmer",
     engine: "Unity · C# (UPM)",
     team: "Open-Source Package",
@@ -487,6 +551,11 @@ export function resolveToolDetails(repo) {
   const fallbackStack = Array.from(
     new Set([repo.language, "Unity", ...(Array.isArray(repo.topics) ? repo.topics : [])]),
   ).filter(Boolean);
+  const stack = curated.stack || fallbackStack;
+  const cardTags =
+    Array.isArray(curated.cardTags) && curated.cardTags.length > 0
+      ? curated.cardTags
+      : stack.filter((tag) => !/^(Unity|Unity 6|C#|UPM)$/i.test(tag)).slice(0, 3);
 
   return {
     id: repo.name || "tool",
@@ -494,13 +563,18 @@ export function resolveToolDetails(repo) {
     title: repo.name || "",
     url: repo.html_url || "",
     image: "",
+    category:
+      curated.category || (repo.language && repo.language !== "N/A" ? repo.language : "Unity Tool"),
+    releasedAt: resolveRepoReleaseDate(repo),
     role: curated.role || "Tools Programmer",
     engine: curated.engine || (repo.language ? `Unity · ${repo.language}` : "Unity"),
     team: curated.team || "Open-Source Package",
     focus: curated.focus || "Unity Tooling",
+    cardDescription: curated.cardDescription || repo.description || curated.summary || "",
     summary: curated.summary || repo.description || "",
     highlights: curated.highlights || [],
-    stack: curated.stack || fallbackStack,
+    stack,
+    cardTags,
     caseStudyUrl: "",
   };
 }

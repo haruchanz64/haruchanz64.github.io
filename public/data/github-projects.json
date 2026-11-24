@@ -17,7 +17,26 @@
       "unity-burst",
       "unity-package",
       "unity6"
-    ]
+    ],
+    "released_at": "2026-11-22"
+  },
+  {
+    "name": "GachaEngine",
+    "html_url": "https://github.com/haruchanz64/GachaEngine",
+    "description": "Configurable gacha banner, soft/hard pity, and drop-rate simulator for Unity 6 with custom rarity tiers, Canvas/3D reveal hooks, and 1-hour refreshed JSON pull history.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "gacha",
+      "game-design",
+      "loot-table",
+      "pity-system",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2026-10-09"
   },
   {
     "name": "CommonEventsEngine",
@@ -35,7 +54,8 @@
       "unity",
       "unity-package",
       "unity6"
-    ]
+    ],
+    "released_at": "2026-08-23"
   },
   {
     "name": "UnityAuthCore",
@@ -54,92 +74,8 @@
       "unity",
       "unity-package",
       "unity6"
-    ]
-  },
-  {
-    "name": "GachaEngine",
-    "html_url": "https://github.com/haruchanz64/GachaEngine",
-    "description": "Configurable gacha banner, soft/hard pity, and drop-rate simulator for Unity 6 with custom rarity tiers, Canvas/3D reveal hooks, and 1-hour refreshed JSON pull history.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "gacha",
-      "game-design",
-      "loot-table",
-      "pity-system",
-      "ui-toolkit",
-      "unity",
-      "unity-package",
-      "unity6"
-    ]
-  },
-  {
-    "name": "AssetImportRules",
-    "html_url": "https://github.com/haruchanz64/AssetImportRules",
-    "description": "Rule-driven Unity 6 Editor pipeline and UI Toolkit workbench for auditing and optimizing Sprite, UI, Texture, 3D Model, and Audio imports.",
-    "language": "C#",
-    "topics": [
-      "asset-pipeline",
-      "asset-postprocessor",
-      "csharp",
-      "optimization",
-      "ui-toolkit",
-      "unity",
-      "unity-editor",
-      "unity-package",
-      "unity6"
-    ]
-  },
-  {
-    "name": "CustomAnimHandler",
-    "html_url": "https://github.com/haruchanz64/CustomAnimHandler",
-    "description": "Code-driven 2D and 3D animation controller for Unity 6 built on the Playables API, skipping AnimatorController state graphs entirely.",
-    "language": "C#",
-    "topics": [
-      "2d",
-      "3d",
-      "animation",
-      "csharp",
-      "playables-api",
-      "state-machine",
-      "unity",
-      "unity-package",
-      "unity6"
-    ]
-  },
-  {
-    "name": "CharacterMotor",
-    "html_url": "https://github.com/haruchanz64/CharacterMotor",
-    "description": "Modular Unity 6 character controller supporting CharacterController, Rigidbody, and Rigidbody2D through swappable locomotion modules.",
-    "language": "C#",
-    "topics": [
-      "2d",
-      "3d",
-      "character-controller",
-      "csharp",
-      "movement",
-      "physics",
-      "unity",
-      "unity-package",
-      "unity6"
-    ]
-  },
-  {
-    "name": "GameBalancer",
-    "html_url": "https://github.com/haruchanz64/GameBalancer",
-    "description": "Unity 6 UI Toolkit workbench for tuning progression curves, Monte Carlo loot and pity odds, combat TTK matrices, and resource economies.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "economy-simulation",
-      "game-balance",
-      "game-design",
-      "monte-carlo",
-      "ui-toolkit",
-      "unity",
-      "unity-package",
-      "unity6"
-    ]
+    ],
+    "released_at": "2026-07-11"
   },
   {
     "name": "NetAuditToolkit",
@@ -157,7 +93,8 @@
       "unity-editor",
       "unity-package",
       "unity6"
-    ]
+    ],
+    "released_at": "2026-05-29"
   },
   {
     "name": "NetSimToolkit",
@@ -174,7 +111,80 @@
       "unity",
       "unity-package",
       "unity6"
-    ]
+    ],
+    "released_at": "2026-04-18"
+  },
+  {
+    "name": "GameBalancer",
+    "html_url": "https://github.com/haruchanz64/GameBalancer",
+    "description": "Unity 6 UI Toolkit workbench for tuning progression curves, Monte Carlo loot and pity odds, combat TTK matrices, and resource economies.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "economy-simulation",
+      "game-balance",
+      "game-design",
+      "monte-carlo",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2026-03-07"
+  },
+  {
+    "name": "CharacterMotor",
+    "html_url": "https://github.com/haruchanz64/CharacterMotor",
+    "description": "Modular Unity 6 character controller supporting CharacterController, Rigidbody, and Rigidbody2D through swappable locomotion modules.",
+    "language": "C#",
+    "topics": [
+      "2d",
+      "3d",
+      "character-controller",
+      "csharp",
+      "movement",
+      "physics",
+      "unity",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2026-01-24"
+  },
+  {
+    "name": "CustomAnimHandler",
+    "html_url": "https://github.com/haruchanz64/CustomAnimHandler",
+    "description": "Code-driven 2D and 3D animation controller for Unity 6 built on the Playables API, skipping AnimatorController state graphs entirely.",
+    "language": "C#",
+    "topics": [
+      "2d",
+      "3d",
+      "animation",
+      "csharp",
+      "playables-api",
+      "state-machine",
+      "unity",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2025-12-12"
+  },
+  {
+    "name": "AssetImportRules",
+    "html_url": "https://github.com/haruchanz64/AssetImportRules",
+    "description": "Rule-driven Unity 6 Editor pipeline and UI Toolkit workbench for auditing and optimizing Sprite, UI, Texture, 3D Model, and Audio imports.",
+    "language": "C#",
+    "topics": [
+      "asset-pipeline",
+      "asset-postprocessor",
+      "csharp",
+      "optimization",
+      "ui-toolkit",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2025-11-03"
   },
   {
     "name": "BugReportToolkit",
@@ -189,7 +199,8 @@
       "unity",
       "unity-package",
       "webhooks"
-    ]
+    ],
+    "released_at": "2025-09-21"
   },
   {
     "name": "SpreadsheetToScriptableObjects",
@@ -205,7 +216,8 @@
       "unity-editor",
       "unity-package",
       "xlsx"
-    ]
+    ],
+    "released_at": "2025-08-14"
   },
   {
     "name": "UnityEventToolkit",
@@ -220,7 +232,8 @@
       "unity-editor",
       "unity-events",
       "unity-package"
-    ]
+    ],
+    "released_at": "2025-07-01"
   },
   {
     "name": "SaveEncryptionToolkit",
@@ -235,7 +248,8 @@
       "serialization",
       "unity",
       "unity-package"
-    ]
+    ],
+    "released_at": "2025-06-26"
   },
   {
     "name": "ScriptableBatchTool",
@@ -250,7 +264,8 @@
       "unity-editor",
       "unity-package",
       "workflow"
-    ]
+    ],
+    "released_at": "2025-05-23"
   },
   {
     "name": "DebugCommandSystem",
@@ -265,6 +280,7 @@
       "input-system",
       "unity",
       "unity-package"
-    ]
+    ],
+    "released_at": "2025-05-21"
   }
 ]
