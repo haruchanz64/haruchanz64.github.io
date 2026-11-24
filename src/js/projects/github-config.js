@@ -6,6 +6,7 @@ export const EXCLUDED_LATEST_REPOS = new Set([
 ]);
 
 export const PINNED_REPOS = [
+  "MelodyRecognitionEngine",
   "CommonEventsEngine",
   "UnityAuthCore",
   "GachaEngine",

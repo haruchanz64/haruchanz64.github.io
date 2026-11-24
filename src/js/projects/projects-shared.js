@@ -1,11 +1,12 @@
 import { readCache, writeCache } from "../core/cache.js";
 
 const PROJECT_CARD_CLASS =
-  "project-card group flex flex-col items-stretch bg-card-bg border border-border rounded-brand p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out w-full max-w-full mx-auto no-underline text-inherit text-left font-main cursor-pointer hover:border-accent hover:shadow-card-hover hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2";
+  "project-card group flex flex-col items-stretch min-w-0 bg-card-bg border border-border rounded-brand p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out w-full max-w-full mx-auto no-underline text-inherit text-left font-main cursor-pointer hover:border-accent hover:shadow-card-hover hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2";
 const PROJECT_THUMB_CLASS =
   "w-full aspect-video object-cover rounded-[6px] mb-4 shadow-[0_1px_4px_color-mix(in_srgb,var(--first-color)_15%,transparent)]";
-const PROJECT_INFO_CLASS = "w-full flex-1 flex flex-col text-left";
-const PROJECT_TITLE_CLASS = "font-display text-[1.15rem] font-semibold mb-2 text-accent";
+const PROJECT_INFO_CLASS = "w-full min-w-0 flex-1 flex flex-col text-left";
+const PROJECT_TITLE_CLASS =
+  "font-display text-[1.15rem] font-semibold mb-2 text-accent wrap-break-word";
 const PROJECT_DESC_CLASS = "text-[0.94rem] leading-[1.55] text-text-secondary mb-4 flex-1";
 const PROJECT_CUE_CLASS =
   "font-mono text-[0.78rem] font-medium text-text-secondary whitespace-nowrap self-start transition-colors duration-300 ease-in-out group-hover:text-accent";
@@ -34,7 +35,7 @@ const PROJECT_CUE_CLASS =
 export function renderProjectGrid({ grid, items, emptyMessage, append = false, mapItem }) {
   if (!Array.isArray(items) || items.length === 0) {
     if (!append) {
-      grid.innerHTML = `<p class="text-text-secondary">${emptyMessage}</p>`;
+      grid.innerHTML = `<p class="col-span-full text-text-secondary">${emptyMessage}</p>`;
     }
     return [];
   }

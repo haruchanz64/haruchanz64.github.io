@@ -1,5 +1,25 @@
 [
   {
+    "name": "MelodyRecognitionEngine",
+    "html_url": "https://github.com/haruchanz64/MelodyRecognitionEngine",
+    "description": "Real-time Burst-compiled humming and acoustic instrument melody recognition engine for Unity 6 with YIN pitch tracking, Hum/Instrument DSP profiles, relative-interval & absolute-pitch matching, Guided/Learn Mode, custom songs, uGUI Musical Staff HUD, and UI Toolkit Workbench.",
+    "language": "C#",
+    "topics": [
+      "audio-dsp",
+      "csharp",
+      "humming",
+      "melody-recognition",
+      "microphone",
+      "ocarina",
+      "pitch-detection",
+      "ui-toolkit",
+      "unity",
+      "unity-burst",
+      "unity-package",
+      "unity6"
+    ]
+  },
+  {
     "name": "CommonEventsEngine",
     "html_url": "https://github.com/haruchanz64/CommonEventsEngine",
     "description": "RPG Maker-inspired Common Events, global Switches/Variables, Self-Switches, Inventory/Gold ledger, and tick-driven command scripting framework for Unity 6 with built-in uGUI Dialogue Box, Screen Fader, and a UI Toolkit Event Workbench.",

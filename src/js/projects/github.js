@@ -6,10 +6,10 @@ import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v13";
-const LATEST_CACHE_KEY = "haru_github_latest_v6";
+const CACHE_KEY = "haru_github_projects_v14";
+const LATEST_CACHE_KEY = "haru_github_latest_v7";
 const CACHE_TTL_MS = 60 * 60 * 1000;
-const INITIAL_VISIBLE_TOOLS = 6;
+const INITIAL_VISIBLE_TOOLS = 8;
 
 const GITHUB_REPOS_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner&sort=created&direction=desc`;
 
@@ -95,7 +95,8 @@ async function initGithubProjects() {
   });
 
   if (!projects) {
-    grid.innerHTML = `<p class="text-text-secondary">${t("projects.failedToLoad")}</p>`;
+    const failedMessage = t("projects.failedToLoad");
+    grid.innerHTML = `<p class="col-span-full text-text-secondary">${failedMessage}</p>`;
     if (toggleWrap) toggleWrap.hidden = true;
     return;
   }

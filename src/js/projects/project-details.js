@@ -68,6 +68,20 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  MelodyRecognitionEngine: {
+    role: "Systems and Tools Programmer",
+    engine: "Unity 6 · C# · Burst · UI Toolkit · uGUI (UPM)",
+    team: "Open-Source Package",
+    focus: "Real-Time Audio DSP & Melody Recognition",
+    summary:
+      "A real-time Burst-compiled humming and acoustic instrument melody recognition engine for Unity 6 unifying microphone pitch tracking and accessible button inputs with unlockable song repertoires, Guided/Learn Mode, a uGUI Musical Staff HUD, and a UI Toolkit Melody Workbench.",
+    highlights: [
+      "Runs an allocation-free Burst-compiled YIN pitch tracker (PitchDetectionJob / BurstPitchTracker) with cascaded 2nd-order Butterworth bandpass filtering, adaptive noise-floor gating, parabolic sub-sample interpolation, and 2nd-harmonic octave correction.",
+      "Provides a unified note segmentation and matching pipeline (NoteSegmenter, MelodyMatcher) supporting Hum, Instrument, and Whistle DSP profiles, key- and octave-invariant relative semitone intervals or strict absolute pitch, Guided/Learn Mode, and JSON-serialized player-recorded custom songs.",
+      "Ships a ready-to-use MelodyRecognitionController with BGM ducking hooks, optional uGUI MusicalStaffHUD and ProceduralOcarinaSynth audio feedback, a UI Toolkit Melody Workbench (Live Mic Tuner, Mic/Piano Song Authoring, Dry-Run Simulator), and a CommonEventsEngine integration sample.",
+    ],
+    stack: ["Unity 6", "C#", "Burst", "Audio DSP", "UI Toolkit", "uGUI", "UPM"],
+  },
   CommonEventsEngine: {
     role: "Systems and Tools Programmer",
     engine: "Unity 6 · C# · UI Toolkit · uGUI (UPM)",
@@ -281,6 +295,10 @@ export const TOOL_PROJECT_DETAILS = {
 };
 
 const RESUME_TOOL_HIGHLIGHTS = {
+  MelodyRecognitionEngine: [
+    "Built a real-time Unity 6 humming and acoustic instrument melody recognition package powered by an allocation-free Burst-compiled YIN pitch tracker with Butterworth bandpass filtering, adaptive noise-floor gating, and octave correction.",
+    "Engineered a unified note segmentation and melody matching pipeline supporting microphone and accessible button inputs, Guided and Learn Mode, player-recorded custom songs, a uGUI Musical Staff heads-up display, and a UI Toolkit Melody Workbench.",
+  ],
   CommonEventsEngine: [
     "Built an RPG Maker-inspired Unity 6 event scripting framework with a deterministic tick-driven state machine (Manual, Autorun, and Parallel triggers), 29 built-in commands, and TypeCache-discovered custom commands.",
     "Implemented a JSON-serializable WorldStateStore for global switches, typed variables, self-switches, gold, and inventory alongside swappable uGUI dialogue and transition components and a UI Toolkit Event Workbench with a live step debugger.",
