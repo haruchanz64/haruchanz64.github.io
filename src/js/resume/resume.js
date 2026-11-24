@@ -1,10 +1,6 @@
 import { bindModalDismiss, setButtonLoading } from "../core/dom.js";
 import { DEFAULT_LOCALE, getTranslation, t } from "../core/i18n.js";
-import {
-  createPdfToolbarMarkup,
-  mountPdfViewer,
-  PDF_MODAL_CLASSES,
-} from "../ui/pdf-preview.js";
+import { createPdfToolbarMarkup, mountPdfViewer, PDF_MODAL_CLASSES } from "../ui/pdf-preview.js";
 import { buildAtsResumePdfBytes, formatCompanyForResume, formatDisplayUrl } from "./pdf-builder.js";
 
 export {
