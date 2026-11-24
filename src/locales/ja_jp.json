@@ -27,13 +27,13 @@
   },
   "about": {
     "title": "自己紹介",
-    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。ゲームプレイシステム、Unity ツール開発、テクニカルゲームデザインに注力するゲーム開発者です。また、University of Caloocan City の BS EMC（ゲーム開発専攻）プログラムで大学講師として教鞭を執り、2年生から4年生までの学生にゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを指導しています。",
+    "p1Html": "<strong>Aron Jake Radam</strong>（オンラインでは <button type=\"button\" class=\"haru-trigger\" aria-expanded=\"false\" aria-controls=\"haru-origin-modal\">ハル</button> としても活動）です。ゲームプレイシステム、Unity ツール開発、テクニカルゲームデザインに注力するゲーム開発者です。キャリアの出発点は GridLock-Games Studio でのゲームプレイテストおよび QA で、ビルド検証やバグ報告を行いながら、開発者・デザイナーと連携してゲームプレイの手触りやバランス、リリース品質を高めました。",
     "haruOriginTitle": "なぜ @haruchanz64 なのか？",
     "haruOriginClose": "閉じる",
     "haruOriginHtml": "<strong>ハル</strong> は日本語で「春」、<strong>-chan</strong> はカジュアルな呼び方の接尾辞、<strong>Z64</strong> は Nintendo 64 の『<em>ゼルダの伝説 ムジュラの仮面</em>』（最初に遊んだゼルダ作品）と『<em>ゼルダの伝説 時のオカリナ</em>』から取っています。もとはゲーム用のユーザー名でしたが、そのまま GitHub や各種 SNS でも使い続けています。",
-    "p2Html": "フルタイムでの指導に専念する前は、Las Piñas, Philippines の PicStar Software OPC で唯一のフルスタックエンジニアとして働き、Flutter と Supabase を用いて PicStar を設計から Google Play ストア公開まで一貫して構築しました。この経験を通じて、ライブバックエンドやパフォーマンス、本番リリースの実践力を磨きました。",
-    "p3Html": "キャリアの出発点は GridLock-Games Studio でのゲームプレイテストおよび QA で、ビルド検証やバグ報告を行いながら、開発者・デザイナーと連携してゲームプレイの手触りやバランス、リリース品質を高めました。",
-    "p4Html": "現在はゲームデザイン理論の探究を続けながら、デザイナーや QA の制作ワークフローを高速化するオープンソースの Unity エディタツールやランタイムシステムを開発しています。日々の開発では AI コーディングツールも活用してプロトタイピングとデバッグを効率化しており、ゲームスタジオのポジションやフリーランス案件、コラボレーションのご相談を歓迎しています。"
+    "p2Html": "その後、Las Piñas, Philippines の PicStar Software OPC で唯一のフルスタックエンジニアとして働き、Flutter と Supabase を用いて PicStar を設計から Google Play ストア公開まで一貫して構築しました。この経験を通じて、ライブバックエンドやパフォーマンス、本番リリースの実践力を磨きました。",
+    "p3Html": "現在は、デザイナーや QA の制作ワークフローを高速化するオープンソースの Unity エディタツールやランタイムシステムを開発しながら、University of Caloocan City の BS EMC（ゲーム開発専攻）プログラムで大学講師として教鞭を執っています。2年生から4年生までの学生にゲームデザイン理論、プロトタイピング、OOP、ゲーム数学、AI、ネットワーキング、プロダクションパイプラインを指導しています。",
+    "p4Html": "あわせてゲームデザイン理論の学習も続けており、日々の開発では AI コーディングツールを活用してプロトタイピングとデバッグを効率化しています。ゲームスタジオのポジションやフリーランス案件、コラボレーションのご相談を歓迎しています。"
   },
   "experience": {
     "title": "経歴",
