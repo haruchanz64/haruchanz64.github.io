@@ -1,13 +1,19 @@
+import { writeCache } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
 import { i18nReady, t } from "../core/i18n.js";
-import { GITHUB_USERNAME, mapPinnedRepos } from "./github-config.js";
+import { GITHUB_USERNAME, mapPinnedRepos, selectLatestGithubRepos } from "./github-config.js";
 import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v8";
+const CACHE_KEY = "haru_github_projects_v11";
+const LATEST_CACHE_KEY = "haru_github_latest_v4";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 const INITIAL_VISIBLE_TOOLS = 6;
+
+const GITHUB_REPOS_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner&sort=created&direction=desc`;
+
+let inflightRawRepos = null;
 
 function mapRepoItem(repo) {
   const details = resolveToolDetails(repo);
@@ -21,18 +27,56 @@ function mapRepoItem(repo) {
   };
 }
 
+async function fetchRawGithubRepos() {
+  if (typeof fetch !== "function") {
+    throw new Error("fetch unavailable");
+  }
+  if (!inflightRawRepos) {
+    inflightRawRepos = fetch(GITHUB_REPOS_URL)
+      .then((res) => {
+        if (!res.ok) throw new Error(`GitHub API ${res.status}`);
+        return res.json();
+      })
+      .finally(() => {
+        inflightRawRepos = null;
+      });
+  }
+  return inflightRawRepos;
+}
+
 async function fetchLiveGithubProjects() {
-  const res = await fetch(
-    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner`,
-  );
-  if (!res.ok) throw new Error(`GitHub API ${res.status}`);
-  return mapPinnedRepos(await res.json());
+  const rawRepos = await fetchRawGithubRepos();
+  const latest = selectLatestGithubRepos(rawRepos, 3);
+  if (latest.length > 0) {
+    writeCache(LATEST_CACHE_KEY, latest);
+  }
+  return mapPinnedRepos(rawRepos);
 }
 
 async function fetchFallbackGithubProjects() {
+  if (typeof fetch !== "function") {
+    throw new Error("fetch unavailable");
+  }
   const res = await fetch("/data/github-projects.json");
   if (!res.ok) throw new Error(`Fallback GitHub JSON ${res.status}`);
   return res.json();
+}
+
+/**
+ * Fetch the latest public GitHub repositories (with 1-hour caching and JSON fallback)
+ * for dynamic resume project selection.
+ * @param {number} [count=3]
+ * @returns {Promise<Array<{ name: string, html_url: string, description: string, language: string }> | null>}
+ */
+export async function fetchLatestGithubProjects(count = 3) {
+  if (typeof fetch !== "function") return null;
+  return loadCachedList({
+    cacheKey: LATEST_CACHE_KEY,
+    ttlMs: CACHE_TTL_MS,
+    fetchPrimary: async () => selectLatestGithubRepos(await fetchRawGithubRepos(), count),
+    fetchFallback: async () => selectLatestGithubRepos(await fetchFallbackGithubProjects(), count),
+    label: "Latest GitHub projects",
+  });
 }
 
 async function initGithubProjects() {

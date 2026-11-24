@@ -4,6 +4,8 @@
  * `scripts/sync-itch.mjs` or `scripts/sync-github.mjs` regenerates JSON feeds.
  */
 
+import { GITHUB_USERNAME, PINNED_REPOS } from "./github-config.js";
+
 export const GAME_PROJECT_DETAILS = {
   trashfrenzy: {
     role: "Project Manager · Game Designer · Gameplay Programmer · QA",
@@ -66,6 +68,48 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  GachaEngine: {
+    role: "Systems & Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Gacha Banner, Pity & Simulation Framework",
+    summary:
+      "A configurable Unity 6 gacha banner, soft/hard pity, and drop-rate simulation framework separating pure C# probability math from Canvas/3D reveal hooks, 1-hour refreshed JSON/CSV pull history, and a UI Toolkit Banner Simulator.",
+    highlights: [
+      "Supports four banner archetypes (Standard, Limited Rate-Up with cross-banner pityGroupId carry-over, Fate Path guarantees, and Step-Up ladders) with customizable rarity tiers, soft/hard pity thresholds, and featured rate-up odds.",
+      "Ships a UI Toolkit Banner Simulator with live pity tuning, x1/x10 test pulls, itemized Banner Details, a 1-hour refreshed Pull History log with JSON/CSV export, and seeded Monte Carlo audits (1,000–100,000 pulls).",
+      "Decouples probability math from presentation and persistence via IGachaRng, IPityStore, IGachaCurrencyWallet, IDuplicateResolver, IGachaPoolModifier, and skippable Canvas/3D IGachaRevealSequence cutscene hooks.",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "UPM", "Monte Carlo", "Systems Design"],
+  },
+  AssetImportRules: {
+    role: "Tools Programmer & Author",
+    engine: "Unity 6 Editor · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Asset Import Policy & Audit Pipeline",
+    summary:
+      "A rule-driven Unity 6 Editor pipeline and UI Toolkit compliance workbench for Sprites, UI textures, general textures, 3D Models, and Audio clips, enforcing rules via AssetPostprocessor and non-destructive dry-run diffs.",
+    highlights: [
+      "Enforces opted-in Texture/Sprite/UI, 3D Model, and Audio importer settings via non-destructive RuleOverride<T> fields and per-platform overrides (Android, iPhone, Standalone) without clobbering artist choices.",
+      "Matches assets using AssetPathMatcher (folder prefixes, glob patterns, extensions, global ignores, and ImportRulesIgnore asset labels) with TypeCache-discovered custom IAssetImportRule extensions.",
+      "Ships a UI Toolkit Import Policy Workbench with starter presets, dry-run Current -> Expected compliance diffs, batch re-import fixes, Markdown/JSON CI reports, and an optional ImportAuditBuildGuard.",
+    ],
+    stack: ["Unity 6", "Unity Editor", "UI Toolkit", "C#", "UPM", "AssetPostprocessor"],
+  },
+  CustomAnimHandler: {
+    role: "Gameplay & Systems Programmer",
+    engine: "Unity 6 · C# · Playables API (UPM)",
+    team: "Open-Source Package",
+    focus: "Code-Driven 2D & 3D Animation System",
+    summary:
+      "A code-driven 2D and 3D animation controller for Unity 6 built on the Playables API that drives Sprite AnimationClips and 3D skeletal rigs directly from C# without AnimatorController state graphs.",
+    highlights: [
+      "Drives PlayableGraph, AnimationLayerMixerPlayable, and per-layer AnimationMixerPlayable directly in C#, supporting instant 2D sprite switching, smooth 3D cross-fades, and masked/additive AvatarMask layers.",
+      "Supports priority locks to prevent lower-priority locomotion from interrupting attacks/hitstun, normalized [0..1] AnimClipEvent callbacks, and an optional code-driven AnimStateMachine with IAnimTransitionRule predicates.",
+      "Includes a UI Toolkit CustomAnimInspector and AnimDebuggerWindow displaying live per-layer progress bars, blend weights, clip history, and manual test playback.",
+    ],
+    stack: ["Unity 6", "C#", "Playables API", "UI Toolkit", "UPM", "2D & 3D Animation"],
+  },
   CharacterMotor: {
     role: "Gameplay & Systems Programmer",
     engine: "Unity 6 · C# · UI Toolkit (UPM)",
@@ -208,54 +252,89 @@ export const TOOL_PROJECT_DETAILS = {
   },
 };
 
+const RESUME_TOOL_BULLETS = {
+  GachaEngine:
+    "Built a configurable Unity 6 gacha banner and soft/hard pity framework (Standard, Limited, Fate Path, Step-Up) with pure C# probability contracts, Canvas/3D reveal hooks, 1-hour JSON/CSV pull history, and a Monte Carlo simulator.",
+  AssetImportRules:
+    "Built a rule-driven Unity 6 Editor AssetPostprocessor pipeline and UI Toolkit compliance workbench for Texture/Sprite, 3D Model, and Audio imports with dry-run diffs, batch re-imports, CI exports, and build guards.",
+  CustomAnimHandler:
+    "Engineered a code-driven 2D/3D Unity 6 animation controller on the Playables API (no AnimatorController graphs) with masked layers, priority locks, normalized clip events, code state machine, and UI Toolkit debugger.",
+  CharacterMotor:
+    "Built a modular Unity 6 character controller framework (UPM) supporting 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D backends with pluggable IMotorModule hooks and a UI Toolkit Play Mode debugger.",
+  GameBalancer:
+    "Engineered a Unity 6 UI Toolkit and Painter2D balancing workbench for progression curves, Monte Carlo loot/pity odds, combat TTK matrices, and economy faucet/sink simulations with CSV/JSON exports.",
+  NetAuditToolkit:
+    "Created a netcode-agnostic Unity 6 Editor static analyzer (NGO, Mirror, FishNet) with 9 audit rules, 1-click Quick Fixes, Hierarchy badges, CI report exports, and an optional pre-build guard.",
+  NetSimToolkit:
+    "Developed a pure C# localhost UDP/TCP network impairment proxy and bandwidth profiler for Unity 6 with jitter/burst-loss simulation, a runtime QA HUD, Chaos Timeline runner, and ZIP repro exports.",
+  BugReportToolkit:
+    "Built an in-game Unity bug reporter capturing ring-buffered logs, input breadcrumbs, profiling metrics, and screenshots into ZIP bundles or Trello/GitHub/Discord webhooks with an in-Editor viewer.",
+  SpreadsheetToScriptableObjects:
+    "Built a zero-dependency Unity Editor package parsing RFC 4180 CSV/TSV and OpenXML (.xlsx) sheets into ScriptableObjects with GUID-safe re-imports and automatic C# class generation.",
+};
+
+const RESUME_FEATURED_GAME_PROJECT = {
+  name: "Trash Frenzy (Unity 2D · C#)",
+  role: "PM, Designer, Programmer & QA",
+  url: "https://haruchanz64.itch.io/trashfrenzy",
+  bullets: [
+    "Built an educational Android action side-scroller rated 4.70/5 by 75 evaluators (ISO/IEC 25010), featuring URP toxin-driven lighting, ScriptableObject-tuned boss AI, and a persistent cross-scene trash sorting pipeline.",
+  ],
+};
+
+function formatResumeProjectName(repo, curated) {
+  if (curated?.engine) {
+    const cleanEngine = curated.engine.replace(/\s*\(UPM\)/g, "").trim();
+    return `${repo.name} (${cleanEngine})`;
+  }
+  if (repo.language && repo.language !== "N/A") {
+    return `${repo.name} (${repo.language})`;
+  }
+  return repo.name;
+}
+
 /**
- * Curated projects rendered in the ATS Resume (PDF, HTML, and plain text).
- * Leads with flagship Unity 6 systems and tools followed by a shipped game project
- * so studio recruiters immediately see gameplay systems, technical design,
- * and Unity tooling proof alongside experience.
+ * Build the Selected Projects list for the ATS resume:
+ * the latest 3 GitHub projects (live-fetched when provided, otherwise top 3 `PINNED_REPOS`)
+ * followed by the featured shipped game project (`Trash Frenzy`).
+ * @param {Array<{ name: string, html_url?: string, description?: string, language?: string }> | null} [githubRepos=null]
+ * @param {{ maxGithubProjects?: number }} [options]
  */
-export const RESUME_SELECTED_PROJECTS = [
-  {
-    name: "CharacterMotor (Unity 6 · C# · UI Toolkit)",
-    role: "Gameplay & Systems Programmer",
-    url: "https://github.com/haruchanz64/CharacterMotor",
-    bullets: [
-      "Built a modular Unity 6 character controller framework (UPM) supporting 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D backends with pluggable IMotorModule hooks and a UI Toolkit Play Mode debugger.",
-    ],
-  },
-  {
-    name: "GameBalancer (Unity 6 · C# · UI Toolkit)",
-    role: "Tools Programmer & Technical Designer",
-    url: "https://github.com/haruchanz64/GameBalancer",
-    bullets: [
-      "Engineered a Unity 6 UI Toolkit and Painter2D balancing workbench for progression curves, Monte Carlo loot/pity odds, combat TTK matrices, and economy faucet/sink simulations with CSV/JSON exports.",
-    ],
-  },
-  {
-    name: "NetAuditToolkit (Unity 6 Editor · C#)",
-    role: "Tools Programmer",
-    url: "https://github.com/haruchanz64/NetAuditToolkit",
-    bullets: [
-      "Created a netcode-agnostic Unity 6 Editor static analyzer (NGO, Mirror, FishNet) with 9 audit rules, 1-click Quick Fixes, Hierarchy badges, CI report exports, and an optional pre-build guard.",
-    ],
-  },
-  {
-    name: "NetSimToolkit (Unity 6 · C#)",
-    role: "Systems & Tools Programmer",
-    url: "https://github.com/haruchanz64/NetSimToolkit",
-    bullets: [
-      "Developed a pure C# localhost UDP/TCP network impairment proxy and bandwidth profiler for Unity 6 with jitter/burst-loss simulation, a runtime QA HUD, Chaos Timeline runner, and ZIP repro exports.",
-    ],
-  },
-  {
-    name: "Trash Frenzy (Unity 2D · C#)",
-    role: "Project Manager, Game Designer, Gameplay Programmer & QA",
-    url: "https://haruchanz64.itch.io/trashfrenzy",
-    bullets: [
-      "Built an educational Android action side-scroller rated 4.70/5 by 75 evaluators (ISO/IEC 25010), featuring URP toxin-driven lighting, ScriptableObject-tuned boss AI, and a persistent cross-scene trash sorting pipeline.",
-    ],
-  },
-];
+export function buildResumeSelectedProjects(githubRepos = null, { maxGithubProjects = 3 } = {}) {
+  const sourceRepos =
+    Array.isArray(githubRepos) && githubRepos.length > 0
+      ? githubRepos.slice(0, maxGithubProjects)
+      : PINNED_REPOS.slice(0, maxGithubProjects).map((name) => ({
+          name,
+          html_url: `https://github.com/${GITHUB_USERNAME}/${name}`,
+          description: "",
+          language: "C#",
+        }));
+
+  const githubEntries = sourceRepos.map((repo) => {
+    const curated = TOOL_PROJECT_DETAILS[repo.name] || null;
+    const bullet = RESUME_TOOL_BULLETS[repo.name] || curated?.summary || repo.description || "";
+    return {
+      name: formatResumeProjectName(repo, curated),
+      role: curated?.role || "Creator & Developer",
+      url: repo.html_url || `https://github.com/${GITHUB_USERNAME}/${repo.name}`,
+      bullets: bullet ? [bullet] : [],
+    };
+  });
+
+  return [
+    ...githubEntries,
+    {
+      ...RESUME_FEATURED_GAME_PROJECT,
+      bullets: [...RESUME_FEATURED_GAME_PROJECT.bullets],
+    },
+  ];
+}
+
+/**
+ * Default Selected Projects rendered in the ATS Resume when no live GitHub list is supplied.
+ */
+export const RESUME_SELECTED_PROJECTS = buildResumeSelectedProjects();
 
 /**
  * Extract the itch.io slug from a project URL.
@@ -302,7 +381,9 @@ export function resolveGameDetails(project) {
  */
 export function resolveToolDetails(repo) {
   const curated = TOOL_PROJECT_DETAILS[repo.name] || {};
-  const fallbackStack = [repo.language, "Unity"].filter(Boolean);
+  const fallbackStack = Array.from(
+    new Set([repo.language, "Unity", ...(Array.isArray(repo.topics) ? repo.topics : [])]),
+  ).filter(Boolean);
 
   return {
     id: repo.name || "tool",

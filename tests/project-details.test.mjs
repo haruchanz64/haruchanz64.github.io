@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { describe, it } from "node:test";
+import { selectLatestGithubRepos } from "../src/js/projects/github-config.js";
 import {
+  buildResumeSelectedProjects,
   getItchSlug,
   RESUME_SELECTED_PROJECTS,
   resolveGameDetails,
@@ -51,12 +53,77 @@ describe("project breakdown metadata", () => {
   });
 
   it("exposes concise Selected Projects entries for the ATS resume", () => {
-    assert.ok(RESUME_SELECTED_PROJECTS.length >= 4);
+    assert.equal(RESUME_SELECTED_PROJECTS.length, 4);
     for (const item of RESUME_SELECTED_PROJECTS) {
       assert.ok(item.name.length > 0);
       assert.ok(item.role.length > 0);
       assert.ok(item.url.startsWith("https://"));
       assert.ok(item.bullets.length >= 1);
     }
+  });
+
+  it("selects the latest 3 non-fork, non-meta GitHub repos and supports brand-new repos on the resume", () => {
+    const selected = selectLatestGithubRepos(
+      [
+        {
+          name: "haruchanz64.github.io",
+          html_url: "https://github.com/haruchanz64/haruchanz64.github.io",
+          created_at: "2026-11-20T00:00:00Z",
+        },
+        {
+          name: "haruchanz64",
+          html_url: "https://github.com/haruchanz64/haruchanz64",
+          created_at: "2026-11-19T00:00:00Z",
+        },
+        {
+          name: "ForkedRepo",
+          html_url: "https://github.com/haruchanz64/ForkedRepo",
+          fork: true,
+          created_at: "2026-11-18T00:00:00Z",
+        },
+        {
+          name: "OldRepo",
+          html_url: "https://github.com/haruchanz64/OldRepo",
+          description: "Older project",
+          language: "C#",
+          created_at: "2025-01-01T00:00:00Z",
+        },
+        {
+          name: "FreshUnityTool",
+          html_url: "https://github.com/haruchanz64/FreshUnityTool",
+          description: "Brand-new procedural dungeon editor tool.",
+          language: "C#",
+          created_at: "2026-11-15T00:00:00Z",
+        },
+        {
+          name: "CharacterMotor",
+          html_url: "https://github.com/haruchanz64/CharacterMotor",
+          description: "Fallback desc",
+          language: "C#",
+          created_at: "2026-11-10T00:00:00Z",
+        },
+        {
+          name: "GameBalancer",
+          html_url: "https://github.com/haruchanz64/GameBalancer",
+          description: "Fallback desc",
+          language: "C#",
+          created_at: "2026-11-05T00:00:00Z",
+        },
+      ],
+      3,
+    );
+
+    assert.deepEqual(
+      selected.map((r) => r.name),
+      ["FreshUnityTool", "CharacterMotor", "GameBalancer"],
+    );
+
+    const resumeProjects = buildResumeSelectedProjects(selected);
+    assert.equal(resumeProjects.length, 4);
+    assert.equal(resumeProjects[0].name, "FreshUnityTool (C#)");
+    assert.equal(resumeProjects[0].bullets[0], "Brand-new procedural dungeon editor tool.");
+    assert.ok(resumeProjects[1].name.includes("CharacterMotor"));
+    assert.ok(resumeProjects[2].name.includes("GameBalancer"));
+    assert.ok(resumeProjects[3].name.includes("Trash Frenzy"));
   });
 });

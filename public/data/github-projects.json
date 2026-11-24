@@ -1,62 +1,213 @@
 [
   {
+    "name": "GachaEngine",
+    "html_url": "https://github.com/haruchanz64/GachaEngine",
+    "description": "Configurable gacha banner, soft/hard pity, and drop-rate simulator for Unity 6 with custom rarity tiers, Canvas/3D reveal hooks, and 1-hour refreshed JSON pull history.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "gacha",
+      "game-design",
+      "loot-table",
+      "pity-system",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
+  },
+  {
+    "name": "AssetImportRules",
+    "html_url": "https://github.com/haruchanz64/AssetImportRules",
+    "description": "Rule-driven Unity 6 Editor pipeline and UI Toolkit workbench for auditing and optimizing Sprite, UI, Texture, 3D Model, and Audio imports.",
+    "language": "C#",
+    "topics": [
+      "asset-pipeline",
+      "asset-postprocessor",
+      "csharp",
+      "optimization",
+      "ui-toolkit",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "unity6"
+    ]
+  },
+  {
+    "name": "CustomAnimHandler",
+    "html_url": "https://github.com/haruchanz64/CustomAnimHandler",
+    "description": "Code-driven 2D and 3D animation controller for Unity 6 built on the Playables API, skipping AnimatorController state graphs entirely.",
+    "language": "C#",
+    "topics": [
+      "2d",
+      "3d",
+      "animation",
+      "csharp",
+      "playables-api",
+      "state-machine",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
+  },
+  {
     "name": "CharacterMotor",
     "html_url": "https://github.com/haruchanz64/CharacterMotor",
-    "description": "A barebones Unity 6 modular character controller framework for 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D with pluggable movement modules and UI Toolkit debugging.",
-    "language": "C#"
+    "description": "Modular Unity 6 character controller supporting CharacterController, Rigidbody, and Rigidbody2D through swappable locomotion modules.",
+    "language": "C#",
+    "topics": [
+      "2d",
+      "3d",
+      "character-controller",
+      "csharp",
+      "movement",
+      "physics",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
   },
   {
     "name": "GameBalancer",
     "html_url": "https://github.com/haruchanz64/GameBalancer",
-    "description": "A Unity 6 UI Toolkit workbench for tuning progression curves, loot/pity Monte Carlo odds, combat TTK matrices, and economy flow simulations.",
-    "language": "C#"
+    "description": "Unity 6 UI Toolkit workbench for tuning progression curves, Monte Carlo loot and pity odds, combat TTK matrices, and resource economies.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "economy-simulation",
+      "game-balance",
+      "game-design",
+      "monte-carlo",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
   },
   {
     "name": "NetAuditToolkit",
     "html_url": "https://github.com/haruchanz64/NetAuditToolkit",
-    "description": "A Unity 6 Editor auditor and hierarchy badge overlay for catching NGO, Mirror, and FishNet scene, prefab, RPC, and bandwidth issues.",
-    "language": "C#"
+    "description": "Unity 6 Editor static analyzer and hierarchy badge overlay that flags NGO, Mirror, and FishNet issues across scenes, prefabs, RPCs, and bandwidth.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "fishnet",
+      "mirror-networking",
+      "multiplayer",
+      "netcode",
+      "static-analysis",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "unity6"
+    ]
   },
   {
     "name": "NetSimToolkit",
     "html_url": "https://github.com/haruchanz64/NetSimToolkit",
-    "description": "A localhost UDP/TCP network impairment proxy for Unity 6 with a bandwidth profiler, chaos timeline runner, and QA repro exporter.",
-    "language": "C#"
+    "description": "Localhost UDP/TCP network condition simulator, live bandwidth profiler, chaos timeline runner, and QA repro exporter for Unity 6.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "multiplayer",
+      "network-simulator",
+      "networking",
+      "qa-tools",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
   },
   {
     "name": "BugReportToolkit",
     "html_url": "https://github.com/haruchanz64/BugReportToolkit",
-    "description": "An in-game Unity bug reporter that captures screenshots, logs, and diagnostics into ZIP bundles or sends them directly to webhooks.",
-    "language": "C#"
+    "description": "In-game Unity bug reporter that bundles screenshots, console logs, and system diagnostics into ZIP archives or posts them straight to webhooks.",
+    "language": "C#",
+    "topics": [
+      "bug-reporting",
+      "csharp",
+      "diagnostics",
+      "qa-tools",
+      "unity",
+      "unity-package",
+      "webhooks"
+    ]
   },
   {
     "name": "SpreadsheetToScriptableObjects",
     "html_url": "https://github.com/haruchanz64/SpreadsheetToScriptableObjects",
-    "description": "A Unity tool that converts .CSV / .XLSX spreadsheet contents to ScriptableObjects.",
-    "language": "C#"
+    "description": "Unity Editor importer that parses .csv and .xlsx spreadsheets directly into typed ScriptableObject assets.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "csv",
+      "data-pipeline",
+      "scriptableobject",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "xlsx"
+    ]
   },
   {
     "name": "UnityEventToolkit",
     "html_url": "https://github.com/haruchanz64/UnityEventToolkit",
-    "description": "An intuitive Unity editor tool for scanning, filtering, and cleaning up UnityEvents to keep event listeners organized and working efficiently.",
-    "language": "C#"
+    "description": "Unity Editor inspector and scanner for locating, filtering, auditing, and cleaning up broken or unused UnityEvent listeners across scenes and prefabs.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "editor-tools",
+      "static-analysis",
+      "unity",
+      "unity-editor",
+      "unity-events",
+      "unity-package"
+    ]
   },
   {
     "name": "SaveEncryptionToolkit",
     "html_url": "https://github.com/haruchanz64/SaveEncryptionToolkit",
-    "description": "A flexible Unity save system toolkit that provides robust encryption and serialization utilities designed to plug into your own save manager.",
-    "language": "C#"
+    "description": "Pluggable encryption and serialization utilities for Unity save managers, separating storage security from your game's save schema.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "encryption",
+      "save-system",
+      "security",
+      "serialization",
+      "unity",
+      "unity-package"
+    ]
   },
   {
     "name": "ScriptableBatchTool",
     "html_url": "https://github.com/haruchanz64/ScriptableBatchTool",
-    "description": "A Unity Editor Window tool designed to streamline the creation and management of multiple ScriptableObject instances.",
-    "language": "C#"
+    "description": "Unity Editor window for batch-creating, renaming, and bulk-editing ScriptableObject assets in one place.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "editor-tools",
+      "scriptableobject",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "workflow"
+    ]
   },
   {
     "name": "DebugCommandSystem",
     "html_url": "https://github.com/haruchanz64/DebugCommandSystem",
-    "description": "An extendable Unity debug console integrated with the New Input System, featuring typed commands, auto-completion, and command suggestions.",
-    "language": "C#"
+    "description": "Extendable in-game Unity debug console built on the New Input System, with strongly typed commands, autocomplete, and live suggestions.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "debug-console",
+      "developer-tools",
+      "gamedev",
+      "input-system",
+      "unity",
+      "unity-package"
+    ]
   }
 ]

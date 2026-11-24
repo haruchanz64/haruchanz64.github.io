@@ -6,7 +6,7 @@ import {
   PDF_MODAL_CLASSES,
   renderPdfPagesToContainer,
 } from "../ui/pdf-preview.js";
-import { buildAtsResumePdfBytes } from "./pdf-builder.js";
+import { buildAtsResumePdfBytes, formatCompanyForResume, formatDisplayUrl } from "./pdf-builder.js";
 
 export {
   isResumeRequestAllowed,
@@ -16,9 +16,10 @@ export {
 
 import { escapeHtml, normalizeText, stripHtml } from "../core/text.js";
 
-export { escapeHtml, normalizeText };
+export { escapeHtml, formatCompanyForResume, formatDisplayUrl, normalizeText };
 
-import { RESUME_SELECTED_PROJECTS } from "../projects/project-details.js";
+import { fetchLatestGithubProjects } from "../projects/github.js";
+import { buildResumeSelectedProjects } from "../projects/project-details.js";
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
 export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
@@ -29,10 +30,50 @@ const DEFAULT_HEADLINE = "Game Developer · Systems, Tools & Technical Design";
 
 const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub", "itch.io"]);
 
+const RESUME_EXCLUDED_TOOLS = new Set([
+  "Visual Studio Code",
+  "Android Studio",
+  "IntelliJ IDEA",
+  "Notion",
+  "Postman",
+  "Antigravity",
+  "Claude Code",
+]);
+
 const RESUME_SPOKEN_LANGUAGES = {
-  category: "Languages",
+  category: "Spoken Languages",
   items: ["English (Fluent)", "Filipino (Native)"],
 };
+
+function curateResumeSkillGroup(category, items) {
+  const normalizedCategory = category === "Languages" ? "Programming Languages" : category;
+
+  if (normalizedCategory === "Engines & Frameworks") {
+    const expanded = [];
+    for (const item of items) {
+      if (item === "Unity") {
+        expanded.push(
+          "Unity 6 (UI Toolkit, URP, ScriptableObjects, UPM, Input System)",
+          "Netcode (NGO, Mirror, FishNet)",
+        );
+      } else {
+        expanded.push(item);
+      }
+    }
+    return { category: normalizedCategory, items: expanded };
+  }
+
+  if (normalizedCategory === "Tools & Software") {
+    const filtered = items.filter((item) => !RESUME_EXCLUDED_TOOLS.has(item));
+    const curated = filtered.length > 0 ? [...filtered] : [...items];
+    if (!curated.includes("QA & Regression Testing")) {
+      curated.push("QA & Regression Testing");
+    }
+    return { category: normalizedCategory, items: curated };
+  }
+
+  return { category: normalizedCategory, items };
+}
 
 function getElementEnglishText(el) {
   if (!el) return "";
@@ -83,8 +124,9 @@ function extractTimelineItems(doc, sectionId) {
 /**
  * Extract structured resume data from the portfolio DOM, explicitly excluding `#about`.
  * @param {Document} doc
+ * @param {{ githubRepos?: Array<{ name: string, html_url?: string, description?: string, language?: string }> | null }} [options]
  */
-export function extractResumeData(doc = document) {
+export function extractResumeData(doc = document, { githubRepos = null } = {}) {
   const headline = getText(doc, ".nav-brand-role") || DEFAULT_HEADLINE;
 
   const experience = extractTimelineItems(doc, "experience")
@@ -123,7 +165,7 @@ export function extractResumeData(doc = document) {
             .map((el) => getElementEnglishText(el))
             .filter(Boolean)
         : [];
-      return { category, items };
+      return curateResumeSkillGroup(category, items);
     })
     .filter((group) => group.category && group.items.length > 0);
 
@@ -142,10 +184,7 @@ export function extractResumeData(doc = document) {
   const preferredLinks = rawLinks.filter((l) => PREFERRED_LINK_LABELS.has(l.label));
   const links = preferredLinks.length > 0 ? preferredLinks : rawLinks;
 
-  const projects = RESUME_SELECTED_PROJECTS.map((project) => ({
-    ...project,
-    bullets: [...project.bullets],
-  }));
+  const projects = buildResumeSelectedProjects(githubRepos);
 
   return {
     fullName: RESUME_FULL_NAME,
@@ -196,10 +235,14 @@ export function buildAtsResumeHtml(data) {
     contactParts.push(escapeHtml(data.location));
   }
   if (data.website) {
-    contactParts.push(`<a href="${escapeHtml(data.website)}">${escapeHtml(data.website)}</a>`);
+    contactParts.push(
+      `<a href="${escapeHtml(data.website)}">${escapeHtml(formatDisplayUrl(data.website))}</a>`,
+    );
   }
   for (const link of data.links || []) {
-    contactParts.push(`<a href="${escapeHtml(link.url)}">${escapeHtml(link.url)}</a>`);
+    contactParts.push(
+      `<a href="${escapeHtml(link.url)}">${escapeHtml(formatDisplayUrl(link.url))}</a>`,
+    );
   }
 
   const experienceHtml = (data.experience || [])
@@ -207,7 +250,7 @@ export function buildAtsResumeHtml(data) {
       renderResumeArticleHtml({
         title: item.role,
         date: item.date,
-        org: item.company,
+        org: formatCompanyForResume(item.company),
         location: item.location,
         bullets: item.bullets,
       }),
@@ -220,7 +263,7 @@ export function buildAtsResumeHtml(data) {
         ? `<ul>${item.bullets.map((b) => `<li>${escapeHtml(b)}</li>`).join("")}</ul>`
         : "";
       const linkHtml = item.url
-        ? `<span class="item-date"><a href="${escapeHtml(item.url)}">${escapeHtml(item.url)}</a></span>`
+        ? `<span class="item-date"><a href="${escapeHtml(item.url)}">${escapeHtml(formatDisplayUrl(item.url))}</a></span>`
         : "";
       return `
         <article class="resume-item">
@@ -397,9 +440,9 @@ export function buildAtsResumeText(data) {
 
   const contactParts = [];
   if (data.location) contactParts.push(data.location);
-  if (data.website) contactParts.push(data.website);
+  if (data.website) contactParts.push(formatDisplayUrl(data.website));
   for (const link of data.links || []) {
-    contactParts.push(link.url);
+    contactParts.push(formatDisplayUrl(link.url));
   }
   if (contactParts.length) lines.push(contactParts.join(" | "));
 
@@ -407,7 +450,9 @@ export function buildAtsResumeText(data) {
     lines.push("", "EXPERIENCE", "==========");
     for (const item of data.experience) {
       lines.push(`${item.role}${item.date ? ` (${item.date})` : ""}`);
-      const meta = [item.company, item.location].filter(Boolean).join(" | ");
+      const meta = [formatCompanyForResume(item.company), item.location]
+        .filter(Boolean)
+        .join(" | ");
       if (meta) lines.push(meta);
       for (const bullet of item.bullets || []) {
         lines.push(`- ${bullet}`);
@@ -420,7 +465,7 @@ export function buildAtsResumeText(data) {
     lines.push("SELECTED PROJECTS", "=================");
     for (const item of data.projects) {
       lines.push(`${item.name}${item.role ? ` — ${item.role}` : ""}`);
-      if (item.url) lines.push(item.url);
+      if (item.url) lines.push(formatDisplayUrl(item.url));
       for (const bullet of item.bullets || []) {
         lines.push(`- ${bullet}`);
       }
@@ -498,7 +543,7 @@ function yieldToPaint() {
  * Build the ATS-friendly PDF resume from the current portfolio DOM (excluding `#about`)
  * and display it in an accessible in-page preview modal with a manual Download Resume button.
  */
-export async function requestResume(triggerEl = null) {
+export async function requestResume(triggerEl = null, { githubRepos } = {}) {
   if (typeof document === "undefined") return null;
 
   const ownsLoading = Boolean(triggerEl && triggerEl.getAttribute?.("aria-busy") !== "true");
@@ -507,10 +552,17 @@ export async function requestResume(triggerEl = null) {
   }
 
   try {
-    // Allow the browser to paint the loading spinner before synchronous PDF generation.
+    // Allow the browser to paint the loading spinner before PDF generation.
     await yieldToPaint();
 
-    const data = extractResumeData(document);
+    const resolvedGithubRepos =
+      githubRepos !== undefined
+        ? githubRepos
+        : typeof window !== "undefined"
+          ? await fetchLatestGithubProjects(3).catch(() => null)
+          : null;
+
+    const data = extractResumeData(document, { githubRepos: resolvedGithubRepos });
     const pdfBlob = buildAtsResumePdfBlob(data);
     const pdfUrl = URL.createObjectURL(pdfBlob);
 
