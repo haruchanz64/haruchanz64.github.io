@@ -537,45 +537,13 @@
     <section id="skills" class="px-4 py-[clamp(2.25rem,5dvh,3rem)] desktop:px-[clamp(1rem,3vw,2rem)] desktop:py-[clamp(2.5rem,6.5dvh,5rem)] max-w-[1200px] mx-auto">
       <h2 class="section-title font-display text-[clamp(1.85rem,min(4.5vw,4.5dvh),2.5rem)] font-bold text-center mb-[clamp(1.75rem,4.5dvh,3rem)] relative text-text-primary after:content-[''] after:absolute after:-bottom-2.5 after:left-1/2 after:-translate-x-1/2 after:w-20 after:h-[3px] after:bg-accent after:rounded-[2px]" data-i18n="skills.title">Skills</h2>
       <div class="flex justify-center flex-wrap gap-4 mb-12 short-h:mb-7" role="tablist" aria-label="Skill categories" data-i18n-aria-label="skills.ariaLabel">
-        <button class="skill-tab active font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="game-design" role="tab" aria-selected="true" aria-controls="game-design" data-i18n="skills.tabs.gameDesign">
-          Game Dev &amp; Technical Design
-        </button>
-        <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="game-engines" role="tab" aria-selected="false" aria-controls="game-engines" data-i18n="skills.tabs.gameEngines">Game Engines</button>
+        <button class="skill-tab active font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="game-engines" role="tab" aria-selected="true" aria-controls="game-engines" data-i18n="skills.tabs.gameEngines">Game Engines</button>
         <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="languages" role="tab" aria-selected="false" aria-controls="languages" data-i18n="skills.tabs.languages">Languages</button>
         <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="tools" role="tab" aria-selected="false" aria-controls="tools" data-i18n="skills.tabs.tools">Tools &amp; Software</button>
         <button class="skill-tab font-mono px-6 py-3 text-text-secondary text-[0.9rem] font-medium cursor-pointer transition-all duration-300 ease-in-out border-none bg-transparent [&.active]:bg-accent [&.active]:text-bg-primary [&.active]:rounded-brand" data-skill="backend-frameworks" role="tab" aria-selected="false" aria-controls="backend-frameworks" data-i18n="skills.tabs.backendFrameworks">Backend &amp; Frameworks</button>
       </div>
 
-      <div id="game-design" class="tab-content active hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
-        <div class="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] desktop:grid-cols-[repeat(3,minmax(0,1fr))] gap-4 desktop:gap-6 mt-8 max-w-[900px] mx-auto">
-          <div class="skill-item group flex flex-col items-center p-6 bg-card-bg border border-border rounded-brand transition-all duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5">
-            <svg class="size-10 mb-3 text-accent transition-transform duration-300 ease-in-out group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="12" x2="10" y2="12"/><line x1="8" y1="10" x2="8" y2="14"/><line x1="15" y1="13" x2="15.01" y2="13"/><line x1="18" y1="11" x2="18.01" y2="11"/><rect x="2" y="6" width="20" height="12" rx="4"/></svg>
-            <span class="skill-name font-mono text-[0.82rem] font-medium text-text-primary text-center" data-i18n="skills.items.gameplaySystems">Gameplay Systems</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 bg-card-bg border border-border rounded-brand transition-all duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5">
-            <svg class="size-10 mb-3 text-accent transition-transform duration-300 ease-in-out group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            <span class="skill-name font-mono text-[0.82rem] font-medium text-text-primary text-center" data-i18n="skills.items.unityEditorTooling">Unity Editor Tooling</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 bg-card-bg border border-border rounded-brand transition-all duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5">
-            <svg class="size-10 mb-3 text-accent transition-transform duration-300 ease-in-out group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>
-            <span class="skill-name font-mono text-[0.82rem] font-medium text-text-primary text-center" data-i18n="skills.items.dataDrivenPipelines">Data-Driven Pipelines</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 bg-card-bg border border-border rounded-brand transition-all duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5">
-            <svg class="size-10 mb-3 text-accent transition-transform duration-300 ease-in-out group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span class="skill-name font-mono text-[0.82rem] font-medium text-text-primary text-center" data-i18n="skills.items.rapidPrototyping">Rapid Prototyping</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 bg-card-bg border border-border rounded-brand transition-all duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5">
-            <svg class="size-10 mb-3 text-accent transition-transform duration-300 ease-in-out group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="2" y1="14" x2="6" y2="14"/><line x1="10" y1="8" x2="14" y2="8"/><line x1="18" y1="16" x2="22" y2="16"/></svg>
-            <span class="skill-name font-mono text-[0.82rem] font-medium text-text-primary text-center" data-i18n="skills.items.gameDesignBalancing">Game Design &amp; Balancing</span>
-          </div>
-          <div class="skill-item group flex flex-col items-center p-6 bg-card-bg border border-border rounded-brand transition-all duration-300 ease-in-out hover:border-accent hover:shadow-card-hover hover:-translate-y-0.5">
-            <svg class="size-10 mb-3 text-accent transition-transform duration-300 ease-in-out group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <span class="skill-name font-mono text-[0.82rem] font-medium text-text-primary text-center" data-i18n="skills.items.playtestingQa">Playtesting &amp; QA</span>
-          </div>
-        </div>
-      </div>
-
-      <div id="game-engines" class="tab-content hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
+      <div id="game-engines" class="tab-content active hidden [&.active]:block [&.active]:animate-[fadeIn_0.5s_ease]" role="tabpanel">
         <div class="grid grid-cols-[repeat(auto-fit,minmax(100px,1fr))] desktop:grid-cols-[repeat(auto-fit,minmax(120px,1fr))] gap-4 desktop:gap-8 mt-8">
           <div class="skill-item group flex flex-col items-center p-6 transition-all duration-300 ease-in-out">
             <img

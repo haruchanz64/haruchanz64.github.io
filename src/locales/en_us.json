@@ -124,19 +124,10 @@
     "title": "Skills",
     "ariaLabel": "Skill categories",
     "tabs": {
-      "gameDesign": "Game Dev & Technical Design",
       "gameEngines": "Game Engines",
       "languages": "Languages",
       "tools": "Tools & Software",
       "backendFrameworks": "Backend & Frameworks"
-    },
-    "items": {
-      "gameplaySystems": "Gameplay Systems",
-      "unityEditorTooling": "Unity Editor Tooling",
-      "dataDrivenPipelines": "Data-Driven Pipelines",
-      "rapidPrototyping": "Rapid Prototyping",
-      "gameDesignBalancing": "Game Design & Balancing",
-      "playtestingQa": "Playtesting & QA"
     }
   },
   "contact": {

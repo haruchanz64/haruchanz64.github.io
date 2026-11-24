@@ -124,19 +124,10 @@
     "title": "スキル",
     "ariaLabel": "スキルカテゴリー",
     "tabs": {
-      "gameDesign": "ゲーム開発 & テクニカルデザイン",
       "gameEngines": "ゲームエンジン",
       "languages": "言語",
       "tools": "ツール & ソフトウェア",
       "backendFrameworks": "バックエンド & フレームワーク"
-    },
-    "items": {
-      "gameplaySystems": "ゲームプレイシステム",
-      "unityEditorTooling": "Unity エディタツール開発",
-      "dataDrivenPipelines": "データ駆動パイプライン",
-      "rapidPrototyping": "ラピッドプロトタイピング",
-      "gameDesignBalancing": "ゲームデザイン & バランス調整",
-      "playtestingQa": "プレイテスト & QA"
     }
   },
   "contact": {

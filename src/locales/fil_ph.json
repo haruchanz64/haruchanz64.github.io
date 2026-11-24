@@ -124,19 +124,10 @@
     "title": "Mga Kasanayan",
     "ariaLabel": "Mga kategorya ng kasanayan",
     "tabs": {
-      "gameDesign": "Game Dev at Technical Design",
       "gameEngines": "Mga Game Engine",
       "languages": "Mga Wika",
       "tools": "Mga Tool at Software",
       "backendFrameworks": "Backend at mga Framework"
-    },
-    "items": {
-      "gameplaySystems": "Gameplay Systems",
-      "unityEditorTooling": "Unity Editor Tooling",
-      "dataDrivenPipelines": "Data-Driven Pipelines",
-      "rapidPrototyping": "Rapid Prototyping",
-      "gameDesignBalancing": "Game Design at Balancing",
-      "playtestingQa": "Playtesting at QA"
     }
   },
   "contact": {
