@@ -1,8 +1,8 @@
 const PAGE_WIDTH = 595.28; // A4 width in points (210mm)
 const PAGE_HEIGHT = 841.89; // A4 height in points (297mm)
-const MARGIN_X = 38;
-const MARGIN_TOP = 30;
-const MARGIN_BOTTOM = 30;
+const MARGIN_X = 44; // ~0.61 in (safe for both A4 and US Letter printing)
+const MARGIN_TOP = 40;
+const MARGIN_BOTTOM = 40;
 const CONTENT_WIDTH = PAGE_WIDTH - MARGIN_X * 2;
 const RIGHT_EDGE = PAGE_WIDTH - MARGIN_X;
 
@@ -305,27 +305,31 @@ class PdfDocCursor {
 
   drawCenteredHeader(fullName, contactItems, headline = "") {
     const nameSafe = toPdfSafeText(fullName);
-    const nameSize = 20;
+    const nameSize = 18;
     const nameWidth = estimateTextWidth(nameSafe, nameSize, true);
     const nameX = Math.max(MARGIN_X, (PAGE_WIDTH - nameWidth) / 2);
 
-    this.ensureSpace(headline ? 50 : 38);
+    this.ensureSpace(headline ? 56 : 42);
     this.drawTextAt(nameSafe, nameX, this.y, { font: "F2", size: nameSize });
-    this.y -= headline ? 14 : 16;
+    this.y -= headline ? 17 : 18;
 
     const headlineSafe = toPdfSafeText(headline);
     if (headlineSafe) {
-      const headlineSize = 10;
-      const headlineWidth = estimateTextWidth(headlineSafe, headlineSize, true);
-      const headlineX = Math.max(MARGIN_X, (PAGE_WIDTH - headlineWidth) / 2);
-      this.drawTextAt(headlineSafe, headlineX, this.y, { font: "F2", size: headlineSize });
-      this.y -= 13;
+      const headlineSize = 10.2;
+      const headlineLines = wrapPdfText(headlineSafe, CONTENT_WIDTH, headlineSize, true);
+      for (const line of headlineLines) {
+        const lineWidth = estimateTextWidth(line, headlineSize, true);
+        const lineX = Math.max(MARGIN_X, (PAGE_WIDTH - lineWidth) / 2);
+        this.drawTextAt(line, lineX, this.y, { font: "F2", size: headlineSize });
+        this.y -= 13.5;
+      }
+      this.y -= 1;
     }
 
     if (contactItems.length > 0) {
       const sepChar = "|";
-      const sepGap = 4.5;
-      const contactSize = 8.4;
+      const sepGap = 5;
+      const contactSize = 9.3;
       const sepCharWidth = estimateTextWidth(sepChar, contactSize, false);
       const calcRowWidth = (items) =>
         items.reduce((sum, item) => sum + estimateTextWidth(item.text, contactSize, false), 0) +
@@ -355,29 +359,42 @@ class PdfDocCursor {
           }
           cursorX += itemWidth;
         });
-        this.y -= 11.5;
+        this.y -= 12.5;
       };
 
       if (calcRowWidth(contactItems) <= CONTENT_WIDTH) {
         drawCenteredContactRow(contactItems);
       } else {
-        const splitIdx = Math.ceil(contactItems.length / 2);
-        drawCenteredContactRow(contactItems.slice(0, splitIdx));
-        drawCenteredContactRow(contactItems.slice(splitIdx));
+        // Choose the most balanced 2-row split where both rows fit within CONTENT_WIDTH.
+        let bestSplit = Math.floor(contactItems.length / 2);
+        let bestDiff = Number.POSITIVE_INFINITY;
+        for (let i = 1; i < contactItems.length; i += 1) {
+          const topW = calcRowWidth(contactItems.slice(0, i));
+          const botW = calcRowWidth(contactItems.slice(i));
+          if (topW <= CONTENT_WIDTH && botW <= CONTENT_WIDTH) {
+            const diff = Math.abs(topW - botW);
+            if (diff < bestDiff) {
+              bestDiff = diff;
+              bestSplit = i;
+            }
+          }
+        }
+        drawCenteredContactRow(contactItems.slice(0, bestSplit));
+        drawCenteredContactRow(contactItems.slice(bestSplit));
       }
-      this.y -= 1;
+      this.y -= 2;
     }
   }
 
   drawTwoColumnRow(
     leftText,
     rightText,
-    { font = "F1", size = 9.6, lineHeight = 12, rightFont = font } = {},
+    { font = "F1", size = 10, lineHeight = 13, rightFont = font, rightSize = size } = {},
   ) {
     const leftSafe = toPdfSafeText(leftText);
     const rightSafe = toPdfSafeText(rightText);
-    const rightWidth = rightSafe ? estimateTextWidth(rightSafe, size, rightFont === "F2") : 0;
-    const maxLeftWidth = rightSafe ? CONTENT_WIDTH - rightWidth - 12 : CONTENT_WIDTH;
+    const rightWidth = rightSafe ? estimateTextWidth(rightSafe, rightSize, rightFont === "F2") : 0;
+    const maxLeftWidth = rightSafe ? CONTENT_WIDTH - rightWidth - 14 : CONTENT_WIDTH;
     const leftLines = wrapPdfText(leftSafe, Math.max(120, maxLeftWidth), size, font === "F2");
 
     this.ensureSpace(lineHeight * Math.max(1, leftLines.length));
@@ -385,7 +402,10 @@ class PdfDocCursor {
       this.drawTextAt(leftLines[0], MARGIN_X, this.y, { font, size });
     }
     if (rightSafe) {
-      this.drawTextAt(rightSafe, RIGHT_EDGE - rightWidth, this.y, { font: rightFont, size });
+      this.drawTextAt(rightSafe, RIGHT_EDGE - rightWidth, this.y, {
+        font: rightFont,
+        size: rightSize,
+      });
     }
     this.y -= lineHeight;
 
@@ -396,22 +416,23 @@ class PdfDocCursor {
     }
   }
 
-  drawProjectHeaderRow(name, role, { size = 9.6, lineHeight = 11.6 } = {}) {
+  drawProjectHeaderRow(name, role, { size = 10, lineHeight = 13 } = {}) {
     const nameSafe = toPdfSafeText(name);
     const roleSafe = toPdfSafeText(role);
     const nameLines = wrapPdfText(nameSafe, CONTENT_WIDTH, size, true);
+    const roleLines = roleSafe ? wrapPdfText(roleSafe, CONTENT_WIDTH, size - 0.5, false) : [];
 
-    const headerRows = Math.max(1, nameLines.length) + (roleSafe ? 1 : 0);
-    this.ensureSpace(headerRows * lineHeight + 12);
+    const headerRows = Math.max(1, nameLines.length) + roleLines.length;
+    this.ensureSpace(headerRows * lineHeight + 14);
 
     for (const line of nameLines) {
       this.drawTextAt(line, MARGIN_X, this.y, { font: "F2", size });
       this.y -= lineHeight;
     }
 
-    if (roleSafe) {
-      this.drawTextAt(roleSafe, MARGIN_X, this.y, { font: "F3", size: size - 0.5 });
-      this.y -= lineHeight - 0.6;
+    for (const line of roleLines) {
+      this.drawTextAt(line, MARGIN_X, this.y, { font: "F3", size: size - 0.5 });
+      this.y -= lineHeight - 0.5;
     }
   }
 
@@ -482,7 +503,10 @@ class PdfDocCursor {
     }
   }
 
-  drawBullet(text, { indent = 18, bulletX = MARGIN_X + 9, size = 9.2, lineHeight = 11.3 } = {}) {
+  drawBullet(
+    text,
+    { indent = 16, bulletX = MARGIN_X + 7, size = 9.7, lineHeight = 12.8, gapAfter = 1.5 } = {},
+  ) {
     const textWidth = CONTENT_WIDTH - indent;
     const lines = wrapPdfText(text, textWidth, size, false);
     if (lines.length === 0) return;
@@ -498,6 +522,9 @@ class PdfDocCursor {
       this.drawTextAt(line, MARGIN_X + indent, this.y, { font: "F1", size });
       this.y -= lineHeight;
     });
+    if (gapAfter > 0) {
+      this.y -= gapAfter;
+    }
   }
 
   drawRule({ thickness = 0.75, gapBefore = 2, gapAfter = 7 } = {}) {
@@ -509,19 +536,48 @@ class PdfDocCursor {
     this.y -= gapAfter;
   }
 
-  drawSectionHeading(title) {
-    this.y -= 7.5;
-    this.ensureSpace(54);
+  drawSectionHeading(title, { minContentHeight = 64 } = {}) {
+    this.y -= 9;
+    this.ensureSpace(24 + minContentHeight);
     this.drawTextAt(toPdfSafeText(title).toUpperCase(), MARGIN_X, this.y, {
       font: "F2",
-      size: 10.2,
+      size: 10.5,
     });
     this.y -= 4.5;
-    this.drawRule({ thickness: 0.75, gapBefore: 0, gapAfter: 11.5 });
+    this.drawRule({ thickness: 0.75, gapBefore: 0, gapAfter: 12 });
   }
 }
 
-function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
+function estimateBulletHeight(
+  text,
+  { indent = 16, size = 9.7, lineHeight = 12.8, gapAfter = 1.5 } = {},
+) {
+  const lines = wrapPdfText(text, CONTENT_WIDTH - indent, size, false);
+  return lines.length > 0 ? lines.length * lineHeight + gapAfter : 0;
+}
+
+function estimateProjectHeight(item) {
+  const nameLines = wrapPdfText(item.name || "", CONTENT_WIDTH, 10, true);
+  const roleLines = item.role ? wrapPdfText(item.role, CONTENT_WIDTH, 9.5, false) : [];
+  let height = Math.max(1, nameLines.length) * 13 + roleLines.length * 12.5;
+  for (const bullet of item.bullets || []) {
+    height += estimateBulletHeight(bullet);
+  }
+  return height + 5;
+}
+
+function estimateEducationHeight(item) {
+  let height = 13 + (item.major ? 12.5 : 0) + (item.school || item.location ? 12.8 : 0);
+  for (const bullet of item.bullets || []) {
+    height += estimateBulletHeight(bullet);
+  }
+  return height + 4;
+}
+
+function assemblePdfBytes(
+  pages,
+  { title = "", author = "", subject = "", keywords = "", creator = "" } = {},
+) {
   const objects = [];
   const pageObjectIds = [];
 
@@ -540,6 +596,9 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
   const infoParts = [];
   if (title) infoParts.push(`/Title (${escapePdfString(toPdfSafeText(title))})`);
   if (author) infoParts.push(`/Author (${escapePdfString(toPdfSafeText(author))})`);
+  if (subject) infoParts.push(`/Subject (${escapePdfString(toPdfSafeText(subject))})`);
+  if (keywords) infoParts.push(`/Keywords (${escapePdfString(toPdfSafeText(keywords))})`);
+  if (creator) infoParts.push(`/Creator (${escapePdfString(toPdfSafeText(creator))})`);
   const infoId = infoParts.length ? 6 : null;
   if (infoId) {
     objects.push(`${infoId} 0 obj\n<< ${infoParts.join(" ")} >>\nendobj\n`);
@@ -610,17 +669,18 @@ function assemblePdfBytes(pages, { title = "", author = "" } = {}) {
 }
 
 /**
- * Build an ATS-friendly PDF document (as Uint8Array) matching the clean two-column header format.
+ * Build an ATS-friendly PDF document (as Uint8Array) using a clean single-column layout.
  * Contact header includes location, portfolio website, and preferred profile links (LinkedIn, GitHub, itch.io).
  * @param {{
  *   fullName: string,
  *   headline?: string,
+ *   summary?: string,
  *   location?: string,
  *   website?: string,
  *   links?: Array<{ label?: string, url: string }>,
  *   experience?: Array<{ role: string, date: string, company?: string, location?: string, bullets?: string[] }>,
  *   projects?: Array<{ name: string, role?: string, bullets?: string[] }>,
- *   education?: Array<{ school: string, degree?: string, date?: string, location?: string }>,
+ *   education?: Array<{ school: string, degree?: string, major?: string, date?: string, location?: string, bullets?: string[] }>,
  *   skills?: Array<{ category: string, items: string[] }>,
  * }} data
  * @returns {Uint8Array}
@@ -641,105 +701,147 @@ export function buildAtsResumePdfBytes(data) {
 
   doc.drawCenteredHeader(data.fullName, contactItems, data.headline || "");
 
-  // Experience
+  // Professional Summary
+  if (data.summary) {
+    const summaryLines = wrapPdfText(data.summary, CONTENT_WIDTH, 9.7, false);
+    doc.drawSectionHeading("Professional Summary", {
+      minContentHeight: Math.min(80, summaryLines.length * 13),
+    });
+    doc.drawWrapped(data.summary, {
+      x: MARGIN_X,
+      width: CONTENT_WIDTH,
+      font: "F1",
+      size: 9.7,
+      lineHeight: 13,
+      justify: false,
+    });
+    doc.y -= 2;
+  }
+
+  // Work Experience
   if (data.experience?.length) {
-    doc.drawSectionHeading("Experience");
+    const firstExp = data.experience[0];
+    const firstExpMinHeight =
+      26 + (firstExp.bullets?.[0] ? estimateBulletHeight(firstExp.bullets[0]) : 0);
+    doc.drawSectionHeading("Work Experience", { minContentHeight: firstExpMinHeight });
+
     for (const item of data.experience) {
-      doc.ensureSpace(36);
-      doc.drawTwoColumnRow(item.role, item.date, { font: "F2", size: 9.8, lineHeight: 11.9 });
+      const minBlockHeight = 26 + (item.bullets?.[0] ? estimateBulletHeight(item.bullets[0]) : 0);
+      doc.ensureSpace(minBlockHeight);
+      doc.drawTwoColumnRow(item.role, item.date, {
+        font: "F2",
+        size: 10,
+        lineHeight: 13,
+        rightFont: "F1",
+        rightSize: 9.5,
+      });
       const formattedCompany = formatCompanyForResume(item.company);
       if (formattedCompany || item.location) {
         doc.drawTwoColumnRow(formattedCompany, item.location, {
-          font: "F1",
-          size: 9.4,
-          lineHeight: 11.6,
+          font: "F3",
+          size: 9.5,
+          lineHeight: 12.8,
+          rightFont: "F1",
+          rightSize: 9.4,
         });
       }
       for (const bullet of item.bullets || []) {
-        doc.drawBullet(bullet, { size: 9.4, lineHeight: 11.5 });
+        doc.drawBullet(bullet, { size: 9.7, lineHeight: 12.8, gapAfter: 1.5 });
       }
       if (item.links?.length) {
         const linkText = item.links
           .map((l) => `${l.label}: ${formatDisplayUrl(l.url)}`)
           .join(" | ");
         doc.drawWrapped(linkText, {
-          x: MARGIN_X + 18,
-          width: CONTENT_WIDTH - 18,
+          x: MARGIN_X + 16,
+          width: CONTENT_WIDTH - 16,
           font: "F1",
-          size: 8.8,
-          lineHeight: 10.8,
+          size: 9,
+          lineHeight: 11.5,
           justify: false,
         });
       }
-      doc.y -= 2.5;
+      doc.y -= 5;
     }
   }
 
   // Selected Projects
   if (data.projects?.length) {
-    doc.drawSectionHeading("Selected Projects");
+    doc.drawSectionHeading("Selected Projects", {
+      minContentHeight: Math.min(110, estimateProjectHeight(data.projects[0])),
+    });
     for (const item of data.projects) {
-      doc.ensureSpace(36);
+      const entryHeight = estimateProjectHeight(item);
+      doc.ensureSpace(Math.min(entryHeight, PAGE_HEIGHT - MARGIN_TOP - MARGIN_BOTTOM));
       doc.drawProjectHeaderRow(item.name, item.role || "", {
-        size: 9.6,
-        lineHeight: 11.5,
+        size: 10,
+        lineHeight: 13,
       });
       for (const bullet of item.bullets || []) {
-        doc.drawBullet(bullet, { size: 9.4, lineHeight: 11.5 });
+        doc.drawBullet(bullet, { size: 9.7, lineHeight: 12.8, gapAfter: 1.5 });
       }
-      doc.y -= 2.5;
+      doc.y -= 5;
     }
   }
 
   // Technical Skills
   if (data.skills?.length) {
-    doc.drawSectionHeading("Technical Skills");
+    doc.drawSectionHeading("Technical Skills", { minContentHeight: 52 });
     for (const group of data.skills) {
       doc.drawLabelledLine(group.category, group.items.join(", "), {
-        size: 9.4,
-        lineHeight: 11.6,
+        size: 9.6,
+        lineHeight: 12.8,
       });
+      doc.y -= 2;
     }
   }
 
   // Education
   if (data.education?.length) {
-    doc.drawSectionHeading("Education");
+    doc.drawSectionHeading("Education", {
+      minContentHeight: Math.min(90, estimateEducationHeight(data.education[0])),
+    });
     for (const item of data.education) {
-      doc.ensureSpace(44);
-      const combinedDegree = item.major ? `${item.degree} — ${item.major}` : item.degree;
-      const dateWidth = item.date ? estimateTextWidth(toPdfSafeText(item.date), 9.8, true) : 0;
-      const combinedFits =
-        Boolean(item.major) &&
-        estimateTextWidth(toPdfSafeText(combinedDegree), 9.8, true) <=
-          CONTENT_WIDTH - dateWidth - 12;
-
-      doc.drawTwoColumnRow(combinedFits ? combinedDegree : item.degree, item.date, {
+      doc.ensureSpace(Math.min(estimateEducationHeight(item), 120));
+      doc.drawTwoColumnRow(item.degree, item.date, {
         font: "F2",
-        size: 9.8,
-        lineHeight: 11.9,
+        size: 10,
+        lineHeight: 13,
+        rightFont: "F1",
+        rightSize: 9.5,
       });
-      if (item.major && !combinedFits) {
-        doc.ensureSpace(11.5);
-        doc.drawTextAt(item.major, MARGIN_X, doc.y, { font: "F3", size: 9.4 });
-        doc.y -= 11.5;
+      if (item.major) {
+        doc.ensureSpace(12.5);
+        doc.drawTextAt(item.major, MARGIN_X, doc.y, { font: "F3", size: 9.5 });
+        doc.y -= 12.5;
       }
       if (item.school || item.location) {
         doc.drawTwoColumnRow(item.school, item.location, {
           font: "F1",
-          size: 9.4,
-          lineHeight: 11.6,
+          size: 9.5,
+          lineHeight: 12.8,
+          rightFont: "F1",
+          rightSize: 9.4,
         });
       }
       for (const bullet of item.bullets || []) {
-        doc.drawBullet(bullet, { size: 9.4, lineHeight: 11.5 });
+        doc.drawBullet(bullet, { size: 9.7, lineHeight: 12.8, gapAfter: 1.5 });
       }
-      doc.y -= 2.5;
+      doc.y -= 4;
     }
   }
+
+  const skillKeywords = (data.skills || [])
+    .filter((group) => group.category !== "Spoken Languages")
+    .flatMap((group) => group.items)
+    .slice(0, 30)
+    .join(", ");
 
   return assemblePdfBytes(doc.pages, {
     title: `${data.fullName} - Resume`,
     author: data.fullName,
+    subject: data.headline || "",
+    keywords: skillKeywords,
+    creator: `${data.fullName} Portfolio Resume Builder`,
   });
 }

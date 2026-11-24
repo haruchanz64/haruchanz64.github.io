@@ -8,7 +8,7 @@ import { PINNED_REPOS } from "./github-config.js";
 
 export const GAME_PROJECT_DETAILS = {
   trashfrenzy: {
-    role: "Project Manager · Game Designer · Gameplay Programmer · QA",
+    role: "Project Manager · Game Designer · Gameplay Programmer · Quality Assurance",
     engine: "Unity 2D (URP) · C#",
     team: "4-person Capstone Team",
     focus: "Gameplay Systems & Educational Design",
@@ -68,8 +68,22 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  CommonEventsEngine: {
+    role: "Systems and Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit · uGUI (UPM)",
+    team: "Open-Source Package",
+    focus: "Common Events, World State & Command Scripting",
+    summary:
+      "An RPG Maker-inspired Common Events, global Switches and Variables, Self-Switches, Inventory and Gold ledger, and tick-driven command scripting framework for Unity 6 with built-in uGUI Dialogue Box, Screen Fader, and a UI Toolkit Event Workbench.",
+    highlights: [
+      "Implements a deterministic tick-driven CommonEventRunner state machine (OnStart, OnTick, OnCancel) with zero per-frame coroutine allocations and Manual, Autorun (with control-lock events), and Parallel trigger modes.",
+      "Stores named global Switches, typed Variables (Int, Float, String), per-object Self-Switches (A-D), Gold, and itemized Inventory in WorldStateStore with full JSON snapshot export and import compatible with SaveEncryptionToolkit.",
+      "Ships 29 built-in RPG commands (flow control, state, inventory, dialogue, choices, screen fade/flash, camera shake, audio, and scene/signal actions), TypeCache-discovered custom EventCommandBase extensions, swappable uGUI presentation rigs, and a UI Toolkit Event Workbench with an EditMode step debugger.",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "uGUI", "State Machine", "UPM"],
+  },
   UnityAuthCore: {
-    role: "Systems & Backend/Tools Programmer",
+    role: "Systems, Backend, and Tools Programmer",
     engine: "Unity 6 · C# · UI Toolkit · Docker (UPM)",
     team: "Open-Source Package",
     focus: "Authentication, Typed REST & Multiplayer Handshake",
@@ -266,46 +280,98 @@ export const TOOL_PROJECT_DETAILS = {
   },
 };
 
-const RESUME_TOOL_BULLETS = {
-  UnityAuthCore:
-    "Built a backend-agnostic Unity 6 auth and typed REST framework with single-flight 401 refresh, AES-256/HMAC token storage, NGO/Mirror/FishNet handshake validation, Docker OpenAPI server, and a UI Toolkit console.",
-  GachaEngine:
-    "Built a configurable Unity 6 gacha banner and soft/hard pity framework (Standard, Limited, Fate Path, Step-Up) with pure C# probability contracts, Canvas/3D reveal hooks, 1-hour JSON/CSV pull history, and a Monte Carlo simulator.",
-  AssetImportRules:
-    "Built a rule-driven Unity 6 Editor AssetPostprocessor pipeline and UI Toolkit compliance workbench for Texture/Sprite, 3D Model, and Audio imports with dry-run diffs, batch re-imports, CI exports, and build guards.",
-  CustomAnimHandler:
-    "Engineered a code-driven 2D/3D Unity 6 animation controller on the Playables API (no AnimatorController graphs) with masked layers, priority locks, normalized clip events, code state machine, and UI Toolkit debugger.",
-  CharacterMotor:
-    "Built a modular Unity 6 character controller framework (UPM) supporting 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D backends with pluggable IMotorModule hooks and a UI Toolkit Play Mode debugger.",
-  GameBalancer:
-    "Engineered a Unity 6 UI Toolkit and Painter2D balancing workbench for progression curves, Monte Carlo loot/pity odds, combat TTK matrices, and economy faucet/sink simulations with CSV/JSON exports.",
-  NetAuditToolkit:
-    "Created a netcode-agnostic Unity 6 Editor static analyzer (NGO, Mirror, FishNet) with 9 audit rules, 1-click Quick Fixes, Hierarchy badges, CI report exports, and an optional pre-build guard.",
-  NetSimToolkit:
-    "Developed a pure C# localhost UDP/TCP network impairment proxy and bandwidth profiler for Unity 6 with jitter/burst-loss simulation, a runtime QA HUD, Chaos Timeline runner, and ZIP repro exports.",
-  BugReportToolkit:
-    "Built an in-game Unity bug reporter capturing ring-buffered logs, input breadcrumbs, profiling metrics, and screenshots into ZIP bundles or Trello/GitHub/Discord webhooks with an in-Editor viewer.",
-  SpreadsheetToScriptableObjects:
-    "Built a zero-dependency Unity Editor package parsing RFC 4180 CSV/TSV and OpenXML (.xlsx) sheets into ScriptableObjects with GUID-safe re-imports and automatic C# class generation.",
+const RESUME_TOOL_HIGHLIGHTS = {
+  CommonEventsEngine: [
+    "Built an RPG Maker-inspired Unity 6 event scripting framework with a deterministic tick-driven state machine (Manual, Autorun, and Parallel triggers), 29 built-in commands, and TypeCache-discovered custom commands.",
+    "Implemented a JSON-serializable WorldStateStore for global switches, typed variables, self-switches, gold, and inventory alongside swappable uGUI dialogue and transition components and a UI Toolkit Event Workbench with a live step debugger.",
+  ],
+  UnityAuthCore: [
+    "Architected a backend-agnostic Unity 6 authentication and typed REST API framework featuring single-flight HTTP 401 token refresh, exponential backoff retries, and AES-256-CBC with HMAC-SHA256 encrypted token storage.",
+    "Built pluggable authentication adapters (REST, Supabase, Firebase, and Mock), a multiplayer handshake bridge for Netcode for GameObjects (NGO), Mirror, and FishNet, a Dockerized OpenAPI 3.0 reference server, and a UI Toolkit testing console.",
+  ],
+  GachaEngine: [
+    "Built a configurable Unity 6 gacha banner and soft and hard pity framework supporting Standard, Limited Rate-Up, Fate Path, and Step-Up archetypes with pure C# probability contracts and Canvas or 3D reveal hooks.",
+    "Created a UI Toolkit Banner Simulator with live pity tuning, JSON and CSV pull history exports, and deterministic Monte Carlo drop-rate audits from 1,000 to 100,000 pulls.",
+  ],
+  AssetImportRules: [
+    "Engineered a rule-driven Unity 6 Editor AssetPostprocessor pipeline enforcing non-destructive import policies across Texture, Sprite, User Interface, 3D Model, and Audio assets with per-platform overrides.",
+    "Built a UI Toolkit Import Policy Workbench with dry-run compliance diffs, batch re-import fixes, Markdown and JSON continuous integration (CI) reports, and an optional pre-build compliance guard.",
+  ],
+  CustomAnimHandler: [
+    "Engineered a code-driven 2D and 3D Unity 6 animation controller on the Playables API that eliminates AnimatorController state graphs while supporting masked AvatarMask layers, priority locks, and normalized clip events.",
+    "Built a code-driven animation state machine and UI Toolkit debugging window displaying live per-layer progress bars, blend weights, clip history, and manual test playback.",
+  ],
+  CharacterMotor: [
+    "Built a modular Unity 6 character controller package supporting swappable 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D physics backends with ordered movement module hooks.",
+    "Added a UI Toolkit custom inspector, a Play Mode debugger window with live module toggles, rig creation menus, and optional Unity Input System integration.",
+  ],
+  GameBalancer: [
+    "Engineered a Unity 6 UI Toolkit and Painter2D balancing workbench for multi-series progression curve modeling, Monte Carlo loot and pity simulations, combat time-to-kill matchup matrices, and economy flow audits.",
+    "Added CSV and JSON data exports alongside TypeCache-discovered custom editor modules so designers can iterate on game balance without leaving Unity.",
+  ],
+  NetAuditToolkit: [
+    "Created a netcode-agnostic Unity 6 Editor static analyzer for Netcode for GameObjects (NGO), Mirror, and FishNet with 9 built-in audit rules catching scene, prefab, RPC, and bandwidth misconfigurations before runtime.",
+    "Shipped Hierarchy badge overlays, one-click Quick Fixes, Markdown and JSON continuous integration (CI) reports, and an optional pre-build error guard.",
+  ],
+  NetSimToolkit: [
+    "Developed a pure C# localhost UDP and TCP network impairment proxy and bandwidth profiler for Unity 6 simulating latency, jitter, burst packet loss, packet reordering, and bandwidth caps without kernel drivers.",
+    "Built an Editor simulator window, runtime quality assurance HUD, Chaos Timeline runner, and ZIP reproduction bundle exporter compatible with Netcode for GameObjects (NGO), Mirror, and FishNet.",
+  ],
+  BugReportToolkit: [
+    "Built an in-game Unity quality assurance bug reporter capturing ring-buffered console logs, input breadcrumbs, frame rate and memory metrics, and pre-overlay screenshots into portable ZIP bundles.",
+    "Added pluggable report transports for Trello, GitHub Issues, and Discord webhooks alongside an in-Editor Report Viewer for triaging captured issues.",
+  ],
+  SpreadsheetToScriptableObjects: [
+    "Built a Unity Editor package parsing RFC 4180 CSV, TSV, and OpenXML (.xlsx) multi-sheet workbooks directly into ScriptableObject assets using pure C# with zero external DLL dependencies.",
+    "Supported GUID-safe non-destructive re-imports, attribute-mapped asset updates, automatic C# ScriptableObject class generation, and reusable import profiles.",
+  ],
+  UnityEventToolkit: [
+    "Built a Unity 6 Editor auditing tool that scans scenes and prefabs for serialized UnityEvent listeners and displays them in a searchable, icon-backed hierarchy tree.",
+    "Added filtering for valid and broken bindings, multi-select inspection, and cleanup controls to remove missing references before quality assurance or production builds.",
+  ],
+  SaveEncryptionToolkit: [
+    "Built a modular Unity save encryption and serialization package providing AES protection with compile-time obfuscated key storage and pluggable JSON and Binary format handlers.",
+    "Included a custom ScriptableObject Inspector workflow for one-click key generation and clean integration into project save managers.",
+  ],
+  ScriptableBatchTool: [
+    "Built a Unity Editor batch-authoring window for creating, configuring, and exporting multiple ScriptableObject instances in one scrollable workspace.",
+    "Prevented filename collisions through sanitized unique asset naming and isolated tooling inside an Editor-only assembly definition.",
+  ],
+  DebugCommandSystem: [
+    "Built an extendable in-game Unity runtime debug console integrated with the Unity Input System, supporting strongly typed variadic commands, Tab auto-completion, and live command suggestions.",
+    "Designed a drop-in prefab and provider interface so programmers and designers can wire testing commands rapidly during playtesting.",
+  ],
 };
 
 const RESUME_FEATURED_GAME_PROJECT = {
-  name: "Trash Frenzy (Unity 2D · C#)",
-  role: "PM, Designer, Programmer & QA",
+  name: "Trash Frenzy (Unity 2D, Universal Render Pipeline, C#, Android)",
+  role: "Project Manager, Game Designer, Gameplay Programmer, and Quality Assurance",
   bullets: [
-    "Built an educational Android action side-scroller rated 4.70/5 by 75 evaluators (ISO/IEC 25010), featuring URP toxin-driven lighting, ScriptableObject-tuned boss AI, and a persistent cross-scene trash sorting pipeline.",
+    "Led a 4-person capstone team to design and build an educational Android 2D action side-scroller rated 4.70 out of 5.0 across 75 user and information technology expert evaluators under the ISO/IEC 25010 quality standard.",
+    "Implemented a Universal Render Pipeline (URP) toxin-driven lighting and post-processing system, coroutine-based boss artificial intelligence tuned with ScriptableObjects, and a persistent cross-scene waste sorting inventory pipeline.",
   ],
 };
 
 function formatResumeProjectName(repo, curated) {
   if (curated?.engine) {
-    const cleanEngine = curated.engine.replace(/\s*\(UPM\)/g, "").trim();
+    const cleanEngine = curated.engine
+      .replace(/\s*\(UPM\)/g, "")
+      .replace(/\s*·\s*/g, ", ")
+      .trim();
     return `${repo.name} (${cleanEngine})`;
   }
   if (repo.language && repo.language !== "N/A") {
     return `${repo.name} (${repo.language})`;
   }
   return repo.name;
+}
+
+function formatResumeProjectRole(role) {
+  if (!role) return "Creator and Developer";
+  return role
+    .replace(/\s*·\s*/g, ", ")
+    .replace(/\s*&\s*/g, " and ")
+    .trim();
 }
 
 /**
@@ -327,11 +393,17 @@ export function buildResumeSelectedProjects(githubRepos = null, { maxGithubProje
 
   const githubEntries = sourceRepos.map((repo) => {
     const curated = TOOL_PROJECT_DETAILS[repo.name] || null;
-    const bullet = RESUME_TOOL_BULLETS[repo.name] || curated?.summary || repo.description || "";
+    const curatedHighlights = RESUME_TOOL_HIGHLIGHTS[repo.name];
+    const fallbackBullet = curated?.summary || repo.description || "";
+    const bullets = Array.isArray(curatedHighlights)
+      ? [...curatedHighlights]
+      : fallbackBullet
+        ? [fallbackBullet]
+        : [];
     return {
       name: formatResumeProjectName(repo, curated),
-      role: curated?.role || "Creator & Developer",
-      bullets: bullet ? [bullet] : [],
+      role: formatResumeProjectRole(curated?.role),
+      bullets,
     };
   });
 

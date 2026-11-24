@@ -1,5 +1,23 @@
 [
   {
+    "name": "CommonEventsEngine",
+    "html_url": "https://github.com/haruchanz64/CommonEventsEngine",
+    "description": "RPG Maker-inspired Common Events, global Switches/Variables, Self-Switches, Inventory/Gold ledger, and tick-driven command scripting framework for Unity 6 with built-in uGUI Dialogue Box, Screen Fader, and a UI Toolkit Event Workbench.",
+    "language": "C#",
+    "topics": [
+      "common-events",
+      "csharp",
+      "cutscene",
+      "dialogue",
+      "rpg",
+      "state-machine",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
+  },
+  {
     "name": "UnityAuthCore",
     "html_url": "https://github.com/haruchanz64/UnityAuthCore",
     "description": "Backend-agnostic authentication and typed REST API framework for Unity 6 with pluggable IAuthBackendAdapter, single-flight 401 token refresh, Unity Multiplayer connection approval, OpenAPI 3.0 spec, and an optional Dockerized reference server.",

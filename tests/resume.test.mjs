@@ -17,8 +17,10 @@ import {
   MIN_RESUME_PAGE_TIME_MS,
   normalizeText,
   RESUME_COOLDOWN_MS,
+  RESUME_DEFAULT_HEADLINE,
   RESUME_DEFAULT_LOCATION,
   RESUME_FULL_NAME,
+  RESUME_PROFESSIONAL_SUMMARY,
   RESUME_WEBSITE,
   requestResume,
 } from "../src/js/resume/resume.js";
@@ -66,7 +68,9 @@ function createMockDocument() {
             ".experience-company": [
               createElement({ textContent: "University of Caloocan City · Full-time" }),
             ],
-            ".experience-location": [createElement({ textContent: "Caloocan City, Metro Manila" })],
+            ".experience-location": [
+              createElement({ textContent: "Caloocan City, Metro Manila, Philippines" }),
+            ],
             ".experience-list li": [
               createElement({ textContent: "Teach game design theory and prototyping." }),
             ],
@@ -105,7 +109,7 @@ function createMockDocument() {
           childrenBySelector: {
             ".experience-role": [
               createElement({
-                textContent: "BS in Entertainment and Multimedia Computing",
+                textContent: "Bachelor of Science in Entertainment and Multimedia Computing",
               }),
             ],
             ".experience-major": [
@@ -120,11 +124,13 @@ function createMockDocument() {
               }),
             ],
             ".experience-company": [createElement({ textContent: "University of Caloocan City" })],
-            ".experience-location": [createElement({ textContent: "Caloocan City, Metro Manila" })],
+            ".experience-location": [
+              createElement({ textContent: "Caloocan City, Metro Manila, Philippines" }),
+            ],
             ".experience-list li": [
               createElement({
                 textContent:
-                  "Capstone Project — Trash Frenzy: Educational game raising water pollution awareness.",
+                  "Relevant Coursework: Game Design and Development, Advanced Game Design, and Game Production.",
               }),
             ],
           },
@@ -207,10 +213,11 @@ describe("resume helpers", () => {
     );
   });
 
-  it("uses full name, default location, and website without phone or email", () => {
+  it("uses full name, default international location, and website without phone or email", () => {
     assert.equal(RESUME_FULL_NAME, "Aron Jake S. Radam");
-    assert.equal(RESUME_DEFAULT_LOCATION, "Caloocan City, Metro Manila");
+    assert.equal(RESUME_DEFAULT_LOCATION, "Caloocan City, Metro Manila, Philippines");
     assert.equal(RESUME_WEBSITE, "https://haruchanz64.github.io/");
+    assert.ok(RESUME_PROFESSIONAL_SUMMARY.includes("Unity (C#)"));
   });
 
   it("formats display URLs and company employment qualifiers cleanly", () => {
@@ -253,75 +260,93 @@ describe("resume helpers", () => {
 });
 
 describe("extractResumeData", () => {
-  it("extracts experience, selected projects, skills, and LinkedIn/GitHub/itch.io links while excluding #about", () => {
+  it("extracts experience, selected projects, flat ATS skills, summary, and ordered profile links while excluding #about", () => {
     const doc = createMockDocument();
     const data = extractResumeData(doc);
 
     assert.equal(data.fullName, "Aron Jake S. Radam");
     assert.equal(data.phone, undefined);
     assert.equal(data.email, undefined);
-    assert.equal(data.headline, "Game Developer · Systems, Tools & Technical Design");
-    assert.equal(data.location, "Caloocan City, Metro Manila");
+    assert.equal(data.headline, RESUME_DEFAULT_HEADLINE);
+    assert.equal(data.summary, RESUME_PROFESSIONAL_SUMMARY);
+    assert.equal(data.location, "Caloocan City, Metro Manila, Philippines");
     assert.equal(data.experience.length, 1);
     assert.equal(data.experience[0].date, "July 2026 – Present");
     assert.equal(data.education.length, 1);
-    assert.equal(data.education[0].degree, "BS in Entertainment and Multimedia Computing");
+    assert.equal(
+      data.education[0].degree,
+      "Bachelor of Science in Entertainment and Multimedia Computing",
+    );
     assert.ok(Array.isArray(data.projects));
     assert.equal(data.projects.length, 4);
-    const unityAuthIdx = data.projects.findIndex((p) => p.name.includes("UnityAuthCore"));
+    const commonEventsIdx = data.projects.findIndex((p) => p.name.includes("CommonEventsEngine"));
     const trashFrenzyIdx = data.projects.findIndex((p) => p.name.includes("Trash Frenzy"));
-    assert.ok(unityAuthIdx !== -1);
+    assert.ok(commonEventsIdx !== -1);
     assert.ok(trashFrenzyIdx !== -1);
-    assert.ok(unityAuthIdx < trashFrenzyIdx);
+    assert.ok(commonEventsIdx < trashFrenzyIdx);
+    assert.ok(data.projects.some((p) => p.name.includes("UnityAuthCore")));
     assert.ok(data.projects.some((p) => p.name.includes("GachaEngine")));
-    assert.ok(data.projects.some((p) => p.name.includes("AssetImportRules")));
-    assert.deepEqual(data.skills, [
-      { category: "Programming Languages", items: ["C#", "Dart"] },
-      { category: "Spoken Languages", items: ["English (Fluent)", "Filipino (Native)"] },
-    ]);
+    assert.equal(
+      data.projects[trashFrenzyIdx].role,
+      "Project Manager, Game Designer, Gameplay Programmer, and Quality Assurance",
+    );
+    assert.equal(data.skills[0].category, "Programming Languages");
+    assert.deepEqual(data.skills[0].items, ["C#", "Dart"]);
+    assert.equal(data.skills[1].category, "Game Development & Quality Assurance");
+    assert.ok(data.skills[1].items.includes("Quality Assurance (QA)"));
+    assert.deepEqual(data.skills[2], {
+      category: "Spoken Languages",
+      items: ["English (Fluent)", "Filipino (Native)"],
+    });
     assert.deepEqual(
       data.links.map((l) => l.label),
-      ["GitHub", "itch.io", "LinkedIn"],
+      ["LinkedIn", "GitHub", "itch.io"],
     );
     assert.equal(JSON.stringify(data).includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
 });
 
 describe("buildAtsResumeHtml and buildAtsResumeText", () => {
-  it("builds ATS-friendly HTML with Selected Projects and without About content, images, or SVGs", () => {
+  it("builds ATS-friendly HTML with Professional Summary, Work Experience, and Selected Projects without About content, images, or SVGs", () => {
     const data = extractResumeData(createMockDocument());
     const html = buildAtsResumeHtml(data);
 
     assert.ok(html.includes("<h1>Aron Jake S. Radam</h1>"));
-    assert.ok(html.includes(">Experience<"));
+    assert.ok(html.includes(">Professional Summary<"));
+    assert.ok(html.includes(">Work Experience<"));
     assert.ok(html.includes(">Selected Projects<"));
+    assert.ok(html.includes("CommonEventsEngine"));
     assert.ok(html.includes("UnityAuthCore"));
     assert.ok(html.includes("GachaEngine"));
-    assert.ok(html.includes("AssetImportRules"));
     assert.ok(html.includes(">Technical Skills<"));
+    assert.ok(html.includes("Caloocan City, Metro Manila, Philippines"));
     assert.equal(html.includes("GDriveDesktop"), false);
-    assert.equal(html.includes("github.com/haruchanz64/UnityAuthCore"), false);
+    assert.equal(html.includes("github.com/haruchanz64/CommonEventsEngine"), false);
     assert.equal(html.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.equal(html.includes("SECRET_ABOUT_SECTION_TEXT"), false);
     assert.equal(html.includes("<img"), false);
     assert.equal(html.includes("<svg"), false);
   });
 
-  it("builds ATS-friendly plain text with Selected Projects and without About content", () => {
+  it("builds ATS-friendly plain text with Professional Summary and expanded terms without About content", () => {
     const data = extractResumeData(createMockDocument());
     const text = buildAtsResumeText(data);
 
     assert.ok(text.startsWith("Aron Jake S. Radam\n"));
-    assert.ok(text.includes("EXPERIENCE"));
+    assert.ok(text.includes("PROFESSIONAL SUMMARY"));
+    assert.ok(text.includes("WORK EXPERIENCE"));
     assert.ok(text.includes("SELECTED PROJECTS"));
+    assert.ok(text.includes("CommonEventsEngine"));
     assert.ok(text.includes("UnityAuthCore"));
     assert.ok(text.includes("GachaEngine"));
-    assert.ok(text.includes("AssetImportRules"));
     assert.ok(text.includes("TECHNICAL SKILLS"));
     assert.ok(text.includes("Programming Languages: C#, Dart"));
+    assert.ok(text.includes("Game Development & Quality Assurance:"));
     assert.ok(text.includes("Spoken Languages: English (Fluent), Filipino (Native)"));
-    assert.ok(text.includes("- Capstone Project — Trash Frenzy:"));
-    assert.equal(text.includes("github.com/haruchanz64/UnityAuthCore"), false);
+    assert.ok(text.includes("Bachelor of Science in Entertainment and Multimedia Computing"));
+    assert.ok(text.includes("- Relevant Coursework:"));
+    assert.equal(text.includes("—"), false);
+    assert.equal(text.includes("github.com/haruchanz64/CommonEventsEngine"), false);
     assert.equal(text.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.equal(text.includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
@@ -334,7 +359,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(wrapped.length > 1);
   });
 
-  it("generates a valid PDF 1.4 document with Standard 14 Helvetica fonts, Selected Projects, clickable links, and without About content", () => {
+  it("generates a valid PDF 1.4 document with Standard 14 Helvetica fonts, Professional Summary, Selected Projects, clickable links, metadata, and without About content", () => {
     const data = extractResumeData(createMockDocument());
     const bytes = buildAtsResumePdfBytes(data);
     const pdfText = new TextDecoder().decode(bytes);
@@ -345,25 +370,34 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("startxref\n"));
     assert.ok(pdfText.endsWith("%%EOF\n"));
     assert.ok(pdfText.includes("(Aron Jake S. Radam) Tj"));
-    assert.ok(pdfText.includes("(Game Developer | Systems, Tools & Technical Design) Tj"));
-    assert.ok(pdfText.includes("(Caloocan City, Metro Manila) Tj"));
+    assert.ok(
+      pdfText.includes(
+        "(Game Developer | Gameplay Systems, Unity Tooling, and Technical Game Design) Tj",
+      ),
+    );
+    assert.ok(pdfText.includes("(Caloocan City, Metro Manila, Philippines) Tj"));
     assert.ok(pdfText.includes("(haruchanz64.github.io) Tj"));
     assert.ok(pdfText.includes("/URI (https://haruchanz64.github.io/)"));
     assert.ok(pdfText.includes("/URI (https://haruchanz64.itch.io/)"));
-    assert.ok(pdfText.includes("(EXPERIENCE) Tj"));
+    assert.ok(pdfText.includes("(PROFESSIONAL SUMMARY) Tj"));
+    assert.ok(pdfText.includes("(WORK EXPERIENCE) Tj"));
     assert.ok(pdfText.includes("(SELECTED PROJECTS) Tj"));
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
+    assert.ok(pdfText.includes("Bachelor of Science in Entertainment and Multimedia Computing"));
     assert.ok(pdfText.includes("Major in Game Development"));
+    assert.ok(pdfText.includes("CommonEventsEngine"));
     assert.ok(pdfText.includes("UnityAuthCore"));
     assert.ok(pdfText.includes("GachaEngine"));
-    assert.ok(pdfText.includes("AssetImportRules"));
     assert.ok(pdfText.includes("Trash Frenzy"));
-    assert.ok(pdfText.indexOf("UnityAuthCore") < pdfText.indexOf("Trash Frenzy"));
+    assert.ok(
+      pdfText.indexOf("(PROFESSIONAL SUMMARY) Tj") < pdfText.indexOf("(WORK EXPERIENCE) Tj"),
+    );
+    assert.ok(pdfText.indexOf("CommonEventsEngine") < pdfText.indexOf("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("GDriveDesktop"), false);
-    assert.equal(pdfText.includes("github.com/haruchanz64/UnityAuthCore"), false);
+    assert.equal(pdfText.includes("github.com/haruchanz64/CommonEventsEngine"), false);
     assert.equal(pdfText.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.ok(
       pdfText.includes("/BaseFont /Helvetica\n") || pdfText.includes("/BaseFont /Helvetica "),
@@ -373,6 +407,8 @@ describe("buildAtsResumePdfBytes", () => {
     assert.equal(pdfText.includes("/ArialMT"), false);
     assert.ok(pdfText.includes("/MediaBox [0 0 595.28 841.89]"));
     assert.ok(pdfText.includes("/Title (Aron Jake S. Radam - Resume)"));
+    assert.ok(pdfText.includes("/Subject (Game Developer | Gameplay Systems"));
+    assert.ok(pdfText.includes("/Keywords ("));
     assert.equal(pdfText.includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
 
@@ -386,7 +422,7 @@ describe("buildAtsResumePdfBytes", () => {
     assert.equal(/\d+\.\d{3} Tw/.test(pdfText), false);
   });
 
-  it("fits the real portfolio resume content cleanly onto 1 A4 page", async () => {
+  it("renders the full real portfolio resume cleanly across 1 to 2 A4 pages with expanded PH and international text", async () => {
     const en = JSON.parse(
       await readFile(new URL("../src/locales/en_us.json", import.meta.url), "utf8"),
     );
@@ -427,25 +463,39 @@ describe("buildAtsResumePdfBytes", () => {
         {
           category: "Engines & Frameworks",
           items: [
-            "Unity 6 (UI Toolkit, URP, ScriptableObjects, UPM, Input System)",
-            "Netcode (NGO, Mirror, FishNet)",
+            "Unity",
+            "Unity 6",
+            "Unity UI Toolkit",
+            "Universal Render Pipeline (URP)",
+            "ScriptableObjects",
+            "Unity Package Manager (UPM)",
+            "Unity Input System",
+            "Playables API",
+            "Netcode for GameObjects (NGO)",
+            "Mirror",
+            "FishNet",
             "Flutter",
             "Spring Boot",
           ],
         },
         { category: "Programming Languages", items: ["C#", "Dart", "Java"] },
         {
-          category: "Tools & Software",
+          category: "Game Development & Quality Assurance",
           items: [
-            "JetBrains Rider",
-            "Visual Studio",
-            "Git",
-            "GitHub",
-            "Figma",
-            "Trello",
-            "Docker",
-            "QA & Regression Testing",
+            "Gameplay Programming",
+            "Unity Editor Tooling",
+            "Technical Game Design",
+            "Systems Architecture",
+            "Object-Oriented Programming (OOP)",
+            "REST APIs",
+            "Quality Assurance (QA)",
+            "Regression Testing",
+            "Playtesting",
           ],
+        },
+        {
+          category: "Tools & Software",
+          items: ["JetBrains Rider", "Visual Studio", "Git", "GitHub", "Figma", "Trello", "Docker"],
         },
         { category: "Databases", items: ["PostgreSQL", "Supabase", "MySQL"] },
         { category: "Spoken Languages", items: ["English (Fluent)", "Filipino (Native)"] },
@@ -454,19 +504,27 @@ describe("buildAtsResumePdfBytes", () => {
 
     const bytes = buildAtsResumePdfBytes(fullData);
     const pdfText = new TextDecoder().decode(bytes);
-    assert.ok(pdfText.includes("/Count 1"), "Expected full portfolio resume to fit on 1 A4 page");
+    const pageCountMatch = /\/Count (\d+)/.exec(pdfText);
+    const pageCount = Number(pageCountMatch?.[1] || 0);
+    assert.ok(
+      pageCount >= 1 && pageCount <= 2,
+      `Expected full portfolio resume to fit cleanly in 1-2 A4 pages, got ${pageCount}`,
+    );
     assert.ok(pdfText.includes("PicStar Software OPC \\(Contract\\)"));
     assert.ok(pdfText.includes("GridLock-Games Studio \\(Internship\\)"));
+    assert.ok(pdfText.includes("Caloocan City, Metro Manila, Philippines"));
+    assert.ok(pdfText.includes("Bachelor of Science in Entertainment and Multimedia Computing"));
     assert.ok(pdfText.includes("Programming Languages: "));
+    assert.ok(pdfText.includes("Game Development & Quality Assurance: "));
     assert.ok(pdfText.includes("Spoken Languages: "));
   });
 
   it("encodes WinAnsi characters like ñ in Las Piñas", () => {
     const data = extractResumeData(createMockDocument());
-    data.experience[0].location = "Las Piñas, Metro Manila";
+    data.experience[0].location = "Las Piñas, Metro Manila, Philippines";
     const bytes = buildAtsResumePdfBytes(data);
     const pdfText = new TextDecoder().decode(bytes);
-    assert.ok(pdfText.includes("(Las Pi\\361as, Metro Manila) Tj"));
+    assert.ok(pdfText.includes("(Las Pi\\361as, Metro Manila, Philippines) Tj"));
   });
 
   it("paginates automatically when content exceeds one page", () => {
@@ -479,7 +537,8 @@ describe("buildAtsResumePdfBytes", () => {
 
     const bytes = buildAtsResumePdfBytes(data);
     const pdfText = new TextDecoder().decode(bytes);
-    assert.ok(pdfText.includes("/Count 2"));
+    const countMatch = /\/Count (\d+)/.exec(pdfText);
+    assert.ok(Number(countMatch?.[1] || 0) >= 2);
   });
 });
 
@@ -594,15 +653,16 @@ describe("extractResumeData i18n fallback", () => {
     };
 
     const data = extractResumeData(doc);
-    assert.equal(data.headline, "Game Developer · Systems, Tools & Technical Design");
+    assert.equal(data.headline, RESUME_DEFAULT_HEADLINE);
     assert.equal(data.experience[0].role, "College Instructor");
     assert.equal(data.experience[0].company, "University of Caloocan City · Full-time");
     assert.match(data.experience[0].bullets[0], /^Teach game design theory/);
     assert.equal(data.education[0].major, "Major in Game Development");
     assert.equal(data.education[0].date, "August 2021 – April 2025");
-    assert.match(data.education[0].bullets[0], /^Coursework:/);
+    assert.match(data.education[0].bullets[0], /^Relevant Coursework:/);
     assert.equal(data.skills[0].category, "Programming Languages");
-    assert.equal(data.skills[1].category, "Spoken Languages");
+    assert.equal(data.skills[1].category, "Game Development & Quality Assurance");
+    assert.equal(data.skills[2].category, "Spoken Languages");
   });
 });
 

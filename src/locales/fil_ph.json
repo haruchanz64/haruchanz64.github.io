@@ -42,17 +42,17 @@
         "role": "College Instructor",
         "date": "Hulyo 2026 – Kasalukuyan",
         "company": "University of Caloocan City · Full-time",
-        "location": "Caloocan City, Metro Manila",
-        "b0": "Nagtuturo ng game design theory, rapid prototyping, at production pipelines sa Unity (C#) sa mga sophomore hanggang senior na estudyante ng BS EMC, habang ginagabayan ang mga proyekto mula sa unang mechanics hanggang sa playable builds.",
-        "b1": "Nangunguna sa mga lecture at lab tungkol sa gameplay programming, systems architecture, OOP, game math, physics, AI, networking, at optimization upang matulungan ang mga estudyante na gawing gumaganang prototype ang kanilang design docs.",
+        "location": "Caloocan City, Metro Manila, Philippines",
+        "b0": "Nagtuturo ng game design theory, rapid prototyping, at production pipelines sa Unity at C# sa mga sophomore hanggang senior na estudyante ng Bachelor of Science in Entertainment and Multimedia Computing (BS EMC), habang ginagabayan ang mga proyekto mula sa unang mechanics hanggang sa playable builds.",
+        "b1": "Nangunguna sa mga lecture at laboratory session tungkol sa gameplay programming, systems architecture, object-oriented programming (OOP), game mathematics, physics, artificial intelligence (AI), multiplayer networking, at performance optimization upang matulungan ang mga estudyante na gawing gumaganang prototype ang kanilang game design documents.",
         "b2": "Gumagabay sa mga student team sa pamamagitan ng code reviews, debugging sessions, at playtest critiques na nakabatay sa kasalukuyang gawain sa mga game studio."
       },
       "1": {
         "role": "Full-Stack Software Engineer",
         "date": "Agosto 2025 – Oktubre 2026",
         "company": "PicStar Software OPC · Kontraktwal",
-        "location": "Las Piñas, Metro Manila",
-        "b0": "Pinangasiwaan ang end-to-end na arkitektura at engineering ng isang cross-platform Flutter social mobile app bilang nag-iisang engineer, na may modular codebase at pare-parehong UI/UX.",
+        "location": "Las Piñas, Metro Manila, Philippines",
+        "b0": "Pinangasiwaan ang end-to-end na arkitektura at engineering ng isang cross-platform Flutter social mobile application bilang nag-iisang engineer, na may modular codebase at pare-parehong user interface at user experience (UI at UX).",
         "b1": "Dinisenyo at in-optimize ang Supabase PostgreSQL backend para sa real-time feeds, ranking queries, location-based filtering, at mas mababang data egress.",
         "b2": "Na-engineer at nai-deploy ang PicStar sa Google Play Store noong Oktubre 11, 2026, na nagdala sa Flutter client at Supabase backend sa production."
       },
@@ -60,7 +60,7 @@
         "role": "Quality Assurance Analyst",
         "date": "Mayo 2024 – Abril 2025",
         "company": "GridLock-Games Studio · Internship",
-        "location": "Taguig, Metro Manila",
+        "location": "Taguig, Metro Manila, Philippines",
         "b0": "Nakipagtulungan sa mga game developer at designer upang subukan ang mga gameplay build, mahuli ang mga edge-case regression, at matukoy ang mga isyu sa usability sa buong release cycle.",
         "b1": "Nag-log, nag-reproduce, at sumubaybay ng mga bug sa Trello na may malinaw na reproduction steps at nakabalangkas na build verification upang mapanatiling maayos ang pag-aayos ng engineering at design."
       },
@@ -68,7 +68,7 @@
         "role": "Video Game Playtester",
         "date": "Disyembre 2022 – Mayo 2024",
         "company": "GridLock-Games Studio · External",
-        "location": "Taguig, Metro Manila",
+        "location": "Taguig, Metro Manila, Philippines",
         "b0": "Nag-playtest ng mga in-development na game build upang makahanap ng mga gameplay bug, physics glitch, at mechanics exploit, habang nagdodokumento ng reproduction steps at nagbe-verify ng mga fix sa bawat patch.",
         "b1": "Nagbigay ng nakabalangkas na nakasulat at berbal na feedback tungkol sa core gameplay loops, pacing, balanse, at game feel."
       }
@@ -78,12 +78,12 @@
     "title": "Edukasyon",
     "items": {
       "0": {
-        "degree": "BS in Entertainment and Multimedia Computing",
+        "degree": "Bachelor of Science in Entertainment and Multimedia Computing",
         "date": "Agosto 2021 – Abril 2025",
         "major": "Major sa Game Development",
         "school": "University of Caloocan City",
-        "location": "Caloocan City, Metro Manila",
-        "b0": "Mga Kurso: Game Design & Development, Advanced Game Design, Game Programming 1–3, AI in Games, Applied Mathematics for Games, Game Networking, at Game Production.",
+        "location": "Caloocan City, Metro Manila, Philippines",
+        "b0": "Mga Kaugnay na Kurso: Game Design and Development, Advanced Game Design, Game Programming 1–3, Artificial Intelligence (AI) in Games, Applied Mathematics for Games, Game Networking, at Game Production.",
         "caseStudy": "Tingnan ang Capstone Case Study",
         "caseStudyModalTitle": "Trash Frenzy — Capstone Case Study"
       }

@@ -22,13 +22,20 @@ import { fetchLatestGithubProjects } from "../projects/github.js";
 import { buildResumeSelectedProjects } from "../projects/project-details.js";
 
 export const RESUME_FULL_NAME = "Aron Jake S. Radam";
-export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila";
+export const RESUME_DEFAULT_LOCATION = "Caloocan City, Metro Manila, Philippines";
 export const RESUME_WEBSITE = "https://haruchanz64.github.io/";
 export const RESUME_PDF_FILENAME = "Aron-Jake-S-Radam-Resume.pdf";
 
-const DEFAULT_HEADLINE = "Game Developer · Systems, Tools & Technical Design";
+export const RESUME_DEFAULT_HEADLINE =
+  "Game Developer | Gameplay Systems, Unity Tooling, and Technical Game Design";
 
-const PREFERRED_LINK_LABELS = new Set(["LinkedIn", "GitHub", "itch.io"]);
+export const RESUME_PROFESSIONAL_SUMMARY =
+  "Game Developer specializing in Unity (C#) gameplay systems, editor tooling, and technical game design, with hands-on experience across game quality assurance, full-stack mobile production, and university-level game development instruction. Shipped a cross-platform Flutter and Supabase mobile application to the Google Play Store as sole engineer and authored open-source Unity 6 packages for multiplayer authentication, asset compliance pipelines, balancing workbenches, and quality assurance workflows.";
+
+const SHORT_NAV_HEADLINES = new Set(["Game Developer · Systems, Tools & Technical Design"]);
+
+const PREFERRED_LINK_ORDER = ["LinkedIn", "GitHub", "itch.io"];
+const PREFERRED_LINK_LABELS = new Set(PREFERRED_LINK_ORDER);
 
 const RESUME_EXCLUDED_TOOLS = new Set([
   "Visual Studio Code",
@@ -39,6 +46,21 @@ const RESUME_EXCLUDED_TOOLS = new Set([
   "Antigravity",
   "Claude Code",
 ]);
+
+const RESUME_CORE_COMPETENCIES = {
+  category: "Game Development & Quality Assurance",
+  items: [
+    "Gameplay Programming",
+    "Unity Editor Tooling",
+    "Technical Game Design",
+    "Systems Architecture",
+    "Object-Oriented Programming (OOP)",
+    "REST APIs",
+    "Quality Assurance (QA)",
+    "Regression Testing",
+    "Playtesting",
+  ],
+};
 
 const RESUME_SPOKEN_LANGUAGES = {
   category: "Spoken Languages",
@@ -53,8 +75,17 @@ function curateResumeSkillGroup(category, items) {
     for (const item of items) {
       if (item === "Unity") {
         expanded.push(
-          "Unity 6 (UI Toolkit, URP, ScriptableObjects, UPM, Input System)",
-          "Netcode (NGO, Mirror, FishNet)",
+          "Unity",
+          "Unity 6",
+          "Unity UI Toolkit",
+          "Universal Render Pipeline (URP)",
+          "ScriptableObjects",
+          "Unity Package Manager (UPM)",
+          "Unity Input System",
+          "Playables API",
+          "Netcode for GameObjects (NGO)",
+          "Mirror",
+          "FishNet",
         );
       } else {
         expanded.push(item);
@@ -66,9 +97,6 @@ function curateResumeSkillGroup(category, items) {
   if (normalizedCategory === "Tools & Software") {
     const filtered = items.filter((item) => !RESUME_EXCLUDED_TOOLS.has(item));
     const curated = filtered.length > 0 ? [...filtered] : [...items];
-    if (!curated.includes("QA & Regression Testing")) {
-      curated.push("QA & Regression Testing");
-    }
     return { category: normalizedCategory, items: curated };
   }
 
@@ -127,7 +155,9 @@ function extractTimelineItems(doc, sectionId) {
  * @param {{ githubRepos?: Array<{ name: string, html_url?: string, description?: string, language?: string }> | null }} [options]
  */
 export function extractResumeData(doc = document, { githubRepos = null } = {}) {
-  const headline = getText(doc, ".nav-brand-role") || DEFAULT_HEADLINE;
+  const rawHeadline = getText(doc, ".nav-brand-role");
+  const headline =
+    !rawHeadline || SHORT_NAV_HEADLINES.has(rawHeadline) ? RESUME_DEFAULT_HEADLINE : rawHeadline;
 
   const experience = extractTimelineItems(doc, "experience")
     .map(({ title, date, organization, location, bullets }) => ({
@@ -169,6 +199,13 @@ export function extractResumeData(doc = document, { githubRepos = null } = {}) {
     })
     .filter((group) => group.category && group.items.length > 0);
 
+  const langIdx = skills.findIndex((group) => group.category === "Programming Languages");
+  if (langIdx !== -1) {
+    skills.splice(langIdx + 1, 0, RESUME_CORE_COMPETENCIES);
+  } else {
+    skills.push(RESUME_CORE_COMPETENCIES);
+  }
+
   skills.push(RESUME_SPOKEN_LANGUAGES);
 
   const contactSection = doc.getElementById("contact");
@@ -181,7 +218,9 @@ export function extractResumeData(doc = document, { githubRepos = null } = {}) {
         .filter((link) => link.label && link.url)
     : [];
 
-  const preferredLinks = rawLinks.filter((l) => PREFERRED_LINK_LABELS.has(l.label));
+  const preferredLinks = rawLinks
+    .filter((l) => PREFERRED_LINK_LABELS.has(l.label))
+    .sort((a, b) => PREFERRED_LINK_ORDER.indexOf(a.label) - PREFERRED_LINK_ORDER.indexOf(b.label));
   const links = preferredLinks.length > 0 ? preferredLinks : rawLinks;
 
   const projects = buildResumeSelectedProjects(githubRepos);
@@ -191,6 +230,7 @@ export function extractResumeData(doc = document, { githubRepos = null } = {}) {
     location,
     website: RESUME_WEBSITE,
     headline,
+    summary: RESUME_PROFESSIONAL_SUMMARY,
     links,
     experience,
     projects,
@@ -295,6 +335,8 @@ export function buildAtsResumeHtml(data) {
     )
     .join("");
 
+  const summaryHtml = data.summary ? `<p class="summary-text">${escapeHtml(data.summary)}</p>` : "";
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -303,19 +345,19 @@ export function buildAtsResumeHtml(data) {
   <style>
     @page {
       size: A4;
-      margin: 0.55in 0.6in;
+      margin: 0.6in;
     }
     * {
       box-sizing: border-box;
     }
     body {
       font-family: Arial, Helvetica, sans-serif;
-      font-size: 10.5pt;
-      line-height: 1.4;
+      font-size: 10pt;
+      line-height: 1.45;
       color: #111111;
       background: #ffffff;
       margin: 0;
-      padding: 0.55in 0.6in;
+      padding: 0.6in;
       max-width: 8.5in;
       margin-left: auto;
       margin-right: auto;
@@ -333,11 +375,11 @@ export function buildAtsResumeHtml(data) {
     }
     h1 {
       font-size: 18pt;
-      margin: 0 0 2pt 0;
+      margin: 0 0 3pt 0;
       letter-spacing: 0.2pt;
     }
     .headline {
-      font-size: 11pt;
+      font-size: 10.5pt;
       font-weight: bold;
       margin: 0 0 4pt 0;
     }
@@ -351,25 +393,21 @@ export function buildAtsResumeHtml(data) {
       text-decoration: none;
     }
     section {
-      margin-bottom: 11pt;
+      margin-bottom: 12pt;
     }
     h2 {
-      font-size: 11pt;
+      font-size: 10.5pt;
       text-transform: uppercase;
       letter-spacing: 0.6pt;
       border-bottom: 1pt solid #333333;
       padding-bottom: 2pt;
       margin: 0 0 6pt 0;
     }
-    .group-title {
-      font-size: 10pt;
-      font-weight: bold;
-      text-transform: uppercase;
-      color: #333333;
-      margin: 6pt 0 4pt 0;
+    .summary-text {
+      margin: 0;
     }
     .resume-item {
-      margin-bottom: 7pt;
+      margin-bottom: 8pt;
       break-inside: avoid;
     }
     .item-header {
@@ -379,7 +417,7 @@ export function buildAtsResumeHtml(data) {
       gap: 12pt;
     }
     .item-title {
-      font-size: 10.5pt;
+      font-size: 10pt;
       font-weight: bold;
       margin: 0;
     }
@@ -388,23 +426,19 @@ export function buildAtsResumeHtml(data) {
       white-space: nowrap;
     }
     .item-subtitle {
-      font-size: 10pt;
+      font-size: 9.5pt;
       font-style: italic;
       margin: 1pt 0 3pt 0;
-    }
-    .item-desc {
-      font-size: 10pt;
-      margin: 2pt 0 0 0;
     }
     ul {
       margin: 2pt 0 0 0;
       padding-left: 16pt;
     }
     li {
-      margin-bottom: 2pt;
+      margin-bottom: 2.5pt;
     }
     .skill-row {
-      margin: 0 0 3pt 0;
+      margin: 0 0 3.5pt 0;
     }
   </style>
 </head>
@@ -415,7 +449,8 @@ export function buildAtsResumeHtml(data) {
     ${contactParts.length ? `<p class="contact-line">${contactParts.join(" | ")}</p>` : ""}
   </header>
   <main>
-    ${experienceHtml ? `<section aria-labelledby="sec-exp"><h2 id="sec-exp">Experience</h2>${experienceHtml}</section>` : ""}
+    ${summaryHtml ? `<section aria-labelledby="sec-summary"><h2 id="sec-summary">Professional Summary</h2>${summaryHtml}</section>` : ""}
+    ${experienceHtml ? `<section aria-labelledby="sec-exp"><h2 id="sec-exp">Work Experience</h2>${experienceHtml}</section>` : ""}
     ${projectsHtml ? `<section aria-labelledby="sec-projects"><h2 id="sec-projects">Selected Projects</h2>${projectsHtml}</section>` : ""}
     ${skillsHtml ? `<section aria-labelledby="sec-skills"><h2 id="sec-skills">Technical Skills</h2>${skillsHtml}</section>` : ""}
     ${educationHtml ? `<section aria-labelledby="sec-edu"><h2 id="sec-edu">Education</h2>${educationHtml}</section>` : ""}
@@ -441,8 +476,12 @@ export function buildAtsResumeText(data) {
   }
   if (contactParts.length) lines.push(contactParts.join(" | "));
 
+  if (data.summary) {
+    lines.push("", "PROFESSIONAL SUMMARY", "====================", data.summary);
+  }
+
   if (data.experience?.length) {
-    lines.push("", "EXPERIENCE", "==========");
+    lines.push("", "WORK EXPERIENCE", "===============");
     for (const item of data.experience) {
       lines.push(`${item.role}${item.date ? ` (${item.date})` : ""}`);
       const meta = [formatCompanyForResume(item.company), item.location]
@@ -459,7 +498,7 @@ export function buildAtsResumeText(data) {
   if (data.projects?.length) {
     lines.push("SELECTED PROJECTS", "=================");
     for (const item of data.projects) {
-      lines.push(`${item.name}${item.role ? ` — ${item.role}` : ""}`);
+      lines.push(`${item.name}${item.role ? ` - ${item.role}` : ""}`);
       for (const bullet of item.bullets || []) {
         lines.push(`- ${bullet}`);
       }
