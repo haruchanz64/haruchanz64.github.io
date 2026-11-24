@@ -66,6 +66,34 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  NetAuditToolkit: {
+    role: "Tools Programmer & Author",
+    engine: "Unity 6 Editor · C# (UPM)",
+    team: "Open-Source Package",
+    focus: "Multiplayer Scene & Prefab Auditor",
+    summary:
+      "A zero-dependency, netcode-agnostic Unity 6 Editor static analyzer and hierarchy badge overlay for NGO, Mirror, FishNet, and custom multiplayer components that catches scene and prefab misconfigurations before runtime.",
+    highlights: [
+      "Ships 9 built-in audit rules (NA001–NA009) detecting orphaned NetworkBehaviours, nested NetworkObjects, unregistered NetworkPrefabs, bandwidth-heavy NetworkTransforms, RPC security/signature issues, MPPM mutable static state, and broken UnityEvents.",
+      "Classifies NGO, Mirror, FishNet, and [NetAuditTracked] components via reflection and SerializedObject with zero external dependencies, surfacing results in a split-pane Editor auditor (with Readiness Score and 1-click Quick Fixes) and Hierarchy badges.",
+      "Supports TypeCache-discovered custom INetAuditRule extensions, [NetAuditIgnore] suppressions, Markdown/JSON CI report exports, and an optional pre-build guard that fails builds on Error-severity issues.",
+    ],
+    stack: ["Unity 6", "Unity Editor", "C#", "UPM", "Static Analysis", "NGO / Mirror / FishNet"],
+  },
+  NetSimToolkit: {
+    role: "Systems & Tools Programmer",
+    engine: "Unity 6 · C# (UPM)",
+    team: "Open-Source Package",
+    focus: "Network Simulator & Bandwidth Profiler",
+    summary:
+      "A zero-dependency, netcode-agnostic Unity 6 network condition simulator, localhost UDP/TCP impairment proxy, live bandwidth profiler, chaos timeline runner, and QA repro exporter compatible with NGO, Mirror, FishNet, and raw sockets.",
+    highlights: [
+      "Implements a pure C# localhost UDP/TCP impairment proxy simulating latency, Uniform/Normal/Spiky jitter, random and Gilbert-Elliott burst packet loss, reordering, duplication, token-bucket bandwidth caps, asymmetric latency, and blackouts without OS admin rights or kernel drivers.",
+      "Provides an Editor Network Simulator window and F8 Runtime QA HUD with built-in network presets, live outbound/inbound KB/s graphs, budget threshold alerts, MTU warnings, per-channel telemetry, and a visual Chaos Timeline runner.",
+      "Exports session summaries and timelines to JSON, CSV, Markdown, or .zip repro bundles, with NetSimContextSnapshot hooks ready for BugReportToolkit's IBugContextProvider.",
+    ],
+    stack: ["Unity 6", "C#", "UPM", "UDP/TCP Proxy", "Bandwidth Profiler", "QA Tooling"],
+  },
   BugReportToolkit: {
     role: "Tools Programmer & Author",
     engine: "Unity · C# (UPM)",

@@ -1,5 +1,17 @@
 [
   {
+    "name": "NetAuditToolkit",
+    "html_url": "https://github.com/haruchanz64/NetAuditToolkit",
+    "description": "",
+    "language": "C#"
+  },
+  {
+    "name": "NetSimToolkit",
+    "html_url": "https://github.com/haruchanz64/NetSimToolkit",
+    "description": "",
+    "language": "C#"
+  },
+  {
     "name": "BugReportToolkit",
     "html_url": "https://github.com/haruchanz64/BugReportToolkit",
     "description": "A zero-dependency Unity in-game bug reporter that captures screenshots, logs, and diagnostics into ZIP bundles or sends directly to webhooks.",
