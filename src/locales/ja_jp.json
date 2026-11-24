@@ -99,7 +99,9 @@
   "projects": {
     "title": "プロジェクト",
     "gameProjects": "ゲームプロジェクト",
-    "systemsTools": "Unity ツール & デザイナーワークフロー",
+    "systemsTools": "Unity システム & ツール",
+    "showMoreTools": "その他のツールを見る（+{count}）",
+    "showFewerTools": "表示を減らす",
     "viewBreakdown": "詳細 →",
     "loading": "プロジェクトを読み込み中...",
     "noneFound": "該当するプロジェクトが見つかりませんでした。",

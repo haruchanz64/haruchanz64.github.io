@@ -99,7 +99,9 @@
   "projects": {
     "title": "Projects",
     "gameProjects": "Game Projects",
-    "systemsTools": "Unity Tools & Designer Workflows",
+    "systemsTools": "Unity Systems & Tools",
+    "showMoreTools": "Show More Tools (+{count})",
+    "showFewerTools": "Show Fewer Tools",
     "viewBreakdown": "Details →",
     "loading": "Loading projects...",
     "noneFound": "No matching projects found.",

@@ -1,21 +1,16 @@
 import { readCache, writeCache } from "../core/cache.js";
 
 const PROJECT_CARD_CLASS =
-  "project-card group flex flex-col items-stretch bg-card-bg border border-border rounded-brand px-4 py-6 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out w-full max-w-full mx-auto no-underline text-inherit text-left font-main cursor-pointer hover:border-accent hover:shadow-card-hover hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2";
+  "project-card group flex flex-col items-stretch bg-card-bg border border-border rounded-brand p-5 transition-[border-color,box-shadow,transform,translate,opacity] duration-300 ease-in-out w-full max-w-full mx-auto no-underline text-inherit text-left font-main cursor-pointer hover:border-accent hover:shadow-card-hover hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2";
 const PROJECT_THUMB_CLASS =
   "w-full aspect-video object-cover rounded-[6px] mb-4 shadow-[0_1px_4px_color-mix(in_srgb,var(--first-color)_15%,transparent)]";
 const PROJECT_INFO_CLASS = "w-full flex-1 flex flex-col text-left";
 const PROJECT_EYEBROW_CLASS =
   "font-mono text-[0.72rem] uppercase tracking-[0.08em] text-text-muted mb-1.5";
 const PROJECT_TITLE_CLASS = "font-display text-[1.15rem] font-semibold mb-2 text-accent";
-const PROJECT_DESC_CLASS = "text-[0.95rem] leading-[1.55] text-text-secondary mb-3 flex-1";
-const PROJECT_META_CLASS =
-  "text-[0.82rem] mt-2 pt-3 border-t border-border/25 flex items-center justify-between flex-wrap gap-2";
-const PROJECT_TAGS_WRAP_CLASS = "flex flex-wrap gap-[6px] opacity-90";
-const PROJECT_TAG_CLASS =
-  "font-mono bg-bg-tertiary text-accent px-2 py-0.5 rounded-[4px] font-medium text-[0.85em]";
+const PROJECT_DESC_CLASS = "text-[0.94rem] leading-[1.55] text-text-secondary mb-4 flex-1";
 const PROJECT_CUE_CLASS =
-  "font-mono text-[0.76rem] font-medium text-text-secondary whitespace-nowrap transition-colors duration-300 ease-in-out group-hover:text-accent";
+  "font-mono text-[0.78rem] font-medium text-text-secondary whitespace-nowrap self-start transition-colors duration-300 ease-in-out group-hover:text-accent";
 
 /**
  * Render a list of project items into `grid` using a shared `.project-card` DOM structure.
@@ -24,6 +19,7 @@ const PROJECT_CUE_CLASS =
  *   grid: HTMLElement,
  *   items: T[],
  *   emptyMessage: string,
+ *   append?: boolean,
  *   mapItem: (item: T) => {
  *     url: string,
  *     title: string,
@@ -31,34 +27,30 @@ const PROJECT_CUE_CLASS =
  *     description: string,
  *     image?: string,
  *     imageAlt?: string,
- *     tags?: Array<{ className: string, text: string }>,
  *     cueLabel?: string,
  *     onImage?: (img: HTMLImageElement) => void,
  *     onSelect?: (triggerEl: HTMLElement) => void,
  *   },
  * }} options
+ * @returns {HTMLElement[]}
  */
-export function renderProjectGrid({ grid, items, emptyMessage, mapItem }) {
+export function renderProjectGrid({ grid, items, emptyMessage, append = false, mapItem }) {
   if (!Array.isArray(items) || items.length === 0) {
-    grid.innerHTML = `<p class="text-text-secondary">${emptyMessage}</p>`;
-    return;
+    if (!append) {
+      grid.innerHTML = `<p class="text-text-secondary">${emptyMessage}</p>`;
+    }
+    return [];
   }
 
-  grid.innerHTML = "";
+  if (!append) {
+    grid.innerHTML = "";
+  }
+
+  const cards = [];
 
   items.forEach((item) => {
-    const {
-      url,
-      title,
-      eyebrow,
-      description,
-      image,
-      imageAlt,
-      tags = [],
-      cueLabel,
-      onImage,
-      onSelect,
-    } = mapItem(item);
+    const { url, title, eyebrow, description, image, imageAlt, cueLabel, onImage, onSelect } =
+      mapItem(item);
 
     const card = onSelect ? document.createElement("button") : document.createElement("a");
     if (onSelect) {
@@ -102,32 +94,21 @@ export function renderProjectGrid({ grid, items, emptyMessage, mapItem }) {
     descEl.textContent = description;
     info.appendChild(descEl);
 
-    const meta = document.createElement("div");
-    meta.className = PROJECT_META_CLASS;
-
-    const tagsWrap = document.createElement("div");
-    tagsWrap.className = PROJECT_TAGS_WRAP_CLASS;
-    tags.forEach(({ className, text }) => {
-      const span = document.createElement("span");
-      span.className = className ? `${className} ${PROJECT_TAG_CLASS}` : PROJECT_TAG_CLASS;
-      span.textContent = text;
-      tagsWrap.appendChild(span);
-    });
-    meta.appendChild(tagsWrap);
-
     if (cueLabel) {
       const cue = document.createElement("span");
       cue.className = PROJECT_CUE_CLASS;
       cue.textContent = cueLabel;
       cue.setAttribute("aria-hidden", "true");
-      meta.appendChild(cue);
+      info.appendChild(cue);
     }
 
-    info.appendChild(meta);
     card.appendChild(info);
     grid.appendChild(card);
+    cards.push(card);
     if (window.observeReveal) window.observeReveal(card);
   });
+
+  return cards;
 }
 
 /**

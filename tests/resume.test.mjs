@@ -248,8 +248,12 @@ describe("extractResumeData", () => {
     assert.equal(data.education[0].degree, "BS in Entertainment and Multimedia Computing");
     assert.ok(Array.isArray(data.projects));
     assert.ok(data.projects.length >= 4);
-    assert.ok(data.projects.some((p) => p.name.includes("Trash Frenzy")));
-    assert.ok(data.projects.some((p) => p.name.includes("SpreadsheetToScriptableObjects")));
+    const characterMotorIdx = data.projects.findIndex((p) => p.name.includes("CharacterMotor"));
+    const trashFrenzyIdx = data.projects.findIndex((p) => p.name.includes("Trash Frenzy"));
+    assert.ok(characterMotorIdx !== -1);
+    assert.ok(trashFrenzyIdx !== -1);
+    assert.ok(characterMotorIdx < trashFrenzyIdx);
+    assert.ok(data.projects.some((p) => p.name.includes("GameBalancer")));
     assert.deepEqual(data.skills, [
       { category: "Programming Languages", items: ["C#", "Dart"] },
       { category: "Languages", items: ["English (Fluent)", "Filipino (Native)"] },
@@ -270,7 +274,8 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(html.includes("<h1>Aron Jake S. Radam</h1>"));
     assert.ok(html.includes(">Experience<"));
     assert.ok(html.includes(">Selected Projects<"));
-    assert.ok(html.includes("SpreadsheetToScriptableObjects"));
+    assert.ok(html.includes("CharacterMotor"));
+    assert.ok(html.includes("GameBalancer"));
     assert.ok(html.includes(">Technical Skills<"));
     assert.equal(html.includes("GDriveDesktop"), false);
     assert.equal(html.includes("SECRET_ABOUT_SECTION_TEXT"), false);
@@ -285,7 +290,8 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(text.startsWith("Aron Jake S. Radam\n"));
     assert.ok(text.includes("EXPERIENCE"));
     assert.ok(text.includes("SELECTED PROJECTS"));
-    assert.ok(text.includes("BugReportToolkit"));
+    assert.ok(text.includes("NetAuditToolkit"));
+    assert.ok(text.includes("NetSimToolkit"));
     assert.ok(text.includes("TECHNICAL SKILLS"));
     assert.ok(text.includes("Programming Languages: C#, Dart"));
     assert.ok(text.includes("- Capstone Project — Trash Frenzy:"));
@@ -321,8 +327,10 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("(Major in Game Development) Tj"));
+    assert.ok(pdfText.includes("CharacterMotor"));
+    assert.ok(pdfText.includes("GameBalancer"));
     assert.ok(pdfText.includes("Trash Frenzy"));
-    assert.ok(pdfText.includes("SpreadsheetToScriptableObjects"));
+    assert.ok(pdfText.indexOf("CharacterMotor") < pdfText.indexOf("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("GDriveDesktop"), false);

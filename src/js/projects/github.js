@@ -7,6 +7,19 @@ import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
 const CACHE_KEY = "haru_github_projects_v8";
 const CACHE_TTL_MS = 60 * 60 * 1000;
+const INITIAL_VISIBLE_TOOLS = 6;
+
+function mapRepoItem(repo) {
+  const details = resolveToolDetails(repo);
+  return {
+    url: repo.html_url,
+    title: repo.name,
+    eyebrow: details.focus,
+    description: repo.description || details.summary || t("projects.noDescription"),
+    cueLabel: t("projects.viewBreakdown"),
+    onSelect: (triggerEl) => openProjectModal(details, triggerEl),
+  };
+}
 
 async function fetchLiveGithubProjects() {
   const res = await fetch(
@@ -27,6 +40,9 @@ async function initGithubProjects() {
   const grid = document.getElementById("tools-grid");
   if (!grid) return;
 
+  const toggleWrap = document.getElementById("tools-toggle-wrap");
+  const toggleBtn = document.getElementById("tools-toggle");
+
   const projects = await loadCachedList({
     cacheKey: CACHE_KEY,
     ttlMs: CACHE_TTL_MS,
@@ -37,29 +53,62 @@ async function initGithubProjects() {
 
   if (!projects) {
     grid.innerHTML = `<p class="text-text-secondary">${t("projects.failedToLoad")}</p>`;
+    if (toggleWrap) toggleWrap.hidden = true;
     return;
   }
 
+  const hasOverflow = Boolean(toggleWrap && toggleBtn && projects.length > INITIAL_VISIBLE_TOOLS);
+  const initialItems = hasOverflow ? projects.slice(0, INITIAL_VISIBLE_TOOLS) : projects;
+
   renderProjectGrid({
     grid,
-    items: projects,
+    items: initialItems,
     emptyMessage: t("projects.noneFound"),
-    mapItem: (repo) => {
-      const details = resolveToolDetails(repo);
-      const tags = [{ className: "role-tag", text: "Unity" }];
-      if (repo.language) {
-        tags.push({ className: "project-language", text: repo.language });
+    mapItem: mapRepoItem,
+  });
+
+  if (!hasOverflow) {
+    if (toggleWrap) toggleWrap.hidden = true;
+    return;
+  }
+
+  const extraItems = projects.slice(INITIAL_VISIBLE_TOOLS);
+  let expanded = false;
+  let extraCards = null;
+
+  const syncToggle = () => {
+    toggleBtn.setAttribute("aria-expanded", String(expanded));
+    toggleBtn.textContent = expanded
+      ? t("projects.showFewerTools")
+      : t("projects.showMoreTools", { count: extraItems.length });
+  };
+
+  syncToggle();
+  toggleWrap.hidden = false;
+
+  toggleBtn.addEventListener("click", () => {
+    expanded = !expanded;
+    if (expanded) {
+      if (!extraCards) {
+        extraCards = renderProjectGrid({
+          grid,
+          items: extraItems,
+          emptyMessage: "",
+          append: true,
+          mapItem: mapRepoItem,
+        });
+      } else {
+        for (const card of extraCards) {
+          grid.appendChild(card);
+          if (window.observeReveal) window.observeReveal(card);
+        }
       }
-      return {
-        url: repo.html_url,
-        title: repo.name,
-        eyebrow: details.focus,
-        description: repo.description || details.summary || t("projects.noDescription"),
-        tags,
-        cueLabel: t("projects.viewBreakdown"),
-        onSelect: (triggerEl) => openProjectModal(details, triggerEl),
-      };
-    },
+    } else if (extraCards) {
+      for (const card of extraCards) {
+        card.remove();
+      }
+    }
+    syncToggle();
   });
 }
 

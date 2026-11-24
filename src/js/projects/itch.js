@@ -40,18 +40,11 @@ async function initItchProjects() {
       return {
         url: project.url,
         title: project.title || t("projects.untitled"),
-        eyebrow: `${details.focus} · ${details.engine}`,
+        eyebrow: details.focus,
         description: project.description || details.summary || t("projects.noDescription"),
         image: project.image,
         imageAlt: project.title || t("projects.gameAlt"),
         onImage: (img) => void cacheImageElement(img),
-        tags: [
-          ...(project.tags || []).map((tag) => ({ className: "role-tag", text: tag })),
-          ...(project.platforms || []).map((platform) => ({
-            className: "project-language",
-            text: platform,
-          })),
-        ],
         cueLabel: t("projects.viewBreakdown"),
         onSelect: (triggerEl) => openProjectModal(details, triggerEl),
       };

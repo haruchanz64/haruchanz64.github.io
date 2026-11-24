@@ -210,40 +210,49 @@ export const TOOL_PROJECT_DETAILS = {
 
 /**
  * Curated projects rendered in the ATS Resume (PDF, HTML, and plain text).
- * Kept concise so studio recruiters immediately see gameplay systems, technical design,
+ * Leads with flagship Unity 6 systems and tools followed by a shipped game project
+ * so studio recruiters immediately see gameplay systems, technical design,
  * and Unity tooling proof alongside experience.
  */
 export const RESUME_SELECTED_PROJECTS = [
+  {
+    name: "CharacterMotor (Unity 6 · C# · UI Toolkit)",
+    role: "Gameplay & Systems Programmer",
+    url: "https://github.com/haruchanz64/CharacterMotor",
+    bullets: [
+      "Built a modular Unity 6 character controller framework (UPM) supporting 3D CharacterController, 3D Rigidbody, and 2D Rigidbody2D backends with pluggable IMotorModule hooks and a UI Toolkit Play Mode debugger.",
+    ],
+  },
+  {
+    name: "GameBalancer (Unity 6 · C# · UI Toolkit)",
+    role: "Tools Programmer & Technical Designer",
+    url: "https://github.com/haruchanz64/GameBalancer",
+    bullets: [
+      "Engineered a Unity 6 UI Toolkit and Painter2D balancing workbench for progression curves, Monte Carlo loot/pity odds, combat TTK matrices, and economy faucet/sink simulations with CSV/JSON exports.",
+    ],
+  },
+  {
+    name: "NetAuditToolkit (Unity 6 Editor · C#)",
+    role: "Tools Programmer",
+    url: "https://github.com/haruchanz64/NetAuditToolkit",
+    bullets: [
+      "Created a netcode-agnostic Unity 6 Editor static analyzer (NGO, Mirror, FishNet) with 9 audit rules, 1-click Quick Fixes, Hierarchy badges, CI report exports, and an optional pre-build guard.",
+    ],
+  },
+  {
+    name: "NetSimToolkit (Unity 6 · C#)",
+    role: "Systems & Tools Programmer",
+    url: "https://github.com/haruchanz64/NetSimToolkit",
+    bullets: [
+      "Developed a pure C# localhost UDP/TCP network impairment proxy and bandwidth profiler for Unity 6 with jitter/burst-loss simulation, a runtime QA HUD, Chaos Timeline runner, and ZIP repro exports.",
+    ],
+  },
   {
     name: "Trash Frenzy (Unity 2D · C#)",
     role: "Project Manager, Game Designer, Gameplay Programmer & QA",
     url: "https://haruchanz64.itch.io/trashfrenzy",
     bullets: [
       "Built an educational Android action side-scroller rated 4.70/5 by 75 evaluators (ISO/IEC 25010), featuring URP toxin-driven lighting, ScriptableObject-tuned boss AI, and a persistent cross-scene trash sorting pipeline.",
-    ],
-  },
-  {
-    name: "SpreadsheetToScriptableObjects (Unity Editor · C#)",
-    role: "Tools Programmer",
-    url: "https://github.com/haruchanz64/SpreadsheetToScriptableObjects",
-    bullets: [
-      "Engineered a Unity UPM tool with pure C# CSV/TSV and OpenXML (.xlsx) parsers, GUID-safe non-destructive re-imports, and reusable import profiles for data-driven game balancing.",
-    ],
-  },
-  {
-    name: "BugReportToolkit (Unity Runtime & Editor · C#)",
-    role: "Tools Programmer",
-    url: "https://github.com/haruchanz64/BugReportToolkit",
-    bullets: [
-      "Built a Unity in-game bug reporter capturing ring-buffered logs, input breadcrumbs, FPS/memory snapshots, and screenshots into ZIP bundles or Discord/GitHub/Trello webhooks with an Editor viewer.",
-    ],
-  },
-  {
-    name: "DebugCommandSystem (Unity Runtime · C#)",
-    role: "Systems & Tools Programmer",
-    url: "https://github.com/haruchanz64/DebugCommandSystem",
-    bullets: [
-      "Created an extendable runtime debug console integrated with Unity's New Input System, supporting typed commands, Tab auto-completion, and live suggestions for faster gameplay testing.",
     ],
   },
 ];

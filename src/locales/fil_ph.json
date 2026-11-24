@@ -99,7 +99,9 @@
   "projects": {
     "title": "Mga Proyekto",
     "gameProjects": "Mga Proyektong Laro",
-    "systemsTools": "Unity Tools at Designer Workflows",
+    "systemsTools": "Unity Systems at Tools",
+    "showMoreTools": "Ipakita ang Higit Pang Tools (+{count})",
+    "showFewerTools": "Magpakita ng Mas Kaunting Tools",
     "viewBreakdown": "Detalye →",
     "loading": "Nilo-load ang mga proyekto...",
     "noneFound": "Walang nahanap na katugmang proyekto.",
