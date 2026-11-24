@@ -68,6 +68,20 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  UnityAuthCore: {
+    role: "Systems & Backend/Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit · Docker (UPM)",
+    team: "Open-Source Package",
+    focus: "Authentication, Typed REST & Multiplayer Handshake",
+    summary:
+      "A backend-agnostic authentication, account lifecycle, and typed REST API framework for Unity 6 separating HTTP transport, pluggable auth adapters, AES-256-CBC/HMAC encrypted token storage, and NGO/Mirror/FishNet connection approval.",
+    highlights: [
+      "Implements an async ApiHttpClient with middleware interceptors, exponential backoff + jitter retries, live HTTP request tracing, and single-flight 401 token refresh that coalesces concurrent unauthorized calls and replays them with rotated tokens.",
+      "Includes HS256 JWT decoding/verification, EncryptedFileTokenStore (AES-256-CBC + HMAC-SHA256 tamper rejection), pluggable IAuthBackendAdapter samples (REST, Mock, Supabase, Firebase), and a Dockerized Node.js 22 OpenAPI 3.0 reference server.",
+      "Ships a transport-agnostic MultiplayerAuthBridge for NGO, Mirror, and FishNet connection approval plus a four-tab UI Toolkit Auth & API Console for testing auth flows, JWT claims, concurrent refresh, and handshake tickets.",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "REST / JWT", "NGO / Mirror / FishNet", "Docker"],
+  },
   GachaEngine: {
     role: "Systems & Tools Programmer",
     engine: "Unity 6 · C# · UI Toolkit (UPM)",
@@ -253,6 +267,8 @@ export const TOOL_PROJECT_DETAILS = {
 };
 
 const RESUME_TOOL_BULLETS = {
+  UnityAuthCore:
+    "Built a backend-agnostic Unity 6 auth and typed REST framework with single-flight 401 refresh, AES-256/HMAC token storage, NGO/Mirror/FishNet handshake validation, Docker OpenAPI server, and a UI Toolkit console.",
   GachaEngine:
     "Built a configurable Unity 6 gacha banner and soft/hard pity framework (Standard, Limited, Fate Path, Step-Up) with pure C# probability contracts, Canvas/3D reveal hooks, 1-hour JSON/CSV pull history, and a Monte Carlo simulator.",
   AssetImportRules:

@@ -268,13 +268,13 @@ describe("extractResumeData", () => {
     assert.equal(data.education[0].degree, "BS in Entertainment and Multimedia Computing");
     assert.ok(Array.isArray(data.projects));
     assert.equal(data.projects.length, 4);
-    const gachaEngineIdx = data.projects.findIndex((p) => p.name.includes("GachaEngine"));
+    const unityAuthIdx = data.projects.findIndex((p) => p.name.includes("UnityAuthCore"));
     const trashFrenzyIdx = data.projects.findIndex((p) => p.name.includes("Trash Frenzy"));
-    assert.ok(gachaEngineIdx !== -1);
+    assert.ok(unityAuthIdx !== -1);
     assert.ok(trashFrenzyIdx !== -1);
-    assert.ok(gachaEngineIdx < trashFrenzyIdx);
+    assert.ok(unityAuthIdx < trashFrenzyIdx);
+    assert.ok(data.projects.some((p) => p.name.includes("GachaEngine")));
     assert.ok(data.projects.some((p) => p.name.includes("AssetImportRules")));
-    assert.ok(data.projects.some((p) => p.name.includes("CustomAnimHandler")));
     assert.deepEqual(data.skills, [
       { category: "Programming Languages", items: ["C#", "Dart"] },
       { category: "Spoken Languages", items: ["English (Fluent)", "Filipino (Native)"] },
@@ -295,9 +295,9 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(html.includes("<h1>Aron Jake S. Radam</h1>"));
     assert.ok(html.includes(">Experience<"));
     assert.ok(html.includes(">Selected Projects<"));
+    assert.ok(html.includes("UnityAuthCore"));
     assert.ok(html.includes("GachaEngine"));
     assert.ok(html.includes("AssetImportRules"));
-    assert.ok(html.includes("CustomAnimHandler"));
     assert.ok(html.includes(">Technical Skills<"));
     assert.equal(html.includes("GDriveDesktop"), false);
     assert.equal(html.includes("SECRET_ABOUT_SECTION_TEXT"), false);
@@ -312,9 +312,9 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(text.startsWith("Aron Jake S. Radam\n"));
     assert.ok(text.includes("EXPERIENCE"));
     assert.ok(text.includes("SELECTED PROJECTS"));
+    assert.ok(text.includes("UnityAuthCore"));
     assert.ok(text.includes("GachaEngine"));
     assert.ok(text.includes("AssetImportRules"));
-    assert.ok(text.includes("CustomAnimHandler"));
     assert.ok(text.includes("TECHNICAL SKILLS"));
     assert.ok(text.includes("Programming Languages: C#, Dart"));
     assert.ok(text.includes("Spoken Languages: English (Fluent), Filipino (Native)"));
@@ -351,11 +351,11 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("Major in Game Development"));
+    assert.ok(pdfText.includes("UnityAuthCore"));
     assert.ok(pdfText.includes("GachaEngine"));
     assert.ok(pdfText.includes("AssetImportRules"));
-    assert.ok(pdfText.includes("CustomAnimHandler"));
     assert.ok(pdfText.includes("Trash Frenzy"));
-    assert.ok(pdfText.indexOf("GachaEngine") < pdfText.indexOf("Trash Frenzy"));
+    assert.ok(pdfText.indexOf("UnityAuthCore") < pdfText.indexOf("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("GDriveDesktop"), false);

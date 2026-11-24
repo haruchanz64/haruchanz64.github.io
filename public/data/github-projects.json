@@ -1,5 +1,24 @@
 [
   {
+    "name": "UnityAuthCore",
+    "html_url": "https://github.com/haruchanz64/UnityAuthCore",
+    "description": "Backend-agnostic authentication and typed REST API framework for Unity 6 with pluggable IAuthBackendAdapter, single-flight 401 token refresh, Unity Multiplayer connection approval, OpenAPI 3.0 spec, and an optional Dockerized reference server.",
+    "language": "C#",
+    "topics": [
+      "authentication",
+      "csharp",
+      "docker",
+      "jwt",
+      "multiplayer",
+      "openapi",
+      "rest-api",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6"
+    ]
+  },
+  {
     "name": "GachaEngine",
     "html_url": "https://github.com/haruchanz64/GachaEngine",
     "description": "Configurable gacha banner, soft/hard pity, and drop-rate simulator for Unity 6 with custom rarity tiers, Canvas/3D reveal hooks, and 1-hour refreshed JSON pull history.",

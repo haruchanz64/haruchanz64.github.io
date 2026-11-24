@@ -1,7 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { GITHUB_USERNAME, mapPinnedRepos } from "../src/js/projects/github-config.js";
+import { GITHUB_USERNAME, selectLatestGithubRepos } from "../src/js/projects/github-config.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/data/github-projects.json");
@@ -17,7 +17,7 @@ async function main() {
   }
 
   const res = await fetch(
-    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner`,
+    `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner&sort=created&direction=desc`,
     { headers },
   );
 
@@ -25,11 +25,13 @@ async function main() {
     throw new Error(`GitHub API ${res.status}`);
   }
 
-  const pinned = mapPinnedRepos(await res.json());
+  const synced = selectLatestGithubRepos(await res.json(), 100).map(
+    ({ created_at: _createdAt, ...repo }) => repo,
+  );
 
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
-  await writeFile(OUTPUT_PATH, `${JSON.stringify(pinned, null, 2)}\n`, "utf8");
-  console.log(`Synced ${pinned.length} GitHub projects to ${OUTPUT_PATH}`);
+  await writeFile(OUTPUT_PATH, `${JSON.stringify(synced, null, 2)}\n`, "utf8");
+  console.log(`Synced ${synced.length} GitHub projects to ${OUTPUT_PATH}`);
 }
 
 main().catch((err) => {

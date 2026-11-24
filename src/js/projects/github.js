@@ -1,13 +1,13 @@
 import { writeCache } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
 import { i18nReady, t } from "../core/i18n.js";
-import { GITHUB_USERNAME, mapPinnedRepos, selectLatestGithubRepos } from "./github-config.js";
+import { GITHUB_USERNAME, selectLatestGithubRepos } from "./github-config.js";
 import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v11";
-const LATEST_CACHE_KEY = "haru_github_latest_v4";
+const CACHE_KEY = "haru_github_projects_v12";
+const LATEST_CACHE_KEY = "haru_github_latest_v5";
 const CACHE_TTL_MS = 60 * 60 * 1000;
 const INITIAL_VISIBLE_TOOLS = 6;
 
@@ -46,11 +46,11 @@ async function fetchRawGithubRepos() {
 
 async function fetchLiveGithubProjects() {
   const rawRepos = await fetchRawGithubRepos();
-  const latest = selectLatestGithubRepos(rawRepos, 3);
-  if (latest.length > 0) {
-    writeCache(LATEST_CACHE_KEY, latest);
+  const allProjects = selectLatestGithubRepos(rawRepos, 100);
+  if (allProjects.length > 0) {
+    writeCache(LATEST_CACHE_KEY, allProjects.slice(0, 3));
   }
-  return mapPinnedRepos(rawRepos);
+  return allProjects;
 }
 
 async function fetchFallbackGithubProjects() {

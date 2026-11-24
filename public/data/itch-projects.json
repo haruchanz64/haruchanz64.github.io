@@ -2,23 +2,11 @@
   {
     "title": "Trash Frenzy",
     "url": "https://haruchanz64.itch.io/trashfrenzy",
-    "description": "A 2D Fast Paced Action Side Scroller Educational Mobile Game",
+    "description": "A fast-paced, 2D action side-scroller educational mobile game promoting water pollution awareness.",
     "image": "/res/itch/trashfrenzy.png",
     "tags": [
       "Capstone Project",
       "Educational"
-    ],
-    "platforms": [
-      "Android"
-    ]
-  },
-  {
-    "title": "Cyclescape",
-    "url": "https://haruchanz64.itch.io/cyclescape",
-    "description": "A educational top-down shooter game about menstrual cycle.",
-    "image": "/res/itch/cyclescape.png",
-    "tags": [
-      "Shooter"
     ],
     "platforms": [
       "Android"
@@ -34,6 +22,18 @@
     ],
     "platforms": [
       "Windows"
+    ]
+  },
+  {
+    "title": "Cyclescape",
+    "url": "https://haruchanz64.itch.io/cyclescape",
+    "description": "A educational top-down shooter game about menstrual cycle.",
+    "image": "/res/itch/cyclescape.png",
+    "tags": [
+      "Shooter"
+    ],
+    "platforms": [
+      "Android"
     ]
   },
   {

@@ -3,15 +3,40 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { decodeHtmlEntities } from "../src/js/core/text.js";
 
-const ITCH_PROJECTS = [
-  {
-    url: "https://haruchanz64.itch.io/trashfrenzy",
-    extraTags: ["Capstone Project"],
-  },
-  { url: "https://haruchanz64.itch.io/cyclescape" },
-  { url: "https://haruchanz64.itch.io/orders-please" },
-  { url: "https://haruchanz64.itch.io/night-light" },
+const ITCH_PROFILE_URL = "https://haruchanz64.itch.io/";
+
+const ITCH_EXTRA_TAGS = {
+  "https://haruchanz64.itch.io/trashfrenzy": ["Capstone Project"],
+};
+
+const FALLBACK_ITCH_URLS = [
+  "https://haruchanz64.itch.io/trashfrenzy",
+  "https://haruchanz64.itch.io/cyclescape",
+  "https://haruchanz64.itch.io/orders-please",
+  "https://haruchanz64.itch.io/night-light",
 ];
+
+async function discoverItchProjects() {
+  try {
+    const res = await fetch(ITCH_PROFILE_URL, {
+      headers: { "User-Agent": "haru-portfolio-sync/1.0" },
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const html = await res.text();
+    const discovered = Array.from(
+      new Set(
+        Array.from(html.matchAll(/https:\/\/haruchanz64\.itch\.io\/[a-z0-9-]+/gi), (m) =>
+          m[0].toLowerCase(),
+        ),
+      ),
+    );
+    const urls = discovered.length > 0 ? discovered : FALLBACK_ITCH_URLS;
+    return urls.map((url) => ({ url, extraTags: ITCH_EXTRA_TAGS[url] || [] }));
+  } catch (err) {
+    console.warn(`Warning: itch.io profile discovery failed (${err.message}), using fallback list`);
+    return FALLBACK_ITCH_URLS.map((url) => ({ url, extraTags: ITCH_EXTRA_TAGS[url] || [] }));
+  }
+}
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/data/itch-projects.json");
@@ -117,13 +142,17 @@ async function fetchItchProject(entry) {
 }
 
 async function main() {
-  const projects = await Promise.all(ITCH_PROJECTS.map(fetchItchProject));
+  const entries = await discoverItchProjects();
+  const projects = await Promise.all(entries.map(fetchItchProject));
+  if (projects.length === 0) {
+    throw new Error("No itch.io projects found");
+  }
   await mkdir(dirname(OUTPUT_PATH), { recursive: true });
   await writeFile(OUTPUT_PATH, `${JSON.stringify(projects, null, 2)}\n`);
   console.log(`Synced ${projects.length} itch.io projects to ${OUTPUT_PATH}`);
 }
 
 main().catch((err) => {
-  console.error(err);
-  process.exit(1);
+  console.warn(`Warning: failed to sync itch.io projects (${err.message})`);
+  process.exitCode = 0;
 });
