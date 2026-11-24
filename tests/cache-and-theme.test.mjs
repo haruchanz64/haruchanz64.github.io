@@ -15,6 +15,7 @@ import { LOCALES } from "../src/js/core/i18n.js";
 import {
   animateThemeSwitch,
   getSavedTheme,
+  initThemeToggle,
   saveTheme,
   THEME_STORAGE_KEY,
 } from "../src/js/ui/theme.js";
@@ -213,5 +214,83 @@ describe("theme persistence and switch animation", () => {
     assert.equal(root.style.colorScheme, "light");
     assert.equal(toggleAttrs.get("aria-pressed"), "true");
     assert.equal(maintenanceToggleAttrs.get("aria-pressed"), "true");
+  });
+
+  it("follows OS preference without persisting until toggled, then ignores OS changes", () => {
+    const storage = createMemoryStorage();
+    const classes = new Set();
+    const clickHandlers = [];
+    const mediaChangeHandlers = [];
+
+    const toggleBtn = {
+      dataset: {},
+      setAttribute() {},
+      addEventListener(event, cb) {
+        if (event === "click") clickHandlers.push(cb);
+      },
+    };
+
+    const root = {
+      style: {},
+      classList: {
+        toggle(c, force) {
+          if (force) classes.add(c);
+          else classes.delete(c);
+        },
+        contains(c) {
+          return classes.has(c);
+        },
+      },
+    };
+
+    const doc = {
+      documentElement: root,
+      getElementById(id) {
+        return id === "theme-toggle" ? toggleBtn : null;
+      },
+      querySelectorAll(sel) {
+        if (sel === "[data-theme-toggle]") return [toggleBtn];
+        return [];
+      },
+    };
+
+    const win = {
+      matchMedia(query) {
+        if (query === "(prefers-color-scheme: dark)") {
+          return {
+            matches: true,
+            addEventListener(event, cb) {
+              if (event === "change") mediaChangeHandlers.push(cb);
+            },
+          };
+        }
+        return { matches: false };
+      },
+    };
+
+    initThemeToggle({ doc, win, storage });
+
+    // Follows initial OS preference (dark) without writing to localStorage.
+    assert.equal(classes.has("light-theme"), false);
+    assert.equal(root.style.colorScheme, "dark");
+    assert.equal(getSavedTheme(storage), null);
+
+    // Follows subsequent OS change (light) while no manual choice is saved.
+    mediaChangeHandlers[0]({ matches: false });
+    assert.equal(classes.has("light-theme"), true);
+    assert.equal(root.style.colorScheme, "light");
+    assert.equal(getSavedTheme(storage), null);
+
+    // Manual toggle switches to dark and persists preference.
+    clickHandlers[0]();
+    assert.equal(classes.has("light-theme"), false);
+    assert.equal(root.style.colorScheme, "dark");
+    assert.equal(getSavedTheme(storage), "dark");
+
+    // Later OS changes do not override the user's explicit toggle choice.
+    mediaChangeHandlers[0]({ matches: false });
+    assert.equal(classes.has("light-theme"), false);
+    assert.equal(root.style.colorScheme, "dark");
+    assert.equal(getSavedTheme(storage), "dark");
   });
 });

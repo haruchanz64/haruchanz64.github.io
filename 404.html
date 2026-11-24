@@ -18,12 +18,10 @@
     <script>
       try {
         const savedTheme = localStorage.getItem("theme");
-        const isDark = savedTheme
+        const hasSavedTheme = savedTheme === "dark" || savedTheme === "light";
+        const isDark = hasSavedTheme
           ? savedTheme === "dark"
           : window.matchMedia("(prefers-color-scheme: dark)").matches;
-        if (!savedTheme) {
-          localStorage.setItem("theme", isDark ? "dark" : "light");
-        }
         document.documentElement.classList.toggle("light-theme", !isDark);
       } catch {}
     </script>

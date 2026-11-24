@@ -76,38 +76,34 @@ export function animateThemeSwitch(
   applyThemeState(isDark, doc);
 }
 
-export function initThemeToggle() {
-  if (typeof window === "undefined" || typeof document === "undefined") return;
+export function initThemeToggle({
+  doc = typeof document !== "undefined" ? document : null,
+  win = typeof window !== "undefined" ? window : null,
+  storage = typeof localStorage !== "undefined" ? localStorage : null,
+} = {}) {
+  if (!win || !doc) return;
 
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
+  const prefersDark = win.matchMedia("(prefers-color-scheme: dark)");
 
-  const saved = getSavedTheme();
+  const saved = getSavedTheme(storage);
   let isDark = saved ? saved === "dark" : prefersDark.matches;
-  // Always persist the resolved theme in localStorage so it does not clear on tab close.
-  saveTheme(isDark ? "dark" : "light");
-  applyThemeState(isDark, document);
+  applyThemeState(isDark, doc);
 
-  for (const toggleBtn of getThemeToggleButtons(document)) {
+  for (const toggleBtn of getThemeToggleButtons(doc)) {
     if (!toggleBtn.dataset.themeBound) {
       toggleBtn.dataset.themeBound = "true";
       toggleBtn.addEventListener("click", () => {
         isDark = !isDark;
-        saveTheme(isDark ? "dark" : "light");
-        animateThemeSwitch(isDark, {
-          doc: document,
-          win: window,
-        });
+        saveTheme(isDark ? "dark" : "light", storage);
+        animateThemeSwitch(isDark, { doc, win });
       });
     }
   }
 
   prefersDark.addEventListener("change", (e) => {
+    if (getSavedTheme(storage)) return;
     isDark = e.matches;
-    saveTheme(isDark ? "dark" : "light");
-    animateThemeSwitch(isDark, {
-      doc: document,
-      win: window,
-    });
+    animateThemeSwitch(isDark, { doc, win });
   });
 }
 
