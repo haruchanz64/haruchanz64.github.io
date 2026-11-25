@@ -1,5 +1,24 @@
 [
   {
+    "name": "UtilityAIWorkbench",
+    "html_url": "https://github.com/haruchanz64/UtilityAIWorkbench",
+    "description": "Zero-dependency Unity 6 Utility AI runtime and UI Toolkit workbench with parametric response curves, Dave Mark compensated scoring, EditMode what-if simulation, and a live Play Mode runtime debugger.",
+    "language": "C#",
+    "topics": [
+      "ai",
+      "behavior",
+      "csharp",
+      "debugger",
+      "response-curve",
+      "ui-toolkit",
+      "unity",
+      "unity-package",
+      "unity6",
+      "utility-ai"
+    ],
+    "released_at": "2026-11-25"
+  },
+  {
     "name": "MelodyRecognitionEngine",
     "html_url": "https://github.com/haruchanz64/MelodyRecognitionEngine",
     "description": "Real-time Burst-compiled humming and acoustic instrument melody recognition engine for Unity 6 with YIN pitch tracking, Hum/Instrument DSP profiles, relative-interval & absolute-pitch matching, Guided/Learn Mode, custom songs, uGUI Musical Staff HUD, and UI Toolkit Workbench.",

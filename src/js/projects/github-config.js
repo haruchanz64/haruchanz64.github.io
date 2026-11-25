@@ -6,6 +6,7 @@ export const EXCLUDED_LATEST_REPOS = new Set([
 ]);
 
 export const REPO_RELEASE_DATES = {
+  UtilityAIWorkbench: "2026-11-25",
   MelodyRecognitionEngine: "2026-11-22",
   GachaEngine: "2026-10-09",
   CommonEventsEngine: "2026-08-23",

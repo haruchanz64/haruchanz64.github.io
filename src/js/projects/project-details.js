@@ -68,6 +68,24 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  UtilityAIWorkbench: {
+    category: "Game AI",
+    cardDescription:
+      "Unity 6 Utility AI runtime and UI Toolkit workbench with parametric response curves, EditMode what-if simulation, and a live Play Mode debugger.",
+    cardTags: ["Utility AI", "Painter2D", "UI Toolkit"],
+    role: "Systems and Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Utility AI Runtime, Authoring & Live Debugging",
+    summary:
+      "A zero-dependency Unity 6 Utility AI runtime and UI Toolkit workbench combining parametric response curves, Dave Mark compensated scoring, hysteresis controls, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger.",
+    highlights: [
+      "Implements parametric ResponseCurve evaluation (Linear, Polynomial, Logistic, Logit, Step, Invert, and CustomAnimationCurve), Dave Mark compensated product scoring, HighestScore/WeightedTopK/Softmax selection, cooldown gating, inertia bonuses, and minimum commitment locks.",
+      "Provides a case-insensitive typed UtilityBlackboard, bounded DecisionRingBuffer, TypeCache-discovered UtilityConsiderationBase and UtilityActionBase extensions, and a Domain Reload-safe UtilityAIAgent registry.",
+      "Ships a UI Toolkit Utility AI Workbench (Tools > Utility AI Workbench) with GPU-accelerated Painter2D curve previews, an EditMode What-If Simulator with auto-generated Blackboard sliders, and a Play Mode Live Runtime Debugger with pause/step, timeline scrubbing, and JSON/CSV trace export.",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "Painter2D", "Utility AI", "UPM"],
+  },
   MelodyRecognitionEngine: {
     category: "Audio DSP",
     cardDescription:
@@ -359,6 +377,10 @@ export const TOOL_PROJECT_DETAILS = {
 };
 
 const RESUME_TOOL_HIGHLIGHTS = {
+  UtilityAIWorkbench: [
+    "Built a zero-dependency Unity 6 Utility AI runtime with parametric response curves, Dave Mark compensated scoring, cooldown gating, commitment locks, inertia hysteresis, and a typed runtime blackboard.",
+    "Created a UI Toolkit Utility AI Workbench with Painter2D curve previews, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger with decision timeline scrubbing and JSON/CSV trace export.",
+  ],
   MelodyRecognitionEngine: [
     "Built a real-time Unity 6 humming and acoustic instrument melody recognition package powered by an allocation-free Burst-compiled YIN pitch tracker with Butterworth bandpass filtering, adaptive noise-floor gating, and octave correction.",
     "Engineered a unified note segmentation and melody matching pipeline supporting microphone and accessible button inputs, Guided and Learn Mode, player-recorded custom songs, a uGUI Musical Staff heads-up display, and a UI Toolkit Melody Workbench.",
