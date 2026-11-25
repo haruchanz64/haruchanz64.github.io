@@ -8,10 +8,10 @@ import { resolveToolDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
 import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_github_projects_v16";
-const LATEST_CACHE_KEY = "haru_github_latest_v9";
+const CACHE_KEY = "haru_github_projects_v17";
+const LATEST_CACHE_KEY = "haru_github_latest_v10";
 const CACHE_TTL_MS = 60 * 60 * 1000;
-const INITIAL_VISIBLE_TOOLS = 8;
+const INITIAL_VISIBLE_TOOLS = 6;
 
 const GITHUB_REPOS_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner&sort=created&direction=desc`;
 const GITHUB_API_HEADERS = {

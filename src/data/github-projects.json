@@ -241,7 +241,7 @@
   {
     "name": "UnityEventAuditor",
     "html_url": "https://github.com/haruchanz64/UnityEventAuditor",
-    "description": "Unity Editor inspector and scanner for locating, filtering, auditing, and cleaning up broken or unused UnityEvent listeners across scenes and prefabs.",
+    "description": "Unity 6 Editor scanner for locating, auditing, reporting, and cleaning up broken or unused UnityEvent listeners across scenes, prefabs, and ScriptableObjects.",
     "language": "C#",
     "topics": [
       "csharp",
@@ -257,7 +257,7 @@
   {
     "name": "SaveEncryptionToolkit",
     "html_url": "https://github.com/haruchanz64/SaveEncryptionToolkit",
-    "description": "Pluggable encryption and serialization utilities for Unity save managers, separating storage security from your game's save schema.",
+    "description": "Encryption-ready Unity save toolkit with authenticated AES + HMAC-SHA256 envelopes, atomic backup storage, obfuscated embedded keys, and pluggable serialization handlers.",
     "language": "C#",
     "topics": [
       "csharp",
@@ -273,7 +273,7 @@
   {
     "name": "ScriptableBatchTool",
     "html_url": "https://github.com/haruchanz64/ScriptableBatchTool",
-    "description": "Unity Editor window for batch-creating, renaming, and bulk-editing ScriptableObject assets in one place.",
+    "description": "Unity Editor tool for batch-creating, cloning, bulk-editing, and batch-renaming ScriptableObject assets in one window.",
     "language": "C#",
     "topics": [
       "csharp",
@@ -289,7 +289,7 @@
   {
     "name": "DebugCommandSystem",
     "html_url": "https://github.com/haruchanz64/DebugCommandSystem",
-    "description": "Extendable in-game Unity debug console built on the New Input System, with strongly typed commands, autocomplete, and live suggestions.",
+    "description": "Extendable in-game Unity 6 debug console on the New Input System with quoted tokenization, typed and [DebugCommand] commands, history, and autocomplete.",
     "language": "C#",
     "topics": [
       "csharp",
