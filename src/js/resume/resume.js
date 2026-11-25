@@ -32,7 +32,6 @@ const PREFERRED_LINK_LABELS = new Set(PREFERRED_LINK_ORDER);
 const RESUME_EXCLUDED_TOOLS = new Set([
   "Visual Studio Code",
   "Android Studio",
-  "IntelliJ IDEA",
   "Notion",
   "Postman",
   "Antigravity",

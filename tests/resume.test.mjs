@@ -479,10 +479,9 @@ describe("buildAtsResumePdfBytes", () => {
             "Mirror",
             "FishNet",
             "Flutter",
-            "Spring Boot",
           ],
         },
-        { category: "Programming Languages", items: ["C#", "Dart", "Java"] },
+        { category: "Programming Languages", items: ["C#", "Dart"] },
         {
           category: "Game Development & Quality Assurance",
           items: [
