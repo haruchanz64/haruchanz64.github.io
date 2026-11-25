@@ -45,7 +45,7 @@ describe("project breakdown metadata", () => {
       await readFile(new URL("../src/data/github-projects.json", import.meta.url), "utf8"),
     );
 
-    assert.equal(tools[0].name, "UtilityAIWorkbench");
+    assert.equal(tools[0].name, "UtilityAIEngine");
     assert.equal(tools[1].name, "MelodyRecognitionEngine");
     assert.equal(tools[2].name, "GachaEngine");
 

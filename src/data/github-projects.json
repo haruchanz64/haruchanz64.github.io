@@ -1,8 +1,8 @@
 [
   {
-    "name": "UtilityAIWorkbench",
-    "html_url": "https://github.com/haruchanz64/UtilityAIWorkbench",
-    "description": "Unity 6 Utility AI runtime and UI Toolkit workbench with parametric response curves, compensated scoring, an EditMode what-if simulator, and a Play Mode runtime debugger.",
+    "name": "UtilityAIEngine",
+    "html_url": "https://github.com/haruchanz64/UtilityAIEngine",
+    "description": "Utility AI runtime engine for Unity 6 with parametric response curves, compensated scoring, an EditMode what-if simulator, and a UI Toolkit workbench debugger.",
     "language": "C#",
     "topics": [
       "ai",

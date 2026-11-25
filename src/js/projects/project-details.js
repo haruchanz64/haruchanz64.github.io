@@ -68,21 +68,21 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
-  UtilityAIWorkbench: {
+  UtilityAIEngine: {
     category: "Game AI",
     cardDescription:
-      "Unity 6 Utility AI runtime and UI Toolkit workbench with parametric response curves, EditMode what-if simulation, and a live Play Mode debugger.",
+      "Unity 6 Utility AI runtime engine with parametric response curves, EditMode what-if simulation, and a UI Toolkit workbench debugger.",
     cardTags: ["Utility AI", "Painter2D", "UI Toolkit"],
     role: "Systems and Tools Programmer",
     engine: "Unity 6 · C# · UI Toolkit (UPM)",
     team: "Open-Source Package",
-    focus: "Utility AI Runtime, Authoring & Live Debugging",
+    focus: "Utility AI Runtime Engine, Authoring & Live Debugging",
     summary:
-      "A Unity 6 Utility AI runtime and UI Toolkit workbench combining parametric response curves, Dave Mark compensated scoring, hysteresis controls, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger.",
+      "A Unity 6 Utility AI runtime engine and UI Toolkit workbench combining parametric response curves, Dave Mark compensated scoring, hysteresis controls, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger.",
     highlights: [
       "Implements parametric ResponseCurve evaluation (Linear, Polynomial, Logistic, Logit, Step, Invert, and CustomAnimationCurve), Dave Mark compensated product scoring, HighestScore/WeightedTopK/Softmax selection, cooldown gating, inertia bonuses, and minimum commitment locks.",
       "Provides a case-insensitive typed UtilityBlackboard, bounded DecisionRingBuffer, TypeCache-discovered UtilityConsiderationBase and UtilityActionBase extensions, and a Domain Reload-safe UtilityAIAgent registry.",
-      "Ships a UI Toolkit Utility AI Workbench (Tools > Utility AI Workbench) with GPU-accelerated Painter2D curve previews, an EditMode What-If Simulator with auto-generated Blackboard sliders, and a Play Mode Live Runtime Debugger with pause/step, timeline scrubbing, and JSON/CSV trace export.",
+      "Ships a UI Toolkit Utility AI Workbench (Tools > HaruChanZ64 > AI > UtilityAIEngine > Utility AI Workbench) with GPU-accelerated Painter2D curve previews, an EditMode What-If Simulator with auto-generated Blackboard sliders, and a Play Mode Live Runtime Debugger with pause/step, timeline scrubbing, and JSON/CSV trace export.",
     ],
     stack: ["Unity 6", "C#", "UI Toolkit", "Painter2D", "Utility AI", "UPM"],
   },
@@ -377,8 +377,8 @@ export const TOOL_PROJECT_DETAILS = {
 };
 
 const RESUME_TOOL_HIGHLIGHTS = {
-  UtilityAIWorkbench: [
-    "Built a Unity 6 Utility AI runtime with parametric response curves, Dave Mark compensated scoring, cooldown gating, commitment locks, inertia hysteresis, and a typed runtime blackboard.",
+  UtilityAIEngine: [
+    "Built a Unity 6 Utility AI runtime engine with parametric response curves, Dave Mark compensated scoring, cooldown gating, commitment locks, inertia hysteresis, and a typed runtime blackboard.",
     "Created a UI Toolkit Utility AI Workbench with Painter2D curve previews, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger with decision timeline scrubbing and JSON/CSV trace export.",
   ],
   MelodyRecognitionEngine: [

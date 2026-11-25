@@ -285,7 +285,7 @@ describe("extractResumeData", () => {
     );
     assert.ok(Array.isArray(data.projects));
     assert.equal(data.projects.length, 4);
-    const utilityIdx = data.projects.findIndex((p) => p.name.includes("UtilityAIWorkbench"));
+    const utilityIdx = data.projects.findIndex((p) => p.name.includes("UtilityAIEngine"));
     const trashFrenzyIdx = data.projects.findIndex((p) => p.name.includes("Trash Frenzy"));
     assert.ok(utilityIdx !== -1);
     assert.ok(trashFrenzyIdx !== -1);
@@ -321,7 +321,7 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.equal(html.includes("Professional Summary"), false);
     assert.ok(html.includes(">Work Experience<"));
     assert.ok(html.includes(">Selected Projects<"));
-    assert.ok(html.includes("UtilityAIWorkbench"));
+    assert.ok(html.includes("UtilityAIEngine"));
     assert.ok(html.includes("MelodyRecognitionEngine"));
     assert.ok(html.includes("GachaEngine"));
     assert.ok(html.includes(">Technical Skills<"));
@@ -342,7 +342,7 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.equal(text.includes("PROFESSIONAL SUMMARY"), false);
     assert.ok(text.includes("WORK EXPERIENCE"));
     assert.ok(text.includes("SELECTED PROJECTS"));
-    assert.ok(text.includes("UtilityAIWorkbench"));
+    assert.ok(text.includes("UtilityAIEngine"));
     assert.ok(text.includes("MelodyRecognitionEngine"));
     assert.ok(text.includes("GachaEngine"));
     assert.ok(text.includes("TECHNICAL SKILLS"));
@@ -392,12 +392,12 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("Bachelor of Science in Entertainment and Multimedia Computing"));
     assert.ok(pdfText.includes("Major in Game Development"));
-    assert.ok(pdfText.includes("UtilityAIWorkbench"));
+    assert.ok(pdfText.includes("UtilityAIEngine"));
     assert.ok(pdfText.includes("MelodyRecognitionEngine"));
     assert.ok(pdfText.includes("GachaEngine"));
     assert.ok(pdfText.includes("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(WORK EXPERIENCE) Tj") < pdfText.indexOf("(SELECTED PROJECTS) Tj"));
-    assert.ok(pdfText.indexOf("UtilityAIWorkbench") < pdfText.indexOf("Trash Frenzy"));
+    assert.ok(pdfText.indexOf("UtilityAIEngine") < pdfText.indexOf("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("GDriveDesktop"), false);
