@@ -431,7 +431,7 @@ describe("buildAtsResumePdfBytes", () => {
       await readFile(new URL("../src/locales/en_us.json", import.meta.url), "utf8"),
     );
     const githubProjects = JSON.parse(
-      await readFile(new URL("../public/data/github-projects.json", import.meta.url), "utf8"),
+      await readFile(new URL("../src/data/github-projects.json", import.meta.url), "utf8"),
     );
 
     const experience = Object.values(en.experience.items).map((item) => ({

@@ -1,4 +1,10 @@
-const CACHE_NAME = "haru-portfolio-assets-v1";
+const CACHE_NAME = "haru-portfolio-assets-v2";
+
+const CACHEABLE_EXTERNAL_ORIGINS = new Set([
+  "https://cdn.jsdelivr.net",
+  "https://fonts.googleapis.com",
+  "https://fonts.gstatic.com",
+]);
 
 const PRECACHE_URLS = [
   "/",
@@ -7,8 +13,6 @@ const PRECACHE_URLS = [
   "/res/profile_photo.webp",
   "/res/favicon.ico",
   "/res/icon.webp",
-  "/data/github-projects.json",
-  "/data/itch-projects.json",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg",
@@ -73,6 +77,9 @@ self.addEventListener("fetch", (event) => {
 
   const url = new URL(request.url);
   if (url.pathname.startsWith("/api/")) return;
+
+  const isSameOrigin = url.origin === self.location.origin;
+  if (!isSameOrigin && !CACHEABLE_EXTERNAL_ORIGINS.has(url.origin)) return;
 
   event.respondWith(
     caches.open(CACHE_NAME).then(async (cache) => {

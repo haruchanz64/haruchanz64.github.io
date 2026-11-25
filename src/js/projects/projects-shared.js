@@ -191,7 +191,26 @@ export async function loadCachedList({ cacheKey, ttlMs, fetchPrimary, fetchFallb
 
   try {
     const items = await fetchPrimary();
-    writeCache(cacheKey, items);
+    if (!Array.isArray(items)) {
+      throw new Error("Expected array response");
+    }
+    if (items.length > 0) {
+      writeCache(cacheKey, items);
+      return items;
+    }
+
+    const stale = readCache(cacheKey, ttlMs, true);
+    if (Array.isArray(stale) && stale.length > 0) {
+      return stale;
+    }
+
+    if (fetchFallback) {
+      const fallback = await fetchFallback();
+      if (Array.isArray(fallback) && fallback.length > 0) {
+        writeCache(cacheKey, fallback);
+        return fallback;
+      }
+    }
     return items;
   } catch (err) {
     console.warn(`${label} unavailable, checking fallback:`, err.message);
@@ -203,8 +222,10 @@ export async function loadCachedList({ cacheKey, ttlMs, fetchPrimary, fetchFallb
     if (fetchFallback) {
       try {
         const fallback = await fetchFallback();
-        writeCache(cacheKey, fallback);
-        return fallback;
+        if (Array.isArray(fallback) && fallback.length > 0) {
+          writeCache(cacheKey, fallback);
+          return fallback;
+        }
       } catch (fallbackErr) {
         console.error(`Failed to load ${label}:`, fallbackErr);
       }

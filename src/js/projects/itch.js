@@ -1,17 +1,19 @@
+import bundledItchProjects from "../../data/itch-projects.json" with { type: "json" };
 import { cacheImageElement } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
 import { i18nReady, t } from "../core/i18n.js";
 import { resolveGameDetails } from "./project-details.js";
 import { openProjectModal } from "./project-modal.js";
-import { loadCachedList, renderProjectGrid } from "./projects-shared.js";
+import { renderProjectGrid } from "./projects-shared.js";
 
-const CACHE_KEY = "haru_itch_projects_v3";
-const CACHE_TTL_MS = 60 * 60 * 1000;
-
-async function fetchItchProjects() {
-  const res = await fetch("/data/itch-projects.json");
-  if (!res.ok) throw new Error(`Failed to load itch projects (${res.status})`);
-  return res.json();
+function resolveAssetPath(path) {
+  if (!path || /^https?:\/\//i.test(path)) return path;
+  const base =
+    typeof import.meta !== "undefined" && import.meta.env?.BASE_URL
+      ? import.meta.env.BASE_URL
+      : "/";
+  const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+  return `${normalizedBase}${path.replace(/^\/+/, "")}`;
 }
 
 async function initItchProjects() {
@@ -19,12 +21,7 @@ async function initItchProjects() {
   const grid = document.getElementById("games-grid");
   if (!grid) return;
 
-  const projects = await loadCachedList({
-    cacheKey: CACHE_KEY,
-    ttlMs: CACHE_TTL_MS,
-    fetchPrimary: fetchItchProjects,
-    label: "itch.io projects",
-  });
+  const projects = Array.isArray(bundledItchProjects) ? bundledItchProjects : null;
 
   if (!projects) {
     const failedMessage = t("projects.failedToLoad");
@@ -42,7 +39,7 @@ async function initItchProjects() {
         url: project.url,
         title: project.title || t("projects.untitled"),
         description: project.description || details.summary || t("projects.noDescription"),
-        image: project.image,
+        image: resolveAssetPath(project.image),
         imageAlt: project.title || t("projects.gameAlt"),
         onImage: (img) => void cacheImageElement(img),
         cueLabel: t("projects.viewBreakdown"),

@@ -23,8 +23,8 @@ Personal portfolio website for Haru, a Game Developer specializing in gameplay s
 - **Multi-Language Support (i18n)**: Supports English (`en_us`) and Filipino (`fil_ph`) via `src/js/core/i18n.js` and `src/locales/`, with browser language detection and `?locale=` / `?lang=` query parameter support.
 - **ATS Resume Generator**: Client-side ATS-friendly PDF resume generation (`src/js/resume/resume.js`, `src/js/resume/pdf-builder.js`, `src/js/resume/resume-guard.js`) including Experience, Selected Projects, Technical Skills, and Education.
 - **Dynamic Project Feeds & Breakdown Modals**:
-  - **Game Projects**: Renders itch.io game metadata from `public/data/itch-projects.json` (`src/js/projects/itch.js`, synced via `scripts/sync-itch.mjs`) supplemented with sync-safe role, engine, and design/systems breakdowns (`src/js/projects/project-details.js`, `src/js/projects/project-modal.js`).
-  - **Unity Tools & Designer Workflows**: Displays pinned Unity C# tool repositories (`haruchanz64`) via `src/js/projects/github.js` (with shared config in `src/js/projects/github-config.js`) and local caching (`src/js/core/cache.js`), plus build-time sync to `public/data/github-projects.json` (`scripts/sync-github.mjs`).
+  - **Game Projects**: Renders itch.io game metadata bundled from `src/data/itch-projects.json` (`src/js/projects/itch.js`, synced via `scripts/sync-itch.mjs`) supplemented with sync-safe role, engine, and design/systems breakdowns (`src/js/projects/project-details.js`, `src/js/projects/project-modal.js`).
+  - **Unity Tools & Designer Workflows**: Displays Unity C# tool repositories (`haruchanz64`) via `src/js/projects/github.js` (with shared config in `src/js/projects/github-config.js`) and local caching (`src/js/core/cache.js`), backed by build-time synced fallback data in `src/data/github-projects.json` (`scripts/sync-github.mjs`).
 - **Contact Form**: Submits to a Cloudflare Worker (`worker/contact.js`) backed by [Resend](https://resend.com/), with a honeypot field, custom subject selector, character counter, and client-side spam/timing detection (`src/js/contact/contact.js`, `src/js/contact/spam-detector.js`).
 - **Interactive UI**: Theme management, hero loading transition, intersection-observer reveal tracking, URL hash synchronization, project breakdown & case study PDF modals, and tabbed skill categories (`src/js/ui/`).
 
@@ -74,13 +74,13 @@ npm run preview
 
 ### Syncing Project Feeds
 
-Update `public/data/github-projects.json` with the latest pinned repository metadata from GitHub:
+Update `src/data/github-projects.json` with the latest repository metadata from GitHub:
 
 ```bash
 npm run sync:github
 ```
 
-Update `public/data/itch-projects.json` with the latest metadata from itch.io:
+Update `src/data/itch-projects.json` with the latest metadata from itch.io:
 
 ```bash
 npm run sync:itch
@@ -138,15 +138,15 @@ npx wrangler dev
 ├── license                           # MIT License
 ├── public/
 │   ├── sw.js                         # Service Worker for offline asset caching
-│   ├── data/
-│   │   ├── github-projects.json      # Synced GitHub pinned repository metadata
-│   │   └── itch-projects.json        # Synced itch.io game metadata
 │   └── res/                          # Images and favicon
 ├── scripts/
-│   ├── sync-github.mjs               # Script to sync GitHub pinned repositories
+│   ├── sync-github.mjs               # Script to sync GitHub repositories
 │   └── sync-itch.mjs                 # Script to sync itch.io project metadata
 ├── src/
 │   ├── style.css                     # Tailwind CSS v4 entry point, theme tokens & base overrides
+│   ├── data/
+│   │   ├── github-projects.json      # Synced GitHub repository fallback metadata
+│   │   └── itch-projects.json        # Synced itch.io game metadata
 │   ├── locales/                      # i18n translation files (en_us, fil_ph)
 │   └── js/
 │       ├── main.js                   # Application entry point

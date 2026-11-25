@@ -1,5 +1,7 @@
+import bundledGithubProjects from "../../data/github-projects.json" with { type: "json" };
 import { writeCache } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
+import { fetchWithRetry } from "../core/http.js";
 import { i18nReady, t } from "../core/i18n.js";
 import { formatReleaseDate, GITHUB_USERNAME, selectLatestGithubRepos } from "./github-config.js";
 import { resolveToolDetails } from "./project-details.js";
@@ -12,6 +14,9 @@ const CACHE_TTL_MS = 60 * 60 * 1000;
 const INITIAL_VISIBLE_TOOLS = 8;
 
 const GITHUB_REPOS_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&type=owner&sort=created&direction=desc`;
+const GITHUB_API_HEADERS = {
+  Accept: "application/vnd.github+json",
+};
 
 let inflightRawRepos = null;
 
@@ -36,7 +41,11 @@ async function fetchRawGithubRepos() {
     throw new Error("fetch unavailable");
   }
   if (!inflightRawRepos) {
-    inflightRawRepos = fetch(GITHUB_REPOS_URL)
+    inflightRawRepos = fetchWithRetry(
+      GITHUB_REPOS_URL,
+      { headers: GITHUB_API_HEADERS },
+      { attempts: 2, baseDelayMs: 400, timeoutMs: 8000 },
+    )
       .then((res) => {
         if (!res.ok) throw new Error(`GitHub API ${res.status}`);
         return res.json();
@@ -58,12 +67,7 @@ async function fetchLiveGithubProjects() {
 }
 
 async function fetchFallbackGithubProjects() {
-  if (typeof fetch !== "function") {
-    throw new Error("fetch unavailable");
-  }
-  const res = await fetch("/data/github-projects.json");
-  if (!res.ok) throw new Error(`Fallback GitHub JSON ${res.status}`);
-  return res.json();
+  return Array.isArray(bundledGithubProjects) ? bundledGithubProjects : [];
 }
 
 /**

@@ -1,5 +1,5 @@
 export const ASSET_CACHE_PREFIX = "haru_asset_v1:";
-export const CACHE_STORAGE_NAME = "haru-portfolio-assets-v1";
+export const CACHE_STORAGE_NAME = "haru-portfolio-assets-v2";
 
 const inFlightAssetLoads = new Map();
 

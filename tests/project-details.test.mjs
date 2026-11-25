@@ -23,7 +23,7 @@ describe("project breakdown metadata", () => {
 
   it("provides curated breakdown details for every synced itch.io game", async () => {
     const games = JSON.parse(
-      await readFile(new URL("../public/data/itch-projects.json", import.meta.url), "utf8"),
+      await readFile(new URL("../src/data/itch-projects.json", import.meta.url), "utf8"),
     );
 
     for (const game of games) {
@@ -42,7 +42,7 @@ describe("project breakdown metadata", () => {
 
   it("provides curated breakdown details, release dates, categories, and card tags for every synced Unity GitHub tool", async () => {
     const tools = JSON.parse(
-      await readFile(new URL("../public/data/github-projects.json", import.meta.url), "utf8"),
+      await readFile(new URL("../src/data/github-projects.json", import.meta.url), "utf8"),
     );
 
     assert.equal(tools[0].name, "MelodyRecognitionEngine");
