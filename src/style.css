@@ -260,3 +260,28 @@ html:not([data-maintenance="true"]) #maintenance-view {
   background-color: var(--bg-secondary);
   color: var(--text-primary);
 }
+
+#tools-grid > .project-card {
+  flex: 0 0 100%;
+  max-width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#tools-grid > p {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 640px) {
+  #tools-grid > .project-card {
+    flex: 0 0 calc((100% - 1.5rem) / 2);
+    max-width: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  #tools-grid > .project-card {
+    flex: 0 0 calc((100% - 3rem) / 3);
+    max-width: calc((100% - 3rem) / 3);
+  }
+}
