@@ -2,7 +2,7 @@
   {
     "name": "UtilityAIWorkbench",
     "html_url": "https://github.com/haruchanz64/UtilityAIWorkbench",
-    "description": "Zero-dependency Unity 6 Utility AI runtime and UI Toolkit workbench with parametric response curves, Dave Mark compensated scoring, EditMode what-if simulation, and a live Play Mode runtime debugger.",
+    "description": "Unity 6 Utility AI runtime and UI Toolkit workbench with parametric response curves, compensated scoring, an EditMode what-if simulator, and a Play Mode runtime debugger.",
     "language": "C#",
     "topics": [
       "ai",

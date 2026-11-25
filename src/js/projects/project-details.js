@@ -78,7 +78,7 @@ export const TOOL_PROJECT_DETAILS = {
     team: "Open-Source Package",
     focus: "Utility AI Runtime, Authoring & Live Debugging",
     summary:
-      "A zero-dependency Unity 6 Utility AI runtime and UI Toolkit workbench combining parametric response curves, Dave Mark compensated scoring, hysteresis controls, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger.",
+      "A Unity 6 Utility AI runtime and UI Toolkit workbench combining parametric response curves, Dave Mark compensated scoring, hysteresis controls, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger.",
     highlights: [
       "Implements parametric ResponseCurve evaluation (Linear, Polynomial, Logistic, Logit, Step, Invert, and CustomAnimationCurve), Dave Mark compensated product scoring, HighestScore/WeightedTopK/Softmax selection, cooldown gating, inertia bonuses, and minimum commitment locks.",
       "Provides a case-insensitive typed UtilityBlackboard, bounded DecisionRingBuffer, TypeCache-discovered UtilityConsiderationBase and UtilityActionBase extensions, and a Domain Reload-safe UtilityAIAgent registry.",
@@ -378,7 +378,7 @@ export const TOOL_PROJECT_DETAILS = {
 
 const RESUME_TOOL_HIGHLIGHTS = {
   UtilityAIWorkbench: [
-    "Built a zero-dependency Unity 6 Utility AI runtime with parametric response curves, Dave Mark compensated scoring, cooldown gating, commitment locks, inertia hysteresis, and a typed runtime blackboard.",
+    "Built a Unity 6 Utility AI runtime with parametric response curves, Dave Mark compensated scoring, cooldown gating, commitment locks, inertia hysteresis, and a typed runtime blackboard.",
     "Created a UI Toolkit Utility AI Workbench with Painter2D curve previews, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger with decision timeline scrubbing and JSON/CSV trace export.",
   ],
   MelodyRecognitionEngine: [
