@@ -15,7 +15,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
 
-    <link rel="preload" href="/res/profile_photo.webp" as="image" type="image/webp" />
+    <link
+      id="site-favicon"
+      rel="icon"
+      type="image/x-icon"
+      href="/res/favicon_dark.ico"
+      data-favicon-dark="/res/favicon_dark.ico"
+      data-favicon-light="/res/favicon_light.ico"
+    />
 
     <script>
       try {
@@ -37,6 +44,21 @@
           ? savedTheme === "dark"
           : window.matchMedia("(prefers-color-scheme: dark)").matches;
         document.documentElement.classList.toggle("light-theme", !isDark);
+
+        const favicon = document.getElementById("site-favicon");
+        if (favicon) {
+          favicon.setAttribute(
+            "href",
+            isDark ? "/res/favicon_dark.ico" : "/res/favicon_light.ico",
+          );
+        }
+
+        const preload = document.createElement("link");
+        preload.rel = "preload";
+        preload.as = "image";
+        preload.type = "image/webp";
+        preload.href = isDark ? "/res/profile_photo_dark.webp" : "/res/profile_photo_light.webp";
+        document.head.appendChild(preload);
       } catch {
         if (document.documentElement.dataset.maintenance !== "true") {
           document.documentElement.classList.add("intro-loading");
@@ -46,8 +68,6 @@
 
     <link rel="stylesheet" href="/src/style.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <link rel="icon" type="image/x-icon" href="/res/favicon.ico" />
 
     <script type="module" src="/src/js/main.js"></script>
   </head>
@@ -78,10 +98,19 @@
       >
         <div class="w-full max-w-[680px] flex flex-col items-center animate-[fadeInUp_0.6s_ease_forwards] motion-reduce:animate-none">
           <img
-            src="/res/profile_photo.webp"
+            src="/res/profile_photo_dark.webp"
             alt="Haru Logo"
             data-i18n-alt="hero.logoAlt"
-            class="size-[clamp(104px,min(24vw,22dvh),168px)] aspect-square rounded-full object-cover mx-auto mb-[clamp(0.75rem,2.2dvh,1.5rem)] block"
+            class="size-[clamp(104px,min(24vw,22dvh),168px)] aspect-square rounded-full object-cover mx-auto mb-[clamp(0.75rem,2.2dvh,1.5rem)] block light:hidden"
+            width="168"
+            height="168"
+            fetchpriority="high"
+          />
+          <img
+            src="/res/profile_photo_light.webp"
+            alt="Haru Logo"
+            data-i18n-alt="hero.logoAlt"
+            class="size-[clamp(104px,min(24vw,22dvh),168px)] aspect-square rounded-full object-cover mx-auto mb-[clamp(0.75rem,2.2dvh,1.5rem)] hidden light:block"
             width="168"
             height="168"
             fetchpriority="high"
@@ -216,7 +245,8 @@
           data-i18n-aria-label="nav.logoAriaLabel"
         >
           <!--Profile Credit: https://ph.pinterest.com/pin/1116822407630876601/-->
-          <img src="/res/profile_photo.webp" alt="" class="size-9 desktop:size-11 xshort-h:size-9 aspect-square rounded-full object-cover shrink-0" width="36" height="36" />
+          <img src="/res/profile_photo_dark.webp" alt="" class="size-9 desktop:size-11 xshort-h:size-9 aspect-square rounded-full object-cover shrink-0 block light:hidden" width="36" height="36" />
+          <img src="/res/profile_photo_light.webp" alt="" class="size-9 desktop:size-11 xshort-h:size-9 aspect-square rounded-full object-cover shrink-0 hidden light:block" width="36" height="36" />
           <span class="flex flex-col justify-center gap-[0.08rem] min-w-0">
             <span class="text-[1.15rem] desktop:text-[1.25rem] font-bold leading-[1.1] tracking-[-0.02em] text-accent" data-i18n="nav.brandName">Haru</span>
             <span class="nav-brand-role font-main text-[0.68rem] desktop:text-[0.75rem] desktop:whitespace-nowrap font-normal leading-[1.2] text-text-secondary max-[1160px]:hidden" data-i18n="nav.brandRole">Game Developer · Systems, Tools &amp; Technical Design</span>
@@ -259,30 +289,52 @@
         aria-label="Loading portfolio"
       >
         <div class="max-w-[800px] w-full px-4 py-[clamp(0.5rem,2dvh,1.5rem)] desktop:px-8 desktop:py-[clamp(0.5rem,2.5dvh,1.75rem)] flex flex-col items-center">
-          <img
-            src="/res/profile_photo.webp"
-            alt="Haru Logo"
-            data-i18n-alt="hero.logoAlt"
-            class="hero-avatar--loading mx-auto block size-[clamp(160px,min(65vw,42dvh),400px)] aspect-square rounded-full object-cover will-change-transform [&.is-morphing]:transition-transform [&.is-morphing]:duration-[650ms] [&.is-morphing]:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-[0.01ms]"
-            width="400"
-            height="400"
-            fetchpriority="high"
-          />
+          <div class="hero-avatar--loading mx-auto block size-[clamp(160px,min(65vw,42dvh),400px)] aspect-square rounded-full overflow-hidden will-change-transform [&.is-morphing]:transition-transform [&.is-morphing]:duration-[650ms] [&.is-morphing]:ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:duration-[0.01ms]">
+            <img
+              src="/res/profile_photo_dark.webp"
+              alt="Haru Logo"
+              data-i18n-alt="hero.logoAlt"
+              class="size-full object-cover block light:hidden"
+              width="400"
+              height="400"
+              fetchpriority="high"
+            />
+            <img
+              src="/res/profile_photo_light.webp"
+              alt="Haru Logo"
+              data-i18n-alt="hero.logoAlt"
+              class="size-full object-cover hidden light:block"
+              width="400"
+              height="400"
+              fetchpriority="high"
+            />
+          </div>
           <div class="hero-loading-progress mt-[clamp(0.75rem,2.5dvh,1.5rem)] font-mono text-[0.85rem] font-medium tracking-[0.1em] tabular-nums text-text-secondary opacity-75 transition-[opacity,transform] duration-300 ease-in-out" aria-hidden="true">0%</div>
         </div>
       </section>
 
       <section id="hero" class="hero--pending col-start-1 row-start-1 min-h-svh flex items-center justify-center text-center relative px-4 py-[clamp(0.75rem,3dvh,2rem)] box-border transition-opacity duration-[600ms] ease-in-out motion-reduce:duration-[0.01ms] [&.hero--morphing_.hero-avatar]:opacity-0" aria-hidden="true" inert>
         <div class="hero-content max-w-[800px] w-full px-4 py-[clamp(0.5rem,2dvh,1.5rem)] desktop:px-8 desktop:py-[clamp(0.5rem,2.5dvh,1.75rem)] flex flex-col items-center">
-          <img
-            src="/res/profile_photo.webp"
-            alt="Haru Logo"
-            data-i18n-alt="hero.logoAlt"
-            class="hero-avatar mx-auto mb-[clamp(0.5rem,1.8dvh,1rem)] block size-[clamp(112px,min(58vw,27dvh),256px)] aspect-square rounded-full object-cover"
-            width="248"
-            height="248"
-            fetchpriority="high"
-          />
+          <div class="hero-avatar mx-auto mb-[clamp(0.5rem,1.8dvh,1rem)] block size-[clamp(112px,min(58vw,27dvh),256px)] aspect-square rounded-full overflow-hidden">
+            <img
+              src="/res/profile_photo_dark.webp"
+              alt="Haru Logo"
+              data-i18n-alt="hero.logoAlt"
+              class="size-full object-cover block light:hidden"
+              width="248"
+              height="248"
+              fetchpriority="high"
+            />
+            <img
+              src="/res/profile_photo_light.webp"
+              alt="Haru Logo"
+              data-i18n-alt="hero.logoAlt"
+              class="size-full object-cover hidden light:block"
+              width="248"
+              height="248"
+              fetchpriority="high"
+            />
+          </div>
           <div class="hero-greeting font-mono text-[clamp(0.85rem,1.8dvh,1rem)] text-text-secondary mb-[0.2rem] opacity-0 animate-[fadeInUp_1s_ease_0.2s_forwards]" data-i18n="hero.greeting">I'm</div>
           <h1 class="hero-name text-[clamp(2.5rem,min(12vw,11.5dvh),7rem)] font-display font-bold mb-[clamp(0.5rem,2.2dvh,1.5rem)] leading-[1.05] text-accent opacity-0 animate-[fadeInUp_1s_ease_0.4s_forwards] tracking-[-0.02em]" data-i18n="hero.name">Haru,</h1>
           <p class="hero-title text-[clamp(0.95rem,min(2.5vw,2.4dvh),1.45rem)] font-light text-text-secondary mb-[clamp(0.85rem,3dvh,2rem)] opacity-0 animate-[fadeInUp_1s_ease_0.6s_forwards] max-w-[660px] leading-[1.45] [&_strong]:font-medium [&_strong]:text-text-primary" data-i18n-html="hero.titleHtml">

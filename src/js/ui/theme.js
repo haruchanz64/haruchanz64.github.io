@@ -1,8 +1,10 @@
-import { readStorageItem, writeStorageItem } from "../core/cache.js";
+import { readCachedAssetDataUrl, readStorageItem, writeStorageItem } from "../core/cache.js";
 import { onDomReady } from "../core/dom.js";
 
 export const THEME_STORAGE_KEY = "theme";
 export const THEME_TRANSITION_MS = 200;
+export const DARK_FAVICON_HREF = "/res/favicon_dark.ico";
+export const LIGHT_FAVICON_HREF = "/res/favicon_light.ico";
 
 export function getSavedTheme(storage = typeof localStorage !== "undefined" ? localStorage : null) {
   const val = readStorageItem(THEME_STORAGE_KEY, storage);
@@ -40,6 +42,17 @@ export function applyThemeState(isDark, doc = typeof document !== "undefined" ? 
     card.src = isDark
       ? card.src.replace("theme=light", "theme=dark")
       : card.src.replace("theme=dark", "theme=light");
+  });
+
+  const fallbackFavicon = isDark ? DARK_FAVICON_HREF : LIGHT_FAVICON_HREF;
+  doc.querySelectorAll?.('link[rel*="icon"]').forEach((link) => {
+    const targetHref =
+      (isDark ? link.dataset?.faviconDark : link.dataset?.faviconLight) || fallbackFavicon;
+    if (link.dataset) {
+      link.dataset.originalHref = targetHref;
+    }
+    const cachedHref = readCachedAssetDataUrl(targetHref);
+    link.setAttribute?.("href", cachedHref || targetHref);
   });
 
   const nextLabel = isDark ? "Switch to light mode" : "Switch to dark mode";

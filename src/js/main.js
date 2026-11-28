@@ -102,9 +102,14 @@ if (isMaintenanceMode()) {
       void cacheImageElement(img);
     });
     document.querySelectorAll('link[rel*="icon"][href]').forEach((link) => {
-      const href = link.getAttribute("href");
+      const href = link.dataset?.originalHref || link.getAttribute("href");
       if (href) {
         void cacheAssetUrl(href);
+      }
+      for (const variantHref of [link.dataset?.faviconDark, link.dataset?.faviconLight]) {
+        if (variantHref && variantHref !== href) {
+          void cacheAssetUrl(variantHref);
+        }
       }
     });
   });

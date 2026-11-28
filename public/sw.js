@@ -1,4 +1,4 @@
-const CACHE_NAME = "haru-portfolio-assets-v2";
+const CACHE_NAME = "haru-portfolio-assets-v3";
 
 const CACHEABLE_EXTERNAL_ORIGINS = new Set([
   "https://cdn.jsdelivr.net",
@@ -10,8 +10,10 @@ const PRECACHE_URLS = [
   "/",
   "/index.html",
   "/404.html",
-  "/res/profile_photo.webp",
-  "/res/favicon.ico",
+  "/res/profile_photo_dark.webp",
+  "/res/profile_photo_light.webp",
+  "/res/favicon_dark.ico",
+  "/res/favicon_light.ico",
   "/res/icon.webp",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg",
   "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg",

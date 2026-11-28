@@ -14,8 +14,10 @@ import {
 import { LOCALES } from "../src/js/core/i18n.js";
 import {
   animateThemeSwitch,
+  DARK_FAVICON_HREF,
   getSavedTheme,
   initThemeToggle,
+  LIGHT_FAVICON_HREF,
   saveTheme,
   THEME_STORAGE_KEY,
 } from "../src/js/ui/theme.js";
@@ -118,12 +120,17 @@ describe("localStorage cache and asset caching", () => {
     assert.equal(imgEl.src, cachedDataUri);
     assert.equal(imgEl.dataset.originalSrc, deviconUrl);
 
-    const iconHref = "/res/favicon.ico";
+    const iconHref = DARK_FAVICON_HREF;
     const cachedIconUri = "data:image/x-icon;base64,AAABAAEAEBAQ";
+    const cachedLightIconUri = "data:image/x-icon;base64,AAABAAEAEBAAAA==";
     writeCachedAssetDataUrl(iconHref, cachedIconUri, storage);
+    writeCachedAssetDataUrl(LIGHT_FAVICON_HREF, cachedLightIconUri, storage);
     const linkEl = {
       href: iconHref,
-      dataset: {},
+      dataset: {
+        faviconDark: DARK_FAVICON_HREF,
+        faviconLight: LIGHT_FAVICON_HREF,
+      },
       getAttribute(attr) {
         return attr === "href" ? this.href : null;
       },
@@ -142,6 +149,7 @@ describe("localStorage cache and asset caching", () => {
 
     await cacheAllDocumentAssets(doc, { storage });
     assert.equal(linkEl.href, cachedIconUri);
+    assert.equal(linkEl.dataset.originalHref, DARK_FAVICON_HREF);
   });
 });
 
@@ -185,6 +193,17 @@ describe("theme persistence and switch animation", () => {
       },
     };
 
+    const faviconLink = {
+      href: DARK_FAVICON_HREF,
+      dataset: {
+        faviconDark: DARK_FAVICON_HREF,
+        faviconLight: LIGHT_FAVICON_HREF,
+      },
+      setAttribute(k, v) {
+        if (k === "href") this.href = v;
+      },
+    };
+
     const doc = {
       documentElement: root,
       getElementById(id) {
@@ -192,6 +211,7 @@ describe("theme persistence and switch animation", () => {
       },
       querySelectorAll(sel) {
         if (sel === "[data-theme-toggle]") return [toggleBtn, maintenanceToggleBtn];
+        if (sel === 'link[rel*="icon"]') return [faviconLink];
         return [];
       },
       startViewTransition(cb) {
@@ -212,6 +232,8 @@ describe("theme persistence and switch animation", () => {
     assert.equal(viewTransitionCalled, true);
     assert.equal(classes.has("light-theme"), true);
     assert.equal(root.style.colorScheme, "light");
+    assert.equal(faviconLink.href, LIGHT_FAVICON_HREF);
+    assert.equal(faviconLink.dataset.originalHref, LIGHT_FAVICON_HREF);
     assert.equal(toggleAttrs.get("aria-pressed"), "true");
     assert.equal(maintenanceToggleAttrs.get("aria-pressed"), "true");
   });
@@ -243,6 +265,17 @@ describe("theme persistence and switch animation", () => {
       },
     };
 
+    const faviconLink = {
+      href: DARK_FAVICON_HREF,
+      dataset: {
+        faviconDark: DARK_FAVICON_HREF,
+        faviconLight: LIGHT_FAVICON_HREF,
+      },
+      setAttribute(k, v) {
+        if (k === "href") this.href = v;
+      },
+    };
+
     const doc = {
       documentElement: root,
       getElementById(id) {
@@ -250,6 +283,7 @@ describe("theme persistence and switch animation", () => {
       },
       querySelectorAll(sel) {
         if (sel === "[data-theme-toggle]") return [toggleBtn];
+        if (sel === 'link[rel*="icon"]') return [faviconLink];
         return [];
       },
     };
@@ -273,24 +307,28 @@ describe("theme persistence and switch animation", () => {
     // Follows initial OS preference (dark) without writing to localStorage.
     assert.equal(classes.has("light-theme"), false);
     assert.equal(root.style.colorScheme, "dark");
+    assert.equal(faviconLink.href, DARK_FAVICON_HREF);
     assert.equal(getSavedTheme(storage), null);
 
     // Follows subsequent OS change (light) while no manual choice is saved.
     mediaChangeHandlers[0]({ matches: false });
     assert.equal(classes.has("light-theme"), true);
     assert.equal(root.style.colorScheme, "light");
+    assert.equal(faviconLink.href, LIGHT_FAVICON_HREF);
     assert.equal(getSavedTheme(storage), null);
 
     // Manual toggle switches to dark and persists preference.
     clickHandlers[0]();
     assert.equal(classes.has("light-theme"), false);
     assert.equal(root.style.colorScheme, "dark");
+    assert.equal(faviconLink.href, DARK_FAVICON_HREF);
     assert.equal(getSavedTheme(storage), "dark");
 
     // Later OS changes do not override the user's explicit toggle choice.
     mediaChangeHandlers[0]({ matches: false });
     assert.equal(classes.has("light-theme"), false);
     assert.equal(root.style.colorScheme, "dark");
+    assert.equal(faviconLink.href, DARK_FAVICON_HREF);
     assert.equal(getSavedTheme(storage), "dark");
   });
 });

@@ -1,5 +1,5 @@
 export const ASSET_CACHE_PREFIX = "haru_asset_v1:";
-export const CACHE_STORAGE_NAME = "haru-portfolio-assets-v2";
+export const CACHE_STORAGE_NAME = "haru-portfolio-assets-v3";
 
 const inFlightAssetLoads = new Map();
 
@@ -314,6 +314,12 @@ export function cacheAllDocumentAssets(
         options,
       ),
     );
+    const activeHref = link.dataset?.originalHref || link.getAttribute?.("href") || "";
+    for (const variantHref of [link.dataset?.faviconDark, link.dataset?.faviconLight]) {
+      if (variantHref && variantHref !== activeHref) {
+        tasks.push(cacheAssetUrl(variantHref, options));
+      }
+    }
   });
 
   return Promise.all(tasks);
