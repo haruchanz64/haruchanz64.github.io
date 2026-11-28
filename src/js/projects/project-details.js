@@ -68,6 +68,60 @@ export const GAME_PROJECT_DETAILS = {
 };
 
 export const TOOL_PROJECT_DETAILS = {
+  DevQAToolkit: {
+    category: "QA & Debug",
+    cardDescription:
+      "Zero-dependency Unity 6 in-game bug reporter, repro capture, and release-guarded debug console with .zip bundles and a UI Toolkit workbench.",
+    cardTags: ["Bug Reporter", "Debug Console", "UI Toolkit"],
+    role: "Systems & Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "In-Game QA Capture & Developer Debug Console",
+    summary:
+      "A zero-dependency Unity 6 runtime QA and developer console toolkit unifying always-on bug reporting, repro capture, and a strongly typed debug command console with automatic release-build command stripping and a UI Toolkit Editor workbench.",
+    highlights: [
+      "Captures thread-safe ring-buffered console logs, input breadcrumbs, FPS/memory metrics, scene hierarchy snapshots, pre-overlay screenshots, and recent debug console history into portable .zip bundles or Discord, GitHub Issues, and Trello transports.",
+      "Provides quoted argument tokenization, typed and [DebugCommand]-attributed commands (primitives, Vector2/3, Color, enums), Tab autocomplete, Up/Down history, and a built-in bugreport command while stripping command execution outside Editor/Development builds.",
+      "Ships zero-prefab runtime IMGUI overlays, an optional New Input System bridge via versionDefines with Legacy Input fallback, and a three-tab UI Toolkit DevQA Workbench (Debug Console, Bug Report Viewer, Settings & Build Status).",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "UPM", "QA Tooling", "Webhooks"],
+  },
+  NetQAToolkit: {
+    category: "Netcode QA",
+    cardDescription:
+      "Unity 6 multiplayer QA workbench combining NGO, Mirror, and FishNet static scene/prefab auditing with a localhost UDP/TCP simulator and Painter2D bandwidth inspector.",
+    cardTags: ["Static Analysis", "UDP/TCP Proxy", "UI Toolkit"],
+    role: "Systems & Tools Programmer",
+    engine: "Unity 6 · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "Multiplayer Static Auditing & Network Simulation",
+    summary:
+      "A netcode-agnostic Unity 6 multiplayer QA workbench combining static scene/prefab auditing (NGO, Mirror, FishNet, and [NetAuditTracked] components) with a localhost UDP/TCP impairment proxy, live Painter2D bandwidth inspector, and Chaos Timeline runner.",
+    highlights: [
+      "Runs 9 built-in static audit rules (NA001–NA009) detecting orphaned NetworkBehaviours, nested NetworkObjects, unregistered prefabs, bandwidth-heavy NetworkTransforms, RPC security issues, MPPM static state, and broken UnityEvents, paired with Hierarchy badges, Quick Fixes, and a pre-build guard.",
+      "Simulates latency, Uniform/Normal/Spiky jitter, random and Gilbert-Elliott burst loss, reordering, duplication, token-bucket throttling, and blackouts over a pure C# localhost UDP/TCP proxy with a runtime F8 QA HUD and zero kernel drivers.",
+      "Splits lightweight runtime attributes from the simulation runtime and ships a six-tab UI Toolkit NetQA Workbench with live Painter2D sparklines and combined Markdown, JSON, and .zip QA report exports.",
+    ],
+    stack: ["Unity 6", "C#", "UI Toolkit", "Painter2D", "UDP/TCP Proxy", "NGO / Mirror / FishNet"],
+  },
+  ScriptableDataToolkit: {
+    category: "Data Pipeline",
+    cardDescription:
+      "Unity 6 UI Toolkit workbench for CSV/TSV/XLSX to ScriptableObject import, batch authoring, bulk renaming, C# class generation, and CSV round-trip export.",
+    cardTags: ["CSV / XLSX", "Batch Authoring", "UI Toolkit"],
+    role: "Tools Programmer & Author",
+    engine: "Unity 6 Editor · C# · UI Toolkit (UPM)",
+    team: "Open-Source Package",
+    focus: "ScriptableObject Data Import, Batch Authoring & Export",
+    summary:
+      "A zero-dependency Unity 6 Editor UI Toolkit workbench unifying CSV/TSV/XLSX spreadsheet importing, C# ScriptableObject class generation, batch creation/cloning, bulk editing/renaming, and RFC 4180 ScriptableObject-to-CSV round-trip export.",
+    highlights: [
+      "Parses RFC 4180 CSV/TSV and OpenXML (.xlsx) multi-sheet workbooks in pure C# with GUID-preserving non-destructive updates, attribute mapping ([SpreadsheetColumn], [SpreadsheetId], [SpreadsheetIgnore]), auto-reimport profiles, and C# class generation.",
+      "Includes Batch Create and Bulk Edit & Rename tabs with tokenized naming patterns ({type}, {00}, {000}), cloning, Copy-to-All field broadcasting, prefix/suffix/find-replace renaming, and cross-tab handoffs.",
+      "Supports ScriptableObject-to-CSV round-trip export respecting spreadsheet attributes, Unity types, collections, and asset references so designers can edit existing project data in spreadsheets and re-import cleanly.",
+    ],
+    stack: ["Unity 6", "Unity Editor", "UI Toolkit", "C#", "ScriptableObjects", "OpenXML"],
+  },
   UtilityAIEngine: {
     category: "Game AI",
     cardDescription:
@@ -158,42 +212,6 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "C#", "UI Toolkit", "REST / JWT", "NGO / Mirror / FishNet", "Docker"],
   },
-  NetAuditToolkit: {
-    category: "Netcode QA",
-    cardDescription:
-      "Unity 6 Editor static analyzer and hierarchy overlay flagging NGO, Mirror, and FishNet scene, prefab, RPC, and bandwidth issues.",
-    cardTags: ["Static Analysis", "NGO / Mirror", "FishNet"],
-    role: "Tools Programmer & Author",
-    engine: "Unity 6 Editor · C# (UPM)",
-    team: "Open-Source Package",
-    focus: "Multiplayer Scene & Prefab Auditor",
-    summary:
-      "A netcode-agnostic Unity 6 Editor static analyzer and hierarchy badge overlay for NGO, Mirror, FishNet, and custom multiplayer components that catches scene and prefab misconfigurations before runtime.",
-    highlights: [
-      "Ships 9 built-in audit rules (NA001–NA009) detecting orphaned NetworkBehaviours, nested NetworkObjects, unregistered NetworkPrefabs, bandwidth-heavy NetworkTransforms, RPC security/signature issues, MPPM mutable static state, and broken UnityEvents.",
-      "Classifies NGO, Mirror, FishNet, and [NetAuditTracked] components via reflection and SerializedObject without requiring hard assembly references, surfacing results in a split-pane Editor auditor (with Readiness Score and 1-click Quick Fixes) and Hierarchy badges.",
-      "Supports TypeCache-discovered custom INetAuditRule extensions, [NetAuditIgnore] suppressions, Markdown/JSON CI report exports, and an optional pre-build guard that fails builds on Error-severity issues.",
-    ],
-    stack: ["Unity 6", "Unity Editor", "C#", "UPM", "Static Analysis", "NGO / Mirror / FishNet"],
-  },
-  NetSimToolkit: {
-    category: "Network Sim",
-    cardDescription:
-      "Localhost UDP/TCP impairment proxy, live bandwidth profiler, chaos timeline runner, and QA repro exporter for Unity 6.",
-    cardTags: ["UDP/TCP Proxy", "Bandwidth", "QA Tooling"],
-    role: "Systems & Tools Programmer",
-    engine: "Unity 6 · C# (UPM)",
-    team: "Open-Source Package",
-    focus: "Network Simulator & Bandwidth Profiler",
-    summary:
-      "A netcode-agnostic Unity 6 network condition simulator, localhost UDP/TCP impairment proxy, live bandwidth profiler, chaos timeline runner, and QA repro exporter compatible with NGO, Mirror, FishNet, and raw sockets.",
-    highlights: [
-      "Implements a pure C# localhost UDP/TCP impairment proxy simulating latency, Uniform/Normal/Spiky jitter, random and Gilbert-Elliott burst packet loss, reordering, duplication, token-bucket bandwidth caps, asymmetric latency, and blackouts without OS admin rights or kernel drivers.",
-      "Provides an Editor Network Simulator window and F8 Runtime QA HUD with built-in network presets, live outbound/inbound KB/s graphs, budget threshold alerts, MTU warnings, per-channel telemetry, and a visual Chaos Timeline runner.",
-      "Exports session summaries and timelines to JSON, CSV, Markdown, or .zip repro bundles, with NetSimContextSnapshot hooks ready for BugReportToolkit's IBugContextProvider.",
-    ],
-    stack: ["Unity 6", "C#", "UPM", "UDP/TCP Proxy", "Bandwidth Profiler", "QA Tooling"],
-  },
   GameBalancer: {
     category: "Game Balance",
     cardDescription:
@@ -206,7 +224,7 @@ export const TOOL_PROJECT_DETAILS = {
     summary:
       "A Unity 6 runtime and Editor workbench built with UI Toolkit and Painter2D vector charts for progression curve modeling, loot and pity Monte Carlo odds, combat TTK matchup matrices, and faucet/sink economy simulation.",
     highlights: [
-      "Models multi-series progression curves (Linear, Polynomial, Exponential, Logarithmic, Sigmoid, Diminishing Returns, AnimationCurve, and custom math formulas) with A/B ratio plots and CSV/JSON exports compatible with SpreadsheetToScriptableObjects.",
+      "Models multi-series progression curves (Linear, Polynomial, Exponential, Logarithmic, Sigmoid, Diminishing Returns, AnimationCurve, and custom math formulas) with A/B ratio plots and CSV/JSON exports compatible with ScriptableDataToolkit.",
       "Simulates deterministic-seedable loot tables, soft/hard pity rules, draw-without-replacement batches, and Pseudo-Random Distribution procs, comparing exact theoretical odds against Monte Carlo runs (P50–P99 and worst-case pulls).",
       "Runs round-robin combat TTK and win-rate matchup matrices, multi-day faucet/sink economy flow audits with inflation/starvation alerts, and TypeCache-discovered custom IGameBalancerModule UI Toolkit tabs.",
     ],
@@ -266,42 +284,6 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "Unity Editor", "UI Toolkit", "C#", "UPM", "AssetPostprocessor"],
   },
-  BugReportToolkit: {
-    category: "QA Capture",
-    cardDescription:
-      "In-game Unity bug reporter bundling screenshots, console logs, input breadcrumbs, and diagnostics into ZIPs or webhooks.",
-    cardTags: ["Ring Buffers", "Webhooks", "Unity.Profiling"],
-    role: "Tools Programmer & Author",
-    engine: "Unity · C# (UPM)",
-    team: "Open-Source Package",
-    focus: "QA & Repro Capture Pipeline",
-    summary:
-      "An in-game Unity runtime bug reporter and repro capture package for QA, playtesters, and developers. Triggered via hotkey (F9) or API to capture screenshots, logs, input breadcrumbs, performance metrics, and scene state into portable .zip bundles or webhooks.",
-    highlights: [
-      "Built always-on ring buffers for thread-safe console logs, timestamped input breadcrumbs, FPS/GC/memory profiling, and scene hierarchy snapshots with an extensible IBugContextProvider hook.",
-      "Designed a pre-overlay screenshot capture flow and pluggable IBugReportTransport pipeline supporting Local ZIP, Discord/custom webhooks, GitHub Issues, and Trello cards.",
-      "Created an in-Editor Report Viewer (Tools > Bug Reporter > Report Viewer) to inspect screenshots, filter logs, review input timelines, and copy Markdown bug reports in one click.",
-    ],
-    stack: ["Unity", "C#", "UPM", "Unity.Profiling", "Input System", "REST Webhooks"],
-  },
-  SpreadsheetToScriptableObjects: {
-    category: "Data Pipeline",
-    cardDescription:
-      "Zero-dependency Unity Editor importer converting .csv, .tsv, and .xlsx workbooks into GUID-safe ScriptableObject assets.",
-    cardTags: ["OpenXML", "CSV/XLSX", "ScriptableObjects"],
-    role: "Tools Programmer & Author",
-    engine: "Unity Editor · C# (UPM)",
-    team: "Open-Source Package",
-    focus: "Designer Data & Balancing Pipeline",
-    summary:
-      "A Unity Editor package that converts .csv, .tsv, and .xlsx spreadsheets directly into ScriptableObject assets so designers can author and tune game data in spreadsheets without manual asset entry.",
-    highlights: [
-      "Implemented pure C# RFC 4180 CSV/TSV and OpenXML (.xlsx) multi-sheet parsers using System.IO.Compression and System.Xml.Linq with zero external DLLs.",
-      "Built two designer workflows: attribute-assisted mapping to existing ScriptableObjects ([SpreadsheetColumn], [SpreadsheetId]) and automatic C# ScriptableObject class generation.",
-      "Preserves Unity asset GUIDs via non-destructive re-imports, supports Unity types, collections, and Object references, and saves reusable SpreadsheetImportProfile assets with auto-reimport on save.",
-    ],
-    stack: ["Unity Editor", "C#", "UPM", "ScriptableObjects", "OpenXML", "CSV/XLSX"],
-  },
   UnityEventAuditor: {
     category: "Editor Audit",
     cardDescription:
@@ -338,45 +320,21 @@ export const TOOL_PROJECT_DETAILS = {
     ],
     stack: ["Unity 6", "C#", "UPM", "AES + HMAC", "Serialization", "Custom Inspector"],
   },
-  ScriptableBatchTool: {
-    category: "Batch Authoring",
-    cardDescription:
-      "Unity Editor window for batch-creating, cloning, bulk-editing, and batch-renaming ScriptableObject assets with naming templates.",
-    cardTags: ["Batch Create", "Bulk Rename", "ScriptableObjects"],
-    role: "Tools Programmer & Author",
-    engine: "Unity Editor · C# (UPM)",
-    team: "Open-Source Package",
-    focus: "ScriptableObject Batch Authoring & Renaming",
-    summary:
-      "A Unity Editor window with Batch Create and Bulk Edit & Rename modes for generating, cloning, field-broadcasting, and renaming ScriptableObject assets in one workspace.",
-    highlights: [
-      "Batch Create mode instantiates N drafts from naming patterns ({type}, {index}, {00}, {000}), supports per-entry cloning and Copy-to-All field broadcasting, and exports with sanitized unique filenames.",
-      "Bulk Edit & Rename mode loads existing ScriptableObject assets from any Assets/ folder, filters by name, applies prefix/suffix/find-replace or pattern renumbering, and saves or renames assets in place.",
-      "Isolated inside an Editor-only assembly definition with deterministic SerializedObject disposal and EditMode test coverage.",
-    ],
-    stack: ["Unity Editor", "C#", "UPM", "ScriptableObjects", "EditorWindow"],
-  },
-  DebugCommandSystem: {
-    category: "Runtime Console",
-    cardDescription:
-      "In-game Unity 6 debug console on the New Input System with quoted tokenization, typed/[DebugCommand] commands, history, and autocomplete.",
-    cardTags: ["Input System", "Typed Commands", "Runtime"],
-    role: "Systems & Tools Programmer",
-    engine: "Unity 6 · C# (UPM)",
-    team: "Open-Source Package",
-    focus: "Runtime Debug Console & Command Registry",
-    summary:
-      "An extendable in-game Unity 6 debug console built on the New Input System with quoted argument tokenization, strongly typed and [DebugCommand]-attributed commands, Up/Down command history, autocomplete, and a scrollable output buffer.",
-    highlights: [
-      "Splits command lines cleanly with CommandTokenizer (quoted strings and escapes) and dispatches via a pure-C# DebugCommandRegistry supporting IDebugCommandProvider, [DebugCommand] attributes, and runtime registration.",
-      "Supports parameterless DebugCommand, variadic DynamicDebugCommand, and strongly typed DebugCommand<T1> / DebugCommand<T1, T2> with InvariantCulture parsing for primitives and enums.",
-      "Includes Up/Down command history navigation, prefix-prioritized Tab autocomplete, a scrollable output log with built-in help/clear commands, and Unity 6 Domain Reload-safe InputActionAsset cloning.",
-    ],
-    stack: ["Unity 6", "C#", "UPM", "New Input System", "Runtime Tooling"],
-  },
 };
 
 const RESUME_TOOL_HIGHLIGHTS = {
+  DevQAToolkit: [
+    "Built a zero-dependency Unity 6 quality assurance bug reporter and developer debug console combining ring-buffered logs, input breadcrumbs, performance metrics, screenshots, and console history into portable ZIP bundles and webhook transports.",
+    "Implemented quoted command tokenization, typed and attribute-discovered commands, automatic release-build command stripping, optional Input System bridging, and a three-tab UI Toolkit DevQA Workbench.",
+  ],
+  NetQAToolkit: [
+    "Built a netcode-agnostic Unity 6 multiplayer quality assurance workbench combining 9 static scene and prefab audit rules (NGO, Mirror, and FishNet), Hierarchy badges, and a pre-build error guard.",
+    "Integrated a pure C# localhost UDP and TCP impairment proxy, live Painter2D bandwidth and latency inspector, Chaos Timeline runner, and combined Markdown, JSON, and ZIP quality assurance report exports.",
+  ],
+  ScriptableDataToolkit: [
+    "Built a zero-dependency Unity 6 UI Toolkit data workbench unifying RFC 4180 CSV, TSV, and OpenXML (.xlsx) spreadsheet importing with GUID-safe updates, C# class generation, and ScriptableObject-to-CSV round-trip export.",
+    "Added batch creation, cloning, Copy-to-All field broadcasting, tokenized naming patterns, and bulk in-place editing and renaming inside one Editor workflow.",
+  ],
   UtilityAIEngine: [
     "Built a Unity 6 Utility AI runtime engine with parametric response curves, Dave Mark compensated scoring, cooldown gating, commitment locks, inertia hysteresis, and a typed runtime blackboard.",
     "Created a UI Toolkit Utility AI Workbench with Painter2D curve previews, an EditMode What-If Simulator, and a Play Mode Live Runtime Debugger with decision timeline scrubbing and JSON/CSV trace export.",
@@ -413,22 +371,6 @@ const RESUME_TOOL_HIGHLIGHTS = {
     "Engineered a Unity 6 UI Toolkit and Painter2D balancing workbench for multi-series progression curve modeling, Monte Carlo loot and pity simulations, combat time-to-kill matchup matrices, and economy flow audits.",
     "Added CSV and JSON data exports alongside TypeCache-discovered custom editor modules so designers can iterate on game balance without leaving Unity.",
   ],
-  NetAuditToolkit: [
-    "Created a netcode-agnostic Unity 6 Editor static analyzer for Netcode for GameObjects (NGO), Mirror, and FishNet with 9 built-in audit rules catching scene, prefab, RPC, and bandwidth misconfigurations before runtime.",
-    "Shipped Hierarchy badge overlays, one-click Quick Fixes, Markdown and JSON continuous integration (CI) reports, and an optional pre-build error guard.",
-  ],
-  NetSimToolkit: [
-    "Developed a pure C# localhost UDP and TCP network impairment proxy and bandwidth profiler for Unity 6 simulating latency, jitter, burst packet loss, packet reordering, and bandwidth caps without kernel drivers.",
-    "Built an Editor simulator window, runtime quality assurance HUD, Chaos Timeline runner, and ZIP reproduction bundle exporter compatible with Netcode for GameObjects (NGO), Mirror, and FishNet.",
-  ],
-  BugReportToolkit: [
-    "Built an in-game Unity quality assurance bug reporter capturing ring-buffered console logs, input breadcrumbs, frame rate and memory metrics, and pre-overlay screenshots into portable ZIP bundles.",
-    "Added pluggable report transports for Trello, GitHub Issues, and Discord webhooks alongside an in-Editor Report Viewer for triaging captured issues.",
-  ],
-  SpreadsheetToScriptableObjects: [
-    "Built a Unity Editor package parsing RFC 4180 CSV, TSV, and OpenXML (.xlsx) multi-sheet workbooks directly into ScriptableObject assets using pure C# with zero external DLL dependencies.",
-    "Supported GUID-safe non-destructive re-imports, attribute-mapped asset updates, automatic C# ScriptableObject class generation, and reusable import profiles.",
-  ],
   UnityEventAuditor: [
     "Built a Unity 6 Editor auditing tool that scans scenes and prefabs for serialized UnityEvent listeners and displays them in a searchable, icon-backed hierarchy tree.",
     "Added filtering for valid and broken bindings, multi-select inspection, and cleanup controls to remove missing references before quality assurance or production builds.",
@@ -436,14 +378,6 @@ const RESUME_TOOL_HIGHLIGHTS = {
   SaveEncryptionToolkit: [
     "Built a modular Unity save encryption and serialization package providing AES protection with compile-time obfuscated key storage and pluggable JSON and Binary format handlers.",
     "Included a custom ScriptableObject Inspector workflow for one-click key generation and clean integration into project save managers.",
-  ],
-  ScriptableBatchTool: [
-    "Built a Unity Editor batch-authoring window for creating, configuring, and exporting multiple ScriptableObject instances in one scrollable workspace.",
-    "Prevented filename collisions through sanitized unique asset naming and isolated tooling inside an Editor-only assembly definition.",
-  ],
-  DebugCommandSystem: [
-    "Built an extendable in-game Unity runtime debug console integrated with the Unity Input System, supporting strongly typed variadic commands, Tab auto-completion, and live command suggestions.",
-    "Designed a drop-in prefab and provider interface so programmers and designers can wire testing commands rapidly during playtesting.",
   ],
 };
 

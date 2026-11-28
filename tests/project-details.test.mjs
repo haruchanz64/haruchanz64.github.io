@@ -45,9 +45,9 @@ describe("project breakdown metadata", () => {
       await readFile(new URL("../src/data/github-projects.json", import.meta.url), "utf8"),
     );
 
-    assert.equal(tools[0].name, "UtilityAIEngine");
-    assert.equal(tools[1].name, "MelodyRecognitionEngine");
-    assert.equal(tools[2].name, "GachaEngine");
+    assert.equal(tools[0].name, "DevQAToolkit");
+    assert.equal(tools[1].name, "NetQAToolkit");
+    assert.equal(tools[2].name, "ScriptableDataToolkit");
 
     for (const repo of tools) {
       const details = resolveToolDetails(repo);
@@ -72,7 +72,7 @@ describe("project breakdown metadata", () => {
     assert.equal(formatReleaseDate("2025-05-21"), "May 2025");
     assert.equal(formatReleaseDate("2026-10-09"), "Oct 2026");
     assert.equal(formatReleaseDate(""), "");
-    assert.equal(Object.keys(REPO_RELEASE_DATES).length, 17);
+    assert.equal(Object.keys(REPO_RELEASE_DATES).length, 14);
   });
 
   it("exposes clear, non-abbreviated Selected Projects entries for the ATS resume without project URLs", () => {

@@ -285,13 +285,13 @@ describe("extractResumeData", () => {
     );
     assert.ok(Array.isArray(data.projects));
     assert.equal(data.projects.length, 4);
-    const utilityIdx = data.projects.findIndex((p) => p.name.includes("UtilityAIEngine"));
+    const devQaIdx = data.projects.findIndex((p) => p.name.includes("DevQAToolkit"));
     const trashFrenzyIdx = data.projects.findIndex((p) => p.name.includes("Trash Frenzy"));
-    assert.ok(utilityIdx !== -1);
+    assert.ok(devQaIdx !== -1);
     assert.ok(trashFrenzyIdx !== -1);
-    assert.ok(utilityIdx < trashFrenzyIdx);
-    assert.ok(data.projects.some((p) => p.name.includes("MelodyRecognitionEngine")));
-    assert.ok(data.projects.some((p) => p.name.includes("GachaEngine")));
+    assert.ok(devQaIdx < trashFrenzyIdx);
+    assert.ok(data.projects.some((p) => p.name.includes("NetQAToolkit")));
+    assert.ok(data.projects.some((p) => p.name.includes("ScriptableDataToolkit")));
     assert.equal(
       data.projects[trashFrenzyIdx].role,
       "Project Manager, Game Designer, Gameplay Programmer, and Quality Assurance",
@@ -321,13 +321,13 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.equal(html.includes("Professional Summary"), false);
     assert.ok(html.includes(">Work Experience<"));
     assert.ok(html.includes(">Selected Projects<"));
-    assert.ok(html.includes("UtilityAIEngine"));
-    assert.ok(html.includes("MelodyRecognitionEngine"));
-    assert.ok(html.includes("GachaEngine"));
+    assert.ok(html.includes("DevQAToolkit"));
+    assert.ok(html.includes("NetQAToolkit"));
+    assert.ok(html.includes("ScriptableDataToolkit"));
     assert.ok(html.includes(">Technical Skills<"));
     assert.ok(html.includes("Caloocan City, Metro Manila, Philippines"));
     assert.equal(html.includes("GDriveDesktop"), false);
-    assert.equal(html.includes("github.com/haruchanz64/MelodyRecognitionEngine"), false);
+    assert.equal(html.includes("github.com/haruchanz64/DevQAToolkit"), false);
     assert.equal(html.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.equal(html.includes("SECRET_ABOUT_SECTION_TEXT"), false);
     assert.equal(html.includes("<img"), false);
@@ -342,9 +342,9 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.equal(text.includes("PROFESSIONAL SUMMARY"), false);
     assert.ok(text.includes("WORK EXPERIENCE"));
     assert.ok(text.includes("SELECTED PROJECTS"));
-    assert.ok(text.includes("UtilityAIEngine"));
-    assert.ok(text.includes("MelodyRecognitionEngine"));
-    assert.ok(text.includes("GachaEngine"));
+    assert.ok(text.includes("DevQAToolkit"));
+    assert.ok(text.includes("NetQAToolkit"));
+    assert.ok(text.includes("ScriptableDataToolkit"));
     assert.ok(text.includes("TECHNICAL SKILLS"));
     assert.ok(text.includes("Programming Languages: C#, Dart"));
     assert.ok(text.includes("Game Development & Quality Assurance:"));
@@ -352,7 +352,7 @@ describe("buildAtsResumeHtml and buildAtsResumeText", () => {
     assert.ok(text.includes("Bachelor of Science in Entertainment and Multimedia Computing"));
     assert.ok(text.includes("- Relevant Coursework:"));
     assert.equal(text.includes("—"), false);
-    assert.equal(text.includes("github.com/haruchanz64/MelodyRecognitionEngine"), false);
+    assert.equal(text.includes("github.com/haruchanz64/DevQAToolkit"), false);
     assert.equal(text.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.equal(text.includes("SECRET_ABOUT_SECTION_TEXT"), false);
   });
@@ -392,16 +392,16 @@ describe("buildAtsResumePdfBytes", () => {
     assert.ok(pdfText.includes("(EDUCATION) Tj"));
     assert.ok(pdfText.includes("Bachelor of Science in Entertainment and Multimedia Computing"));
     assert.ok(pdfText.includes("Major in Game Development"));
-    assert.ok(pdfText.includes("UtilityAIEngine"));
-    assert.ok(pdfText.includes("MelodyRecognitionEngine"));
-    assert.ok(pdfText.includes("GachaEngine"));
+    assert.ok(pdfText.includes("DevQAToolkit"));
+    assert.ok(pdfText.includes("NetQAToolkit"));
+    assert.ok(pdfText.includes("ScriptableDataToolkit"));
     assert.ok(pdfText.includes("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(WORK EXPERIENCE) Tj") < pdfText.indexOf("(SELECTED PROJECTS) Tj"));
-    assert.ok(pdfText.indexOf("UtilityAIEngine") < pdfText.indexOf("Trash Frenzy"));
+    assert.ok(pdfText.indexOf("DevQAToolkit") < pdfText.indexOf("Trash Frenzy"));
     assert.ok(pdfText.indexOf("(SELECTED PROJECTS) Tj") < pdfText.indexOf("(TECHNICAL SKILLS) Tj"));
     assert.ok(pdfText.indexOf("(TECHNICAL SKILLS) Tj") < pdfText.indexOf("(EDUCATION) Tj"));
     assert.equal(pdfText.includes("GDriveDesktop"), false);
-    assert.equal(pdfText.includes("github.com/haruchanz64/MelodyRecognitionEngine"), false);
+    assert.equal(pdfText.includes("github.com/haruchanz64/DevQAToolkit"), false);
     assert.equal(pdfText.includes("haruchanz64.itch.io/trashfrenzy"), false);
     assert.ok(
       pdfText.includes("/BaseFont /Helvetica\n") || pdfText.includes("/BaseFont /Helvetica "),

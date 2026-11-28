@@ -3,26 +3,30 @@ export const GITHUB_USERNAME = "haruchanz64";
 export const EXCLUDED_LATEST_REPOS = new Set([
   GITHUB_USERNAME.toLowerCase(),
   `${GITHUB_USERNAME.toLowerCase()}.github.io`,
+  // Legacy repositories consolidated into ScriptableDataToolkit, NetQAToolkit, and DevQAToolkit
+  "scriptablebatchtool",
+  "spreadsheettoscriptableobjects",
+  "netaudittoolkit",
+  "netsimtoolkit",
+  "bugreporttoolkit",
+  "debugcommandsystem",
 ]);
 
 export const REPO_RELEASE_DATES = {
+  DevQAToolkit: "2026-11-28",
+  NetQAToolkit: "2026-11-28",
+  ScriptableDataToolkit: "2026-11-28",
   UtilityAIEngine: "2026-11-21",
   MelodyRecognitionEngine: "2026-11-19",
   GachaEngine: "2026-10-09",
   CommonEventsEngine: "2026-08-23",
   UnityAuthCore: "2026-07-11",
-  NetAuditToolkit: "2026-05-29",
-  NetSimToolkit: "2026-04-18",
   GameBalancer: "2026-03-07",
   CharacterMotor: "2026-01-24",
   PlayablesAnimatorController: "2025-12-12",
   AssetImportRules: "2025-11-03",
-  BugReportToolkit: "2025-09-21",
-  SpreadsheetToScriptableObjects: "2025-08-14",
   UnityEventAuditor: "2025-07-01",
   SaveEncryptionToolkit: "2025-06-26",
-  ScriptableBatchTool: "2025-05-23",
-  DebugCommandSystem: "2025-05-21",
 };
 
 export const PINNED_REPOS = Object.keys(REPO_RELEASE_DATES);

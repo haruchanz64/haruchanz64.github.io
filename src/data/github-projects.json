@@ -1,5 +1,62 @@
 [
   {
+    "name": "DevQAToolkit",
+    "html_url": "https://github.com/haruchanz64/DevQAToolkit",
+    "description": "Zero-dependency Unity 6 in-game bug reporter, repro capture, and developer debug console with release-build command stripping, .zip bundles, and a UI Toolkit Editor workbench.",
+    "language": "C#",
+    "topics": [
+      "bug-reporter",
+      "csharp",
+      "debug-console",
+      "diagnostics",
+      "qa",
+      "ui-toolkit",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2026-11-28"
+  },
+  {
+    "name": "NetQAToolkit",
+    "html_url": "https://github.com/haruchanz64/NetQAToolkit",
+    "description": "Unity 6 multiplayer QA workbench combining NGO, Mirror, and FishNet static scene/prefab auditing with a localhost UDP/TCP network simulator, bandwidth inspector, and chaos timeline.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "multiplayer",
+      "netcode",
+      "network-simulator",
+      "static-analysis",
+      "ui-toolkit",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "unity6"
+    ],
+    "released_at": "2026-11-28"
+  },
+  {
+    "name": "ScriptableDataToolkit",
+    "html_url": "https://github.com/haruchanz64/ScriptableDataToolkit",
+    "description": "Unity 6 UI Toolkit workbench for importing CSV/TSV/XLSX into ScriptableObjects, batch-creating, bulk-editing, renaming, generating C# classes, and CSV round-trip export.",
+    "language": "C#",
+    "topics": [
+      "csharp",
+      "csv",
+      "data-pipeline",
+      "scriptableobject",
+      "ui-toolkit",
+      "unity",
+      "unity-editor",
+      "unity-package",
+      "unity6",
+      "xlsx"
+    ],
+    "released_at": "2026-11-28"
+  },
+  {
     "name": "UtilityAIEngine",
     "html_url": "https://github.com/haruchanz64/UtilityAIEngine",
     "description": "Utility AI runtime engine for Unity 6 with parametric response curves, compensated scoring, an EditMode what-if simulator, and a UI Toolkit workbench debugger.",
@@ -97,43 +154,6 @@
     "released_at": "2026-07-11"
   },
   {
-    "name": "NetAuditToolkit",
-    "html_url": "https://github.com/haruchanz64/NetAuditToolkit",
-    "description": "Unity 6 Editor static analyzer and hierarchy badge overlay that flags NGO, Mirror, and FishNet issues across scenes, prefabs, RPCs, and bandwidth.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "fishnet",
-      "mirror-networking",
-      "multiplayer",
-      "netcode",
-      "static-analysis",
-      "unity",
-      "unity-editor",
-      "unity-package",
-      "unity6"
-    ],
-    "released_at": "2026-05-29"
-  },
-  {
-    "name": "NetSimToolkit",
-    "html_url": "https://github.com/haruchanz64/NetSimToolkit",
-    "description": "Localhost UDP/TCP network condition simulator, live bandwidth profiler, chaos timeline runner, and QA repro exporter for Unity 6.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "multiplayer",
-      "network-simulator",
-      "networking",
-      "qa-tools",
-      "ui-toolkit",
-      "unity",
-      "unity-package",
-      "unity6"
-    ],
-    "released_at": "2026-04-18"
-  },
-  {
     "name": "GameBalancer",
     "html_url": "https://github.com/haruchanz64/GameBalancer",
     "description": "Unity 6 UI Toolkit workbench for tuning progression curves, Monte Carlo loot and pity odds, combat TTK matrices, and resource economies.",
@@ -206,39 +226,6 @@
     "released_at": "2025-11-03"
   },
   {
-    "name": "BugReportToolkit",
-    "html_url": "https://github.com/haruchanz64/BugReportToolkit",
-    "description": "In-game Unity bug reporter that bundles screenshots, console logs, and system diagnostics into ZIP archives or posts them straight to webhooks.",
-    "language": "C#",
-    "topics": [
-      "bug-reporting",
-      "csharp",
-      "diagnostics",
-      "qa-tools",
-      "unity",
-      "unity-package",
-      "webhooks"
-    ],
-    "released_at": "2025-09-21"
-  },
-  {
-    "name": "SpreadsheetToScriptableObjects",
-    "html_url": "https://github.com/haruchanz64/SpreadsheetToScriptableObjects",
-    "description": "Unity Editor importer that parses .csv and .xlsx spreadsheets directly into typed ScriptableObject assets.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "csv",
-      "data-pipeline",
-      "scriptableobject",
-      "unity",
-      "unity-editor",
-      "unity-package",
-      "xlsx"
-    ],
-    "released_at": "2025-08-14"
-  },
-  {
     "name": "UnityEventAuditor",
     "html_url": "https://github.com/haruchanz64/UnityEventAuditor",
     "description": "Unity Editor inspector and scanner for locating, filtering, auditing, and cleaning up broken or unused UnityEvent listeners across scenes and prefabs.",
@@ -269,37 +256,5 @@
       "unity-package"
     ],
     "released_at": "2025-06-26"
-  },
-  {
-    "name": "ScriptableBatchTool",
-    "html_url": "https://github.com/haruchanz64/ScriptableBatchTool",
-    "description": "Unity Editor window for batch-creating, renaming, and bulk-editing ScriptableObject assets in one place.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "editor-tools",
-      "scriptableobject",
-      "unity",
-      "unity-editor",
-      "unity-package",
-      "workflow"
-    ],
-    "released_at": "2025-05-23"
-  },
-  {
-    "name": "DebugCommandSystem",
-    "html_url": "https://github.com/haruchanz64/DebugCommandSystem",
-    "description": "Extendable in-game Unity debug console built on the New Input System, with strongly typed commands, autocomplete, and live suggestions.",
-    "language": "C#",
-    "topics": [
-      "csharp",
-      "debug-console",
-      "developer-tools",
-      "gamedev",
-      "input-system",
-      "unity",
-      "unity-package"
-    ],
-    "released_at": "2025-05-21"
   }
 ]
