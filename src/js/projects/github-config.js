@@ -14,8 +14,8 @@ export const EXCLUDED_LATEST_REPOS = new Set([
 
 export const REPO_RELEASE_DATES = {
   DevQAToolkit: "2026-11-28",
-  NetQAToolkit: "2026-11-28",
-  ScriptableDataToolkit: "2026-11-28",
+  NetQAToolkit: "2026-11-27",
+  ScriptableDataToolkit: "2026-11-25",
   UtilityAIEngine: "2026-11-21",
   MelodyRecognitionEngine: "2026-11-19",
   GachaEngine: "2026-10-09",

@@ -35,7 +35,7 @@
       "unity-package",
       "unity6"
     ],
-    "released_at": "2026-11-28"
+    "released_at": "2026-11-27"
   },
   {
     "name": "ScriptableDataToolkit",
@@ -54,7 +54,7 @@
       "unity6",
       "xlsx"
     ],
-    "released_at": "2026-11-28"
+    "released_at": "2026-11-25"
   },
   {
     "name": "UtilityAIEngine",
